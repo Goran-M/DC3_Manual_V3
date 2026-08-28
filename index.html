@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LES DC-3 | Documentation</title>
+<style>
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 17px; }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    margin: 0;
+    padding: 0 1.25rem 4rem;
+    line-height: 1.65;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2.5rem;
+  }
+  header h1 {
+    font-family: var(--font-heading);
+    color: var(--color-heading);
+    font-size: 2.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 .4rem;
+  }
+  header .subtitle { font-size: 1.3rem; color: var(--color-accent2); }
+  header .edition {
+    font-family: var(--font-heading);
+    font-size: .82rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--color-muted); margin-top: .9rem;
+  }
+  header .publisher {
+    font-family: var(--font-heading);
+    font-size: .95rem; color: var(--color-accent2); margin-top: 1.4rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    color: var(--color-heading);
+    font-size: 1.05rem; letter-spacing: .14em; text-transform: uppercase;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: .5rem; margin: 3rem 0 1.4rem;
+  }
+
+  .primary {
+    display: block;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-accent);
+    padding: 1.5rem 1.7rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .primary:hover { background: #efeae1; }
+  .primary .t {
+    font-family: var(--font-heading);
+    font-size: 1.25rem; color: var(--color-accent2); font-weight: 600;
+  }
+  .primary .d { color: var(--color-muted); font-size: .95rem; margin-top: .45rem; }
+
+  ul.guides { list-style: none; padding: 0; margin: 0; }
+  ul.guides li { border-bottom: 1px solid var(--color-border); }
+  ul.guides li:first-child { border-top: 1px solid var(--color-border); }
+  ul.guides a {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .9rem;
+    padding: .85rem .6rem; text-decoration: none; color: inherit;
+  }
+  ul.guides a:hover { background: var(--color-sidebar); }
+  ul.guides .unit {
+    font-family: var(--font-heading); font-weight: 600;
+    color: var(--color-accent2); min-width: 8.5rem;
+  }
+  ul.guides .what { color: var(--color-muted); font-size: .93rem; }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.4rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted); font-size: .88rem; text-align: center;
+  }
+  @media (max-width: 620px) {
+    header h1 { font-size: 2rem; }
+    ul.guides .unit { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Douglas DC-3</h1>
+    <div class="subtitle">Documentation</div>
+    <div class="edition">For X-Plane 12</div>
+    <div class="publisher">Leading Edge Simulations</div>
+  </header>
+
+  <h2>Operating Manual</h2>
+  <a class="primary" href="DC3_Manual.html">
+    <span class="t">DC-3 Aircraft Operating Manual</span>
+    <div class="d">The complete manual: the cockpit in both variants, every aircraft system, avionics, operations, the physics behind the simulation, and a tutorial flight from cold and dark to shutdown.</div>
+  </a>
+
+  <h2>Avionics Operating Guides</h2>
+  <p style="color:var(--color-muted); font-size:.95rem; margin-top:-.5rem;">
+    Per-unit guides for the Modern variant's Bendix/King stack, each covering every control,
+    display mode and procedure in more detail than the main manual. All are linked from
+    Chapter 15 as well.
+  </p>
+  <ul class="guides">
+    <li><a href="Avionics/GNS530.html"><span class="unit">GNS 530</span><span class="what">GPS navigation, moving map, flight plans, and the COM1 radio</span></a></li>
+    <li><a href="Avionics/KX165A_NAV-COMM.html"><span class="unit">KX 165A</span><span class="what">NAV/COMM &mdash; COM2 and NAV2, channel presets, pull-test functions</span></a></li>
+    <li><a href="Avionics/KAP140_Autopilot.html"><span class="unit">KAP 140</span><span class="what">Autopilot &mdash; modes, altitude preselect, vertical speed</span></a></li>
+    <li><a href="Avionics/KI525A_HSI.html"><span class="unit">KI 525A</span><span class="what">HSI &mdash; horizontal situation indicator, course and heading bugs</span></a></li>
+    <li><a href="Avionics/KI229_RMI.html"><span class="unit">KI 229</span><span class="what">RMI &mdash; dual-needle radio magnetic indicator and source switching</span></a></li>
+    <li><a href="Avionics/KR87_ADF.html"><span class="unit">KR 87</span><span class="what">ADF &mdash; tuning, BFO, and the elapsed timer</span></a></li>
+    <li><a href="Avionics/KDI572_DME.html"><span class="unit">KDI 572</span><span class="what">DME &mdash; distance, groundspeed, time-to-station, channel selection</span></a></li>
+    <li><a href="Avionics/KT73_Transponder.html"><span class="unit">KT 73</span><span class="what">Transponder &mdash; squawk entry, modes, and IDENT</span></a></li>
+  </ul>
+
+  <footer>
+    Leading Edge Simulations &middot; Published by X-Aviation
+  </footer>
+
+</div>
+</body>
+</html>
