@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KI 525A HSI Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Figures (placed screenshots) ──────────────────── */
+  .figure {
+    margin: 1.6rem 0 1.8rem;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .figure figcaption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .fig-legend {
+    columns: 2;
+    column-gap: 2.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .fig-legend li {
+    margin: 0 0 0.3rem;
+    break-inside: avoid;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .fig-legend .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent2);
+    margin-right: 0.5em;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KI 525A</h1>
+  <div class="subtitle">Bendix/King Pictorial Navigation Indicator (HSI)</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KI 525A Pictorial Navigation Indicator, the Horizontal Situation Indicator (HSI) fitted to the DC-3 Modern variant. It is a standalone companion to the main DC-3 Aircraft Operating Manual, written for the pilot who wants to learn the instrument cockpit-first: what each part of the face means, how to fly a VOR, an ILS, or a GPS course off it, and how it behaves as the aircraft powers up and navigates. The HSI is the primary display of the larger KCS 55A compass system, and this guide explains just enough of that system for the instrument to make sense; you do not need the rest of the panel to follow it.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#what-hsi">What an HSI Does</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#card">The Compass Card, Heading Bug, and HDG Flag</a></li>
+    <li><a href="#course">The Course Pointer and Deviation Bar</a></li>
+    <li><a href="#glideslope">The Glideslope</a></li>
+    <li><a href="#knobs">The HDG and CRS Knobs</a></li>
+    <li><a href="#flags">Flags and What They Mean</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KI 525A at a glance</div>
+  <p><strong>Type:</strong> Horizontal Situation Indicator (HSI)</p>
+  <p><strong>Family:</strong> Bendix/King Silver Crown</p>
+  <p><strong>Shows:</strong> Heading, course guidance, and glideslope, in one face</p>
+  <p><strong>Heading:</strong> Slaved, from the KCS 55A compass system</p>
+  <p><strong>Course / CDI / glideslope:</strong> The GNS&nbsp;530, VLOC or GPS (CDI-selectable)</p>
+  <p><strong>Controls:</strong> HDG knob (lower right), CRS knob (lower left)</p>
+</div>
+
+<p>
+A Horizontal Situation Indicator takes the two instruments a pilot looks at most, the directional gyro and the VOR course indicator, and merges them into a single picture. The compass card shows your heading; a course pointer laid over that card shows the radial or localizer you have selected; and a deviation bar through the middle shows whether you are left or right of it. Because the course needle rides the rotating card, the whole display is always oriented to the way the aircraft is actually pointing. One glance tells you where you are heading, where your course lies, and how far off it you are.
+</p>
+
+<p>
+The KI 525A is a Bendix/King Silver Crown HSI, the indicator designed to work with the KCS 55A slaved compass system. In the DC-3 Modern variant it is the centrepiece of that system: a remote directional gyro (the KG 102A) and a wingtip flux detector (the KMT 112) feed it a continuously corrected magnetic heading, and the KA 51B slaving control on the panel manages that correction. The same heading drives the KI 229 RMI beside it; the two instruments are two faces of one compass system.
+</p>
+
+<p>
+The course side of the HSI, the course pointer, the deviation bar, the TO/FROM flag, and the glideslope, is driven by the <strong>GNS&nbsp;530</strong>. The 530 is both a nav receiver and a GPS, and a button on its bezel chooses which one feeds the HSI: <strong>VLOC</strong> for VOR and ILS guidance, or <strong>GPS</strong> for GPS course guidance. Whichever you select, the HSI shows it, and the autopilot couples to it. The separate VOR/ILS head on the panel is driven by the other radio, the KX&nbsp;165A (NAV&nbsp;2), and is covered in its own section of the main manual.
+</p>
+
+<figure class="figure">
+  <img src="images/ki525a_panel.jpg" alt="The KI 525A HSI outlined in red at the centre of the DC-3 Modern flight-instrument group, with the attitude indicator above it and the KI 229 RMI to its left">
+  <figcaption>The KI 525A HSI (outlined), centre of the Modern flight-instrument group, with the attitude indicator above it and the KI 229 RMI to its left.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<h4>The Indicator</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Type</td><td>Pictorial Navigation Indicator (HSI), flange-mounted</td></tr>
+  <tr><td>Compass card</td><td>Servo-driven, slaved to a remote directional gyro</td></tr>
+  <tr><td>Compass card accuracy</td><td>&plusmn;2&deg; of local magnetic heading</td></tr>
+  <tr><td>Course guidance</td><td>VOR / localizer deviation bar, with TO/FROM</td></tr>
+  <tr><td>Vertical guidance</td><td>Glideslope pointers (ILS), retract when no glideslope</td></tr>
+  <tr><td>Warning flags</td><td>HDG (heading), NAV (course), and the retracting GS pointers</td></tr>
+</table>
+
+<h4>The Compass System (KCS 55A)</h4>
+<table>
+  <tr><th>Component</th><th>Role</th></tr>
+  <tr><td>KG 102A</td><td>Remote directional gyro; the heading reference</td></tr>
+  <tr><td>KMT 112</td><td>Wingtip flux detector; senses magnetic north</td></tr>
+  <tr><td>KA 51B</td><td>Slaving control; manages the gyro-to-flux correction (panel-mounted)</td></tr>
+  <tr><td>KI 525A</td><td>HSI; this instrument, the primary display</td></tr>
+  <tr><td>KI 229</td><td>RMI; the bearing-pointer display of the same system</td></tr>
+</table>
+
+<h4>Course and Glideslope Source</h4>
+<table>
+  <tr><th>Display</th><th>Driven by</th></tr>
+  <tr><td>Course pointer, deviation bar, TO/FROM</td><td>The GNS&nbsp;530 &mdash; VLOC (VOR/LOC) or GPS, per the CDI button</td></tr>
+  <tr><td>Glideslope pointers</td><td>The GNS&nbsp;530 in VLOC, tuned to an ILS (no glideslope in GPS)</td></tr>
+  <tr><td>Heading card and bug</td><td>The KCS 55A slaved compass</td></tr>
+</table>
+
+<h4>Power</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Heading side (card, bug, HDG flag)</td><td>The KCS 55A: avionics master on, G2 COMPASS breaker closed, 22 VDC minimum</td></tr>
+  <tr><td>Course / CDI / glideslope</td><td>Requires the GNS 530 powered and booted; the NAV flag stays in view until it is</td></tr>
+  <tr><td>Warmup</td><td>About 1 minute warm, up to 5 minutes cold (the directional gyro)</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. WHAT AN HSI DOES                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="what-hsi">3. What an HSI Does</h2>
+
+<p>
+If you have only flown a conventional VOR indicator, the HSI is worth a moment to understand, because it removes two of that instrument's oldest traps. On a plain VOR head the dial is fixed: you twist an OBS, the needle swings, and you have to picture in your head how the course lies relative to the nose. Worse, if you fly the course in the reverse direction the needle senses backwards, the dreaded reverse sensing.
+</p>
+
+<p>
+The HSI fixes both. The course pointer is mounted on the rotating compass card, so it physically lies on the face the same way the course lies in the world. Select a course of 045 and the pointer sits at 045 on the card, wherever the card happens to be. Fly toward it and the deviation bar tells you "left" or "right" exactly as you see it, fly the reciprocal and the picture simply turns around with you. There is no reverse sensing, and no mental rotation: the instrument is a tiny moving map of your course and your aircraft on it.
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">The picture is always oriented to your heading</div>
+  <p>Because the course pointer rides the compass card, the HSI always shows your course the way it really lies relative to the nose. Steer toward the deviation bar to close on course; the bar shows your position relative to the selected course, not relative to the instrument.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">4. Faceplate Layout</h2>
+
+<p>
+The face is built around the rotating compass card. A fixed lubber line at the top marks your heading on it. An orange heading bug rides the rim. Across the centre lies the course pointer with its deviation bar; a TO/FROM flag sits beside it. Glideslope pointers ride the left and right edges. Warning flags appear when something is not to be trusted, and the two setting knobs are in the lower corners.
+</p>
+
+<figure class="figure">
+  <img src="images/ki525a_faceplate.jpg" alt="The KI 525A faceplate with lettered callouts A through L: A the compass card, B the lubber line, C the heading bug, D the course pointer, E the deviation bar, F the deviation dots, G the TO/FROM flag, H the glideslope pointers, I the HDG flag, J the NAV flag, K the HDG knob at lower right, L the CRS knob at lower left">
+  <figcaption>The KI 525A face. The lettered markers key to the list below.</figcaption>
+  <ul class="fig-legend">
+    <li><span class="num">A</span>Compass card (rotating azimuth card)</li>
+    <li><span class="num">B</span>Lubber line (fixed heading index, top)</li>
+    <li><span class="num">C</span>Heading bug (orange marker)</li>
+    <li><span class="num">D</span>Course pointer (head and tail)</li>
+    <li><span class="num">E</span>Course deviation bar (CDI)</li>
+    <li><span class="num">F</span>Lateral deviation dot scale</li>
+    <li><span class="num">G</span>TO/FROM flag</li>
+    <li><span class="num">H</span>Glideslope pointers and scale</li>
+    <li><span class="num">I</span>HDG warning flag</li>
+    <li><span class="num">J</span>NAV warning flag</li>
+    <li><span class="num">K</span>HDG knob (lower right)</li>
+    <li><span class="num">L</span>CRS knob (lower left)</li>
+  </ul>
+</figure>
+
+<table>
+  <tr><th>Element</th><th>What it is</th></tr>
+  <tr><td><strong>A &ndash; Compass card</strong></td><td>A full 360&deg; card that rotates so your current magnetic heading sits under the lubber line. Driven by the slaved compass system, not a free gyro.</td></tr>
+  <tr><td><strong>B &ndash; Lubber line</strong></td><td>The fixed index at the top of the face. The number under it is your magnetic heading.</td></tr>
+  <tr><td><strong>C &ndash; Heading bug</strong></td><td>The orange marker on the card rim. Set it with the HDG knob; it is your selected heading and the autopilot's heading reference.</td></tr>
+  <tr><td><strong>D &ndash; Course pointer</strong></td><td>The arrow that lies across the card at your selected course. The head shows the course; the tail shows the reciprocal. Set with the CRS knob.</td></tr>
+  <tr><td><strong>E &ndash; Deviation bar (CDI)</strong></td><td>The centre section of the course pointer. It slides sideways to show how far left or right of the selected course you are.</td></tr>
+  <tr><td><strong>F &ndash; Deviation dots</strong></td><td>The lateral scale the bar moves against. Centre is on course; full deflection is full-scale deviation or beyond.</td></tr>
+  <tr><td><strong>G &ndash; TO/FROM flag</strong></td><td>A small triangle showing whether the selected course takes you to or from the VOR. Hidden on a localizer.</td></tr>
+  <tr><td><strong>H &ndash; Glideslope</strong></td><td>Pointers on the left and right edges that show vertical position on an ILS glideslope. They retract out of view when there is no glideslope.</td></tr>
+  <tr><td><strong>I &ndash; HDG flag</strong></td><td>A warning flag, in view when the heading is not valid (warmup, power loss, or a slaving fault).</td></tr>
+  <tr><td><strong>J &ndash; NAV flag</strong></td><td>A warning flag, in view when there is no usable VOR/localizer signal. The deviation bar is meaningless while it shows.</td></tr>
+  <tr><td><strong>K &ndash; HDG knob</strong></td><td>Lower-right knob. Sets the heading bug.</td></tr>
+  <tr><td><strong>L &ndash; CRS knob</strong></td><td>Lower-left knob. Sets the course pointer.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. CARD, BUG, HDG FLAG                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="card">5. The Compass Card, Heading Bug, and HDG Flag</h2>
+
+<p>
+The compass card is not a free-running gyro that you reset by hand. It is <strong>slaved</strong>: a remote directional gyro (the KG 102A) holds a steady heading reference, and a wingtip flux detector (the KMT 112) continuously nudges it onto magnetic north so it never drifts. The KA 51B control on the panel manages that slaving and lets you slew the gyro manually if needed. The HSI repeats the result, your live, corrected magnetic heading, under the lubber line.
+</p>
+
+<h3>The heading bug</h3>
+<p>
+The orange bug on the card rim is your selected heading. Set it with the <span class="ctl">HDG</span> knob in the lower-right corner. It serves two purposes: a visual reminder of the heading you mean to fly, and the command reference for the KAP 140 autopilot, in <span class="ctl">HDG</span> mode the autopilot turns the aircraft to fly the bug. Because the bug rides the card, it tracks around to stay at its selected heading as the card turns beneath it.
+</p>
+
+<h3>The HDG flag and engine-start warmup</h3>
+<p>
+The HDG flag is the heading warning flag. It is in view whenever the displayed heading cannot be trusted: no power to the compass system, a servo fault, or, most commonly, a directional gyro that has not finished spinning up. When the flag is in view, read no heading from the card.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">The flag is normal at start-up &mdash; give the gyro time</div>
+  <p>The KG 102A is a real gyroscope, and like any gyro it takes time to spin up to speed. When you first power the avionics the HDG flag will be <strong>in view</strong> and the card will not be reliable. Warmup takes about a minute when the aircraft is warm, and as long as <strong>five minutes in the cold</strong>. This is correct behavior, not a fault. When the gyro is up to speed and slaved, the flag snaps up out of sight and the card comes alive. Plan your cold-and-dark start so the compass has time to align before you need it.</p>
+</div>
+
+<p>
+You may also see the HDG flag flick into view briefly during a fast slave, when the system is driving the card quickly onto magnetic north (at power-up, or after a large heading correction). That is the system telling you the heading is moving and momentarily not to be trusted; it clears as soon as the card settles. Because the KI 525A and the KI 229 RMI share the same KCS 55A system, they raise and stow their heading flags together.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. COURSE POINTER AND CDI                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="course">6. The Course Pointer and Deviation Bar</h2>
+
+<p>
+The course pointer is the arrow laid across the card. In <strong>VLOC</strong> mode you set it yourself with the <span class="ctl">CRS</span> knob (lower-left corner) to the radial or localizer course you want to fly; the head sits on that course on the card, the tail on its reciprocal. The deviation bar, the floating centre section of the pointer, then shows where you are relative to that course: centred means on course, displaced to one side means you are off to that side and should steer toward the bar to close on it.
+</p>
+
+<h3>Choosing the source: VLOC and GPS (the CDI button)</h3>
+<p>
+Everything on the course side of this HSI, the pointer, the deviation bar, the TO/FROM flag, and the glideslope, comes from the <strong>GNS&nbsp;530</strong>. The 530 carries two kinds of guidance, and the <strong>CDI button</strong> on its bezel chooses which one drives the HSI:
+</p>
+<ul>
+  <li><strong>VLOC</strong> &mdash; the 530's nav receiver: VOR radials and ILS localizer plus glideslope. You set the course with the CRS knob, exactly like a conventional HSI.</li>
+  <li><strong>GPS</strong> &mdash; the 530's flight-plan guidance. The course pointer <strong>sets itself</strong> to the desired track of the active leg, and the deviation bar shows cross-track error. There is no glideslope, and the CRS knob does nothing (the 530 owns the course).</li>
+</ul>
+<p>
+Press the CDI button to toggle between them; the HSI swings to whatever the 530 is now feeding it, and the <strong>autopilot follows the same selection</strong>. A coupled approach therefore flies the localizer in VLOC or the GPS track in GPS, depending purely on what you have selected here.
+</p>
+
+<div class="callout caution">
+  <div class="callout-title">Tune the GNS 530 for HSI guidance</div>
+  <p>The HSI shows whatever the GNS&nbsp;530 is providing. For VOR or ILS, select <strong>VLOC</strong> and tune and identify the station on the 530. For GPS, select <strong>GPS</strong> and load a flight plan. The KX&nbsp;165A (NAV&nbsp;2) does <strong>not</strong> drive this HSI, it feeds the separate VOR/ILS head.</p>
+</div>
+
+<h3>Reading the deviation bar</h3>
+<p>
+How much ground each dot represents depends on what you have tuned. On a VOR, full-scale deflection of the bar is about 10&deg; off the selected radial, generous, forgiving spacing for en-route tracking. On a localizer the bar is far more sensitive, roughly 2&frac12;&deg; full-scale, so it comes alive quickly and a small correction moves it a long way. Expect the bar to be lively as you intercept an ILS. In GPS, the bar reads cross-track distance rather than an angle, and the 530 tightens its sensitivity automatically as you move from en-route into the approach.
+</p>
+
+<h3>TO and FROM</h3>
+<p>
+With a VOR tuned, the TO/FROM flag shows whether flying the selected course will take you toward the station or away from it. It is simply a sense indicator; it does not change how you fly the bar. On a localizer there is no TO/FROM, and the flag is hidden.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">You select a magnetic course, not the bearing to the station</div>
+  <p>A common trap: the <span class="ctl">CRS</span> pointer here (and the OBS knob on the separate VOR/ILS head) selects an <strong>absolute magnetic course</strong> to fly, not where the station sits relative to your nose. If a VOR is off your right wing, you do not dial its relative bearing; you dial the magnetic course that points at it. Worked example: you are on the station's 174&deg; radial, so the magnetic bearing to the station is the reciprocal, 354&deg;. Set the course to <strong>354&deg;</strong> and the bar centres with <strong>TO</strong>; set it to <strong>174&deg;</strong> and it centres with <strong>FROM</strong>. Any other value, including the station's relative bearing off the wing, leaves the bar deflected.</p>
+</div>
+
+<h3>Coupling the autopilot</h3>
+<p>
+The KAP 140 autopilot couples to <strong>whatever the HSI is showing</strong>, in <span class="ctl">NAV</span> and <span class="ctl">APR</span> modes it tracks the course on the HSI's selected source. In VLOC, set the pointer to the inbound course with the CRS knob before you arm the mode; in GPS, the 530 supplies the course and the autopilot flies the flight plan. Either way the autopilot follows the CDI button: select VLOC and it flies the localizer, select GPS and it flies the GPS track. See the KAP 140 guide for the coupling procedure.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. GLIDESLOPE                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="glideslope">7. The Glideslope</h2>
+
+<p>
+When the GNS&nbsp;530 is in <strong>VLOC</strong> with an ILS tuned and the glideslope signal is being received, two glideslope pointers swing into view on the left and right edges of the face. Read them against the centre line: a pointer above centre means the glideslope is above you, fly up to it; below centre, fly down. Centred on both lateral and vertical bars means you are on the localizer and on the glideslope, the picture you want on final.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">The pointers wait, then appear, and retract when there is nothing to show</div>
+  <p>The glideslope pointers only mean something when a glideslope is actually being received. With no ILS tuned, on a VOR, in GPS mode, or out of range, they sit <strong>retracted up out of view behind the bezel</strong>, that is the instrument telling you it has no vertical guidance. When a usable glideslope appears, the pointers take a short moment (a few seconds) to settle in before they read; this brief delay is normal. Do not expect a glideslope on a VOR, in GPS, or on a localizer-only approach.</p>
+</div>
+
+<figure class="figure">
+  <img src="images/ki525a_ils.jpg" alt="The KI 525A established on an ILS: the course pointer set to the localizer front course with the deviation bar centred, and the glideslope pointers in view and centred at mid-scale">
+  <figcaption>Established on an ILS: course centred on the localizer and the glideslope pointers in view and centred. The picture you want on final.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. KNOBS                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="knobs">8. The HDG and CRS Knobs</h2>
+
+<p>
+Two knobs in the lower corners set the two movable elements of the face. The <span class="ctl">HDG</span> knob, lower right, drives the heading bug; the <span class="ctl">CRS</span> knob, lower left, drives the course pointer in VLOC. Turn a knob and its element rotates around the card with it.
+</p>
+
+<p>
+One thing to note about the CRS knob: it only sets the course in <strong>VLOC</strong>. In <strong>GPS</strong> the 530 owns the course (the pointer follows the active leg's desired track), so the CRS knob is inert, turn it and nothing moves. That is correct, not a fault. Switch the CDI button back to VLOC and the knob is live again.
+</p>
+
+<p>
+Both knobs are <strong>accelerating</strong>: nudge one and it steps a fraction of a degree at a time for precise setting; keep turning and it speeds up so you can sweep the bug or pointer right around the card without endless clicking. Slow down or reverse and it drops back to fine steps. This gives you both precision and speed from the one control.
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">The knobs work cold and dark</div>
+  <p>The HDG and CRS knobs are mechanical; they position the bug and course pointer whether or not the avionics are powered. You can preset both before you ever switch the master on. The card itself, though, only comes alive once the compass system is powered and the gyro has spun up.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. FLAGS                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="flags">9. Flags and What They Mean</h2>
+
+<p>
+The HSI has three independent ways of telling you a part of its display is not to be trusted. Learn them, and you will never read a stale needle.
+</p>
+
+<table>
+  <tr><th>Indication</th><th>Means</th><th>So</th></tr>
+  <tr><td><strong>HDG flag</strong> in view</td><td>The heading is not valid: gyro warming up, power lost, or a slaving fault.</td><td>Read no heading from the card. Normal at start-up, wait out the warmup.</td></tr>
+  <tr><td><strong>NAV flag</strong> in view</td><td>No usable guidance from the GNS&nbsp;530: out of range, nothing tuned/loaded, or the 530 off or still booting.</td><td>Ignore the deviation bar. Confirm the 530 is up, the source (VLOC/GPS) is selected, and a station is tuned or a flight plan loaded.</td></tr>
+  <tr><td><strong>Glideslope pointers retracted</strong></td><td>No glideslope being received. This is the HSI's glideslope "flag."</td><td>Expect no vertical guidance. Normal on a VOR, in GPS, or a localizer-only approach.</td></tr>
+</table>
+
+<div class="callout warning">
+  <div class="callout-title">A valid localizer does not raise the NAV flag</div>
+  <p>A localizer carries no TO/FROM, so the TO/FROM triangle hides on an ILS, that is normal and does <strong>not</strong> mean the signal is bad. As long as the NAV flag is stowed, the deviation bar is live and trustworthy. Watch the NAV flag, not the TO/FROM, to judge whether the course bar can be believed.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. PROCEDURES                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">10. Operating Procedures</h2>
+
+<h3>Power up and align</h3>
+<ol>
+  <li>Apply electrical power and switch the avionics master on. Confirm the G2 COMPASS breaker is closed.</li>
+  <li>Expect the HDG flag in view and the card unreliable. The gyro is spinning up.</li>
+  <li>Wait for the warmup to complete, about a minute warm, up to five minutes cold. The flag snaps up and the card settles onto your heading.</li>
+  <li>Cross-check the card against the magnetic compass. If it is off, use the KA 51B to slave or manually slew it onto the correct heading.</li>
+</ol>
+
+<h3>Set a heading (and fly it with the autopilot)</h3>
+<ol>
+  <li>Turn the <span class="ctl">HDG</span> knob to put the bug on the heading you want.</li>
+  <li>Hand-fly to the bug, or engage the KAP 140 in <span class="ctl">HDG</span> mode to have the autopilot fly it.</li>
+</ol>
+
+<h3>Fly a VOR radial</h3>
+<ol>
+  <li>Select <strong>VLOC</strong> on the GNS&nbsp;530 with the CDI button, then tune and identify the VOR. Confirm the NAV flag stows.</li>
+  <li>Turn the <span class="ctl">CRS</span> knob to set the course pointer to the radial you want to track.</li>
+  <li>Intercept: steer toward the deviation bar until it centres, then turn to the course and hold it. Use the TO/FROM flag to confirm sense.</li>
+  <li>To couple the autopilot, arm <span class="ctl">NAV</span> on the KAP 140 with the course already set.</li>
+</ol>
+
+<h3>Fly an ILS</h3>
+<ol>
+  <li>Select <strong>VLOC</strong> on the GNS&nbsp;530, then tune and identify the ILS. The TO/FROM flag will hide, that is normal for a localizer.</li>
+  <li>Set the course pointer with the <span class="ctl">CRS</span> knob to the published localizer front course.</li>
+  <li>Intercept the localizer; the deviation bar is sensitive, so lead the turn and make small corrections.</li>
+  <li>As you approach the glideslope, the glideslope pointers swing into view. Centre both bars and fly the needles down.</li>
+  <li>To couple the autopilot, arm <span class="ctl">APR</span> on the KAP 140 before localizer capture.</li>
+</ol>
+
+<h3>Fly a GPS course</h3>
+<ol>
+  <li>Load and activate your flight plan (or Direct-To) on the GNS&nbsp;530, then press the CDI button to select <strong>GPS</strong>. Confirm the NAV flag stows.</li>
+  <li>The course pointer sets itself to the active leg's desired track, there is nothing to set with the CRS knob. The deviation bar shows cross-track error.</li>
+  <li>Fly toward the bar to centre it, then track the leg; the pointer steps to the new desired track as the 530 sequences legs.</li>
+  <li>To couple the autopilot, arm <span class="ctl">NAV</span> on the KAP 140; it will fly the GPS track. (No glideslope in GPS, fly any vertical profile by hand or with VS/ALT.)</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. INDICATIONS                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">11. Normal and Abnormal Indications</h2>
+
+<h4>Healthy display</h4>
+<p>
+Powered, warmed up, and slaved: the HDG flag is stowed, the card reads your magnetic heading under the lubber line and tracks smoothly through turns, and the heading bug sits where you set it. With the GNS&nbsp;530 up and providing guidance (VLOC or GPS), the NAV flag is stowed and the deviation bar reads your position relative to the selected course; on an ILS in VLOC the glideslope pointers are in view. The bug and course pointer move crisply with their knobs.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>HDG flag in view at start-up</td><td>Normal. The gyro is still spinning up.</td><td>Wait out the warmup (up to ~5 min cold). The flag stows when the compass is valid.</td></tr>
+  <tr><td>HDG flag in view in flight</td><td>The compass system has lost power, or the slaving servo cannot hold heading.</td><td>Check the G2 COMPASS breaker and the avionics bus. Cross-check the magnetic compass; expect the RMI to flag too.</td></tr>
+  <tr><td>NAV flag in view</td><td>No usable guidance from the GNS&nbsp;530 (off, still booting, nothing tuned/loaded, or out of range).</td><td>Confirm the 530 is up, the source (VLOC/GPS) is selected, and a station is tuned or flight plan loaded. The deviation bar is meaningless until it stows.</td></tr>
+  <tr><td>No glideslope on an ILS</td><td>Out of range or below/above the beam, still in the brief settle delay, or the 530 is in GPS not VLOC.</td><td>Confirm VLOC is selected and an ILS (not localizer-only or VOR) is tuned; continue the intercept and the pointers appear once the glideslope is received.</td></tr>
+  <tr><td>Card heading wrong but no flag</td><td>The gyro is running but slaved to the wrong heading, or in free (unslaved) mode.</td><td>Use the KA 51B to re-slave or slew the card onto the correct magnetic heading.</td></tr>
+  <tr><td>Deviation bar will not centre</td><td>Wrong course set, off the radial, or reverse intercept geometry.</td><td>Confirm the course pointer is on the intended radial/front course; re-check with the CRS knob.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 12. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">12. Notes and Tips</h2>
+
+<ul>
+  <li><strong>The HSI is on the GNS 530.</strong> Course, deviation, and glideslope come from the 530, not the KX&nbsp;165A. Tune and load on the 530 for guidance here; the KX&nbsp;165A drives the separate VOR/ILS head.</li>
+  <li><strong>The CDI button picks VLOC or GPS.</strong> VLOC for VOR/ILS (you set the course), GPS for the flight plan (the 530 sets the course, CRS knob inert, no glideslope). The autopilot follows whichever you pick.</li>
+  <li><strong>No reverse sensing.</strong> The course pointer rides the card, so the deviation bar always reads the way the course really lies. Steer toward the bar.</li>
+  <li><strong>Give the gyro time.</strong> The HDG flag at start-up is the gyro warming up, not a fault. Up to five minutes in the cold. Start the compass early.</li>
+  <li><strong>Watch the NAV flag, not the TO/FROM.</strong> The TO/FROM hides on a valid localizer. The NAV flag is what tells you the deviation bar can be trusted.</li>
+  <li><strong>Glideslope retracted means none received.</strong> The pointers hide when there is no glideslope. Expect them only on an ILS, and only after a brief settle.</li>
+  <li><strong>The knobs accelerate.</strong> Nudge for fine, keep turning for fast. They work cold and dark, preset the bug and course before power-up if you like.</li>
+  <li><strong>It shares the system with the RMI.</strong> The KI 525A and KI 229 run off the same KCS 55A compass. They agree on heading and flag together.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KI 525A HSI Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

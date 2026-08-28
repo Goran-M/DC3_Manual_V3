@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KR 87 ADF Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KR 87</h1>
+  <div class="subtitle">Bendix/King Automatic Direction Finder</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KR 87 automatic direction finder as fitted to the DC-3 Modern variant, a standalone companion to the main DC-3 Aircraft Operating Manual. The Modern panel carries two of them, one for each pilot, and each is a full study-level recreation: the active and standby tuning, the ADF, ANT, and BFO modes, the built-in flight and elapsed timers, the terrain-aware signal that drives the needle, and the volume knob that doubles as the power switch are all modeled, independently, per unit.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#modes">Modes and the Bearing Pointer</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#timers">The Timers</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KR 87 at a glance</div>
+  <p><strong>Type:</strong> Digital ADF receiver</p>
+  <p><strong>Family:</strong> Silver Crown Plus</p>
+  <p><strong>Band:</strong> 200&ndash;1799 kHz</p>
+  <p><strong>Modes:</strong> ADF, ANT, BFO</p>
+  <p><strong>Timers:</strong> Flight and elapsed, built in</p>
+  <p><strong>Units fitted:</strong> Two (pilot and copilot)</p>
+  <p><strong>Power:</strong> VOL/OFF knob + ADF breaker, DC Radio Bus</p>
+</div>
+
+<p>
+Automatic direction finding is the oldest radio navigation still in everyday use, and it is beautifully simple: tune a ground beacon, and a needle in the cockpit points at it. No radials, no course to set, no flags. The station transmits in every direction, your loop antenna figures out which way it is coming from, and the pointer swings to it. Fly so the needle stays on the nose and you will arrive overhead.
+</p>
+
+<p>
+The ground stations are non-directional beacons, NDBs, transmitting in the low and medium frequency band. The KR 87 tunes 200 to 1799 kHz, which covers the NDB band and reaches up into the AM broadcast band, so in a pinch the needle will happily point at a commercial radio tower too. By the standards of a GPS box this is ancient technology, and that is exactly the point: in the DC-3's heyday the ADF needle was how you found the airport, and a DC-3 still flying today keeps one (here, two) for the NDB approaches and airways that are still on the charts.
+</p>
+
+<p>
+This is the KR 87, the digital member of the Silver Crown Plus line, with active and standby frequencies, a flip-flop, and a pair of built-in timers that earn their place on instrument approaches. The Modern panel fits <strong>two</strong> of them: ADF 1 for the captain and ADF 2 for the first officer, completely independent of each other, each driving its own needle.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: KR 87 pair in the Modern panel]</span>
+  <span class="description">The two KR 87 units in their installed positions in the DC-3 Modern instrument panel, with callouts identifying ADF 1 (pilot) and ADF 2 (copilot).</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Frequency range</td><td>200 &ndash; 1799 kHz, tunable to 1 kHz</td></tr>
+  <tr><td>Active / standby</td><td>Yes, with FRQ flip-flop</td></tr>
+  <tr><td>Modes</td><td>ADF (bearing), ANT (audio only), BFO (for keyed beacons)</td></tr>
+  <tr><td>Flight timer</td><td>Counts up, auto-starts at power-on</td></tr>
+  <tr><td>Elapsed timer</td><td>Counts up, or counts down from a preset</td></tr>
+  <tr><td>Units fitted</td><td>Two, independent: ADF 1 (pilot), ADF 2 (copilot)</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Power: the volume knob is the switch</div>
+  <p>Each KR 87 is turned on by its own VOL/OFF knob: rotate it clockwise off the OFF detent to power the unit up and set the listening level; turn it fully back to OFF and that unit shuts down. On top of that, the unit needs avionics power on the DC Radio Bus and its own ADF circuit breaker closed (the two units sit on separate breakers). If a KR 87 is dark, check the volume knob first, then the breaker, then the avionics master.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The KR 87 packs a lot into a short box: a two-window display, five buttons in a row, the tuning knob on the right, and the VOL/OFF knob on the left. Both units are identical; everything below applies to each.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: KR 87 faceplate, fully labeled]</span>
+  <span class="description">Front view of the KR 87 with callouts: active frequency window (left), standby/timer window (right), and the controls: VOL/OFF knob, ADF/ANT button, BFO button, FRQ button, FLT/ET button, SET/RST button, and the dual tuning knob (outer ring, inner knob, and the inner-knob pull).</span>
+</div>
+
+<table>
+  <tr><th>Control</th><th>What it is</th></tr>
+  <tr><td><span class="ctl">VOL/OFF</span></td><td>Power switch and audio volume. Off the OFF detent powers the unit; rotate up for volume.</td></tr>
+  <tr><td><span class="ctl">ADF/ANT</span></td><td>Toggles between ADF (bearing) and ANT (audio only, needle parked).</td></tr>
+  <tr><td><span class="ctl">BFO</span></td><td>Turns the beat-frequency oscillator on or off, for identifying keyed beacons.</td></tr>
+  <tr><td><span class="ctl">FRQ</span></td><td>Brings the standby frequency into the right window, then swaps active and standby.</td></tr>
+  <tr><td><span class="ctl">FLT/ET</span></td><td>Switches the right window between the flight timer and the elapsed timer.</td></tr>
+  <tr><td><span class="ctl">SET/RST</span></td><td>Resets the elapsed timer; hold to set a countdown.</td></tr>
+  <tr><td><span class="ctl">Tuning knob</span></td><td>Outer ring tunes hundreds; inner knob tunes tens pushed in, ones pulled out.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>VOL/OFF knob</h3>
+<p>
+The left knob does two jobs. Turned fully counter-clockwise it sits in the OFF detent and the unit is off. Rotate it clockwise and the unit powers up with a click off that detent; keep turning to set how loud the beacon's audio is in your headset. Because each unit has its own VOL/OFF knob, you power up and set the captain's and the first officer's ADFs independently.
+</p>
+
+<h3>Tuning knob (outer, inner, and the pull)</h3>
+<p>
+Frequencies are set with the concentric tuning knob on the right. The <strong>outer</strong> ring changes the hundreds of kilohertz. The <strong>inner</strong> knob changes the tens when it is pushed in, and the ones when you pull it out. Each digit rolls around within its own place without carrying into the next, which is the quick, fiddle-free way these radios have always tuned: spin the outer ring to the right hundred, push or pull the inner knob to trim the tens and ones.
+</p>
+
+<h3>FRQ</h3>
+<p>
+Like the NAV/COMM radios, the KR 87 tunes a standby frequency and flips it to active. Press FRQ once and the standby frequency appears in the right window; tune it; press FRQ again and standby and active swap. This lets you set up the next beacon while still tracking the current one.
+</p>
+
+<h3>ADF/ANT</h3>
+<p>
+This button picks what the receiver does with the signal. In <strong>ADF</strong> the needle points to the station; in <strong>ANT</strong> the receiver listens but the needle parks, which gives a cleaner audio for identifying a weak station. The unit powers up in ANT, so identify first, then switch to ADF for the bearing. More on this in <a href="#modes">Modes and the Bearing Pointer</a>.
+</p>
+
+<h3>BFO</h3>
+<p>
+BFO stands for beat-frequency oscillator, and it exists for one job: making keyed beacons audible. See the modes section below for when you need it. For ordinary modulated NDBs you leave it off.
+</p>
+
+<h3>FLT/ET and SET/RST</h3>
+<p>
+These two run the built-in timers. FLT/ET chooses which timer the right window shows, and SET/RST resets the elapsed timer or, held, sets up a countdown. The timers are covered in full in <a href="#timers">The Timers</a>.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+The display has two windows. The left always shows the active frequency, the one the receiver is tuned to. The right window is the flexible one: it shows the standby frequency, the flight timer, or the elapsed timer, depending on what you last called up with FRQ or FLT/ET.
+</p>
+
+<table>
+  <tr><th>Window</th><th>Shows</th></tr>
+  <tr><td>Left</td><td>The active frequency. The beacon you are receiving and homing to.</td></tr>
+  <tr><td>Right</td><td>One of three things: the standby frequency (after FRQ), the flight timer, or the elapsed timer (FLT/ET).</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">The bearing is not on this box</div>
+  <p>The KR 87 is the receiver and control head; it does not show a needle. The relative bearing to the tuned station is presented by the bearing pointer on the cockpit's ADF indicator, and the same information can be read on the RMI. So you tune and identify here, and you read the direction over there.</p>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">Which frequency do the knobs change?</div>
+  <p>A small thing that trips people up: the tuning knobs change the <em>standby</em> frequency when the standby frequency is the one showing in the right window, and the <em>active</em> frequency when a timer is showing. So if you want to retune without flip-flopping, press FRQ to bring up standby first.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. MODES & POINTER                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="modes">6. Modes and the Bearing Pointer</h2>
+
+<h4>ADF mode</h4>
+<p>
+This is the mode that earns the box its name. The receiver senses the direction the signal is arriving from and drives the pointer to it. With a good signal the needle settles on the station and follows it as you fly; lose the signal and the needle drifts off, which is its honest way of telling you there is nothing reliable to point at.
+</p>
+
+<h4>ANT mode</h4>
+<p>
+In antenna mode the receiver uses only its sense antenna, which gives the strongest, cleanest audio but no direction, so the needle parks. Use ANT when you want the best possible audio to confirm a station's identity, especially a faint one. The unit comes up in ANT for exactly this reason: identify first, then go to ADF.
+</p>
+
+<h4>BFO</h4>
+<p>
+Most NDBs modulate their carrier, so you hear the Morse identifier straight away. Some, particularly older and marine beacons, key an unmodulated carrier instead, and a plain receiver hears only silence broken by faint clicks. Switch BFO on and the receiver injects a tone offset that turns that keyed carrier into an audible beep you can read the Morse from. Leave BFO off for normal beacons; reach for it when a beacon you believe is there makes no sound.
+</p>
+
+<div class="callout caution">
+  <div class="callout-title">Always identify the beacon</div>
+  <p>An ADF needle will point at whatever it hears, a thunderstorm, an AM talk-radio tower, the wrong NDB on a shared frequency, with complete confidence. Unlike a VOR, an NDB has no failure flag. The only thing protecting you is your ears: listen to the Morse identifier and confirm it matches the chart before you trust the needle.</p>
+</div>
+
+<h4>Relative bearing, and reading it as magnetic</h4>
+<p>
+On a plain fixed-card ADF indicator, the pointer shows <strong>relative</strong> bearing, the angle from the nose to the station, so a needle on the nose means the station is dead ahead whatever your heading. Add your magnetic heading to the relative bearing and you get the magnetic bearing to the station. The RMI does that arithmetic for you: its card is slaved to the compass system, so the pointer reads magnetic bearing directly off the card.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">7. Operating Procedures</h2>
+
+<h3>Power up</h3>
+<ol>
+  <li>With avionics power on and the ADF breaker closed, rotate the VOL/OFF knob clockwise off the OFF detent. The display lights and the flight timer begins counting.</li>
+  <li>Set the volume so you can hear the beacon audio comfortably.</li>
+</ol>
+
+<h3>Tune and identify a beacon</h3>
+<ol>
+  <li>Press FRQ to bring the standby frequency into the right window.</li>
+  <li>Tune it: outer ring for the hundreds, inner knob (pushed in for tens, pulled out for ones) for the rest.</li>
+  <li>Press FRQ again to swap your new frequency to active.</li>
+  <li>With the unit in ANT, listen to the Morse identifier and confirm it matches the chart. If the beacon is keyed and silent, switch BFO on to hear it.</li>
+</ol>
+
+<h3>Read the bearing and home to the station</h3>
+<ol>
+  <li>Press ADF/ANT to select ADF. The pointer swings to the station.</li>
+  <li>To home, turn so the pointer sits on the nose, and keep it there. Allowing for wind, the needle walks you overhead.</li>
+  <li>Station passage shows as the needle swinging through to point behind you.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. TIMERS                                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="timers">8. The Timers</h2>
+
+<p>
+The KR 87 carries two timers, and on an instrument approach they pull their weight. The right window shows one at a time; FLT/ET switches between them.
+</p>
+
+<h4>Flight timer (FLT)</h4>
+<p>
+The flight timer counts up, and it starts itself the moment the unit powers on. It is meant to log how long the radios, and by extension the flight, have been running, so it ignores the reset button entirely. The only thing that zeroes it is a power interruption, after which it starts again from zero. Think of it as the hour meter for the leg.
+</p>
+
+<h4>Elapsed timer (ET)</h4>
+<p>
+The elapsed timer is the working stopwatch. By default it counts up from zero, and a quick press of SET/RST zeros it whenever you like, whatever the window happens to be showing. That alone covers the classic job: cross the fix, reset, and time the leg.
+</p>
+<p>
+It also counts down, which is where it shines on a non-precision approach. To set a countdown:
+</p>
+<ol>
+  <li>Hold SET/RST for about two seconds. The elapsed timer comes up flashing, in set mode. Set mode stays open as long as you keep dialing and closes on its own about fifteen seconds after you stop, so set the time and press SET/RST without a long pause.</li>
+  <li>Dial the time with the tuning knobs: the outer ring sets minutes, the inner knob sets seconds (tens pushed in, ones pulled out).</li>
+  <li>Press SET/RST once to start the countdown from your preset.</li>
+</ol>
+<p>
+When it reaches zero, the display flashes for about fifteen seconds and a brief alarm sounds, then it rolls into counting up so you can see how far past the time you are. Set the missed-approach time at the final approach fix, start it as you cross, and the box tells you when to go around.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. POP-OUT                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">9. Popping the Unit Out</h2>
+
+<p>
+Each KR 87 can be opened in its own floating window, handy for tuning on a second monitor, working the box in VR, or just getting a closer look. Because there are two units, there are two commands in X-Plane's keyboard and joystick settings: "Toggle KR 87 ADF 1 (pilot) popup" and "Toggle KR 87 ADF 2 (copilot) popup". Bind whichever you use to a key or button; press to open, press again to close.
+</p>
+
+<p>
+Inside the window every control works as it does in the cockpit: click the buttons, and roll the mouse wheel over a knob to turn it (including the inner-knob pull, which the popup shows just as the panel does). Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize, with the bezel letterboxed so the faceplate keeps its proportions.
+</p>
+
+<p>
+Both KR 87 receivers also appear in the unified <strong>Avionics Stack</strong> popup, a single window that shows the whole Modern radio stack at once with every screen live and every control working. The stack and the units' own popups coexist, and all stay in sync with the panel, so you can run whichever suits your setup. The Avionics Stack is covered in the main DC-3 Aircraft Operating Manual.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. INDICATIONS                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">10. Normal and Abnormal Indications</h2>
+
+<h4>Healthy operation</h4>
+<p>
+A working KR 87 shows the active frequency on the left and your chosen timer or standby on the right, you can hear the beacon's identifier, and in ADF mode the needle on the indicator points steadily at the station.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Display dark</td><td>The VOL/OFF knob is in OFF, the breaker is open, or there is no avionics power.</td><td>Turn the volume knob up, then check the breaker and the avionics master.</td></tr>
+  <tr><td>Needle wandering or parked</td><td>No usable signal: out of range, terrain in the way, or you are in ANT mode.</td><td>Confirm ADF mode, recheck the frequency, and remember NDB range shrinks over rough terrain and at night.</td></tr>
+  <tr><td>No audio identifier</td><td>Weak station, wrong frequency, or a keyed beacon with BFO off.</td><td>Switch to ANT for cleaner audio; try BFO if the beacon is keyed.</td></tr>
+  <tr><td>Needle points at the wrong place</td><td>You may be tuned to interference or another station on the same frequency.</td><td>Re-identify by the Morse code before trusting the bearing.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">NDB signals are terrain-aware</div>
+  <p>Reception in the DC-3 is modeled with real propagation, not a simple in-range switch. Beacons fade behind terrain, and like all NDBs they are more prone to error near coastlines, near thunderstorms, and after dark. A needle that hunts or a signal that comes and goes is the model doing its job, not a fault.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">11. Notes and Tips</h2>
+
+<ul>
+  <li><strong>Identify, always.</strong> The ADF has no failure flag. Confirm the Morse identifier before you fly the needle.</li>
+  <li><strong>ANT to listen, ADF to point.</strong> Antenna mode gives the cleanest audio for identifying; switch to ADF once you trust the station.</li>
+  <li><strong>Pre-tune in standby.</strong> Set the next beacon in standby with FRQ, then flip it active when you need it.</li>
+  <li><strong>The inner knob pulls.</strong> Pushed in it tunes tens, pulled out it tunes ones. If a digit will not move, check whether the knob is in or out.</li>
+  <li><strong>Two boxes, two switches.</strong> The captain's and first officer's ADFs power up and tune independently. Turning one on does nothing to the other.</li>
+  <li><strong>Use ET for the approach.</strong> Set the missed-approach time as a countdown, start it at the fix, and let the flashing display call the missed approach.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KR 87 ADF Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

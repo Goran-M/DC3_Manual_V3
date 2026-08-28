@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KX 165A NAV/COMM Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Figures (placed screenshots) ──────────────────── */
+  .figure {
+    margin: 1.6rem 0 1.8rem;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .figure figcaption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .figure svg.faceplate {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .fig-legend {
+    columns: 2;
+    column-gap: 2.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .fig-legend li {
+    margin: 0 0 0.3rem;
+    break-inside: avoid;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .fig-legend .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent2);
+    margin-right: 0.5em;
+  }
+
+  /* ── NAV mode strips ───────────────────────────────── */
+  .mode-strips { margin: 1.6rem 0 1.8rem; }
+  .mode-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .mode-name {
+    flex: 0 0 108px;
+    text-align: right;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-accent2);
+    line-height: 1.2;
+  }
+  .mode-strips img {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .mode-ph {
+    flex: 1 1 auto;
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+  }
+  .mode-cap {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KX 165A</h1>
+  <div class="subtitle">Bendix/King Silver Crown Plus NAV/COMM</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KX 165A NAV/COMM as fitted to the DC-3 Modern variant. It is a standalone companion to the main DC-3 Aircraft Operating Manual, written for the pilot who wants to learn the unit cockpit-first: what each knob and button does, how to read the display, and how to fly the common tasks. You do not need any of the rest of the avionics stack to follow it.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#nav-modes">The Five NAV Modes</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#dme">DME</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KX 165A at a glance</div>
+  <p><strong>Type:</strong> VHF NAV/COMM transceiver</p>
+  <p><strong>Family:</strong> Silver Crown Plus</p>
+  <p><strong>COMM:</strong> 118.000&ndash;136.975 MHz</p>
+  <p><strong>8.33 kHz:</strong> Yes (KX 165A feature)</p>
+  <p><strong>NAV:</strong> 108.00&ndash;117.95 MHz, VOR / ILS</p>
+  <p><strong>Channels:</strong> 32 programmable COMM presets</p>
+  <p><strong>Drives:</strong> COM 2 and NAV 2</p>
+</div>
+
+<p>
+The KX 165A is a combined VHF communication and VOR/ILS navigation radio. One box gives you a two-way COMM transceiver and a navigation receiver that can drive a VOR needle, a localizer, and a glideslope. It is the heart of the Modern variant's radio stack, and it represents the kind of upgrade a working DC-3 would have received to keep flying in modern, controlled airspace.
+</p>
+
+<p>
+This is the KX 165A, the 8.33 kHz capable member of the Silver Crown Plus line. It is not the older KX 155 or KX 165. The 165A adds 8.33 kHz COMM channel spacing for European airspace, 32 programmable COMM channels, a built-in VOR/LOC converter that can drive a course indicator directly, five NAV display modes, and a built-in timer. Every one of those features is modeled.
+</p>
+
+<p>
+In this aircraft the KX 165A is wired to X-Plane's second radio stack: it is your <strong>COM 2</strong> and <strong>NAV 2</strong>. That matters when you set up navigation sources or compare it to anything else in the panel.
+</p>
+
+<figure class="figure">
+  <img src="images/kx165a_panel.jpg" alt="The KX 165A NAV/COMM outlined in red in the DC-3 Modern avionics panel">
+  <figcaption>The KX 165A NAV/COMM, top right of the Modern avionics stack.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<h4>Communication Transceiver</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Frequency range</td><td>118.000 &ndash; 136.975 MHz</td></tr>
+  <tr><td>Channel spacing</td><td>25 kHz (760 channels), or 8.33 kHz (2,280 channels)</td></tr>
+  <tr><td>Transmit power</td><td>10 watts</td></tr>
+  <tr><td>Active / standby</td><td>Yes, with transfer (flip-flop) button</td></tr>
+  <tr><td>Programmable channels</td><td>32 COMM presets</td></tr>
+</table>
+
+<h4>Navigation Receiver</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Frequency range</td><td>108.00 &ndash; 117.95 MHz</td></tr>
+  <tr><td>Channel spacing</td><td>50 kHz (200 channels)</td></tr>
+  <tr><td>Capability</td><td>VOR bearing, ILS localizer, ILS glideslope</td></tr>
+  <tr><td>Converter</td><td>Built-in VOR/LOC converter (drives the VOR/ILS course indicator directly)</td></tr>
+  <tr><td>Display modes</td><td>Five, selected with the MODE button</td></tr>
+  <tr><td>Built-in timer</td><td>Elapsed (count-up) and countdown</td></tr>
+</table>
+
+<h4>Power</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Supply</td><td>27.5 VDC, DC Radio Bus</td></tr>
+  <tr><td>Current draw</td><td>0.6 A receive, 6.0 A transmit</td></tr>
+  <tr><td>Required for power</td><td>Avionics master on, electrical power present, COM/NAV (VHF transceiver) breaker closed</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The face splits cleanly down the middle. The left half is COMM, the right half is NAV, and a bright divider bar separates them on the display. Each half has a large display window, a transfer button, and a pair of concentric tuning knobs. The smaller printed labels around the knobs (PULL TEST, PULL 8.33K, PULL IDENT, PULL OBS) are pull functions, described below.
+</p>
+
+<figure class="figure">
+  <img src="images/kx165a_faceplate.jpg" alt="KX 165A faceplate with lettered display callouts A to E and numbered control callouts 1 to 8">
+  <figcaption>The KX 165A faceplate. Lettered markers (A&ndash;E) are the display fields, listed just below; numbered markers (1&ndash;8) are the controls, keyed in the table.</figcaption>
+  <ul class="fig-legend">
+    <li><span class="num">A</span>Active COMM frequency</li>
+    <li><span class="num">B</span>Standby COMM frequency</li>
+    <li><span class="num">C</span>T (transmit) indicator</li>
+    <li><span class="num">D</span>Active NAV frequency</li>
+    <li><span class="num">E</span>Secondary NAV window</li>
+  </ul>
+</figure>
+
+<table>
+  <tr><th>#</th><th>Control</th><th>What it is</th></tr>
+  <tr><td>1</td><td><span class="ctl">COMM ON/OFF/VOL &middot; PULL TEST</span></td><td>Left knob. Sets COMM listening volume. Pull for squelch test.</td></tr>
+  <tr><td>2</td><td><span class="ctl">&#8644; (COMM transfer)</span></td><td>Swaps the active and standby COMM frequencies.</td></tr>
+  <tr><td>3</td><td><span class="ctl">CHAN</span></td><td>Enters/exits COMM channel mode (the 32 presets).</td></tr>
+  <tr><td>4</td><td><span class="ctl">COMM knob &middot; PULL 8.33K</span></td><td>Dual concentric tuning knob. Outer = MHz, inner = kHz. Pull the inner knob for 8.33 kHz spacing.</td></tr>
+  <tr><td>5</td><td><span class="ctl">NAV ID/VOL &middot; PULL IDENT</span></td><td>Sets NAV listening volume. Pull to enable the station identifier (Morse ident) audio.</td></tr>
+  <tr><td>6</td><td><span class="ctl">&#8644; (NAV transfer) &middot; TIMER</span></td><td>Swaps the active and standby NAV frequencies. In Timer mode it resets and starts/stops the timer instead.</td></tr>
+  <tr><td>7</td><td><span class="ctl">MODE</span></td><td>Cycles the NAV display through its five modes.</td></tr>
+  <tr><td>8</td><td><span class="ctl">NAV knob &middot; PULL OBS</span></td><td>Dual concentric tuning knob. Outer = MHz, inner = kHz. Pull the inner knob to set the OBS course.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>COMM ON/OFF/VOL knob (PULL TEST)</h3>
+<p>
+The leftmost knob sets how loud the COMM receiver is in your headset. Turn it down to lower the COMM audio; its OFF detent at the very bottom is the unit's power switch, covered just below. Pull the knob out to run a <strong>squelch test</strong>: the receiver's automatic squelch is defeated and the set opens up, so you hear the raw background static, the rushing open-receiver hiss. Push it back in and the squelch re-engages, and the channel goes quiet again. The static follows the volume knob, louder as you turn it up, quieter toward the OFF detent.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">Where the power comes from</div>
+  <p>This knob is also the unit's master power switch. At its OFF detent, fully counter-clockwise, it powers the whole unit down: COMM, NAV, and the display. So the KX 165A needs three things to come alive: the avionics bus live (avionics master on, electrical power present), the COM/NAV breaker closed, and this knob off the OFF detent. Just above OFF the unit is powered but the COMM audio is still low; keep turning up for volume.</p>
+</div>
+
+<h3>COMM tuning knobs (PULL 8.33K)</h3>
+<p>
+The COMM frequency is set with the dual concentric knob. The <strong>outer</strong> knob steps the megahertz digits (the part left of the decimal). The <strong>inner</strong> knob steps the kilohertz digits (the part right of the decimal) in 25 kHz increments. Tuning always changes the <strong>standby</strong> frequency, never the active one. The frequency wraps around at the ends of the band, so you can spin past 136.975 straight back to 118.000.
+</p>
+<p>
+Pull the inner knob out to engage <strong>8.33 kHz</strong> spacing. The standby frequency snaps to the nearest valid 8.33 kHz channel, and the inner knob now steps through the finer 8.33 kHz channel set. Push the knob back in to return to 25 kHz spacing.
+</p>
+
+<h3>COMM transfer button</h3>
+<p>
+The double-arrow button between the two COMM windows swaps active and standby. Whatever you tuned in the standby window becomes the active frequency you transmit and receive on, and the old active frequency drops into standby. This is how you change COMM frequencies in one motion: pre-tune the next frequency in standby while still talking on the current one, then flip.
+</p>
+
+<h3>CHAN button</h3>
+<p>
+The CHAN button enters and exits COMM channel mode, where you work with the 32 programmable presets. See <a href="#procedures">Operating Procedures</a> for storing and recalling channels.
+</p>
+
+<h3>NAV tuning knobs (PULL OBS)</h3>
+<p>
+The NAV frequency is set the same way as COMM: the <strong>outer</strong> knob steps megahertz, the <strong>inner</strong> knob steps kilohertz in 50 kHz increments, and tuning changes the standby frequency. The band wraps at its ends.
+</p>
+<p>
+Pull the inner knob out for <strong>OBS</strong>. The display jumps to CDI mode and the NAV knobs now set your selected course: the outer knob moves it in 10&deg; steps, the inner knob in 1&deg; steps. Push the knob back in to return the NAV knobs to frequency tuning.
+</p>
+
+<h3>NAV ID/VOL knob (PULL IDENT)</h3>
+<p>
+This knob sets the NAV receiver's audio volume. Pull it out to route the station's Morse identifier into your audio so you can confirm you are tuned to the right navaid. Push it in to silence the ident. It starts pulled out (ident audible).
+</p>
+
+<h3>MODE button</h3>
+<p>
+MODE steps the NAV display through its five modes in order, then wraps back to the start. The modes are covered in <a href="#nav-modes">The Five NAV Modes</a>.
+</p>
+
+<h3>NAV transfer button (TIMER)</h3>
+<p>
+In the four navigation modes, the double-arrow button swaps active and standby NAV frequencies, exactly like the COMM transfer. In Timer mode it changes job: it becomes the timer's reset / start / stop control.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+The display is a single orange readout split into a COMM half and a NAV half by a bright vertical divider. Reading left to right:
+</p>
+
+<table>
+  <tr><th>Field</th><th>Location</th><th>Shows</th></tr>
+  <tr><td>Active COMM</td><td>Far left</td><td>The frequency you transmit and receive on. Format 1XX.XXX.</td></tr>
+  <tr><td>Standby COMM</td><td>Left, inboard</td><td>The pre-tuned frequency waiting to be transferred.</td></tr>
+  <tr><td>T indicator</td><td>Left, near the active COMM</td><td>Lit while you are transmitting (mic keyed).</td></tr>
+  <tr><td>Active NAV</td><td>Right of the divider</td><td>The navaid frequency you are receiving. Format 1XX.XX.</td></tr>
+  <tr><td>Secondary NAV window</td><td>Far right</td><td>Mode-dependent: standby frequency, OBS course, bearing, radial, or timer.</td></tr>
+</table>
+
+<p>
+The secondary NAV window is the one that changes with the MODE button. In the default mode it simply shows the standby NAV frequency. In the other modes it shows course, bearing, radial, or the timer, each of which is described next.
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">Channel mode display</div>
+  <p>When you press CHAN, the standby COMM window changes to show the channel: a "CH" label with the channel number (or "PG" while you are programming a preset), alongside the frequency stored in that channel.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. NAV MODES                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="nav-modes">6. The Five NAV Modes</h2>
+
+<p>
+Pressing MODE cycles the NAV side of the unit through five display modes. The active NAV frequency stays visible the whole time on the left of the NAV section; only the secondary window on the far right changes.
+</p>
+
+<figure class="mode-strips">
+  <div class="mode-row">
+    <div class="mode-name">Standby<br>frequency</div>
+    <img src="images/kx165a_mode_standby.png" alt="KX 165A secondary window in Standby mode: active NAV 110.00 and standby NAV 113.50">
+  </div>
+  <div class="mode-row">
+    <div class="mode-name">CDI<br>(course)</div>
+    <img src="images/kx165a_mode_cdi.png" alt="KX 165A secondary window in CDI mode: course 030 with the deviation scale below">
+  </div>
+  <div class="mode-row">
+    <div class="mode-name">Bearing-To</div>
+    <img src="images/kx165a_mode_bearing.png" alt="KX 165A secondary window in Bearing-To mode: magnetic bearing 030 to the station with the TO tag">
+  </div>
+  <div class="mode-row">
+    <div class="mode-name">Radial-From</div>
+    <img src="images/kx165a_mode_radial.png" alt="KX 165A secondary window in Radial-From mode: radial 210 from the station with the FR tag">
+  </div>
+  <div class="mode-row">
+    <div class="mode-name">Timer</div>
+    <img src="images/kx165a_mode_timer.png" alt="KX 165A secondary window in Timer mode: elapsed/countdown time 12:34">
+  </div>
+  <figcaption class="mode-cap">The secondary NAV window in each of the five MODE positions. The active NAV frequency (left) stays fixed.</figcaption>
+</figure>
+
+<table>
+  <tr><th>Mode</th><th>Secondary window shows</th><th>Use it for</th></tr>
+  <tr><td><strong>Standby frequency</strong></td><td>The standby NAV frequency</td><td>Normal tuning. The default mode.</td></tr>
+  <tr><td><strong>CDI</strong></td><td>The selected OBS course plus a deviation scale</td><td>Setting and flying a VOR radial or ILS inbound course.</td></tr>
+  <tr><td><strong>Bearing-To</strong></td><td>Magnetic bearing TO the station, with "to"</td><td>Quick situational awareness: which way is the navaid.</td></tr>
+  <tr><td><strong>Radial-From</strong></td><td>The radial FROM the station, with "Fr"</td><td>Knowing which VOR radial you are on.</td></tr>
+  <tr><td><strong>Timer</strong></td><td>Elapsed or countdown time, MM:SS</td><td>Timing a holding pattern, an approach leg, or a trip leg.</td></tr>
+</table>
+
+<h4>Standby frequency</h4>
+<p>
+The default mode. The secondary window shows the standby NAV frequency, and the NAV knobs tune it. This is where you live most of the time.
+</p>
+
+<h4>CDI</h4>
+<p>
+CDI mode shows your selected course (the OBS setting) as a three-digit number on the top line, and below it a course-deviation scale of its own: a stepped left/right needle against a dotted scale, with a TO/FROM marker in the centre. On a localizer the top line reads LOC instead of a course, and the centre marker becomes a &gt;&lt; symbol. You can reach this mode either by pressing MODE until it appears, or by pulling the NAV inner knob (PULL OBS), which jumps straight here and hands the NAV knobs to course selection. The same deviation also drives the aircraft's VOR/ILS course indicator, the round course head this radio feeds, so you can read it on the unit or on the course head. When the signal is too weak to use, the window shows FLAG in place of the needle.
+</p>
+
+<h4>Bearing-To</h4>
+<p>
+With a usable VOR signal, this mode shows the magnetic bearing to the station, marked "to". It answers "which direction is the navaid from me right now," independent of any course you have dialed in. Without a usable signal it shows dashes (- - -), with the "to" tag still lit.
+</p>
+
+<h4>Radial-From</h4>
+<p>
+This mode shows the radial you are on, that is, the bearing from the station, marked "Fr". It is the reciprocal of the Bearing-To value. Useful for position reports and for knowing which published radial you are tracking. Without a usable signal it shows dashes (- - -), with the "Fr" tag still lit.
+</p>
+
+<h4>Timer</h4>
+<p>
+The built-in timer is a stopwatch and a countdown clock in one. It is covered step by step in <a href="#procedures">Operating Procedures</a>. The key behavioral note: in Timer mode the NAV transfer button stops being a frequency swap and becomes the timer's reset/start/stop control, and the NAV knobs (while the timer is stopped) set a countdown time.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">7. Operating Procedures</h2>
+
+<h3>Power up</h3>
+<ol>
+  <li>Apply electrical power (battery or ground power) and switch the avionics master on.</li>
+  <li>Confirm the COM/NAV (VHF transceiver) circuit breaker is closed.</li>
+  <li>The display lights and shows the last COMM and NAV frequencies. Set the COMM and NAV volume knobs to a comfortable level.</li>
+</ol>
+
+<h3>Tune and select a COMM frequency</h3>
+<ol>
+  <li>Turn the outer COMM knob to set the megahertz of the standby frequency.</li>
+  <li>Turn the inner COMM knob to set the kilohertz.</li>
+  <li>Press the COMM transfer button to swap the standby into the active window.</li>
+</ol>
+<p>
+You never tune the active frequency directly. Pre-tune in standby, then transfer. This lets you set up the next frequency while still working the current one.
+</p>
+
+<h3>Squelch test (COMM)</h3>
+<ol>
+  <li>Pull the COMM volume knob out. The squelch opens and the open-receiver static fades in.</li>
+  <li>Listen. Hearing the hiss confirms the COM 2 receiver is powered and alive. A weak station too faint to break the squelch on its own can also be read through the static this way.</li>
+  <li>Set your listening level against the steady hiss, turning the knob up for louder, down toward the OFF detent for quieter.</li>
+  <li>Push the knob back in. The squelch re-engages and the channel goes quiet until a transmission comes in.</li>
+</ol>
+<div class="callout note">
+  <div class="callout-title">No static? Check the audio path</div>
+  <p>You will only hear the test hiss when the radio is powered and its audio is actually routed to you: the avionics bus on, the VHF transceiver breaker in, the COMM volume up off its OFF detent, and <strong>COM 2 selected on the audio panel</strong> (the COM2 switch on the microphone panel up, or ON). Cold and dark, a pulled transceiver breaker, the volume fully down, or COM 2 deselected on the audio panel all keep it silent. Remember the KX 165A is your COM 2 radio.</p>
+</div>
+
+<h3>Use 8.33 kHz spacing</h3>
+<ol>
+  <li>Pull the inner COMM knob out (PULL 8.33K). The standby frequency snaps to the nearest valid 8.33 kHz channel.</li>
+  <li>Tune with the inner knob as normal; it now steps through 8.33 kHz channels.</li>
+  <li>Push the knob back in to return to 25 kHz spacing.</li>
+</ol>
+<div class="callout note">
+  <div class="callout-title">When you need 8.33</div>
+  <p>8.33 kHz channel spacing is required in much of European airspace above certain levels. For most of the world, 25 kHz is all you need, and the standby will read in the familiar three-decimal format.</p>
+</div>
+
+<h3>Store and recall COMM channels</h3>
+<p>
+The KX 165A holds 32 programmable COMM presets. In this release the presets reset to their defaults each time the aircraft is reloaded; cross-session persistence is planned for a later update. Use them for the frequencies you tune again and again: your home field, common UNICOM, the en-route centers you work.
+</p>
+<p><strong>To recall a stored channel:</strong></p>
+<ol>
+  <li>Press <strong>CHAN</strong>. The standby window switches to channel view, showing a "CH" label with the channel number and that channel's stored frequency.</li>
+  <li>Turn the COMM tuning knob, either ring, to scroll through the channels. Each channel's stored frequency appears in standby as you pass it, and the list wraps around from 32 back to 1.</li>
+  <li>Press the <strong>COMM transfer button</strong> to make the selected channel's frequency active. That also leaves channel mode. To back out without changing anything, press <strong>CHAN</strong> again instead. Channel mode also releases on its own after about five seconds with no input, leaving the selected frequency sitting in standby.</li>
+</ol>
+<p><strong>To program a channel:</strong></p>
+<ol>
+  <li>Hold the <strong>CHAN</strong> button for about two seconds to enter program mode. The standby window shows the channel number and its stored frequency.</li>
+  <li>Turn the COMM tuning knob, either ring, to select the channel (1 to 32) you want to program.</li>
+  <li>Press the <strong>COMM transfer button</strong> to switch from selecting the channel to editing its frequency.</li>
+  <li>Tune the frequency with the COMM knobs, the outer ring for MHz and the inner for kHz. It is written to the channel as you tune. Press the transfer button again to step back to channel selection if you want to program another.</li>
+  <li>Press <strong>CHAN</strong> to leave program mode. Your previous active and standby frequencies return, and your stored channels are kept. Program mode also releases on its own after about twenty seconds with no input.</li>
+</ol>
+
+<h3>Tune a NAV frequency</h3>
+<ol>
+  <li>If the NAV display is not already on Standby mode, the secondary window still shows what you need; tuning works in any mode where the NAV knobs are assigned to frequency.</li>
+  <li>Turn the outer NAV knob for megahertz, the inner NAV knob for kilohertz (50 kHz steps).</li>
+  <li>Press the NAV transfer button to make the standby frequency active.</li>
+  <li>Pull the NAV ID/VOL knob (PULL IDENT) and listen for the station's Morse identifier to confirm you are tuned to the right navaid.</li>
+</ol>
+
+<h3>Set a course (OBS)</h3>
+<ol>
+  <li>Pull the NAV inner knob out (PULL OBS). The display switches to CDI mode.</li>
+  <li>Set the course with the NAV knobs: outer knob in 10&deg; steps, inner knob in 1&deg; steps.</li>
+  <li>Read your lateral deviation on the VOR/ILS course indicator; the unit's CDI window shows the course you have selected.</li>
+  <li>Push the knob back in to return the NAV knobs to frequency tuning.</li>
+</ol>
+
+<h3>Check bearing or radial</h3>
+<ol>
+  <li>With a navaid tuned and identified, press MODE to step to Bearing-To. The window shows the magnetic bearing to the station, marked "to".</li>
+  <li>Press MODE again for Radial-From. The window shows the radial you are on, marked "Fr".</li>
+  <li>Press MODE as needed to return to Standby or to continue to Timer.</li>
+</ol>
+
+<h3>Run the timer</h3>
+<p><strong>As a stopwatch (count up):</strong></p>
+<ol>
+  <li>Press MODE until the Timer window appears (MM:SS).</li>
+  <li>With the timer stopped and reading 00:00, press the NAV transfer button. The timer resets to zero and starts counting up.</li>
+  <li>Press the NAV transfer button again to stop it.</li>
+</ol>
+<p><strong>As a countdown:</strong></p>
+<ol>
+  <li>In Timer mode, with the timer stopped, set the countdown time with the NAV knobs: outer knob = minutes, inner knob = seconds.</li>
+  <li>Press the NAV transfer button. The timer resets to your preset and counts down.</li>
+  <li>It stops automatically at 00:00. Press the NAV transfer button at any time to stop it early.</li>
+</ol>
+<div class="callout tip">
+  <div class="callout-title">Up or down</div>
+  <p>The timer counts up when its preset is 00:00, and counts down when you have dialed in any non-zero time. Leave it at zero for a holding-pattern stopwatch, or set a time for an approach leg. The timer only runs while the unit is powered.</p>
+</div>
+
+<h3>Transmit</h3>
+<p>
+Key the microphone as normal to transmit on the active COMM frequency. The T indicator lights while you are keyed. Release to return to receive.
+</p>
+<div class="callout caution">
+  <div class="callout-title">Stuck microphone</div>
+  <p>If the microphone is keyed continuously for more than 33 seconds, the unit treats it as a stuck mic. The transmitter is judged stuck, the T indicator drops, and a stuck-mic alert appears until you release the key. This protects the frequency from a jammed transmitter blocking everyone else. Release the mic to clear it.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. DME                                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="dme">8. DME</h2>
+
+<p>
+The KX 165A channels a separate DME, the KDI 572, from its NAV frequency. When you tune a VOR/DME or an ILS/DME on the NAV side, the paired DME is selected automatically and its distance, groundspeed, and time-to-station appear on the DME's own indicator, not on the KX 165A. The KX 165A itself does not have a DME readout or a DME-hold button on its face; for DME operation and DME hold, see the KDI 572 guide.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. POP-OUT                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">9. Popping the Unit Out</h2>
+
+<p>
+The KX 165A can be opened in its own floating window, handy for tuning on a second monitor, working it in VR, or just getting a closer look. In X-Plane's keyboard or joystick settings, find the command named "Toggle KX 165A popup" and bind it to a key or controller button. Press it to open the window; press it again to close it.
+</p>
+
+<p>
+Inside the window every control works exactly as it does in the cockpit: click the buttons, and roll the mouse wheel over a knob to turn it. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize anywhere on screen, with the bezel letterboxed so the faceplate keeps its proportions.
+</p>
+
+<p>
+The KX 165A also appears in the unified <strong>Avionics Stack</strong> popup, a single window that shows the whole Modern radio stack at once with every screen live and every control working. The stack and this unit's own popup coexist, and both stay in sync with the panel, so you can run whichever suits your setup. The Avionics Stack is covered in the main DC-3 Aircraft Operating Manual.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. INDICATIONS                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">10. Normal and Abnormal Indications</h2>
+
+<h4>Healthy display</h4>
+<p>
+A working, powered KX 165A shows a steady orange readout: active and standby COMM on the left, active NAV plus the selected secondary window on the right, with the bright divider between them. The T indicator is dark unless you are transmitting.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Display is dark</td><td>No power. Avionics master off, no electrical power, or the COM/NAV breaker is open.</td><td>Restore avionics power and check the breaker.</td></tr>
+  <tr><td>No station identifier when PULL IDENT is out</td><td>You are not receiving a usable navaid, or the volume is down.</td><td>Recheck the frequency, the volume, and that you are within range of the station.</td></tr>
+  <tr><td>Bearing-To / Radial-From blank or static</td><td>No usable VOR signal.</td><td>These modes need a received VOR. Confirm tuning, range, and terrain.</td></tr>
+  <tr><td>T indicator stays on / stuck-mic alert</td><td>The mic has been keyed past 33 seconds.</td><td>Release the microphone. The alert clears when the key is released.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Signal is terrain-aware</div>
+  <p>NAV reception in the DC-3 is modeled with terrain-aware propagation, not a simple in-range / out-of-range switch. A station behind a ridge can fade or drop even when the map says you are within range. If a navaid is weak, climbing or repositioning to clear the terrain often restores it.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">11. Notes and Tips</h2>
+
+<ul>
+  <li><strong>It drives the VOR/ILS course indicator.</strong> The KX 165A is COM 2 / NAV 2, and on this aircraft it feeds the panel's round VOR/ILS course indicator, separate from the HSI. The HSI and the KAP 140 autopilot follow the GNS 530, so tune the KX 165A when you navigate on the VOR head.</li>
+  <li><strong>Pre-tune, then transfer.</strong> Both COMM and NAV tuning act on the standby window. Get into the habit of setting the next frequency in standby and flipping it when you need it.</li>
+  <li><strong>Identify before you trust it.</strong> Pull IDENT and confirm the Morse callsign before you navigate on any VOR or localizer.</li>
+  <li><strong>The timer follows you.</strong> The timer keeps running in the background even when you switch the NAV display to another mode. Switch back to Timer mode any time to read it.</li>
+  <li><strong>8.33 is optional.</strong> Leave the unit in 25 kHz spacing unless you are flying where 8.33 kHz channels are assigned.</li>
+  <li><strong>Volume versus power.</strong> The volume knobs set listening level only. The radios are powered from the avionics bus, so turning a volume knob fully down mutes that side without switching the unit off.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KX 165A NAV/COMM Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

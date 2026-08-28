@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KT 73 Transponder Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Figures (placed screenshots) ──────────────────── */
+  .figure {
+    margin: 1.6rem 0 1.8rem;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .figure figcaption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .figure svg.faceplate {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .fig-legend {
+    columns: 2;
+    column-gap: 2.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .fig-legend li {
+    margin: 0 0 0.3rem;
+    break-inside: avoid;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .fig-legend .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent2);
+    margin-right: 0.5em;
+  }
+
+  /* ── Display strips ────────────────────────────────── */
+  .mode-strips { margin: 1.6rem 0 1.8rem; }
+  .mode-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .mode-name {
+    flex: 0 0 108px;
+    text-align: right;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-accent2);
+    line-height: 1.2;
+  }
+  .mode-strips img {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .mode-ph {
+    flex: 1 1 auto;
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+  }
+  .mode-cap {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KT 73</h1>
+  <div class="subtitle">Bendix/King Mode S Datalink Transponder</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KT 73 transponder as fitted to the DC-3 Modern variant, a standalone companion to the main DC-3 Aircraft Operating Manual. The KT 73 is the box that answers when ground radar asks "who are you, and how high," and on this aircraft it is a study-level recreation of the real unit: the cursor-based code entry, the eight-character Flight ID, the mode chain, the reply and ident logic, and the power gating are all modeled. This guide walks through setting a squawk, identing, the flight ID, the modes, and what every part of the display means.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#modes">The Modes</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#codes">Squawk Codes and the Flight ID</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KT 73 at a glance</div>
+  <p><strong>Type:</strong> Mode S datalink transponder</p>
+  <p><strong>Family:</strong> Silver Crown Plus</p>
+  <p><strong>Replies:</strong> Mode A, Mode C, Mode S</p>
+  <p><strong>Flight ID:</strong> 8 characters</p>
+  <p><strong>Entry:</strong> Cursor-based (CRSR + DATA)</p>
+  <p><strong>Display:</strong> Gas-discharge, auto-dimming</p>
+  <p><strong>Power:</strong> DC Radio Bus, TRANSPONDER breaker</p>
+</div>
+
+<p>
+A transponder is half of the conversation that lets air traffic control see you as more than a blip. The ground station interrogates, your transponder replies, and your four-digit code and pressure altitude appear next to your target on the controller's scope. Without it you are a primary radar return at best, an anonymous smudge; with it you are a tagged, altitude-reporting aircraft that ATC can sequence and separate.
+</p>
+
+<p>
+The KT 73 is a Mode S unit, and that word matters. Mode S ("Select") transponders carry a unique 24-bit address baked into each airframe, so the ground station can address your aircraft individually instead of shouting to everyone in the beam and sorting out the overlapping replies. Mode S also carries a datalink and an eight-character <strong>Flight ID</strong> that ties your radar return to your callsign or registration. This is the foundation that elementary surveillance is built on, and the same selective-addressing scheme that ADS-B later grew out of. It is exactly the kind of box a DC-3 still earning its keep in modern controlled airspace would carry.
+</p>
+
+<p>
+This is the KT 73, the Mode S datalink member of the Silver Crown Plus line. It replaced the earlier KT 76 in this panel, and it is not that older unit: instead of four little octal knobs for the code, the KT 73 uses a cursor you drive across the display, and it adds the Flight ID that a Mode A/C-only transponder never had.
+</p>
+
+<figure class="figure">
+  <img src="images/kt73_panel.jpg" alt="The KT 73 transponder ringed in the DC-3 Modern instrument panel, on the right side of the avionics stack.">
+  <figcaption>The KT 73 transponder, on the right side of the Modern avionics stack, below the KX 165A.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Reply modes</td><td>Mode A (code), Mode C (code + altitude), Mode S (selective, datalink)</td></tr>
+  <tr><td>Squawk code</td><td>Four octal digits (0&ndash;7 each), 4096 possible codes</td></tr>
+  <tr><td>Flight ID</td><td>Up to 8 alphanumeric characters</td></tr>
+  <tr><td>Altitude reporting</td><td>Pressure altitude, shown as a flight level in ALT mode</td></tr>
+  <tr><td>Ident duration</td><td>About 18 seconds</td></tr>
+  <tr><td>Brightness</td><td>Auto-dimming, with manual adjustment (up to 8 carets, default 4)</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Power: why is it dark?</div>
+  <p>The KT 73 is powered from the DC Radio Bus through its own TRANSPONDER circuit breaker. If the display is blank, the usual cause is no avionics power (master off, or the bus is dead) or that breaker being open. The faceplate legends are lit separately, on the radio-panel lighting circuit, so the engraved labels can glow at night even when the unit itself is unpowered.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The KT 73 is a single low box: a display across the top, four knobs along the bottom, the function selector on the right, and two buttons. The display does double duty depending on mode, which is why the four knobs are about moving a cursor and changing what sits under it rather than one knob per digit.
+</p>
+
+<figure class="figure">
+  <div class="image-placeholder">
+    <span class="label">[IMAGE: KT 73 faceplate, fully labeled]</span>
+    <span class="description">Front view of the KT 73 with the display fields lettered A&ndash;F (slate-blue markers) and the controls numbered 1&ndash;7 (red markers), matching the legend and the table below.</span>
+  </div>
+  <figcaption>The KT 73 faceplate. Lettered markers (A&ndash;F) are the display fields, listed just below; numbered markers (1&ndash;7) are the controls, keyed in the table.</figcaption>
+  <ul class="fig-legend">
+    <li><span class="num">A</span>Altitude / flight-level window (left cells)</li>
+    <li><span class="num">B</span>ID code window (right cells)</li>
+    <li><span class="num">C</span>IDT (ident annunciator)</li>
+    <li><span class="num">D</span>FLT (Flight ID mode annunciator)</li>
+    <li><span class="num">E</span>R (reply lamp)</li>
+    <li><span class="num">F</span>Cursor caret (edit position)</li>
+  </ul>
+</figure>
+
+<table>
+  <tr><th>#</th><th>Control</th><th>What it is</th></tr>
+  <tr><td>1</td><td><span class="ctl">IDT</span></td><td>Ident button. Sends the ident pulse when ATC asks you to "ident."</td></tr>
+  <tr><td>2</td><td><span class="ctl">CRSR</span></td><td>Cursor knob. Moves the cursor across the code digits or the Flight ID characters.</td></tr>
+  <tr><td>3</td><td><span class="ctl">FLT ID</span></td><td>Sets the Flight ID character under the cursor (in FLT ID mode).</td></tr>
+  <tr><td>4</td><td><span class="ctl">DATA</span></td><td>Sets the squawk digit under the cursor (0 through 7).</td></tr>
+  <tr><td>5</td><td><span class="ctl">BRT</span></td><td>Display brightness, adjusted in TST mode.</td></tr>
+  <tr><td>6</td><td><span class="ctl">Function selector</span></td><td>The mode knob on the right: OFF, FLT ID, SBY, TST, GND, ON, ALT.</td></tr>
+  <tr><td>7</td><td><span class="ctl">VFR</span></td><td>Recalls the VFR code with one press; holds to restore the previous code.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>Function selector knob</h3>
+<p>
+The big knob on the right selects what the transponder is doing. Turning it clockwise steps through OFF, FLT ID, SBY, TST, GND, ON, and ALT. Each is covered in <a href="#modes">The Modes</a>. For normal flight you live in ALT.
+</p>
+
+<h3>CRSR and DATA (setting the code)</h3>
+<p>
+The code is set with two knobs working together. CRSR moves a cursor under the four code digits; DATA changes the digit the cursor is sitting on. Because transponder codes are octal, each digit runs 0 through 7 and wraps, so you will never dial an 8 or a 9. Move the cursor to a digit, spin it to the value you want, move to the next, and so on.
+</p>
+
+<h3>FLT ID</h3>
+<p>
+In FLT ID mode the cursor moves across the eight Flight ID characters instead of the code digits, and the FLT ID knob cycles the character under the cursor through a blank, the letters A to Z, and the digits 0 to 9. This is how you spell out your callsign or registration.
+</p>
+
+<h3>BRT</h3>
+<p>
+The display dims itself to the ambient light, but you can trim it by hand. Brightness is adjusted in TST mode: turn the function selector to TST, then turn BRT to taste. A row of small carets under the readout shows the level: the number lit is the setting, from none up to eight, and four is the factory default. Pressing IDT while in TST snaps the brightness back to that default.
+</p>
+
+<h3>IDT (ident)</h3>
+<p>
+When a controller says "ident," press IDT. It sends the special position-identification pulse that makes your target bloom on the controller's scope so they can pick you out. The annunciation stays lit for about 18 seconds and then clears itself. Ident works in the replying modes (GND, ON, ALT); in TST it does the brightness-reset job instead.
+</p>
+
+<h3>VFR</h3>
+<p>
+One press of VFR recalls the VFR conspicuity code (1200 in the United States, 7000 across much of the rest of the world) and puts it straight into the active code, replacing whatever you had. Pressed it by accident? Hold VFR for about two seconds and it puts your previous code back. The VFR code itself is configurable in the DC-3's options, so it matches the region you fly.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+The display has two windows and a few annunciations. The right window almost always shows your code; the left window shows your altitude when you are reporting it, and the mode name otherwise.
+</p>
+
+<table>
+  <tr><th>Element</th><th>Location</th><th>Shows</th></tr>
+  <tr><td>Altitude window</td><td>Left cells</td><td>In ALT mode, your flight level (FL followed by hundreds of feet). In other modes, the mode name (SBY, GND, FLT ID) or blank.</td></tr>
+  <tr><td>ID code window</td><td>Right cells</td><td>The active four-digit squawk code.</td></tr>
+  <tr><td>IDT</td><td>Lower left</td><td>Lit for about 18 seconds after you press the ident button.</td></tr>
+  <tr><td>FLT</td><td>Upper left</td><td>Lit while the function selector is in FLT ID and you are editing the aircraft ID.</td></tr>
+  <tr><td>Reply "R"</td><td>Far right</td><td>Flashes each time the transponder answers an interrogation, and pulses during the TST self-test.</td></tr>
+  <tr><td>Cursor</td><td>Under the active cell</td><td>The edit caret. Marks the code digit or Flight ID character you are changing.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Flight level, not your altimeter</div>
+  <p>The altitude the KT 73 reports, and shows in ALT mode, is pressure altitude referenced to the standard 29.92, the same datum every transponder uses so that ATC sees everyone on a common scale. It will not match your baro-corrected altimeter when the local pressure is off standard. That is normal and correct; the controller's computer applies the local correction at their end.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. MODES                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="modes">6. The Modes</h2>
+
+<p>
+The function selector steps through seven positions. Most flights only ever use SBY on the ground and ALT in the air, but each position has a purpose.
+</p>
+
+<table>
+  <tr><th>Mode</th><th>Replies?</th><th>What it does</th></tr>
+  <tr><td><strong>OFF</strong></td><td>No</td><td>Unit off.</td></tr>
+  <tr><td><strong>FLT ID</strong></td><td>No</td><td>Displays and edits the eight-character Flight ID. Does not transmit.</td></tr>
+  <tr><td><strong>SBY</strong></td><td>No</td><td>Standby. Powered and warm, but inhibited from replying. The ground state.</td></tr>
+  <tr><td><strong>TST</strong></td><td>No</td><td>Self-test. Lights all segments, runs internal checks, then shows -TEST OK.</td></tr>
+  <tr><td><strong>GND</strong></td><td>Limited</td><td>Ground. Mode S only, suppresses the older replies that would clutter the surface picture.</td></tr>
+  <tr><td><strong>ON</strong></td><td>Yes</td><td>Replies with your code, but not your altitude.</td></tr>
+  <tr><td><strong>ALT</strong></td><td>Yes</td><td>Replies with code and altitude. Normal flight.</td></tr>
+</table>
+
+<h4>OFF</h4>
+<p>
+No power to the unit. The faceplate legends can still glow at night on the lighting circuit, but the transponder is doing nothing.
+</p>
+
+<h4>FLT ID</h4>
+<p>
+A dedicated mode for entering the Flight ID, the callsign or registration that identifies you on a Mode S display. The transponder does not reply while you are in here; set the ID, then turn back to a replying mode. See <a href="#codes">Squawk Codes and the Flight ID</a> for the procedure.
+</p>
+
+<h4>SBY (standby)</h4>
+<p>
+The transponder is energized and ready but will not answer interrogations. This is where you leave it on the ramp and during taxi at a field that does not want transponders replying on the ground. The code stays visible so you can set it before you need it.
+</p>
+
+<h4>TST (test)</h4>
+<p>
+A self-test. The display lights every segment for several seconds so you can confirm nothing is burned out, the unit runs its internal checks, and then shows -TEST OK. The self-test always passes in this aircraft, so you will not see a fault code. TST is also where you adjust display brightness with the BRT knob.
+</p>
+
+<h4>GND (ground)</h4>
+<p>
+A Mode S nicety for busy airports. In GND the transponder still answers selective Mode S interrogations and emits its squitter, so surface-movement radar can see it, but it suppresses the older all-call replies that would otherwise clutter the ground picture. Use it while taxiing where it is called for.
+</p>
+
+<h4>ON</h4>
+<p>
+The transponder replies with your code but withholds altitude. The altitude window goes blank. You will rarely need this; it exists for the case where altitude reporting is unreliable or specifically not wanted.
+</p>
+
+<h4>ALT</h4>
+<p>
+The normal in-flight mode. The transponder replies with both your code and your pressure altitude, and the altitude window shows your flight level. Unless told otherwise, this is where the selector belongs in the air.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">7. Operating Procedures</h2>
+
+<h3>Power up and standby</h3>
+<ol>
+  <li>With avionics power on and the TRANSPONDER breaker closed, turn the function selector out of OFF to SBY. The display lights.</li>
+  <li>Confirm or set your assigned code (below). Leave the selector in SBY until you are ready to depart.</li>
+</ol>
+
+<h3>Set a squawk code</h3>
+<ol>
+  <li>Turn CRSR to move the cursor to the first digit you want to change.</li>
+  <li>Turn DATA to set that digit (0 through 7).</li>
+  <li>Repeat for the remaining digits until the code matches your clearance.</li>
+</ol>
+
+<h3>Squawk VFR</h3>
+<ol>
+  <li>Press VFR. The code jumps to the VFR conspicuity code in one step.</li>
+  <li>To undo an accidental press, hold VFR for about two seconds to restore the previous code.</li>
+</ol>
+
+<h3>Go active for flight</h3>
+<ol>
+  <li>Entering the runway, turn the function selector to ALT.</li>
+  <li>Confirm the reply "R" begins flashing as ATC interrogates you, and that your flight level reads in the altitude window.</li>
+</ol>
+
+<h3>Ident</h3>
+<ol>
+  <li>When ATC says "ident," press IDT once.</li>
+  <li>IDT lights for about 18 seconds and clears on its own. One press is enough; you do not hold it.</li>
+</ol>
+
+<h3>Run the self-test</h3>
+<ol>
+  <li>Turn the function selector to TST. Every display segment lights for several seconds.</li>
+  <li>Wait for the test to finish; it always passes here and shows -TEST OK.</li>
+  <li>Turn back to your operating mode.</li>
+</ol>
+
+<h3>Adjust display brightness</h3>
+<ol>
+  <li>Turn the function selector to TST.</li>
+  <li>Turn BRT clockwise to brighten, counter-clockwise to dim. The carets show the level.</li>
+  <li>Turn the selector back out of TST to keep the setting. To reset to the factory default, press IDT while in TST.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. CODES & FLIGHT ID                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="codes">8. Squawk Codes and the Flight ID</h2>
+
+<h4>The code</h4>
+<p>
+A transponder code is four octal digits, each 0 to 7, which is why there are 4096 of them and not ten thousand. ATC assigns you one; you set it with CRSR and DATA. A handful are reserved and worth knowing by heart:
+</p>
+
+<table>
+  <tr><th>Code</th><th>Meaning</th></tr>
+  <tr><td><strong>1200</strong></td><td>VFR (United States). The default uncontrolled-flight code.</td></tr>
+  <tr><td><strong>7000</strong></td><td>VFR (much of the rest of the world).</td></tr>
+  <tr><td><strong>7500</strong></td><td>Unlawful interference (hijack).</td></tr>
+  <tr><td><strong>7600</strong></td><td>Radio communication failure.</td></tr>
+  <tr><td><strong>7700</strong></td><td>Emergency.</td></tr>
+</table>
+
+<div class="callout caution">
+  <div class="callout-title">Mind the sevens</div>
+  <p>Because you dial the code one digit at a time, be deliberate when passing through the 7x00 range. Briefly landing on 7500, 7600, or 7700 while setting an unrelated code can light up a controller's alarm. Set the leftmost digit last when you can, or just be quick about it.</p>
+</div>
+
+<h4>The Flight ID</h4>
+<p>
+The Flight ID is the eight-character identity Mode S radar shows beside your target: your callsign for an airline or charter flight, or your aircraft registration otherwise. Setting it:
+</p>
+<ol>
+  <li>Turn the function selector to FLT ID. The current ID appears, and the transponder stops replying while you are here.</li>
+  <li>Turn CRSR to place the cursor under the character you want to change.</li>
+  <li>Turn FLT ID to cycle that character through blank, A to Z, and 0 to 9.</li>
+  <li>Work across all eight characters. The ID is saved when you turn the selector back to a normal mode, or after the knobs sit idle for a few seconds.</li>
+</ol>
+
+<div class="callout tip">
+  <div class="callout-title">Programming a different VFR code</div>
+  <p>If you fly where the VFR code is not the factory 1200, you can teach the VFR button a new one. Put the selector in SBY, dial the code you want, hold IDT, and tap VFR. From then on the VFR button recalls that code. The VFR code is also exposed in the DC-3's options so you can set it there once for your region.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. POP-OUT                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">9. Popping the Unit Out</h2>
+
+<p>
+Every unit in the Modern avionics stack can be opened in its own floating window, which is handy for tuning on a second monitor, working the box in VR, or just getting a closer look without leaning into the panel. In X-Plane's keyboard or joystick settings, find the command named "Toggle KT 73 popup" and bind it to a key or controller button. Press it to open the window; press it again to close it.
+</p>
+
+<p>
+Inside the window every control works exactly as it does in the cockpit: click the buttons, and roll the mouse wheel over a knob to turn it. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize anywhere on screen, with the bezel letterboxed so the faceplate keeps its proportions.
+</p>
+
+<p>
+The KT 73 also appears in the unified <strong>Avionics Stack</strong> popup, a single window that shows the whole Modern radio stack at once with every screen live and every control working. That stack window and this unit's own popup coexist, and both stay in sync with the panel, so you can run whichever suits your setup. The Avionics Stack is covered in the main DC-3 Aircraft Operating Manual.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. INDICATIONS                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">10. Normal and Abnormal Indications</h2>
+
+<h4>Healthy operation</h4>
+<p>
+A working KT 73 in flight sits in ALT, showing your code on the right and your flight level on the left, with the reply "R" winking each time ATC interrogates you. No dashes in the altitude window, just a steady code.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Display dark</td><td>No power: avionics off, the bus is dead, or the TRANSPONDER breaker is open.</td><td>Restore avionics power and check the breaker.</td></tr>
+  <tr><td>Dashes in the altitude window</td><td>In ALT mode, the altitude source is invalid or out of range.</td><td>The code still works; altitude reporting does not until the source is valid.</td></tr>
+  <tr><td>No reply "R" in flight</td><td>The selector is in SBY or OFF, or you are not being interrogated.</td><td>Confirm the selector is in ALT and that you are in radar coverage.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">11. Notes and Tips</h2>
+
+<ul>
+  <li><strong>SBY on the ground, ALT in the air.</strong> Set your code in standby, switch to ALT entering the runway, and back to standby clearing the runway after landing.</li>
+  <li><strong>Octal only.</strong> Code digits run 0 to 7. If you are reaching for an 8 or 9, you are reading the clearance wrong.</li>
+  <li><strong>Ident is one press.</strong> Tap IDT and let it time out. Holding it does nothing extra.</li>
+  <li><strong>Flight level is meant to differ from your altimeter.</strong> The transponder reports on the standard 29.92 datum, so off-standard days will show a different number. That is correct.</li>
+  <li><strong>Set the Flight ID once.</strong> Enter your callsign or registration in FLT ID mode and leave it; it is part of your identity on a Mode S scope.</li>
+  <li><strong>Brightness lives in TST.</strong> If the display is too bright or too dim, that is the one place to fix it.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KT 73 Transponder Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

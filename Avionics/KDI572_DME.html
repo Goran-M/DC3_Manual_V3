@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KDI 572 DME Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KDI 572</h1>
+  <div class="subtitle">Bendix/King DME Indicator</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KDI 572 distance measuring equipment as fitted to the DC-3 Modern variant, a standalone companion to the main DC-3 Aircraft Operating Manual. The KDI 572 is the head that shows how far you are from a station, how fast you are closing on it, and how long until you get there. The Modern panel carries two, one per pilot, each channeling from the NAV radios and each with the HOLD trick that keeps the DME locked to a station while you tune an ILS. All of it is modeled, including slant range, the search behavior, and the signal memory.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#channeling">The Function Selector and Channeling</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#slant">Slant Range, Groundspeed, and Time</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KDI 572 at a glance</div>
+  <p><strong>Type:</strong> DME indicator (master for a KN 63 transceiver)</p>
+  <p><strong>Reads:</strong> Distance, groundspeed, time-to-station</p>
+  <p><strong>Distance:</strong> Slant range, to 389 nm</p>
+  <p><strong>Channeling:</strong> From NAV 1, NAV 2, or HOLD</p>
+  <p><strong>Control:</strong> One four-position selector</p>
+  <p><strong>Units fitted:</strong> Two (pilot and copilot)</p>
+  <p><strong>Power:</strong> Function selector + DME breaker, DC Radio Bus</p>
+</div>
+
+<p>
+Distance measuring equipment answers a question a bearing cannot: not just which way to the station, but how far. The airborne set sends a pulse pair to a ground beacon, the beacon answers, and the box times the round trip and turns it into a distance. Pair that distance with a VOR radial and you have a fix from a single station; read how the distance changes and you also get your groundspeed and your time to the station, all three at once.
+</p>
+
+<p>
+The KDI 572 is the cockpit indicator, the master unit, for a KN 63 remote DME transceiver tucked away in the airframe. It does not have its own tuning; instead it channels from one of the NAV radios, so whatever VOR, VORTAC, or ILS/DME you tune on the NAV side, the DME follows. On this aircraft, two of them are fitted, one for each pilot, and they work independently. A DC-3 kept current for instrument work would carry exactly this: a simple, reliable distance readout slaved to the navigation radios.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: KDI 572 pair in the Modern panel]</span>
+  <span class="description">The two KDI 572 indicators in their installed positions in the DC-3 Modern instrument panel, with callouts identifying DME 1 (pilot) and DME 2 (copilot).</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Distance</td><td>Slant range, 0.1 nm steps to 99.9 nm, then 1 nm steps to 389 nm</td></tr>
+  <tr><td>Groundspeed</td><td>Closing speed, to 999 kt</td></tr>
+  <tr><td>Time-to-station</td><td>To 99 minutes</td></tr>
+  <tr><td>Channeling</td><td>NAV 1, NAV 2, or HOLD</td></tr>
+  <tr><td>Search time</td><td>About one second to lock on</td></tr>
+  <tr><td>Units fitted</td><td>Two, independent: DME 1 (pilot), DME 2 (copilot)</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Power: the selector is the switch</div>
+  <p>Each KDI 572 is turned on by rotating its function selector off OFF. Beyond that it needs avionics power on the DC Radio Bus and its own DME circuit breaker closed (the two units are on separate breakers). A dark indicator usually means the selector is in OFF; then check the breaker and the avionics master.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The KDI 572 is about as simple as a panel unit gets: a display with three numbers and a single rotary selector. There is nothing to tune here, which is the whole idea, the tuning lives on the NAV radios.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: KDI 572 faceplate, fully labeled]</span>
+  <span class="description">Front view of the KDI 572 with callouts: distance window (NM), groundspeed window (KT), time-to-station window (MIN), the RNV annunciator, and the four-position function selector (OFF / N1 / HLD / N2).</span>
+</div>
+
+<table>
+  <tr><th>Element</th><th>What it is</th></tr>
+  <tr><td><span class="ctl">Distance (NM)</span></td><td>Left readout. Slant range to the station.</td></tr>
+  <tr><td><span class="ctl">Groundspeed (KT)</span></td><td>Centre readout. Closing speed on the station.</td></tr>
+  <tr><td><span class="ctl">Time (MIN)</span></td><td>Right readout. Minutes to the station.</td></tr>
+  <tr><td><span class="ctl">RNV</span></td><td>RNAV annunciator. Dark on this aircraft (no RNAV computer).</td></tr>
+  <tr><td><span class="ctl">Function selector</span></td><td>OFF / N1 / HLD / N2. Powers the unit and chooses the channeling source.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>The function selector</h3>
+<p>
+One knob runs the whole unit. It is a four-position rotary with stops at each end, and it steps OFF, N1, HLD, N2 from left to right:
+</p>
+<ul>
+  <li><strong>OFF</strong> turns the unit off and the display dark.</li>
+  <li><strong>N1</strong> channels the DME from the NAV 1 radio.</li>
+  <li><strong>N2</strong> channels the DME from the NAV 2 radio.</li>
+  <li><strong>HLD</strong> holds the DME on whatever it was last channeled to, even when you retune the NAV radios.</li>
+</ul>
+<p>
+Because the positions are in a fixed sequence, HOLD sits between N1 and N2: you reach it by turning toward HOLD from whichever source you want to keep. Coming from N1 it holds NAV 1 and shows <strong>1H</strong>; coming from N2 it holds NAV 2 and shows <strong>H2</strong>. The channeling section below walks through why that matters.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+Three numbers, shown together: distance on the left in nautical miles, groundspeed in the middle in knots, time-to-station on the right in minutes. Until the unit locks onto a station, all three show dashes.
+</p>
+
+<table>
+  <tr><th>Indication</th><th>Meaning</th></tr>
+  <tr><td>Dashes in all windows</td><td>Searching, or no usable signal. Lock-on takes about a second.</td></tr>
+  <tr><td>Distance and a low groundspeed, time dashed</td><td>Locked on, but not tracking toward or away from the station: the time-to-station is no longer meaningful and dashes, while the groundspeed reads low.</td></tr>
+  <tr><td>All three reading</td><td>Locked on and closing on the station: distance, groundspeed, and time-to-station.</td></tr>
+  <tr><td>1H or H2</td><td>The DME is in HOLD, channeled to the held NAV 1 (1H) or NAV 2 (H2) source.</td></tr>
+  <tr><td>RNV</td><td>Would indicate RNAV channeling. It stays dark on this aircraft.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">A short memory</div>
+  <p>If the signal drops out for a moment, the readout coasts on its last value for a few seconds rather than flashing straight to dashes. This keeps the numbers steady through brief interruptions; if the signal is truly gone, the windows revert to dashes after the memory expires.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. CHANNELING                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="channeling">6. The Function Selector and Channeling</h2>
+
+<p>
+The KDI 572 has no frequency of its own. It borrows one from a NAV radio, and the selector decides which.
+</p>
+
+<h4>N1 and N2</h4>
+<p>
+In N1 the DME channels from the NAV 1 radio; in N2 it channels from NAV 2. On the Modern panel, NAV 1 is the GNS 530's VLOC side and NAV 2 is the KX 165A. Whenever you retune the selected NAV radio, the DME retunes itself immediately to match, so you simply tune the VOR or VORTAC you want on the NAV side and pick the matching source here.
+</p>
+
+<h4>HOLD, and why it exists</h4>
+<p>
+HOLD is the clever part. Put the selector in HLD and the DME freezes on whatever station it was last channeled to, ignoring any later changes to the NAV radios. The annunciation tells you which source is frozen: 1H for NAV 1, H2 for NAV 2.
+</p>
+<p>
+This earns its keep on an instrument approach. Many ILS frequencies have no DME of their own, and on an approach you may need both NAV radios tuned to the ILS. So before you start down, tune a nearby VORTAC, channel it on the DME, then switch to HOLD. Now you can retune both NAV radios to the ILS and the DME keeps reading distance from the VORTAC right through the approach.
+</p>
+
+<div class="callout caution">
+  <div class="callout-title">HOLD does not follow your tuning</div>
+  <p>The flip side of that convenience: while the selector is in HOLD, retuning the NAV radios does nothing to the DME. If you forget you left it in HOLD, you can find yourself reading distance from a station you tuned ten minutes ago. The 1H or H2 annunciation is there precisely to remind you. Back out to N1 or N2 when you want the DME to follow your tuning again.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">7. Operating Procedures</h2>
+
+<h3>Power up and channel a station</h3>
+<ol>
+  <li>With avionics power on and the DME breaker closed, rotate the function selector off OFF to N1 or N2, whichever NAV radio carries the station you want.</li>
+  <li>Tune the VOR or VORTAC on that NAV radio. The DME searches briefly (dashes), then locks on and shows the distance, followed by groundspeed and time.</li>
+  <li>Identify the station by its Morse code on the NAV audio, just as you would for navigation. The DME has no separate identifier of its own.</li>
+</ol>
+
+<h3>Keep DME through an ILS approach</h3>
+<ol>
+  <li>Before the approach, tune a nearby VORTAC on a NAV radio and channel it on the DME (N1 or N2).</li>
+  <li>Confirm a good lock and the right station.</li>
+  <li>Turn the selector to HLD. Confirm 1H or H2.</li>
+  <li>Retune the NAV radios to the ILS. The DME keeps reading from the held VORTAC throughout.</li>
+  <li>After the approach, return the selector to N1 or N2 so the DME follows your tuning again.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. SLANT RANGE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="slant">8. Slant Range, Groundspeed, and Time</h2>
+
+<h4>Slant range, not ground distance</h4>
+<p>
+The distance a DME shows is slant range, the straight-line distance from your aircraft to the station, not the distance across the ground. The two are close when you are far away and low, and they diverge as you get near and high. Directly over the station, the DME cannot read zero; it reads your height above it, roughly one nautical mile for every 6000 feet. A handy rule: once your distance is at least three times your altitude, the difference between slant range and ground distance is negligible.
+</p>
+
+<h4>Groundspeed and time-to-station</h4>
+<p>
+The DME computes groundspeed from how fast the slant range is changing, and time-to-station by dividing the distance by that speed. Both numbers are only honest when you are tracking more or less directly to or from the station. Fly a track that passes to one side of it and the rate of change no longer matches your true groundspeed: the groundspeed reads low, falling toward zero on an arc or abeam the station, and the time-to-station, computed from it, drops out to dashes once it is no longer meaningful. That is not a fault, it is geometry. Trust groundspeed and time only when the station is roughly ahead of you or behind you.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. POP-OUT                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">9. Popping the Unit Out</h2>
+
+<p>
+Each KDI 572 can be opened in its own floating window, handy on a second monitor, in VR, or for a closer read of the numbers. Because there are two units, there are two commands in X-Plane's keyboard and joystick settings: "Toggle KDI 572 DME 1 (pilot) popup" and "Toggle KDI 572 DME 2 (copilot) popup". Bind whichever you use to a key or button; press to open, press again to close.
+</p>
+
+<p>
+Inside the window the selector works as it does in the cockpit: roll the mouse wheel over it, or click its halves, to step through OFF, N1, HLD, and N2. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize, with the bezel letterboxed so the face keeps its proportions.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. INDICATIONS                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">10. Normal and Abnormal Indications</h2>
+
+<h4>Healthy operation</h4>
+<p>
+A working KDI 572 channeled to a station you are tracking shows all three numbers steadily: distance counting down as you close, a groundspeed near your true groundspeed, and a sensible time-to-station. No dashes, and no unexpected 1H or H2.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Display dark</td><td>The selector is in OFF, the DME breaker is open, or there is no avionics power.</td><td>Turn the selector off OFF, then check the breaker and the avionics master.</td></tr>
+  <tr><td>Persistent dashes</td><td>No DME signal: out of range, terrain in the way, the NAV is tuned to a station with no DME, or below line of sight.</td><td>Confirm the NAV is tuned to a DME-equipped station and that you are within range and line of sight.</td></tr>
+  <tr><td>Time-to-station dashed, groundspeed low</td><td>You are not tracking toward or away from the station.</td><td>Normal. Both read true again when the station is ahead of or behind you.</td></tr>
+  <tr><td>1H or H2 unexpectedly</td><td>The selector is in HOLD, frozen on an old source.</td><td>Return to N1 or N2 to channel from the current NAV tuning.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">DME range is terrain-aware</div>
+  <p>Reception in the DC-3 is modeled with real propagation. DME is line-of-sight, so range grows with altitude and a station can drop out behind high terrain even when the chart says you are close enough. A lock that comes and goes near terrain is the model working, not a failure.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">11. Notes and Tips</h2>
+
+<ul>
+  <li><strong>The DME follows the NAV radio.</strong> There is nothing to tune on the box. Tune the station on NAV 1 or NAV 2 and select the matching source.</li>
+  <li><strong>Identify on the NAV audio.</strong> The DME has no identifier of its own. Confirm the station by its Morse code on the NAV side.</li>
+  <li><strong>HOLD for the approach.</strong> Channel a VORTAC, switch to HOLD, then tune the ILS, and the DME stays with the VORTAC. Watch for 1H or H2 so you remember it is held.</li>
+  <li><strong>It is slant range.</strong> Near and high, the distance is more than the ground distance, and it will not read zero overhead. Past three times your altitude, the difference is nothing.</li>
+  <li><strong>Groundspeed needs the station ahead or behind.</strong> Off to the side, the groundspeed sags toward zero and the time-to-station dashes out. That is geometry, not a fault.</li>
+  <li><strong>Two boxes, two breakers.</strong> The captain's and first officer's DMEs power up and channel independently.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KDI 572 DME Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KAP 140 Autopilot Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Figures (placed screenshots) ──────────────────── */
+  .figure {
+    margin: 1.6rem 0 1.8rem;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .figure figcaption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .figure svg.faceplate {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .fig-legend {
+    columns: 2;
+    column-gap: 2.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .fig-legend li {
+    margin: 0 0 0.3rem;
+    break-inside: avoid;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .fig-legend .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent2);
+    margin-right: 0.5em;
+  }
+
+  /* ── NAV mode strips ───────────────────────────────── */
+  .mode-strips { margin: 1.6rem 0 1.8rem; }
+  .mode-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .mode-name {
+    flex: 0 0 108px;
+    text-align: right;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-accent2);
+    line-height: 1.2;
+  }
+  .mode-strips img {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .mode-ph {
+    flex: 1 1 auto;
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 6px;
+    padding: 1.1rem;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+  }
+  .mode-cap {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KAP 140</h1>
+  <div class="subtitle">Bendix/King Two-Axis Autopilot with Altitude Preselect</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KAP 140 autopilot as fitted to the DC-3 Modern variant. It is a standalone companion to the main DC-3 Aircraft Operating Manual. The DC-3 carries the two-axis version with altitude preselect, so the autopilot flies both roll and pitch and can climb or descend to an altitude you dial in, then capture and hold it. This guide walks through engaging it, the lateral and vertical modes, the altitude preselect and alerter, and how to read the display.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#lateral">Lateral Modes: ROL and HDG</a></li>
+    <li><a href="#vertical">Vertical Modes: VS and ALT</a></li>
+    <li><a href="#preselect">Altitude Preselect and Alerting</a></li>
+    <li><a href="#baro">Barometric Setting</a></li>
+    <li><a href="#nav-approach">Navigation and Approach Modes</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KAP 140 at a glance</div>
+  <p><strong>Type:</strong> Two-axis digital autopilot</p>
+  <p><strong>Axes:</strong> Roll and pitch</p>
+  <p><strong>Altitude preselect:</strong> Yes, with capture and alerting</p>
+  <p><strong>Lateral modes:</strong> ROL, HDG, NAV, APR, REV</p>
+  <p><strong>Vertical modes:</strong> VS, ALT, GS</p>
+  <p><strong>Heading reference:</strong> HSI heading bug</p>
+  <p><strong>Power:</strong> Avionics bus (unit), battery bus (disconnect alert)</p>
+</div>
+
+<p>
+The KAP 140 is a digital autopilot that flies the aircraft in roll and pitch through electric servos. It is a significant step up from the Classic variant's rudder-only Sperry Gyropilot: it can hold a wing-level attitude, fly a heading, hold a vertical speed, and climb or descend to a preselected altitude and level off there automatically.
+</p>
+
+<p>
+The DC-3's installation is the two-axis version with altitude preselect. The autopilot reads aircraft attitude, altitude, and vertical speed from its own sensors, so it keeps working in roll stabilization and the vertical modes even if the vacuum-driven attitude indicator fails. It takes its heading reference from the HSI's heading bug and its navigation deviation from the aircraft's selected navigation source.
+</p>
+
+<figure class="figure">
+  <img src="images/kap140_panel.jpg" alt="The KAP 140 autopilot in the DC-3 Modern instrument panel, ringed in the upper left of the avionics stack.">
+  <figcaption>The KAP 140 autopilot, top left of the Modern avionics stack.</figcaption>
+</figure>
+
+<div class="callout note">
+  <div class="callout-title">A note on engaging</div>
+  <p>The KAP 140 is engaged by a press and hold of the AP button, not a single tap. This is deliberate, both on the real unit and here, so the autopilot is not engaged by an accidental brush of the button. Details are in <a href="#controls">Controls in Detail</a>.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<h4>Lateral (Roll) Modes</h4>
+<table>
+  <tr><th>Mode</th><th>Annunciation</th><th>Function</th></tr>
+  <tr><td>Wing leveler</td><td>ROL</td><td>Holds wings level. The default when you engage.</td></tr>
+  <tr><td>Heading select</td><td>HDG</td><td>Turns to and holds the HSI heading bug.</td></tr>
+  <tr><td>Navigation</td><td>NAV</td><td>Tracks the navigation source the HSI shows (the GNS 530, VLOC or GPS).</td></tr>
+  <tr><td>Approach</td><td>APR</td><td>Flies an ILS: localizer plus glideslope.</td></tr>
+  <tr><td>Back course</td><td>REV</td><td>Flies a localizer back course.</td></tr>
+</table>
+
+<h4>Vertical (Pitch) Modes</h4>
+<table>
+  <tr><th>Mode</th><th>Annunciation</th><th>Function</th></tr>
+  <tr><td>Vertical speed</td><td>VS</td><td>Holds a selected rate of climb or descent. The default when you engage.</td></tr>
+  <tr><td>Altitude hold</td><td>ALT</td><td>Holds an altitude.</td></tr>
+  <tr><td>Glideslope</td><td>GS</td><td>Tracks an ILS glideslope (during an approach).</td></tr>
+</table>
+
+<h4>Power</h4>
+<table>
+  <tr><th>Circuit</th><th>Bus / breaker</th><th>What it powers</th></tr>
+  <tr><td>Autopilot</td><td>Avionics (DC Radio) bus, AUTOPILOT breaker</td><td>The autopilot itself. Needs the avionics master on.</td></tr>
+  <tr><td>AP alert</td><td>Battery (essential) bus, AP ALERT breaker</td><td>The disconnect warning (flash and tone), independent of the avionics master.</td></tr>
+  <tr><td>Panel light</td><td>Radio-panel lighting dimmer</td><td>The faceplate and button legends at night.</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Why the alert is on a separate bus</div>
+  <p>The autopilot runs off the avionics bus, so it only functions with the avionics master on. The disconnect warning is wired to the battery bus instead. That way, if you lose the avionics bus while the autopilot is flying, the autopilot drops out and the warning still fires to tell you, because it has its own power.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<figure class="figure">
+  <img src="images/kap140_faceplate.jpg" alt="KAP 140 faceplate with lettered display callouts A to F and numbered control callouts 1 to 10">
+  <figcaption>The KAP 140 faceplate. Lettered markers (A&ndash;F) are the display fields, listed just below; numbered markers (1&ndash;10) are the controls, keyed in the table.</figcaption>
+  <ul class="fig-legend">
+    <li><span class="num">A</span>Lateral mode (active on the top line, armed mode below with ARM)</li>
+    <li><span class="num">B</span>AP (autopilot engaged; flashes after a disconnect)</li>
+    <li><span class="num">C</span>Vertical mode (active on the top line, armed mode below with ARM)</li>
+    <li><span class="num">D</span>PT (pitch-trim command arrows)</li>
+    <li><span class="num">E</span>ALERT (altitude alerter)</li>
+    <li><span class="num">F</span>Numeric field (preselected altitude, or VS / baro)</li>
+  </ul>
+</figure>
+
+<p>
+The KAP 140 has a single display window, a row of mode buttons, and one dual concentric knob on the right. There are no separate annunciator lamps: every active mode is spelled out on the display itself.
+</p>
+
+<table>
+  <tr><th>#</th><th>Control</th><th>What it is</th></tr>
+  <tr><td>1</td><td><span class="ctl">AP</span></td><td>Engages the autopilot (press and hold) or disengages it (any press).</td></tr>
+  <tr><td>2</td><td><span class="ctl">HDG</span></td><td>Heading select. Toggles between HDG and ROL (wing leveler).</td></tr>
+  <tr><td>3</td><td><span class="ctl">NAV</span></td><td>Arms or selects navigation tracking (VOR/GPS).</td></tr>
+  <tr><td>4</td><td><span class="ctl">APR</span></td><td>Arms or selects approach (ILS localizer and glideslope).</td></tr>
+  <tr><td>5</td><td><span class="ctl">REV</span></td><td>Arms or selects a localizer back course.</td></tr>
+  <tr><td>6</td><td><span class="ctl">ALT</span></td><td>Altitude hold. Captures and holds the current altitude.</td></tr>
+  <tr><td>7</td><td><span class="ctl">UP / DN</span></td><td>Adjust vertical speed, or nudge the held altitude.</td></tr>
+  <tr><td>8</td><td><span class="ctl">BARO</span></td><td>Shows the baro setting; hold to switch units. Inner knob adjusts it.</td></tr>
+  <tr><td>9</td><td><span class="ctl">ARM</span></td><td>Arms or disarms altitude preselect capture.</td></tr>
+  <tr><td>10</td><td><span class="ctl">Knob (dual concentric)</span></td><td>Outer ring = coarse altitude preselect (1000 ft per click). Inner = fine altitude (100 ft per click), or the baro setting when baro is shown.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>AP (engage / disengage)</h3>
+<p>
+Press and hold the AP button for about a quarter second to engage the autopilot. It comes up in its default modes: ROL (wing leveler) for roll and VS (vertical speed) for pitch, holding whatever vertical speed you had at the moment of engagement, rounded to the nearest 100 fpm.
+</p>
+<p>
+Once engaged, a single press of AP disengages it, no hold required. The autopilot also disengages on its own if it loses power or detects a problem. Any disengagement, by your hand or automatic, triggers the disconnect warning described under <a href="#indications">Normal and Abnormal Indications</a>.
+</p>
+
+<h3>HDG (heading select)</h3>
+<p>
+HDG turns the aircraft to the heading bug on the HSI and holds it. Pressing HDG again drops back to ROL (wings level). The KAP 140 has no heading knob of its own; it follows the heading bug you set on the HSI, so move the bug and the aircraft follows.
+</p>
+
+<h3>UP and DN</h3>
+<p>
+In vertical speed mode, each press of UP or DN changes the commanded vertical speed by 100 fpm, up to 2000 fpm either way. Hold the button and the rate changes continuously. The display shows the vertical speed for a few seconds after each change.
+</p>
+<p>
+In altitude hold, UP and DN nudge the held altitude: a tap moves it 20 ft, and holding the button commands a temporary 500 fpm climb or descent, with the hold altitude re-set to wherever you level out when you release.
+</p>
+
+<h3>ALT (altitude hold)</h3>
+<p>
+Press ALT to capture and hold the current altitude. Press it again to release back to vertical speed mode. ALT is also where the autopilot ends up on its own when it captures a preselected altitude.
+</p>
+
+<h3>ARM (altitude arm)</h3>
+<p>
+ARM turns altitude-preselect capture on and off. You usually do not need to press it: dialing a new altitude with the knob while the autopilot is engaged arms capture automatically. ARM is there for when you want to arm or disarm capture by hand.
+</p>
+
+<h3>BARO</h3>
+<p>
+Press BARO to show the current barometric setting in the display for a few seconds. While it is shown, the inner knob adjusts it. Hold BARO for about two seconds to switch the units between inches of mercury and hectopascals. Keep this setting matched to your altimeter so the preselect and alerting altitudes are correct.
+</p>
+
+<h3>The dual knob</h3>
+<p>
+The right-hand knob sets the preselected altitude. The outer ring moves it in 1000 ft steps, the inner knob in 100 ft steps. When baro is displayed (just after a BARO press), the inner knob switches to adjusting the baro setting instead.
+</p>
+
+<h3>NAV, APR, REV</h3>
+<p>
+These are the navigation and approach modes. They are covered in <a href="#nav-approach">Navigation and Approach Modes</a>.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+Everything the KAP 140 wants to tell you is on its one display. The left side shows the active modes as text, and the right side shows a number, normally the preselected altitude.
+</p>
+
+<table>
+  <tr><th>Field</th><th>Shows</th></tr>
+  <tr><td>Roll mode</td><td>ROL, HDG, NAV, APR, or REV, the active lateral mode.</td></tr>
+  <tr><td>Pitch mode</td><td>VS, ALT, or GS, the active vertical mode.</td></tr>
+  <tr><td>ARM</td><td>Altitude capture is armed. A mode shown alongside (for example NAV or GS) means that mode is armed and waiting to capture.</td></tr>
+  <tr><td>ALERT</td><td>The altitude alerter is active. See <a href="#preselect">Altitude Preselect and Alerting</a>.</td></tr>
+  <tr><td>PT</td><td>Pitch trim. The autopilot is calling for nose-up or nose-down trim, shown with an up or down arrow.</td></tr>
+  <tr><td>Numeric field</td><td>Normally the preselected altitude in feet. Shows vertical speed (FPM) for a few seconds after UP/DN, or the baro setting (IN HG or hPA) after a BARO press.</td></tr>
+</table>
+
+<p>
+The display returns to showing the preselected altitude a few seconds after you finish adjusting vertical speed or baro. When the autopilot is engaged, the active roll and pitch modes are always shown so you can confirm at a glance what it is doing.
+</p>
+
+<figure class="mode-strips">
+  <div class="mode-row"><div class="mode-name">Altitude<br>(FT)</div>
+    <img src="images/kap140_num_altitude.png" alt="Numeric field showing the preselected altitude, 12,000 feet"></div>
+  <div class="mode-row"><div class="mode-name">Vertical<br>speed (FPM)</div>
+    <img src="images/kap140_num_vs.png" alt="Numeric field showing a 500 FPM climb"></div>
+  <div class="mode-row"><div class="mode-name">Baro<br>(IN HG)</div>
+    <img src="images/kap140_num_baro_inhg.png" alt="Numeric field showing 29.92 inches of mercury"></div>
+  <div class="mode-row"><div class="mode-name">Baro<br>(hPA)</div>
+    <img src="images/kap140_num_baro_hpa.png" alt="Numeric field showing 1013 hectopascals"></div>
+  <figcaption class="mode-cap">The right-hand numeric field shows one of four things: the preselected altitude (the default), the vertical speed for a few seconds after UP/DN, or the baro setting in inches or hectopascals.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. LATERAL                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="lateral">6. Lateral Modes: ROL and HDG</h2>
+
+<h4>ROL (wing leveler)</h4>
+<p>
+ROL is the default roll mode. It simply holds the wings level. It is what you get the instant you engage, and what the autopilot falls back to when you cancel a heading or navigation mode. Use it when you just want the autopilot to keep the aircraft steady while you do something else.
+</p>
+
+<h4>HDG (heading select)</h4>
+<p>
+HDG flies the heading bug. Set the bug on the HSI to the heading you want, press HDG, and the autopilot turns the shortest way to that heading and holds it. To change heading, just move the bug and the aircraft follows it around. Pressing HDG again returns to ROL.
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">The heading bug lives on the HSI</div>
+  <p>The KAP 140 has no heading knob. Its heading reference is the bug on the KI 525A HSI. See the KCS 55A Compass System guide for setting the bug and for how the HSI presents heading and course.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. VERTICAL                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="vertical">7. Vertical Modes: VS and ALT</h2>
+
+<h4>VS (vertical speed)</h4>
+<p>
+VS is the default pitch mode. It holds a rate of climb or descent that you set with UP and DN, from level flight up to 2000 fpm in either direction. When you engage the autopilot it captures your current vertical speed, so if you engage in level flight it holds roughly zero, and if you engage in a climb it holds that climb.
+</p>
+
+<h4>ALT (altitude hold)</h4>
+<p>
+ALT holds an altitude. Press ALT and the autopilot captures the altitude you are at and holds it. From there, small corrections keep you on it. If you want to shift the held altitude slightly, tap UP or DN to move it in 20 ft steps, or hold UP or DN for a temporary 500 fpm change and the new altitude is captured when you level off.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. PRESELECT                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="preselect">8. Altitude Preselect and Alerting</h2>
+
+<p>
+Altitude preselect is the headline feature of this autopilot. You dial in the altitude you are cleared to, fly a vertical speed toward it, and the autopilot levels off there for you.
+</p>
+
+<h4>Preselect and capture</h4>
+<ol>
+  <li>Dial the target altitude on the knob (outer ring for hundreds, inner knob for finer steps). With the autopilot engaged, dialing a new altitude arms capture automatically and ARM appears.</li>
+  <li>Set a climb or descent with UP or DN. The autopilot flies the vertical speed toward the target.</li>
+  <li>As you approach the target altitude, the autopilot captures it, switches to ALT, and holds. You do not need to do anything; it levels off on its own.</li>
+</ol>
+
+<h4>The altitude alerter</h4>
+<p>
+The alerter watches the preselected altitude and warns you about it, whether or not the autopilot is flying. It is useful even when you are hand-flying.
+</p>
+<ul>
+  <li><strong>Approaching:</strong> about 1000 ft before the selected altitude, ALERT comes on steady and a tone sounds. It stays lit until you are within about 200 ft, then goes out as you acquire the altitude.</li>
+  <li><strong>Reached:</strong> as you level off at the selected altitude, ALERT gives a brief flash and clears.</li>
+  <li><strong>Deviating:</strong> if you later drift more than 200 ft away from the selected altitude, ALERT flashes and a tone sounds to call your attention back.</li>
+</ul>
+
+<figure class="mode-strips">
+  <div class="mode-row"><div class="mode-name">Armed,<br>climbing</div>
+    <img src="images/kap140_preselect_climb.png" alt="Climbing in VS with ALT armed on the bottom line and ARM lit, target 14,000"></div>
+  <div class="mode-row"><div class="mode-name">Alerting</div>
+    <img src="images/kap140_preselect_alert.png" alt="ALERT lit as the selected altitude is approached"></div>
+  <figcaption class="mode-cap">Climbing toward a preselected altitude: ALT shows armed on the bottom line with ARM while VS holds the climb (top). Nearing the altitude, ALERT lights (bottom). At capture the autopilot switches to ALT and levels off.</figcaption>
+</figure>
+
+<div class="callout tip">
+  <div class="callout-title">Set the altitude before you need it</div>
+  <p>Make a habit of dialing each new cleared altitude into the preselect as soon as you get it. That way the alerter is working for you, and if the autopilot is engaged it will capture and hold the altitude without further input.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. BARO                                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="baro">9. Barometric Setting</h2>
+
+<p>
+Because the preselect and alerting altitudes are based on the autopilot's own pressure sensing, the KAP 140 carries its own barometric setting, and you should keep it matched to your altimeter. By default it follows the aircraft altimeter automatically; once you adjust it by hand it stays where you put it.
+</p>
+<ol>
+  <li>Press BARO. The current setting appears in the display.</li>
+  <li>Turn the inner knob to adjust it (0.01 inHg or 1 hPa per click).</li>
+  <li>To change units, hold BARO for about two seconds; the display switches between inches of mercury and hectopascals.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. NAV / APPROACH                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="nav-approach">10. Navigation and Approach Modes</h2>
+
+<p>
+The lateral side of the KAP 140 does more than hold a heading. NAV tracks a course, APR flies a full ILS, and REV flies a localizer back course. On this aircraft all three follow the HSI, which is driven by the GNS 530. So you tune and identify the navaid on the GNS 530, select the CDI source (its VLOC receiver for a VOR or ILS, or GPS), set the course on the HSI, and the autopilot flies what the needle shows.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">Which source the autopilot flies</div>
+  <p>These modes follow the HSI, and the HSI is driven by the GNS 530. Whatever the 530's CDI source is set to, its VLOC (VOR/ILS) receiver or GPS, is what the autopilot tracks. Tune and identify the navaid on the 530 and set the CDI source before you couple. The separate VOR/ILS course indicator on the KX 165A is its own display and is not what these modes track.</p>
+</div>
+
+<h4>NAV</h4>
+<p>
+NAV intercepts and tracks a VOR course. Press NAV and the mode arms: the HDG annunciator flashes for a few seconds as a reminder to check the heading bug (this happens whenever the mode arms, whether you were in HDG or wing-level ROL), and the autopilot holds its current lateral path until the course comes alive, then it captures and tracks it. Set the course you want with the HSI course pointer first, so the autopilot knows which radial to fly.
+</p>
+
+<figure class="mode-strips">
+  <div class="mode-row"><div class="mode-name">NAV armed</div>
+    <img src="images/kap140_nav_armed.png" alt="HDG active on the top line, NAV armed on the bottom line with ARM"></div>
+  <div class="mode-row"><div class="mode-name">NAV captured</div>
+    <img src="images/kap140_nav_captured.png" alt="NAV active on the top line after capture"></div>
+  <figcaption class="mode-cap">Arming NAV from HDG: HDG stays active on the top line while NAV waits armed on the bottom with ARM. On capture, NAV moves up to the active line and the armed line clears.</figcaption>
+</figure>
+
+<h4>APR (approach)</h4>
+<p>
+APR is the ILS mode, and it arms both axes at once: the localizer laterally and the glideslope vertically. Press APR while you are positioned to intercept, with the ILS tuned and the inbound course set; the HDG annunciator flashes as it arms, the reminder to check the bug. The autopilot captures the localizer and tracks it with tighter gains than NAV, and as it meets the glideslope from below, the glideslope captures and the autopilot flies the descent down the slope.
+</p>
+
+<h4>REV (back course)</h4>
+<p>
+REV flies a localizer back course, where the localizer signal is reversed. It tracks the back-course lateral guidance and does not use a glideslope. Tune the localizer on the KX 165A and set the front-course heading as the reference; the autopilot handles the reverse sensing.
+</p>
+
+<h4>Glideslope (GS)</h4>
+<p>
+You do not select the glideslope directly; APR arms it for you. When the aircraft intercepts the glideslope from below, GS becomes the active vertical mode, the display shows GS, and the autopilot flies the descent. Capturing from below is deliberate: it keeps the autopilot off the false upper lobes of the glideslope signal.
+</p>
+
+<figure class="mode-strips">
+  <div class="mode-row"><div class="mode-name">GS armed</div>
+    <img src="images/kap140_apr_gs_armed.png" alt="APR active with VS, glideslope armed on the bottom line with ARM"></div>
+  <div class="mode-row"><div class="mode-name">GS captured</div>
+    <img src="images/kap140_apr_gs_captured.png" alt="APR active with GS captured on the active pitch line"></div>
+  <figcaption class="mode-cap">Flying an ILS: APR holds the localizer while the glideslope is armed (GS on the bottom line with ARM), still in VS. When the glideslope captures from below, GS moves to the active pitch line and the autopilot flies the descent.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. PROCEDURES                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">11. Operating Procedures</h2>
+
+<h3>Engage the autopilot</h3>
+<ol>
+  <li>Confirm avionics power is on and the autopilot is trimmed and in a stable attitude.</li>
+  <li>Press and hold AP for about a quarter second. The autopilot engages in ROL and VS.</li>
+  <li>Confirm ROL and VS on the display.</li>
+</ol>
+
+<h3>Climb or descend to a cleared altitude</h3>
+<ol>
+  <li>With the autopilot engaged, dial the cleared altitude on the knob. ARM appears, confirming altitude capture is armed.</li>
+  <li>Press HDG (or leave ROL) for the lateral path you want.</li>
+  <li>Set a climb or descent rate with UP or DN.</li>
+  <li>Fly toward the altitude. About 1000 ft out, ALERT reminds you it is coming up.</li>
+  <li>The autopilot captures the altitude, switches to ALT, and levels off. No action needed.</li>
+</ol>
+
+<h3>Hold the current altitude</h3>
+<ol>
+  <li>Press ALT. The autopilot captures and holds your present altitude, and the display shows ALT.</li>
+  <li>To trim the held altitude, tap UP or DN for 20 ft steps, or hold them for a temporary 500 fpm change.</li>
+</ol>
+
+<h3>Fly a heading</h3>
+<ol>
+  <li>Set the heading bug on the HSI.</li>
+  <li>Press HDG. The autopilot turns to the bug and holds it.</li>
+  <li>Move the bug whenever you want to change heading.</li>
+</ol>
+
+<h3>Fly a coupled ILS approach</h3>
+<ol>
+  <li>Tune and identify the ILS on the GNS 530, select VLOC as the CDI source, and set the inbound course on the HSI.</li>
+  <li>With the autopilot engaged, position to intercept the localizer; HDG mode works well for this.</li>
+  <li>Press APR. The autopilot arms (the HDG annunciator flashes as a bug-check reminder).</li>
+  <li>It captures and tracks the localizer, then captures the glideslope from below and flies it down. Confirm GS when it appears.</li>
+  <li>Manage power and configuration yourself; the autopilot flies pitch and roll, not thrust. Disengage at your minimums.</li>
+</ol>
+
+<h3>Disengage</h3>
+<ol>
+  <li>Press AP. The autopilot disconnects, the AP annunciator flashes, and a short tone sounds.</li>
+  <li>Resume hand flying. Re-trim as needed.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 12. POP-OUT                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">12. Popping the Unit Out</h2>
+
+<p>
+The KAP 140 can be opened in its own floating window, handy for setting it up on a second monitor or working it in VR. In X-Plane's keyboard or joystick settings, find the command named "Toggle KAP 140 popup" and bind it to a key or controller button. Press it to open the window; press it again to close it.
+</p>
+
+<p>
+Inside the window every control works exactly as it does in the cockpit: click the buttons, and roll the mouse wheel over the knob to turn it. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize anywhere on screen, with the bezel letterboxed so the faceplate keeps its proportions.
+</p>
+
+<p>
+The KAP 140 also appears in the unified <strong>Avionics Stack</strong> popup, a single window that shows the whole Modern radio stack at once with every screen live and every control working. The stack and this unit's own popup coexist, and both stay in sync with the panel, so you can run whichever suits your setup. The Avionics Stack is covered in the main DC-3 Aircraft Operating Manual.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 13. INDICATIONS                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">13. Normal and Abnormal Indications</h2>
+
+<h4>Power-up self-test</h4>
+<p>
+When the unit powers up it runs a brief self-test before it will fly. First it shows a preflight test, PFT with a step counter that climbs through its checks. Then it lights every segment of the display for a moment as a lamp test, so you can confirm no segments have failed. The live display appears after that and the autopilot is ready.
+</p>
+
+<figure class="mode-strips">
+  <div class="mode-row"><div class="mode-name">Preflight<br>test</div>
+    <img src="images/kap140_selftest_pft.png" alt="Display showing PFT and a step number during the preflight test"></div>
+  <div class="mode-row"><div class="mode-name">Segment<br>test</div>
+    <img src="images/kap140_selftest_segments.png" alt="Display with every segment and annunciator lit during the lamp test"></div>
+  <figcaption class="mode-cap">Power-up sequence: the preflight test (PFT with a step counter), then a full segment test with every segment and annunciator lit, before the live display appears.</figcaption>
+</figure>
+
+<h4>Healthy operation</h4>
+<p>
+A powered KAP 140 shows its display steadily, with the preselected altitude on the right. When engaged, the active roll and pitch modes are shown on the left. The autopilot flies smoothly and holds modes without wandering.
+</p>
+
+<h4>Disconnect warning</h4>
+<p>
+Every time the autopilot disconnects, by your press or on its own, the AP annunciator flashes for about five seconds and a short aural tone sounds. Because the warning is wired to the battery bus, it still fires even if the autopilot dropped out because it lost the avionics bus. Treat any unexpected disconnect warning as a prompt to take the controls and re-trim.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Display dark</td><td>No power: avionics master off, or the AUTOPILOT breaker is open.</td><td>Restore avionics power and check the breaker. The autopilot cannot engage unpowered.</td></tr>
+  <tr><td>AP annunciator flashing + tone</td><td>The autopilot has disconnected.</td><td>Take the controls, re-trim, and re-engage if appropriate.</td></tr>
+  <tr><td>PT with an arrow</td><td>The autopilot is calling for pitch trim in the indicated direction.</td><td>Trim in the direction shown to relieve the pitch servo.</td></tr>
+  <tr><td>ALERT flashing</td><td>You have deviated more than 200 ft from the selected altitude.</td><td>Return to the selected altitude, or set a new one.</td></tr>
+</table>
+
+<figure class="figure">
+  <img src="images/kap140_pitch_trim.png" alt="Display with the PT annunciator and an up arrow, commanding nose-up trim">
+  <figcaption>Pitch trim prompt: PT with an up arrow asks for nose-up trim, a down arrow for nose-down. Trim in the direction shown to unload the pitch servo.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 14. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">14. Notes and Tips</h2>
+
+<ul>
+  <li><strong>Hold to engage, tap to drop.</strong> Engaging takes a deliberate press and hold; disengaging is a single press. This keeps a stray click from engaging the autopilot.</li>
+  <li><strong>Trim before you engage.</strong> Hand the autopilot a trimmed, stable aircraft. It flies better, and watch for the PT prompt asking you to trim in flight.</li>
+  <li><strong>Dial altitudes early.</strong> Set each cleared altitude into the preselect as you receive it, so the alerter and capture are working for you.</li>
+  <li><strong>Keep baro matched.</strong> The autopilot's baro setting drives the preselect and alerting altitudes. Keep it set to your altimeter.</li>
+  <li><strong>Heading comes from the HSI.</strong> There is no heading knob on the autopilot. The heading bug on the HSI is the reference for HDG mode.</li>
+  <li><strong>The alerter works hand-flown.</strong> Altitude alerting is independent of the autopilot, so it warns you about the preselected altitude even when you are flying by hand.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KAP 140 Autopilot Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

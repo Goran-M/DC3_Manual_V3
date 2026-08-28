@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | KI 229 RMI Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Figures (placed screenshots) ──────────────────── */
+  .figure {
+    margin: 1.6rem 0 1.8rem;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  .figure figcaption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .fig-legend {
+    columns: 2;
+    column-gap: 2.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .fig-legend li {
+    margin: 0 0 0.3rem;
+    break-inside: avoid;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .fig-legend .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent2);
+    margin-right: 0.5em;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>KI 229</h1>
+  <div class="subtitle">Bendix/King Radio Magnetic Indicator</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Bendix/King KI 229 Radio Magnetic Indicator as fitted to the DC-3 Modern variant. It is a standalone companion to the main DC-3 Aircraft Operating Manual, written for the pilot who wants to learn the instrument cockpit-first: what each part of the face means, how to read a bearing off it at a glance, and how it behaves as the aircraft powers up and navigates. The RMI is one display of the larger KCS 55A compass system, and this guide explains just enough of that system for the instrument to make sense; you do not need the rest of the panel to follow it.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#reading">How to Read an RMI</a></li>
+    <li><a href="#pointers">The Two Pointers</a></li>
+    <li><a href="#card-flag">The Compass Card and the HDG Flag</a></li>
+    <li><a href="#parking">Needle Parking</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">KI 229 at a glance</div>
+  <p><strong>Type:</strong> Radio Magnetic Indicator</p>
+  <p><strong>Family:</strong> Bendix/King Silver Crown</p>
+  <p><strong>Shows:</strong> Aircraft heading + bearing to two stations</p>
+  <p><strong>Pointers:</strong> Single bar (No.&nbsp;1), double bar (No.&nbsp;2)</p>
+  <p><strong>Card:</strong> Slaved, from the KCS 55A compass system</p>
+  <p><strong>Sources:</strong> No.&nbsp;1 = NAV&nbsp;1 / ADF&nbsp;1, switchable; No.&nbsp;2 = NAV&nbsp;2, VOR only</p>
+</div>
+
+<p>
+A Radio Magnetic Indicator does in one glance what would otherwise take a chart, a compass, and some mental arithmetic. It is a rotating compass card with one or more bearing pointers laid over it. The card always shows your magnetic heading; each pointer always points straight at a tuned navigation station. Read where a pointer crosses the card and you have the magnetic bearing to that station, no twisting of an OBS, no TO/FROM ambiguity, no head-work. It is the single most situationally aware navigation instrument in the panel.
+</p>
+
+<p>
+The KI 229 is a Bendix/King Silver Crown RMI, the indicator designed to work with the KCS 55A slaved compass system. In the DC-3 Modern variant it is the display end of that whole system: a remote directional gyro (the KG 102A) and a wingtip flux detector (the KMT 112) feed it a continuously corrected magnetic heading, and the KA 51B slaving control on the panel manages that correction. The RMI repeats all of it on a 3-inch face, and adds two pointers driven by your radios.
+</p>
+
+<p>
+In this aircraft the KI 229 carries two pointers. The <strong>single-bar</strong> pointer (No.&nbsp;1) is switchable: it follows either the VOR on NAV&nbsp;1 (your GNS&nbsp;530) or the ADF, selected by a button on the face. The <strong>double-bar</strong> pointer (No.&nbsp;2) is dedicated to the VOR on NAV&nbsp;2 (your KX&nbsp;165A). The compass card beneath them is slaved to the KCS 55A.
+</p>
+
+<figure class="figure">
+  <img src="images/ki229_panel.jpg" alt="The KI 229 RMI outlined in red in the lower-left of the DC-3 Modern flight-instrument group, with the airspeed indicator above it, the attitude indicator top-right, and the KI 525A HSI to its right">
+  <figcaption>The KI 229 RMI (outlined), lower-left of the Modern flight-instrument group, below the airspeed indicator and beside the KI 525A HSI.</figcaption>
+</figure>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<h4>The Indicator</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Type</td><td>Radio Magnetic Indicator, 3 ATI (3-inch)</td></tr>
+  <tr><td>Pointers</td><td>Two: No.&nbsp;1 single bar, No.&nbsp;2 double bar</td></tr>
+  <tr><td>Compass card</td><td>Servo-driven, slaved to a remote directional gyro</td></tr>
+  <tr><td>Compass card accuracy</td><td>&plusmn;2&deg;</td></tr>
+  <tr><td>Pointer accuracy</td><td>&plusmn;5&deg;</td></tr>
+  <tr><td>Warning flag</td><td>HDG flag, monitors heading validity and power</td></tr>
+</table>
+
+<h4>The Compass System (KCS 55A)</h4>
+<table>
+  <tr><th>Component</th><th>Role</th></tr>
+  <tr><td>KG 102A</td><td>Remote directional gyro; the heading reference</td></tr>
+  <tr><td>KMT 112</td><td>Wingtip flux detector; senses magnetic north</td></tr>
+  <tr><td>KA 51B</td><td>Slaving control; manages the gyro-to-flux correction (panel-mounted)</td></tr>
+  <tr><td>KI 525A</td><td>HSI; the primary display of the same system</td></tr>
+  <tr><td>KI 229</td><td>RMI; this instrument</td></tr>
+</table>
+
+<h4>Power</h4>
+<table>
+  <tr><th>Parameter</th><th>Specification</th></tr>
+  <tr><td>Supply</td><td>11&ndash;33 VDC, 0.75 A, plus 26 VAC 400 Hz for the card servo</td></tr>
+  <tr><td>Required for power</td><td>Avionics master on, electrical power present, G2 COMPASS breaker closed</td></tr>
+  <tr><td>Shares power with</td><td>The whole KCS 55A system, on one breaker</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The face is dominated by the rotating compass card. A fixed pointer at the very top, the lubber line, marks your heading on the card. Two needles pivot from the center to point at stations. A warning flag lives in the upper left, the source annunciators in the lower corners, and a single button in the lower left switches the No.&nbsp;1 pointer's source.
+</p>
+
+<figure class="figure">
+  <img src="images/ki229_faceplate.jpg" alt="The KI 229 faceplate with lettered callouts A through G: A the compass card, B the lubber line, C the single-bar pointer, D the double-bar pointer, E the HDG flag, F the source annunciators, G the VOR/ADF button">
+  <figcaption>The KI 229 face. The lettered markers key to the list below.</figcaption>
+  <ul class="fig-legend">
+    <li><span class="num">A</span>Compass card (rotating azimuth card)</li>
+    <li><span class="num">B</span>Lubber line (fixed heading index, top)</li>
+    <li><span class="num">C</span>No.&nbsp;1 single-bar pointer</li>
+    <li><span class="num">D</span>No.&nbsp;2 double-bar pointer</li>
+    <li><span class="num">E</span>HDG warning flag (upper left)</li>
+    <li><span class="num">F</span>Source annunciators (ADF / VOR, lower corners)</li>
+    <li><span class="num">G</span>VOR/ADF select button (lower left)</li>
+  </ul>
+</figure>
+
+<table>
+  <tr><th>Element</th><th>What it is</th></tr>
+  <tr><td><strong>A &ndash; Compass card</strong></td><td>A full 360&deg; card that rotates so your current magnetic heading sits under the lubber line. It is driven by the slaved compass system, not a free gyro.</td></tr>
+  <tr><td><strong>B &ndash; Lubber line</strong></td><td>The fixed reference at the top of the face. The number under it is your magnetic heading.</td></tr>
+  <tr><td><strong>C &ndash; No.&nbsp;1 single-bar pointer</strong></td><td>The thin, single pointer. Switchable between VOR (NAV&nbsp;1) and ADF.</td></tr>
+  <tr><td><strong>D &ndash; No.&nbsp;2 double-bar pointer</strong></td><td>The wide, double pointer. Dedicated to the VOR on NAV&nbsp;2.</td></tr>
+  <tr><td><strong>E &ndash; HDG flag</strong></td><td>A warning flag that drops into view when the heading is not valid, or power is lost.</td></tr>
+  <tr><td><strong>F &ndash; Source annunciators</strong></td><td>Small windows in the lower corners showing which source each pointer is following.</td></tr>
+  <tr><td><strong>G &ndash; VOR/ADF button</strong></td><td>Switches the No.&nbsp;1 pointer between VOR and ADF. The No.&nbsp;2 pointer has no switch.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. HOW TO READ AN RMI                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="reading">4. How to Read an RMI</h2>
+
+<p>
+If you have never flown an RMI, this is the whole idea in two sentences. The compass card shows your heading under the lubber line. A pointer's <em>head</em> shows the magnetic bearing <strong>to</strong> the station, read straight off the card where the head points; the pointer's <em>tail</em> shows the radial you are on, the bearing <strong>from</strong> the station. That is it. There is nothing to set and nothing to interpret.
+</p>
+
+<p>
+Compare that to a conventional VOR indicator, where you twist an OBS until the needle centers and then read TO or FROM. The RMI has already done that for you, continuously, for every heading you fly. Want to fly direct to the station? Turn until the pointer head sits on the lubber line; now you are heading straight at it. Want to intercept a radial? The tail tells you which radial you are crossing right now.
+
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">Head to the station, tail from it</div>
+  <p>The pointer is an arrow. Its head points to the station (bearing TO); its tail points to the radial you are on (bearing FROM). When the head is on the lubber line at the top, you are tracking directly inbound.</p>
+</div>
+
+<p>
+Because the card is slaved to magnetic north, the numbers are always magnetic bearings, no wind or variation math required. As you turn, the card rotates under the fixed pointers and the lubber line, and the pointers swing to keep pointing at their stations. The picture stays true through the whole turn.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. THE TWO POINTERS                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="pointers">5. The Two Pointers</h2>
+
+<p>
+The KI 229 carries two independent pointers so you can watch two stations at once, typically a VOR and an NDB, or two VORs. They are told apart by shape: one is a single bar, the other a double bar.
+</p>
+
+<table>
+  <tr><th>Pointer</th><th>Source in this aircraft</th><th>Switchable?</th></tr>
+  <tr><td><strong>No.&nbsp;1, single bar</strong></td><td>VOR on NAV&nbsp;1 (GNS&nbsp;530), or ADF</td><td>Yes &mdash; the lower-left button</td></tr>
+  <tr><td><strong>No.&nbsp;2, double bar</strong></td><td>VOR on NAV&nbsp;2 (KX&nbsp;165A)</td><td>No &mdash; always VOR</td></tr>
+</table>
+
+<div class="callout warning">
+  <div class="callout-title">This RMI is backwards from the textbook</div>
+  <p>On most RMIs the single bar is the VOR needle and the double bar is the ADF. The KI 229 is the other way around: the <strong>double-bar pointer is the VOR needle</strong> (fixed), and the <strong>single-bar pointer is the switchable one</strong>. If you have RMI muscle memory from other aircraft, take a second to confirm which needle you are reading.</p>
+</div>
+
+<h3>Switching the No.&nbsp;1 pointer (VOR/ADF)</h3>
+<p>
+Press the button in the lower-left corner of the face to switch the single-bar pointer between VOR and ADF. The source annunciator next to it slides to show the new selection, and the needle sweeps smoothly to its new bearing. The No.&nbsp;2 double-bar pointer is unaffected; it is wired permanently to the VOR on NAV&nbsp;2 and has no switch of its own.
+</p>
+
+<p>
+The annunciators in the lower corners are your confirmation of what each needle is doing. The lower-left tracks the No.&nbsp;1 pointer and reads ADF or VOR depending on the button. The lower-right belongs to the No.&nbsp;2 pointer and stays on VOR.
+</p>
+
+<div style="display:flex; gap:1.4rem; align-items:flex-start; margin:1.6rem 0 1.8rem;">
+  <figure class="figure" style="flex:1; margin:0;">
+    <img src="images/ki229_ann_vor.jpg" alt="The KI 229 lower-left annunciator with the No. 1 pointer set to VOR: the single-bar VOR symbol is shown by the VOR label">
+    <figcaption>No.&nbsp;1 pointer set to <strong>VOR</strong></figcaption>
+  </figure>
+  <figure class="figure" style="flex:1; margin:0;">
+    <img src="images/ki229_ann_adf.jpg" alt="The KI 229 lower-left annunciator with the No. 1 pointer set to ADF: the double-bar ADF symbol is shown by the ADF label">
+    <figcaption>No.&nbsp;1 pointer set to <strong>ADF</strong></figcaption>
+  </figure>
+</div>
+<p style="text-align:center; font-family: var(--font-heading); font-size: 0.82rem; color: var(--color-muted); font-style: italic; margin: -0.6rem 0 1.5rem;">
+The lower-left annunciator, tracking the No.&nbsp;1 pointer. Pressing the VOR/ADF button slides it between the two.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. CARD AND FLAG                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="card-flag">6. The Compass Card and the HDG Flag</h2>
+
+<p>
+The compass card is not a free-running gyro that you reset by hand. It is <strong>slaved</strong>: a remote directional gyro (the KG 102A) holds a steady heading reference, and a wingtip flux detector (the KMT 112) continuously nudges it onto magnetic north so it never drifts. The KA 51B control on the panel manages that slaving and lets you slew the gyro manually if needed. The RMI simply repeats the result, your live, corrected magnetic heading, under the lubber line.
+</p>
+
+<h3>The HDG flag and engine-start warmup</h3>
+<p>
+The red HDG flag in the upper-left corner is the heading warning flag. It is in view whenever the displayed heading cannot be trusted: no power to the compass system, a servo fault, or, most commonly, a directional gyro that has not finished spinning up. When the flag is in view, read no heading from the card.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">The flag is normal at start-up &mdash; give the gyro time</div>
+  <p>The KG 102A is a real gyroscope, and like any gyro it takes time to spin up to speed. When you first power the avionics the HDG flag will be <strong>in view</strong> and the card will not be reliable. Warmup takes about a minute when the aircraft is warm, and as long as <strong>five minutes in the cold</strong>. This is correct behavior, not a fault. When the gyro is up to speed and slaved, the flag snaps up out of sight and the card comes alive. Plan your cold-and-dark start so the compass has time to align before you need it.</p>
+</div>
+
+<p>
+Once running, the flag stays stowed unless the compass loses power or the slaving servo cannot hold the heading. Because the KI 229 and the KI 525A HSI share the same KCS 55A system, they raise and stow their heading flags together, if one shows a heading fault, expect the other to as well.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. NEEDLE PARKING                                        -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="parking">7. Needle Parking</h2>
+
+<p>
+A pointer only means something when it has a station to point at. When it does not, it parks: it drives to the horizontal, pointing straight out to the right (the 3 o'clock position), and sits there. A parked needle is the instrument telling you plainly: "I have nothing to show you." Watch for the park, do not navigate on a needle that is sitting at 3 o'clock.
+</p>
+
+<p>A VOR pointer parks when:</p>
+<ul>
+  <li><strong>There is no usable VOR signal</strong> &mdash; out of range, behind terrain, or no station tuned.</li>
+  <li><strong>A localizer is tuned</strong> &mdash; an ILS/localizer frequency carries no omnidirectional bearing, so there is nothing for the pointer to indicate.</li>
+  <li><strong>Its source radio is switched off</strong> &mdash; turn off the KX&nbsp;165A and the double-bar pointer parks; switch the single-bar pointer to a VOR whose GNS&nbsp;530 is off and it parks too.</li>
+</ul>
+
+<div class="callout note">
+  <div class="callout-title">The single needle waits for the GNS 530 to finish booting</div>
+  <p>When the No.&nbsp;1 pointer is set to VOR, its bearing comes from the GNS&nbsp;530's navigation receiver. The 530 has its own power-up sequence (the start-up and self-test pages), and its navigation output is not valid until it reaches the live map. So the single-bar pointer stays parked through the 530's boot and only sweeps to the VOR bearing once the unit is fully up. Switched to ADF, the pointer follows the ADF receiver instead and does not wait on the 530.</p>
+</div>
+
+<p>
+The ADF pointer behaves a little differently: it follows the ADF receiver directly and does not use the VOR-style park. Its behavior, including any parking with no station received, is set by the ADF receiver itself; see the KR&nbsp;87 ADF guide.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">8. Operating Procedures</h2>
+
+<h3>Power up and align</h3>
+<ol>
+  <li>Apply electrical power and switch the avionics master on. Confirm the G2 COMPASS breaker is closed.</li>
+  <li>Expect the HDG flag in view and the card unreliable. The gyro is spinning up.</li>
+  <li>Wait for the warmup to complete, about a minute warm, up to five minutes cold. The flag snaps up and the card settles onto your heading.</li>
+  <li>Cross-check the card against the magnetic compass. If it is off, use the KA 51B to slave or manually slew it onto the correct heading.</li>
+</ol>
+
+<h3>Set up the pointers</h3>
+<ol>
+  <li>Tune and identify the VOR you want on the double-bar pointer using the KX&nbsp;165A (NAV&nbsp;2).</li>
+  <li>For the single-bar pointer, decide whether you want VOR or ADF and press the lower-left button to select it. Confirm the lower-left annunciator.</li>
+  <li>Tune and identify that source: a VOR on the GNS&nbsp;530 (NAV&nbsp;1), or an NDB on the ADF.</li>
+  <li>Confirm both needles have come off the park and are pointing at their stations.</li>
+</ol>
+
+<h3>Read a bearing to a station</h3>
+<ol>
+  <li>Find the pointer for the station you care about (single bar or double bar).</li>
+  <li>Read the number on the card under the pointer's <strong>head</strong>. That is the magnetic bearing to the station.</li>
+  <li>To go direct, turn until that pointer's head sits on the lubber line at the top. You are now tracking inbound (correct for wind as needed).</li>
+</ol>
+
+<h3>Identify which radial you are on</h3>
+<ol>
+  <li>Read the card under the pointer's <strong>tail</strong>. That is the radial you are crossing, the bearing from the station.</li>
+  <li>Use it for position reports, or to judge an intercept onto a published radial.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. INDICATIONS                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">9. Normal and Abnormal Indications</h2>
+
+<h4>Healthy display</h4>
+<p>
+Powered, warmed up, and slaved: the HDG flag is stowed out of sight, the card reads your magnetic heading under the lubber line and tracks smoothly through turns, and each pointer either points at its tuned station or sits parked at 3 o'clock if it has nothing to show. The source annunciators read the current selection.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>HDG flag in view at start-up</td><td>Normal. The gyro is still spinning up.</td><td>Wait out the warmup (up to ~5 min cold). The flag stows when the compass is valid.</td></tr>
+  <tr><td>HDG flag in view in flight</td><td>The compass system has lost power, or the gyro (KG 102A) has failed or tumbled. A slaving fault does not raise this flag; it shows instead as a wrong card heading with no flag.</td><td>Check the G2 COMPASS breaker and the avionics bus. Cross-check the magnetic compass; expect the HSI to flag too.</td></tr>
+  <tr><td>A pointer parked at 3 o'clock</td><td>That pointer has no usable signal: out of range, a localizer tuned, or its radio off.</td><td>Confirm the station is tuned, identified, in range, and its radio is on. Do not navigate on a parked needle.</td></tr>
+  <tr><td>Single-bar pointer parked after switching to VOR</td><td>The GNS&nbsp;530 may still be booting, or no usable VOR is tuned on NAV&nbsp;1.</td><td>Let the 530 finish starting up; confirm a VOR is tuned and identified.</td></tr>
+  <tr><td>Card heading wrong but no flag</td><td>The gyro is running but slaved to the wrong heading, or in free (unslaved) mode.</td><td>Use the KA 51B to re-slave or slew the card onto the correct magnetic heading.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">10. Notes and Tips</h2>
+
+<ul>
+  <li><strong>Double bar is VOR, single bar switches.</strong> The opposite of most RMIs. The one thing to remember about this instrument.</li>
+  <li><strong>Give the gyro time.</strong> The HDG flag at start-up is the gyro warming up, not a fault. Up to five minutes in the cold. Start the compass early.</li>
+  <li><strong>A needle at 3 o'clock means nothing.</strong> The park is the instrument saying it has no signal. Identify before you trust any pointer.</li>
+  <li><strong>Head to, tail from.</strong> Pointer head = bearing to the station; tail = the radial you are on.</li>
+  <li><strong>It shares the system with the HSI.</strong> The KI 229 and the KI 525A HSI run off the same KCS 55A compass. They agree on heading and flag together.</li>
+  <li><strong>The single needle waits on the GNS 530.</strong> In VOR mode it will not read until the 530 is past its boot. That is intentional.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; KI 229 RMI Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>

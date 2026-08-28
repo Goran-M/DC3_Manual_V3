@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LES DC-3 | GNS 530 GPS Operating Guide</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg:       #faf9f6;
+    --color-text:     #2c2c2c;
+    --color-heading:  #1a1a2e;
+    --color-accent:   #c0392b;
+    --color-accent2:  #2c3e50;
+    --color-muted:    #6b7280;
+    --color-border:   #d1d5db;
+    --color-sidebar:  #f3f0ea;
+    --color-code-bg:  #f8f5ef;
+    --color-table-alt:#f9f7f3;
+    --color-warning:  #d4a017;
+    --color-caution:  #c0392b;
+    --font-body:      'Georgia', 'Times New Roman', serif;
+    --font-heading:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono:      'Consolas', 'Monaco', monospace;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.75;
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  /* ── Typography ────────────────────────────────────── */
+  h1, h2, h3, h4, h5 { font-family: var(--font-heading); color: var(--color-heading); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 2.5rem 0 0.8rem;
+    color: var(--color-accent2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+  p + p { text-indent: 1.5em; }
+
+  blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background: var(--color-sidebar);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  blockquote p { text-indent: 0; }
+
+  /* ── Lists ─────────────────────────────────────────── */
+  ul, ol { margin: 0 0 1rem 1.5rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── Tables ────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.8rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--color-accent2);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:nth-child(even) td { background: var(--color-table-alt); }
+
+  /* ── Callout Boxes ─────────────────────────────────── */
+  .callout {
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout p { text-indent: 0; }
+  .callout-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .note {
+    background: #eef4fb;
+    border-left: 4px solid #3b82f6;
+  }
+  .note .callout-title { color: #2563eb; }
+
+  .warning {
+    background: #fef9e7;
+    border-left: 4px solid var(--color-warning);
+  }
+  .warning .callout-title { color: #b7950b; }
+
+  .caution {
+    background: #fdecea;
+    border-left: 4px solid var(--color-caution);
+  }
+  .caution .callout-title { color: var(--color-caution); }
+
+  .tip {
+    background: #eafaf1;
+    border-left: 4px solid #27ae60;
+  }
+  .tip .callout-title { color: #1e8449; }
+
+  /* ── Image Placeholders ────────────────────────────── */
+  .image-placeholder {
+    background: var(--color-sidebar);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+  }
+  .image-placeholder .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .image-placeholder .description {
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── Sidebar / Aside ───────────────────────────────── */
+  .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1.5rem;
+    padding: 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sidebar p { text-indent: 0; text-align: left; margin-bottom: 0.35rem; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Spec Sheet ────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .spec-grid dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .spec-grid dd { margin-bottom: 0.6rem; }
+
+  /* ── Table of Contents ─────────────────────────────── */
+  .toc {
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 3rem;
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-item;
+    margin: 0;
+    padding: 0;
+  }
+  .toc > ol > li {
+    counter-increment: toc-item;
+    margin-bottom: 0.4rem;
+  }
+  .toc > ol > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--color-accent2);
+    text-decoration: none;
+  }
+  .toc > ol > li > a:hover { color: var(--color-accent); }
+  .toc > ol > li > a::before {
+    content: counter(toc-item) ". ";
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* ── Cover Page ────────────────────────────────────── */
+  .cover {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 3px double var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .cover .series {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+  .cover h1 {
+    font-size: 3rem;
+    border: none;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .cover .edition {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cover .publisher {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: var(--color-accent2);
+    letter-spacing: 0.06em;
+  }
+  .cover .cover-logo {
+    display: block;
+    width: 38%;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 1.6rem;
+  }
+  .cover .pub-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
+    margin-top: 2.2rem;
+  }
+  .cover .pub-logo {
+    display: block;
+    width: 36%;
+    max-width: 185px;
+    height: auto;
+    margin: 0.7rem auto 0;
+  }
+
+  /* ── Faceplate caption ─────────────────────────────── */
+  .caption {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin: -0.8rem 0 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── Inline control name ───────────────────────────── */
+  .ctl {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.05em 0.4em;
+    white-space: nowrap;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <img class="cover-logo" src="images/les_logo.png" alt="Leading Edge Simulations">
+  <div class="series">DC-3 Modern Avionics &middot; Operating Guide</div>
+  <h1>GNS 530</h1>
+  <div class="subtitle">Garmin GPS / NAV / COMM</div>
+  <div class="edition">Modern Variant Edition</div>
+  <div class="pub-label">Published by</div>
+  <img class="pub-logo" src="images/xa_logo.png" alt="X-Aviation">
+</div>
+
+<p>
+This guide covers the Garmin GNS 530 as fitted to the DC-3 Modern variant, a standalone companion to the main DC-3 Aircraft Operating Manual. The GNS 530 is the odd one out in this avionics stack, and deliberately so. The rest of the panel is Bendix/King; this is a Garmin, and behind its LES faceplate it is X-Plane's own built-in GNS 530. That means the GPS, the moving map, the flight plans, and the approaches are all driven by X-Plane's GPS engine, while LES wraps it in a faceplate that matches the cockpit, gives it a proper power knob and circuit breaker, and lets it pop out into its own window. This guide covers the box as it sits in the DC-3: the controls, how it is powered, how it ties into the rest of the stack, and where to go for the deep GPS operation.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TOC                                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#faceplate">Faceplate Layout</a></li>
+    <li><a href="#controls">Controls in Detail</a></li>
+    <li><a href="#display">Reading the Display</a></li>
+    <li><a href="#power-on">Power-On Sequence</a></li>
+    <li><a href="#using">Using the GPS</a></li>
+    <li><a href="#procedures">Operating Procedures</a></li>
+    <li><a href="#integration">Integration with the DC-3 Stack</a></li>
+    <li><a href="#popout">Popping the Unit Out</a></li>
+    <li><a href="#indications">Normal and Abnormal Indications</a></li>
+    <li><a href="#notes">Notes and Tips</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 1. OVERVIEW                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="overview">1. Overview</h2>
+
+<div class="sidebar">
+  <div class="sidebar-title">GNS 530 at a glance</div>
+  <p><strong>Type:</strong> GPS / NAV / COMM with moving map</p>
+  <p><strong>Engine:</strong> X-Plane's built-in GNS 530</p>
+  <p><strong>Radios:</strong> COM 1 and NAV 1 (VLOC)</p>
+  <p><strong>Navigation:</strong> GPS, plus VOR/ILS on the VLOC side</p>
+  <p><strong>Fitted to:</strong> The G530-equipped Modern panel</p>
+  <p><strong>Power:</strong> PWR/VOL knob + GPS breaker, DC Radio Bus</p>
+</div>
+
+<p>
+When Garmin introduced the GNS 530 at the end of the 1990s, it reorganized the general aviation panel around a single screen. Here was GPS navigation, a color moving map, a VHF NAV/COMM, and the ability to fly a full instrument approach, all in one box you tuned with two concentric knobs. It became the unit that taught a generation of pilots to think in flight plans and direct-to legs rather than radials and bearings, and it is still the shape of the modern GA cockpit.
+</p>
+
+<p>
+Putting one in a DC-3 is a cheerful anachronism, and an entirely real one. Airframes from the 1940s are kept flying by retrofitting exactly this kind of equipment: a panel-mount GPS earns the aircraft its place in today's airspace, opens up GPS and RNAV approaches, and gives the crew a moving map the original builders could not have imagined. A Garmin glowing in a row of Bendix/King boxes is just what a working classic looks like now.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">It is X-Plane's GPS</div>
+  <p>The GNS 530 you are flying is X-Plane's own built-in unit. LES gives it a faceplate that matches the DC-3, a power knob with a proper off detent, a dedicated circuit breaker, and a pop-out window, but the navigation itself, the pages, the flight plan, the procedures, the map, is X-Plane's GPS engine. This guide documents the box and how it lives in the DC-3; for the depth of GPS operation, X-Plane's own GPS documentation is the reference.</p>
+</div>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: GNS 530 in the Modern panel]</span>
+  <span class="description">The GNS 530 in its installed position in the DC-3 Modern instrument panel, with a callout pointing to the unit.</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 2. AT A GLANCE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="at-a-glance">2. At a Glance</h2>
+
+<table>
+  <tr><th>Function</th><th>What it provides</th></tr>
+  <tr><td>GPS navigation</td><td>Direct-to, flight plans, departures, arrivals, and approaches, on a color moving map</td></tr>
+  <tr><td>COM radio</td><td>VHF communication on COM 1, active and standby with a flip-flop</td></tr>
+  <tr><td>NAV radio (VLOC)</td><td>VOR and ILS on NAV 1, active and standby with a flip-flop</td></tr>
+  <tr><td>CDI source</td><td>The HSI's source: GPS or VLOC, selectable</td></tr>
+</table>
+
+<div class="callout note">
+  <div class="callout-title">Power: why is it dark?</div>
+  <p>The GNS 530 is switched on by its PWR/VOL knob, the small knob at the top left: rotate it off the OFF detent to power the unit and set the COM volume. Beyond that it needs avionics power on the DC Radio Bus and its dedicated GPS circuit breaker closed. A dark screen usually means the PWR/VOL knob is in OFF; then check the GPS breaker and the avionics master.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 3. FACEPLATE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="faceplate">3. Faceplate Layout</h2>
+
+<p>
+The screen dominates the face. Around it sit two knobs at the top for power and volume, two flip-flop keys, two large dual-concentric knobs at the bottom corners, a range rocker, and rows of labeled function keys. If you have flown any 400 or 500-series Garmin, this will all be exactly where you expect it.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: GNS 530 faceplate, fully labeled]</span>
+  <span class="description">Front view of the GNS 530 with callouts: the display; PWR/VOL knob and COM flip-flop (top left); VOL/PUSH-ID knob and NAV flip-flop (left); the bottom-left COM/VLOC tuning knob with its C/V push; the bottom-right GPS knob with its CRSR push; the RNG rocker; the bottom row CDI/OBS/MSG/FPL/VNAV/PROC; and the right cluster Direct-to/MENU/CLR/ENT.</span>
+</div>
+
+<table>
+  <tr><th>Control</th><th>What it is</th></tr>
+  <tr><td><span class="ctl">PWR/VOL</span></td><td>Power switch (off the OFF detent) and COM 1 volume. Push (PUSH/SQ) defeats the COM squelch.</td></tr>
+  <tr><td><span class="ctl">COM &#8644;</span></td><td>Swaps the active and standby COM frequencies.</td></tr>
+  <tr><td><span class="ctl">VOL/PUSH-ID</span></td><td>NAV 1 volume; push toggles the NAV station identifier audio.</td></tr>
+  <tr><td><span class="ctl">NAV &#8644;</span></td><td>Swaps the active and standby NAV (VLOC) frequencies.</td></tr>
+  <tr><td><span class="ctl">COM/VLOC knob</span></td><td>Bottom left. Tunes frequencies: outer ring MHz, inner kHz. Push (C/V) chooses COM or VLOC.</td></tr>
+  <tr><td><span class="ctl">GPS knob</span></td><td>Bottom right. Outer ring selects the page group, inner the page. Push toggles the cursor (CRSR).</td></tr>
+  <tr><td><span class="ctl">RNG</span></td><td>Zooms the moving map in and out.</td></tr>
+  <tr><td><span class="ctl">CDI, OBS, MSG, FPL, VNAV, PROC</span></td><td>The bottom function-key row (see below).</td></tr>
+  <tr><td><span class="ctl">Direct-to, MENU, CLR, ENT</span></td><td>The right-hand key cluster.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 4. CONTROLS IN DETAIL                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controls">4. Controls in Detail</h2>
+
+<h3>PWR/VOL and VOL/PUSH-ID</h3>
+<p>
+The top-left PWR/VOL knob is the unit's power switch as well as the COM volume: off the OFF detent it powers up, and turning it sets how loud COM 1 is. Pressing it in is the <strong>PUSH/SQ</strong> function, which defeats the COM receiver's automatic squelch so you hear the raw open-receiver static. On the real Garmin this is a momentary press; in the simulation the knob pops out and stays out while the squelch is held open, so the defeated state is visible at a glance. Click it again and it seats back in, re-squelching the channel. Below it, the VOL/PUSH-ID knob sets the NAV (VLOC) volume, and pushing it in toggles the NAV station's Morse identifier into your audio so you can confirm a VOR or localizer.
+</p>
+
+<h3>Tuning: the COM/VLOC knob and the flip-flops</h3>
+<p>
+The bottom-left dual knob tunes the radios. Push its inner knob to choose whether you are tuning the COM or the VLOC (NAV) side, indicated on screen, then turn the outer ring for megahertz and the inner knob for kilohertz. You always tune the standby frequency; the COM and NAV flip-flop keys at the top swap standby and active, just like the King radios.
+</p>
+
+<h3>The GPS knob and the cursor</h3>
+<p>
+The bottom-right dual knob drives the GPS pages. The outer ring moves between page groups, the inner knob steps through the pages within a group, and pushing the inner knob turns the cursor (CRSR) on and off. With the cursor on, the same knobs move the highlight and change the field under it, which is how you type a waypoint or edit a flight plan.
+</p>
+
+<h3>The function keys</h3>
+<table>
+  <tr><th>Key</th><th>Function</th></tr>
+  <tr><td><span class="ctl">CDI</span></td><td>Selects the GNS 530's own navigation source, GPS or VLOC.</td></tr>
+  <tr><td><span class="ctl">OBS</span></td><td>Holds the active waypoint (suspends automatic sequencing) and lets you select a course to or from it.</td></tr>
+  <tr><td><span class="ctl">MSG</span></td><td>Shows system messages when the message annunciator prompts you.</td></tr>
+  <tr><td><span class="ctl">FPL</span></td><td>Opens the flight plan pages to build or edit a route.</td></tr>
+  <tr><td><span class="ctl">VNAV</span></td><td>Opens vertical navigation planning.</td></tr>
+  <tr><td><span class="ctl">PROC</span></td><td>Loads or activates procedures: departures, arrivals, and approaches.</td></tr>
+  <tr><td><span class="ctl">Direct-to</span></td><td>Navigates straight to a waypoint you enter.</td></tr>
+  <tr><td><span class="ctl">MENU</span></td><td>Opens the options menu for the current page.</td></tr>
+  <tr><td><span class="ctl">CLR</span></td><td>Clears an entry or steps back; held, it returns to the default navigation page.</td></tr>
+  <tr><td><span class="ctl">ENT</span></td><td>Confirms an entry or selection.</td></tr>
+  <tr><td><span class="ctl">RNG</span></td><td>Zooms the map: one way for a wider scale, the other for a closer look.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 5. DISPLAY                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="display">5. Reading the Display</h2>
+
+<p>
+The screen shows the active radio frequencies along the top and the current GPS page below, most often the moving map: your aircraft at the center, the active flight-plan leg drawn ahead, navaids and airports around you, and data fields for distance, track, groundspeed, and time. The GPS knob and the function keys change which page you are looking at.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">Page detail lives in X-Plane's GPS docs</div>
+  <p>Because the navigation here is X-Plane's GPS engine, the exact page structure and the on-screen fields follow X-Plane's implementation, and they can differ slightly between X-Plane versions. This guide gets you around the box; for the full tour of the pages, flight planning, and procedures, X-Plane's built-in GPS documentation is the authority.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 6. POWER-ON SEQUENCE                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="power-on">6. Power-On Sequence</h2>
+
+<p>
+Switch the GNS 530 on, by rotating the PWR/VOL knob off its OFF detent, and it runs through the same start-up sequence a real Garmin 530 performs, in order: a splash screen, a navigation database confirmation, and an instrument self-test, before it settles on the moving map. After the splash, each page waits for you to press ENT, so you step through the start-up at your own pace.
+</p>
+
+<div class="image-placeholder">
+  <span class="label">[IMAGE: GNS 530 power-on sequence]</span>
+  <span class="description">The GNS 530 boot pages in order: the owner splash screen, the navigation database confirmation (AIRAC cycle with effective and expiry dates), and the instrument self-test picture.</span>
+</div>
+
+<h3>1. Splash screen</h3>
+<p>
+The first thing you see is the splash screen. It holds for a few seconds and then advances on its own, with no key press needed. By default it carries the aircraft's branding, and you can personalize it with your own name and motto, covered under Custom Splash Screen below.
+</p>
+
+<h3>2. Navigation database</h3>
+<p>
+Next the unit shows the navigation database it is running: the AIRAC cycle and the dates the data becomes effective and expires. These are read live from the simulator's own navigation data, so the page reflects whatever database you actually have installed. Press ENT to accept it and continue.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">"Database out of date" is normal</div>
+  <p>If your installed navigation data is past its expiry date, the expiry is shown in amber with a DATABASE OUT OF DATE notice. That is exactly what a real 530 does when it is running an expired cycle, and in the sim it simply means your nav data is older than its effective period. It is authentic, not a fault, and the unit works normally. Press ENT to continue.</p>
+</div>
+
+<h3>3. Instrument self-test</h3>
+<p>
+The last page is the instrument self-test: the unit draws a course-deviation, glideslope, and flag test picture, just as a real 530 does on power-up so a pilot can confirm the indications look right. Press ENT, and the unit moves to the live moving-map page, ready for use.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">A check of the 530's own display</div>
+  <p>This is the standard Garmin power-up indicator check, drawn on the GNS 530's own screen, letting you confirm the 530 is presenting its course, glideslope, and flag symbols correctly before you rely on it.</p>
+</div>
+
+<h3>Custom Splash Screen</h3>
+<p>
+Just like the real Garmin custom-splash option, you can put your own name and a motto on the 530's power-on splash. Set it in the DC3 Hangar, under the Modern options, in the GNS 530 POWER-ON SPLASH section:
+</p>
+
+<table>
+  <tr><th>Field</th><th>Limit</th><th>Where it appears</th></tr>
+  <tr><td>Owner</td><td>Up to 24 characters</td><td>The top line, prefixed with "Owner:"</td></tr>
+  <tr><td>Motto</td><td>Up to 32 characters</td><td>The line beneath the owner name</td></tr>
+</table>
+
+<p>
+When both are set, the splash shows your owner line with the motto beneath it, above the Garmin wordmark. The setting is global to you, not tied to a livery, and it persists between flights once you Save Options.
+</p>
+
+<div class="callout tip">
+  <div class="callout-title">Seeing your changes</div>
+  <p>The splash is read at power-up, so changes take effect the next time the 530 starts. If you edit the fields while the unit is already on, power-cycle it, turn the PWR/VOL knob to OFF and back on, to see the new splash.</p>
+</div>
+
+<p>
+Leave both fields blank for the factory default splash: the Leading Edge Simulations logo at the top, "Douglas DC-3" beneath it, and the Garmin wordmark centered.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 7. USING THE GPS                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="using">7. Using the GPS</h2>
+
+<p>
+The GNS 530 rewards a few habits. Almost everything is some combination of: turn the GPS knob to the page you want, push the inner knob for the cursor, dial in a value, and press ENT. The high-frequency tasks:
+</p>
+
+<ul>
+  <li><strong>Direct-to:</strong> press Direct-to, enter a waypoint with the cursor and knobs, and press ENT twice to navigate straight to it.</li>
+  <li><strong>Flight plan:</strong> press FPL to open the flight plan, turn the cursor on, and add waypoints in order. The map draws the route as you build it.</li>
+  <li><strong>Procedures:</strong> press PROC to load an approach, departure, or arrival for an airport in your plan, then activate it when cleared.</li>
+  <li><strong>CDI source:</strong> press CDI to switch the navigation source between GPS and VLOC (the 530's VOR/ILS receiver). This is the source the HSI shows and the autopilot follows, so it is how you move the panel from GPS guidance onto an ILS, and back.</li>
+</ul>
+
+<div class="callout note">
+  <div class="callout-title">The CDI source drives the HSI</div>
+  <p>The CDI key picks whether the GNS 530 feeds GPS or VLOC guidance to the panel, and that choice drives the KI 525A HSI and, through it, the KAP 140 autopilot. So a coupled ILS or VOR approach is flown on the 530's VLOC receiver with the source set to VLOC, and a GPS approach with it set to GPS. See <a href="#integration">Integration with the DC-3 Stack</a> for how the pieces fit together.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 8. PROCEDURES                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="procedures">8. Operating Procedures</h2>
+
+<h3>Power up</h3>
+<ol>
+  <li>With avionics power on and the GPS breaker closed, rotate the PWR/VOL knob off the OFF detent. The unit runs through its power-on sequence, splash, database, then self-test; press ENT to step through it (see <a href="#power-on">Power-On Sequence</a>).</li>
+  <li>Set the COM volume on PWR/VOL and the NAV volume on VOL/PUSH-ID.</li>
+</ol>
+
+<h3>Squelch defeat (PUSH/SQ)</h3>
+<ol>
+  <li>Click the centre of the PWR/VOL knob (PUSH/SQ). The knob pops out and the open-receiver static fades in.</li>
+  <li>Listen. Hearing the hiss confirms the COM 1 receiver is powered and alive. A weak station too faint to break the squelch on its own can also be read through the static this way.</li>
+  <li>Set your listening level: click the left or right side of the PWR/VOL knob, or roll the mouse wheel over it, turning COM volume up for a louder hiss, down toward the OFF detent for quieter.</li>
+  <li>Click the centre again. The knob seats back in, the squelch re-engages, and the channel goes quiet until a transmission comes in.</li>
+</ol>
+<div class="callout note">
+  <div class="callout-title">No static? Check the audio path</div>
+  <p>You will only hear the open receiver when the unit is powered and its audio is routed to you: the PWR/VOL knob on (off its OFF detent), the GPS breaker in, the DC Radio Bus live, and <strong>COM 1 selected on the audio panel</strong> (the COM1 switch on the microphone panel up, or ON). Cold and dark, a pulled breaker, the volume fully down, or COM 1 deselected on the audio panel all keep it silent. Remember the GNS 530 is your COM 1 radio; the KX 165A is COM 2, with the same squelch test on its own COM volume knob.</p>
+</div>
+
+<h3>Tune a COM or NAV frequency</h3>
+<ol>
+  <li>Push the inner COM/VLOC knob to select the COM or the VLOC side, as shown on screen.</li>
+  <li>Turn the outer ring for megahertz and the inner knob for kilohertz to set the standby frequency.</li>
+  <li>Press the matching flip-flop key to make it active.</li>
+</ol>
+
+<h3>Go direct to a waypoint</h3>
+<ol>
+  <li>Press Direct-to.</li>
+  <li>Use the cursor and the GPS knob to enter the waypoint identifier.</li>
+  <li>Press ENT to accept it, and ENT again to activate. The map redraws a straight leg to the waypoint.</li>
+</ol>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 9. INTEGRATION                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="integration">9. Integration with the DC-3 Stack</h2>
+
+<p>
+The GNS 530 is wired as the number-one radio set, and it drives the panel's primary navigation display:
+</p>
+
+<ul>
+  <li><strong>It is COM 1 and NAV 1.</strong> Its COM is COM 1 and its VLOC is NAV 1. The Bendix/King KX 165A is the number-two set (COM 2 / NAV 2).</li>
+  <li><strong>It feeds the DME.</strong> Set a KDI 572 to N1 and it channels its DME from the GNS 530's NAV 1 (VLOC) frequency.</li>
+  <li><strong>It drives the HSI.</strong> The KI 525A HSI shows the GNS 530's course and glideslope, and the CDI key selects which source it uses, GPS or the 530's VLOC (VOR/ILS) receiver. The HSI needs the 530 powered and booted to show a valid course.</li>
+  <li><strong>The autopilot follows it.</strong> The KAP 140 couples to whatever the HSI is showing, so a coupled VOR or ILS approach is flown on the 530 with the CDI source set to VLOC, and a GPS or RNAV approach with it set to GPS.</li>
+  <li><strong>The KX 165A drives its own course head.</strong> The number-two radio feeds the separate round VOR/ILS course indicator, not the HSI, so the panel has two independent course displays: the HSI on the 530, the VOR head on the KX 165A.</li>
+</ul>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 10. POP-OUT                                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="popout">10. Popping the Unit Out</h2>
+
+<p>
+The GNS 530 can be opened in its own floating window, which is especially worthwhile here: GPS work involves a lot of knob-twisting and reading small text, and a large pop-out makes both easy, on a second monitor or in VR. In X-Plane's keyboard or joystick settings, find the command named "Toggle Garmin 530 popup" and bind it to a key or controller button. Press to open, press again to close.
+</p>
+
+<p>
+The pop-out shows the live GPS screen, the same picture as the panel unit, so you can fly the whole box from the window: click the keys, roll the mouse wheel over a knob to turn it, and click an inner-knob center to push it. Click the "Garmin" nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize, with the bezel letterboxed so the face keeps its proportions.
+</p>
+
+<p>
+The GNS 530 also appears in the unified <strong>Avionics Stack</strong> popup, a single window that shows the whole Modern radio stack at once with every screen live and every control working. The stack and this unit's own popup coexist, and both stay in sync with the panel, so you can run whichever suits your setup. The Avionics Stack is covered in the main DC-3 Aircraft Operating Manual.
+</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 11. INDICATIONS                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="indications">11. Normal and Abnormal Indications</h2>
+
+<h4>Healthy operation</h4>
+<p>
+A powered GNS 530 shows the moving map with your position and route, the active COM and NAV frequencies along the top, and a steady GPS position with no outstanding messages.
+</p>
+
+<h4>What to watch for</h4>
+<table>
+  <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
+  <tr><td>Screen dark</td><td>The PWR/VOL knob is in OFF, the GPS breaker is open, or there is no avionics power.</td><td>Turn the PWR/VOL knob off OFF, then check the GPS breaker and the avionics master.</td></tr>
+  <tr><td>MSG annunciator</td><td>The unit has a message for you.</td><td>Press MSG to read it, then clear it.</td></tr>
+  <tr><td>No NAV identifier</td><td>Wrong VLOC frequency, out of range, or the ident audio is off.</td><td>Recheck the frequency and push VOL/PUSH-ID to bring up the identifier.</td></tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 12. NOTES AND TIPS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="notes">12. Notes and Tips</h2>
+
+<ul>
+  <li><strong>It is X-Plane's GPS.</strong> The box is the DC-3's, the navigation is X-Plane's. For deep flight planning and procedures, reach for X-Plane's GPS documentation.</li>
+  <li><strong>Know your CDI source.</strong> The CDI key sets the panel's navigation source, GPS or VLOC. The HSI and the KAP 140 follow it, so confirm it matches the approach: GPS for a GPS or RNAV approach, VLOC for an ILS or VOR.</li>
+  <li><strong>Push to choose, then tune.</strong> The C/V push picks COM or VLOC; the CRSR push turns the cursor on for data entry. Most confusion on this box is forgetting which is active.</li>
+  <li><strong>It is the number-one set.</strong> COM 1 and NAV 1 are the GNS 530; the KX 165A is COM 2 and NAV 2.</li>
+  <li><strong>Pop it out for the busy work.</strong> Building a flight plan or loading an approach is far easier in the large floating window.</li>
+  <li><strong>Power is on its own knob and breaker.</strong> The PWR/VOL knob switches it; the GPS breaker protects it. Both must be on for a picture.</li>
+</ul>
+
+<hr>
+
+<p style="text-align:center; color: var(--color-muted); font-size: 0.85rem; font-family: var(--font-heading);">
+LES DC-3 &middot; GNS 530 GPS Operating Guide &middot; DC-3 Modern Avionics Series<br>
+Leading Edge Simulations &middot; Published by X-Aviation
+</p>
+
+</body>
+</html>
