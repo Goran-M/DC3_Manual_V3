@@ -1,0 +1,3318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DC-3 Plugin Changelog - Version 3.0.0</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            font-size: 24pt;
+        }
+        h2 {
+            color: #0066cc;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            font-size: 16pt;
+        }
+        h3 {
+            color: #333;
+            margin-top: 20px;
+            font-size: 13pt;
+        }
+        h4 {
+            color: #555;
+            margin-top: 15px;
+            font-size: 11pt;
+        }
+        .version-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .new-tag {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 9pt;
+            font-weight: bold;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 10pt;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            font-size: 10pt;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<h1>DC-3 Plugin Changelog</h1>
+<h2>Version 3.0.0 (C++ Rewrite)</h2>
+
+<div class="version-info">
+    <strong>Previous Version:</strong> 2.0 (Lua/Gizmo)<br>
+    <strong>Architecture Change:</strong> Complete rewrite from Lua scripting to native C++ X-Plane plugin<br>
+    <strong>Release Date:</strong> <em>TBD</em>
+</div>
+
+<hr>
+
+<h2>NEW COLD WEATHER SIMULATION SYSTEMS</h2>
+
+<div class="section">
+<h3>Oil Dilution System <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Complete oil dilution simulation for cold weather starting</li>
+    <li>Grade-aware oil viscosity modeling (SAE-30, SAE-40, SAE-50, SAE-60)</li>
+    <li>Temperature-dependent viscosity calculations using Walther equation</li>
+    <li>Cranking difficulty factors based on oil temperature and grade</li>
+    <li>Pour point temperature tracking (oil won't flow below this)</li>
+    <li>Oil condition status display (PROPER, TOO_THICK, TOO_THIN, BELOW_POUR_POINT)</li>
+    <li>Dilution timing recommendations per T.O. 1C-47-2 manual</li>
+    <li>Evaporation modeling during engine warm-up</li>
+    <li>Persistent state saving across sessions</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fuel Icing System <span class="new-tag">NEW</span></h3>
+<p>Three distinct cold weather fuel phenomena modeled:</p>
+
+<h4>1. Carburetor Icing (most dangerous)</h4>
+<ul>
+    <li><strong>Physics-based temperature modeling:</strong>
+        <ul>
+            <li>Fuel vaporization in venturi drops temperature 11-22°C (20-40°F) below OAT</li>
+            <li>Throttle position affects cooling: more throttle = more fuel flow = more cooling</li>
+            <li>Result: Carb throat can be below freezing on a warm day (OAT +15°C → Carb -3°C)</li>
+        </ul>
+    </li>
+    <li><strong>Environmental factors:</strong>
+        <ul>
+            <li>OAT (Outside Air Temperature) from X-Plane atmosphere</li>
+            <li>Dewpoint/humidity affects ice formation rate</li>
+            <li>Icing possible at OAT up to 21°C (70°F) with high humidity</li>
+        </ul>
+    </li>
+    <li>Ice formation and sublimation rates dependent on carb temp relative to dewpoint</li>
+    <li>Carburetor heat raises temperature up to +35°C with realistic power penalty</li>
+    <li><strong>Carburetor Air Temperature gauge:</strong> Shows actual venturi temperature (not OAT) - critical for detecting icing conditions</li>
+</ul>
+
+<h4>2. Fuel Line Icing</h4>
+<ul>
+    <li>Water contamination tracking per tank</li>
+    <li>Ice formation at 0°C when water present</li>
+    <li>Fuel line blockage effects on engine power</li>
+    <li>Maintenance integration: drain tank strainers to remove water</li>
+</ul>
+
+<h4>3. Cold Start Vaporization</h4>
+<ul>
+    <li>Fuel temperature effects on vaporization</li>
+    <li>Extended electric primer activation required in cold (hold primer switch longer)</li>
+    <li>Startup roughness based on fuel/engine temperature</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Battery Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Temperature-dependent capacity reduction (Peukert's law)</li>
+    <li>Cold resistance factor increases internal resistance</li>
+    <li>Reduced charge acceptance when cold</li>
+    <li>Freeze point varies with state of charge</li>
+    <li>Self-heating during discharge</li>
+    <li>Cranking voltage sag modeling</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Hydraulic Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>MIL-H-5606 hydraulic fluid viscosity modeling</li>
+    <li>Viscosity increases exponentially in cold (up to 20x at -40°C)</li>
+    <li>Gear and flap actuation speed reduced in cold</li>
+    <li>Brake response becomes sluggish</li>
+    <li>System warms up through use (friction heating)</li>
+    <li>Fluid temperature display in settings panel</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Propeller Governor Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Hamilton Standard Hydromatic governor oil viscosity modeling</li>
+    <li>Governor response degradation in cold</li>
+    <li>Prop pitch change rate reduced until warm</li>
+    <li>Governor oil temperature tracks engine oil with thermal lag</li>
+    <li>Response factor display in settings panel</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Gyroscopic Instruments Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<p><strong>Note:</strong> Per T.O. 1C-47-2, DC-3 gyro instruments are VACUUM-DRIVEN by engine-driven suction pumps,
+providing 3.75-4.25" Hg vacuum. Warning lights illuminate below 3.5" Hg.</p>
+<ul>
+    <li>Vacuum-driven AI and DG powered by engine-driven suction pumps</li>
+    <li>Per-engine vacuum pump modeling with independent temperature dynamics</li>
+    <li>Two panel vacuum gauges (L/R) plus autopilot vacuum gauge</li>
+    <li>Automatic check valve: single-engine operation maintains full vacuum</li>
+    <li>L/R vacuum warning lights illuminate below 3.5" Hg (generic_lit_34/35)</li>
+    <li>Slower spin-up time in cold conditions (bearing lubricant thickens)</li>
+    <li>Cold pump output reduction (thick lubricant reduces suction)</li>
+    <li>Increased wobble during spin-up</li>
+    <li>Gyro bearing friction increases in cold</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Control Cable Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Steel cable thermal contraction in cold</li>
+    <li>Slight trim offset develops in extreme cold</li>
+    <li>Elevator and rudder trim affected</li>
+    <li>Cable temperature tracks airframe temperature</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Tire Pressure Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Ideal Gas Law pressure calculation (PV=nRT)</li>
+    <li>Main gear and tailwheel tire pressure drops in cold</li>
+    <li>Pressure warning when below 85% of rated</li>
+    <li>Tires warm from rolling friction</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Emergency Air Bottle Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Pneumatic brake bottle pressure affected by temperature</li>
+    <li>Ideal Gas Law calculation for effective pressure</li>
+    <li>Reduced emergency brake effectiveness in extreme cold</li>
+    <li>Air bottle temperature display</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Cabin Combustion Heater System <span class="new-tag">NEW</span></h3>
+<p>Full simulation of the Stewart-Warner (Janitrol) S-100 combustion heater per T.O. 1C-47-2 Section IV.
+Burns aviation gasoline from the right main tank in a sealed combustion chamber, with a heat exchanger
+transferring heat to cabin air via squirrel-cage blower.</p>
+
+<h4>State Machine (9 States)</h4>
+<ul>
+    <li><strong>OFF:</strong> Master switch off, no power, or prerequisites not met</li>
+    <li><strong>PRE_IGNITION:</strong> Fuel pump priming, solenoids opening (~1 sec)</li>
+    <li><strong>IGNITION:</strong> Spark plug firing, waiting for combustion (cold weather extends)</li>
+    <li><strong>IGNITION_FAILED:</strong> Failed to light, 3-second pause before automatic retry</li>
+    <li><strong>COMBUSTION:</strong> Fuel burning, discharge duct temp rising toward 130°C</li>
+    <li><strong>CYCLING_OFF:</strong> Fenwal thermostat opened at 130°C, fuel cut, coasting down</li>
+    <li><strong>CYCLING_ON:</strong> Thermostat closed at 120°C, re-igniting (faster than initial start)</li>
+    <li><strong>OVERHEAT:</strong> Discharge duct temp hit 176°C (350°F), drop-out switch activating</li>
+    <li><strong>DROPOUT_LATCHED:</strong> Drop-out fuse blown, heater locked out until maintenance reset</li>
+</ul>
+
+<h4>Thermal Model</h4>
+<ul>
+    <li><strong>Combustion chamber temp:</strong> Internal, ramps toward ~450°C during combustion, decays toward ambient when off</li>
+    <li><strong>Discharge duct temp:</strong> Cockpit gauge reading, lags behind chamber due to heat exchanger thermal mass. Fenwal switches sense this temperature. Normal cycling range 120-130°C</li>
+    <li><strong>Outlet temp:</strong> Cabin delivery temperature, further reduced by heat exchanger efficiency (max ~80°C)</li>
+    <li>Blower speed affects heat transfer rate through the exchanger</li>
+    <li>Cold ambient temperatures slow warm-up (up to 3x slower below -30°C)</li>
+</ul>
+
+<h4>Cold Weather Ignition</h4>
+<ul>
+    <li>Probability-based ignition model affected by outside air temperature</li>
+    <li>Above 0°C: guaranteed ignition on first attempt</li>
+    <li>0°C to -20°C: success rate decreases linearly (100% to 30% per attempt)</li>
+    <li>Below -20°C: 30% per attempt with extended ignition time (6 seconds)</li>
+    <li>Cumulative probability across retries (up to 5 attempts)</li>
+</ul>
+
+<h4>Fuel Consumption</h4>
+<ul>
+    <li>Consumes avgas from right main tank (0.8 GPH low blower, 1.5 GPH high blower)</li>
+    <li>Fuel starvation: heater extinguishes if tank runs empty</li>
+    <li>Fuel solenoid stuck open failure: leaks ~0.15 GPH even when heater is off</li>
+</ul>
+
+<h4>Ground Blower Interlock</h4>
+<ul>
+    <li>On ground, ram air unavailable for combustion</li>
+    <li>Ground blower requires HEATER_GROUND_CTRL CB + both engines above 1200 RPM (or GPU connected)</li>
+    <li>In flight, ram air supplies combustion airflow automatically</li>
+</ul>
+
+<h4>Overheat Protection</h4>
+<ul>
+    <li><strong>Fenwal drop-out switch:</strong> One-shot thermal fuse at 176°C (350°F)</li>
+    <li>Permanently disables heater until maintenance reset (ground only)</li>
+    <li>Heater-inoperative warning light illuminates</li>
+    <li>Maintenance reset required, on the ground only</li>
+</ul>
+
+<h4>Failure Modes (8 Types)</h4>
+<ul>
+    <li><strong>Thermostat stuck closed:</strong> No cycle-off, temperature rises past 130°C toward dropout</li>
+    <li><strong>Thermostat stuck open:</strong> Won't re-light after cycling off, temperature decays to ambient</li>
+    <li><strong>Ignition failure:</strong> Spark plug dead, heater cannot light</li>
+    <li><strong>Fuel pump failure:</strong> No fuel pressure, flame extinguishes or can't start</li>
+    <li><strong>Fuel solenoid stuck open:</strong> Fuel leak when heater off (fire hazard)</li>
+    <li><strong>CO contamination:</strong> Heat exchanger crack leaks carbon monoxide into cabin air</li>
+    <li><strong>Compartment fire:</strong> Heater compartment fire (cascading failure or solenoid leak)</li>
+    <li><strong>Drop-out switch failure:</strong> No overheat protection (safety device bypass)</li>
+    <li><strong>Cascading:</strong> Thermostat stuck closed + dropout switch failure leads to runaway overheat and compartment fire</li>
+    <li>All failures use MTBF-based random triggering and scheduled failure modes</li>
+</ul>
+
+<h4>Carbon Monoxide</h4>
+<ul>
+    <li>CO builds up gradually when heat exchanger crack failure is active during combustion</li>
+    <li>Cabin CO concentration is published in parts per million</li>
+    <li>Dissipates when heater off or vents open</li>
+</ul>
+
+<h4>Fire Extinguisher Integration</h4>
+<ul>
+    <li>Heater compartment fire triggers cabin fire warning light</li>
+    <li>Fire extinguisher selector valve has HEATER COMPT position</li>
+    <li>CO₂ discharge to heater compartment suppresses fire</li>
+    <li>Heater remains locked out (DROPOUT_LATCHED) after fire suppression</li>
+</ul>
+
+<h4>Electrical Load</h4>
+<ul>
+    <li>Blower motor: 3A (low) / 6A (high) on HEATER_CONTROL CB</li>
+    <li>Ignition unit: 2A during ignition and cycling-on states</li>
+    <li>Fuel pump: 1.5A (Adel 21990)</li>
+    <li>Fuel solenoids: 0.5A when open</li>
+    <li>Ground blower motor: 45A on HEATER_GROUND_CTRL CB</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Windshield Cold Weather Effects <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Windshield temperature tracking</li>
+    <li>Frost accumulation when below freezing</li>
+    <li>Ice buildup in very cold conditions (-5°C and below)</li>
+    <li>Defrost clears frost/ice when cabin heater running</li>
+    <li>Wipers can clear light frost but not ice</li>
+    <li>Wipers freeze stuck below -10°C with ice present</li>
+    <li>Visibility reduction based on frost/ice coverage</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Thermal Relief Valve System <span class="new-tag">NEW</span></h3>
+<p>Protects hydraulic system from thermal expansion damage when aircraft sits in the sun:</p>
+
+<h4>Protected Volumes</h4>
+<ul>
+    <li>Main hydraulic accumulator</li>
+    <li>Left and right brake lines (when parking brake set)</li>
+    <li>Landing gear actuators (when gear locked down)</li>
+    <li>Cowl flap actuators</li>
+</ul>
+
+<h4>Thermal Modeling</h4>
+<ul>
+    <li>Fluid temperature tracks ambient conditions</li>
+    <li>Temperature change rate varies: slow when parked, faster with airflow</li>
+    <li>Engine nacelle heats cowl flap area when running</li>
+    <li>Cold soak tracking for descent from altitude</li>
+</ul>
+
+<h4>Relief Valve Operation</h4>
+<ul>
+    <li>Valves open when pressure exceeds setpoint</li>
+    <li>Progressive opening based on overpressure</li>
+    <li>Reseat when pressure drops below threshold</li>
+    <li>Relief flow rate modeling</li>
+</ul>
+
+<h4>Failure Modes</h4>
+<ul>
+    <li>Valve stuck open (continuous relief)</li>
+    <li>Valve stuck closed (no protection - risk of damage)</li>
+    <li>Overpressure damage if relief inadequate (brake line burst, seal failure)</li>
+    <li>Warning indicators for approaching limits</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fluid Consumption & Leaks System <span class="new-tag">NEW</span></h3>
+<p>Realistic modeling of oil, fuel, and hydraulic fluid behavior:</p>
+
+<h4>Oil Consumption</h4>
+<ul>
+    <li>Consumption rate varies with power setting (0.5-6 qt/hr)</li>
+    <li>Idle: Low consumption</li>
+    <li>Cruise: Moderate consumption</li>
+    <li>Takeoff power: Maximum consumption</li>
+    <li>Wear factor increases consumption on older engines</li>
+    <li>Low and critical oil warnings</li>
+</ul>
+
+<h4>Leak Simulation</h4>
+<ul>
+    <li>Four severity levels: Minor, Moderate, Severe, Catastrophic</li>
+    <li>Oil leak locations: Prop seals, accessory case, oil lines</li>
+    <li>Fuel leak locations: Tank seals, fuel lines, selector valves</li>
+    <li>Hydraulic leak locations: Pump, gear actuators, brake lines</li>
+    <li>Random leak generation based on hours since service</li>
+</ul>
+
+<h4>Visual Effects</h4>
+<ul>
+    <li>Oil streaks on engine nacelles</li>
+    <li>Fuel stains under aircraft</li>
+    <li>Hydraulic fluid puddles</li>
+    <li>Effects fade over time when not actively leaking</li>
+</ul>
+
+<h4>Maintenance Interface</h4>
+<ul>
+    <li>Add oil (per engine)</li>
+    <li>Add fuel (per tank)</li>
+    <li>Add hydraulic fluid</li>
+    <li>Repair specific leaks</li>
+    <li>Service interval tracking</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>ENGINE SYSTEM ENHANCEMENTS</h2>
+
+<div class="section">
+<h3>Engine Starting Improvements</h3>
+<ul>
+    <li>Realistic radial engine starting sequence</li>
+    <li>Multiple phases: CRANKING → CATCHING → STARTING → RUNNING</li>
+    <li>RPM fluctuation/wobble typical of radial engines</li>
+    <li>Increased blades required before ignition when cold</li>
+    <li>Oil dilution integration for cold starts</li>
+    <li>Starter current draw on electrical system</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>R-1830 Manual Accuracy Improvements <span class="new-tag">NEW</span></h3>
+<p><strong>Every engine parameter now coded to official Pratt & Whitney factory specifications.</strong> We meticulously analyzed the complete 104-page official R-1830-S1C3-G Twin Wasp Maintenance Manual, page by page, extracting exact specifications from the original factory documentation. Every constant, every operating limit, and every procedure has been cross-referenced against authentic Pratt & Whitney engineering data to ensure the highest level of authenticity.</p>
+
+<h4>Oil Pressure System - Completely Revalidated</h4>
+<p>Discovered and corrected a critical inaccuracy in the oil pressure model. Every pressure reading is now derived from actual R-1830 operating specifications:</p>
+<ul>
+    <li><strong>Idle pressure corrected:</strong> Now shows authentic 15 PSI minimum (was incorrectly showing 65 PSI)</li>
+    <li><strong>Complete RPM/temperature pressure curve</strong> coded directly from manual specifications:
+        <ul>
+            <li>Idle: 15 PSI minimum - matches real R-1830 behavior</li>
+            <li>1200 RPM @ 185°F: 45 PSI minimum</li>
+            <li>2250 RPM @ 185°F: 65 PSI minimum</li>
+            <li>2550 RPM @ 200°F: 80 PSI minimum</li>
+            <li>2000 RPM @ 140°F: 80-85 PSI desired operating range</li>
+        </ul>
+    </li>
+    <li><strong>Result:</strong> Oil pressure gauges now behave exactly as they would in a real DC-3, responding accurately to RPM, temperature, and operating conditions</li>
+</ul>
+
+<h4>Engine Starting & Idle Behavior - Factory Procedures</h4>
+<p>Starting and idle sequences now follow authentic R-1830 ground operations procedures from the maintenance manual:</p>
+<ul>
+    <li><strong>Post-start idle:</strong> Engine settles to 800-1000 RPM, exactly as specified in factory starting instructions (previously 650-750 RPM)</li>
+    <li><strong>Warm-up procedures:</strong> 1000 RPM target matches official ground check specifications</li>
+    <li><strong>Throttle settings:</strong> Starting throttle range (1/10 to 1/4 open) validated against manual - already perfectly accurate</li>
+    <li><strong>Result:</strong> Every step of the starting sequence now mirrors authentic R-1830 ground operations</li>
+</ul>
+
+<h4>Complete R-1830-S1C3-G Specification Database</h4>
+<p>The entire engine specification from the factory manual is now embedded in the code for absolute authenticity:</p>
+<ul>
+    <li><strong>Core Engine Specs:</strong> Compression ratio (6.70:1), bore/stroke (5.5" × 5.5"), displacement (1830 ci), 14 cylinders, 1467 lbs dry weight</li>
+    <li><strong>Drive Train Ratios:</strong> Propeller reduction (0.5625:1 spline coupled), magneto drive (8.75:1), oil pump drive (8.75:1), supercharger gear (7.15:1)</li>
+    <li><strong>Operating Limits:</strong> All temperature, pressure, and RPM limits cross-checked against factory specifications</li>
+    <li><strong>Result:</strong> The simulation now operates within the exact same parameters as the real Pratt & Whitney R-1830-S1C3-G</li>
+</ul>
+
+<h4>Validation Against Factory Standards</h4>
+<p>Every existing parameter was validated against the maintenance manual. Many were already perfectly accurate:</p>
+<ul>
+    <li><strong>CHT Maximum (Ground Operations):</strong> 450°F (232°C) - validated correct ✓</li>
+    <li><strong>Magneto Check Limits:</strong> 100 RPM maximum drop on single magneto - validated correct ✓</li>
+    <li><strong>Magneto Drop Differential:</strong> 30-40 RPM maximum between L and R - validated correct ✓</li>
+</ul>
+
+<h4>Official Source Documentation</h4>
+<p><strong>All specifications derived from:</strong> Official Pratt & Whitney R-1830 Twin Wasp Maintenance Manual (104 pages of factory engineering documentation)</p>
+<ul>
+    <li><strong>Pages 8-9:</strong> General Specifications, Ignition System, Fuel System, Lubrication System</li>
+    <li><strong>Page 23:</strong> Engine Starting Instructions, Warm-up Procedures, Control Position Checks</li>
+    <li><strong>Page 24:</strong> Oil Pressure Limits, Temperature Limits, Ground Check Procedures, Instrument Readings</li>
+    <li><strong>Pages 12-14:</strong> Lubrication System Description, Oil Flow Diagrams</li>
+    <li><strong>Pages 34-37:</strong> Trouble Shooting, Failure Modes, Emergency Procedures</li>
+</ul>
+
+<p><strong>The result:</strong> The R-1830 engine simulation is now coded to the same specifications mechanics used to maintain real Twin Wasps. Every gauge reading, every operating limit, and every procedure reflects authentic Pratt & Whitney engineering standards.</p>
+</div>
+
+<div class="section">
+<h3>Engine Physics</h3>
+<ul>
+    <li>Authentic R-1830-92 Twin Wasp power curves</li>
+    <li>Manifold pressure and RPM regime enforcement</li>
+    <li>Cylinder head temperature modeling</li>
+    <li>Oil temperature and pressure dynamics</li>
+    <li>Realistic idle stability</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Accurate R-1830 Fuel Consumption <span class="new-tag">NEW</span></h3>
+<p>Physically accurate fuel consumption model based on Pratt & Whitney R-1830-92 specifications and DC-3 POH data:</p>
+
+<h4>Power Calculation</h4>
+<ul>
+    <li>Power derived from RPM and manifold pressure using polynomial fit to R-1830 data points</li>
+    <li>Altitude correction with critical altitude ~6,000 ft (supercharger effect)</li>
+    <li>Power gradually decreases above critical altitude</li>
+</ul>
+
+<h4>Brake Specific Fuel Consumption (BSFC)</h4>
+<ul>
+    <li>BSFC varies with mixture lever position:
+        <ul>
+            <li><strong>AUTO LEAN:</strong> 0.44 lb/(hp·h) - most efficient, for cruise</li>
+            <li><strong>AUTO RICH:</strong> 0.52 lb/(hp·h) - richer for cooling during climb</li>
+            <li><strong>EMERGENCY:</strong> 0.62 lb/(hp·h) - maximum cooling, lowest efficiency</li>
+        </ul>
+    </li>
+    <li>Low power penalty: BSFC increases at idle (engine friction becomes significant)</li>
+    <li>High power penalty: Slight BSFC increase above 90% power due to enrichment</li>
+</ul>
+
+<h4>Reference Fuel Flows (per engine)</h4>
+<ul>
+    <li>Takeoff (2700 RPM, 48" MAP, Emergency): 155 GPH</li>
+    <li>Initial Climb (2550 RPM, 40" MAP, Auto Rich): 122.5 GPH</li>
+    <li>Normal Climb (2350 RPM, 36" MAP, Auto Rich): 53-62 GPH</li>
+    <li>Cruise (2050 RPM, 30" MAP, Auto Lean): 45 GPH</li>
+    <li>Economy Cruise (1750 RPM, 25" MAP, Auto Lean): 40 GPH</li>
+</ul>
+
+<p>Per-engine fuel flow, calculated horsepower and percentage of maximum power are published for the
+gauges and for external tools.</p>
+</div>
+
+<div class="section">
+<h3>Engine Instrument Gauges <span class="new-tag">ENHANCED</span></h3>
+<p>All engine gauges now feature realistic physics simulation:</p>
+
+<h4>Oil Pressure Gauges</h4>
+<ul>
+    <li><strong>Physics-based calculation</strong> - Pressure derived from actual operating conditions, not X-Plane defaults</li>
+    <li><strong>RPM factor:</strong> Pressure increases with engine speed (oil pump driven by engine)
+        <ul>
+            <li>Idle (800-1000 RPM): ~15 PSI minimum (R-1830 manual spec)</li>
+            <li>1200 RPM: ~45 PSI</li>
+            <li>Cruise (~2050 RPM): ~75-85 PSI</li>
+            <li>Max power (~2700 RPM): ~90 PSI</li>
+        </ul>
+    </li>
+    <li><strong>Temperature factor:</strong> Cold oil = higher viscosity = higher pressure; hot oil = lower pressure</li>
+    <li><strong>Oil viscosity integration:</strong> Accounts for oil grade and fuel dilution from oil dilution system</li>
+    <li><strong>Spring dynamics:</strong> Realistic needle movement with overshoot and settling (8 Hz, underdamped)</li>
+    <li><strong>Electrical dependency:</strong> Gauge requires 18V+ bus power to operate</li>
+</ul>
+
+<h4>Oil Temperature Gauges</h4>
+<ul>
+    <li>Spring dynamics with realistic needle bounce</li>
+    <li>Electrical dependency (gauge falls to bottom when unpowered)</li>
+</ul>
+
+<h4>Cylinder Head Temperature (CHT) Gauges</h4>
+<ul>
+    <li>Spring dynamics with realistic needle bounce</li>
+    <li>Electrical dependency (gauge falls to bottom when unpowered)</li>
+</ul>
+
+<h4>Carburetor Air Temperature Gauges</h4>
+<ul>
+    <li>Physics-based temperature from fuel icing system</li>
+    <li>Accounts for OAT, venturi cooling, throttle position, and carb heat</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Hydraulic Cowl Flap System <span class="new-tag">REWRITE</span></h3>
+<p>Complete rewrite based on Quebecair DC-3 General Arrangement Part 3, paragraphs 40-44. Replaces the previous electric-motor model with the authentic hydraulic four-way control valve described in the Quebecair AOM. Cross-checked against T.O. 1C-47-2 Para 3-22 (Hydraulic System Applications list, which explicitly names cowl flaps as a hydraulic consumer).</p>
+
+<h4>Architecture</h4>
+<ul>
+    <li>Two completely independent hydraulic circuits, one per engine, fed from the brake pressure line with returns to the brake return line</li>
+    <li>Four-way ball-type control valves on the right side wall adjacent to the First Officer's seat</li>
+    <li>Double-acting chrome-moly strut mounted on the lower segment of the anti-drag ring, piston rod connected to the cowl flap control tie rods</li>
+    <li>Integral pressure relief valve per side, set to 1150 &plusmn;50 PSI, protecting against thermal expansion and excessive aerodynamic loads (Quebecair AOM Para 42)</li>
+    <li>No electrical involvement at all: the previous COWL_FLAPS_L and COWL_FLAPS_R circuit breakers have been removed from the secondary bus panel, along with the CowlFlapMotor electrical stub</li>
+</ul>
+
+<h4>Four-Position Detented Selector Valve</h4>
+<ul>
+    <li><strong>OFF</strong> - All valve ports blocked. Fluid is trapped in both ends of the strut, hydraulically locking the piston. The flap cannot move regardless of hydraulic pressure, engine state, or aerodynamic load.</li>
+    <li><strong>CLOSE</strong> - Fluid drives the strut toward closed. Pressure-gated and speed-scaled.</li>
+    <li><strong>TRAIL</strong> - Both ends of the strut connected together. Hydraulic resistance is removed and the flap floats to aerodynamic equilibrium, typically 10-30% open depending on indicated airspeed. On the ground (below 5 kts) with no airflow, the flap holds its current position.</li>
+    <li><strong>OPEN</strong> - Fluid drives the strut toward full open. Pressure-gated and speed-scaled.</li>
+</ul>
+
+<h4>Hydraulic Pressure Dependency</h4>
+<ul>
+    <li>Minimum pressure for flap movement: 400 PSI (estimated; manual is silent on this threshold but it sits between accumulator pre-charge 250 PSI and regulator cut-in 650 PSI)</li>
+    <li>Rated speed at regulator cut-out (875 PSI): approximately 8 seconds full travel, linearly scaled for partial pressure</li>
+    <li>With both engines running and the main system at normal operating pressure, flaps respond immediately</li>
+    <li>With engines stopped and the system depleted, the pilot must stroke the hand pump to pre-charge the accumulator before the flaps will move. Each full cycle draws pressure from the accumulator. This matches the procedure shown in period instruction films</li>
+    <li>Pressure draw while driving: ~3 PSI/sec from the main system (estimated, matches wing flap consumer pattern)</li>
+</ul>
+
+<p>Actual cowl flap position, the detented valve selector position and the rotary knob animation are
+published per engine. Both the selector state and the flap position persist across flights.</p>
+
+<h4>Operating Notes</h4>
+<ul>
+    <li>OFF is a true hydraulic lock, not a "motor idle" position. A flap set at half-open with the selector in OFF stays at half-open even if hydraulic pressure is lost afterward</li>
+    <li>TRAIL is aerodynamic float, not a fixed intermediate position. Previous electric motor code treated TRAIL as a 35% target; the real valve simply connects both strut chambers and lets the flap find its own balance</li>
+    <li>The engine cover interlock continues to block the TRAIL and OPEN positions while an engine cover is installed, allowing only OFF and CLOSE</li>
+    <li>Valve selector state and actual flap position both persist in LES.ini across flights</li>
+</ul>
+
+<h4>Known Limitations</h4>
+<ul>
+    <li>The Quebecair manual is silent on minimum actuation pressure, nominal travel time at rated pressure, stroke volume, and exact TRAIL aerodynamic equilibrium curve. The values used (400 PSI min, 8 sec at rated, linear speed scaling, IAS-driven TRAIL target) are engineering estimates documented inline in the source code and may be refined if primary-source data becomes available</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Engine Covers (Cold Weather Equipment) <span class="new-tag">NEW</span></h3>
+<p>Realistic engine cover (insulation blanket) system for improved cold weather operations. Covers retain engine heat when aircraft is parked, significantly improving cold start characteristics.</p>
+
+<h4>Thermal Benefits</h4>
+<ul>
+    <li>Oil temperature stays ~20°C warmer than ambient when covers installed</li>
+    <li>Minimum oil temperature maintained at 0°C even in sub-zero conditions</li>
+    <li>Dramatically reduces oil viscosity issues during cold starts</li>
+    <li>Less engine wear during cold weather starting</li>
+    <li>Integrates with oil dilution and viscosity systems</li>
+</ul>
+
+<p>Cover installed or removed state is published per engine, driving the 3D model and the cowl flap
+interlock.</p>
+
+<h4>Operation</h4>
+<ul>
+    <li><strong>Installation:</strong> After shutdown in cold weather, install covers to retain heat overnight</li>
+    <li><strong>Removal:</strong> Before engine start, remove covers (required for safety and proper airflow)</li>
+    <li><strong>Realistic Use:</strong> Essential for overnight parking in freezing conditions (< 0°C)</li>
+</ul>
+
+<h4>Physics Model</h4>
+<ul>
+    <li>Without covers: oil gradually cools to ambient temperature (can freeze)</li>
+    <li>With covers: target oil temp = max(ambient + 20°C, 0°C)</li>
+    <li>Example: At -15°C ambient, oil stays at 0°C instead of -15°C</li>
+    <li>Covers only affect oil temperature when engine is not running</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Propeller Hydraulic Lock <span class="new-tag">NEW</span></h3>
+<p>Oil seepage into lower cylinders of the R-1830 when the engine sits idle for extended periods. A real hazard on radial engines that can cause bent connecting rods if ignored.</p>
+
+<h4>Oil Accumulation</h4>
+<ul>
+    <li>Oil pools in lower cylinders at a rate dependent on oil temperature (warmer = faster seepage)</li>
+    <li>Full hydraulic lock develops after approximately 4 hours of sitting</li>
+    <li>State persists between sessions via LES.ini</li>
+</ul>
+
+<h4>Manual Prop Turning</h4>
+<ul>
+    <li>Manually turn each propeller blade by blade (25.7 degrees per click)</li>
+    <li>9 blade clicks clears a full hydraulic lock</li>
+    <li>Animated prop rotation for the manual blade-turning procedure</li>
+</ul>
+
+<h4>Consequences of Ignoring</h4>
+<ul>
+    <li><strong>Starting with lock:</strong> 70% chance of bent connecting rod (permanent engine damage)</li>
+    <li><strong>Lucky clear:</strong> 30% chance the oil clears with a warning, no damage</li>
+    <li>Damaged engine cannot start until repaired via MAINTENANCE tab</li>
+</ul>
+
+<p>Oil accumulation level, locked state, and the number of blade clicks since the last lock are
+published per engine.</p>
+</div>
+
+<div class="section">
+<h3>Feather Button Stuck Failure <span class="new-tag">NEW</span></h3>
+<p>New failure mode simulating a propeller feather button that fails to pop out after the prop reaches the feathered position. Per the cockpit placard: "If feathering button fails to pop out, pull out manually."</p>
+
+<h4>Failure Behavior</h4>
+<ul>
+    <li>When active, the feather button's automatic pop-out is inhibited after the prop reaches 88 degrees</li>
+    <li>Feather motor continues running, drawing 8A through the PROP FEATHER circuit breaker</li>
+    <li>Motor burns out after 30 seconds of continuous operation if not manually pulled out</li>
+    <li>Clicking the stuck button manually pulls it out (per real aircraft procedure)</li>
+</ul>
+
+<h4>Consequences</h4>
+<ul>
+    <li>Burned-out feather motor prevents future feathering/unfeathering on that engine</li>
+    <li>Motor damage persists in LES.ini, requires REPLACE in MAINTENANCE tab</li>
+    <li>Electrical load reported to bus system while motor is running (feathering, unfeathering, or stuck)</li>
+</ul>
+
+<h4>Failure Types</h4>
+<ul>
+    <li>FEATHER_BUTTON_STUCK_L (left engine)</li>
+    <li>FEATHER_BUTTON_STUCK_R (right engine)</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>ELECTRICAL SYSTEM MODERNIZATION</h2>
+
+<div class="section">
+<h3>Circuit Breaker System <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li><strong>64 individual circuit breakers</strong> per T.O. 1C-47-2 Figure 7-18</li>
+    <li>Circuit breaker ratings exactly per maintenance manual</li>
+    <li>Individual trip and reset capability</li>
+    <li>Organized in panel sections matching physical cockpit layout:
+        <ul>
+            <li>AC Inverter Section (positions 1-12)</li>
+            <li>Lighting Section (positions 13-23)</li>
+            <li>Props/Radios Section (positions 24-33)</li>
+            <li>Warnings/Instruments Section (positions 34-44)</li>
+            <li>Fuel/Radios Section (positions 45-51)</li>
+            <li>Engine/Heat Section (positions 52-61)</li>
+            <li>Misc Section (positions 62-64)</li>
+        </ul>
+    </li>
+    <li>Automatic thermal trip at 135% of rated current</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Dual Inverter System <span class="new-tag">NEW</span></h3>
+<p>Per T.O. 1C-47-2 Section VI, the DC-3 has TWO inverters:</p>
+<ul>
+    <li><strong>Main Inverter (1500VA)</strong> - Primary 115VAC 400Hz source
+        <ul>
+            <li>Powers compass and navigation equipment</li>
+            <li>~2 second spinup time</li>
+            <li>Protected by dedicated CB</li>
+        </ul>
+    </li>
+    <li><strong>Auxiliary Inverter (250VA)</strong> - Backup 115VAC 400Hz source
+        <ul>
+            <li>~1.5 second spinup time</li>
+            <li>AC bus falls back to auxiliary when main unavailable</li>
+            <li>Independent switch and CB protection</li>
+        </ul>
+    </li>
+    <li>Separate inverter switches and status indications</li>
+    <li>AC bus voltage/frequency from whichever inverter is running (main priority)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Bus Architecture</h3>
+<ul>
+    <li>DC main bus (28V nominal)</li>
+    <li>DC essential bus</li>
+    <li>DC radio bus</li>
+    <li>AC bus (115V 400Hz from dual inverter system)</li>
+    <li>Generator cut-in at 1350 RPM</li>
+    <li>Proper load distribution</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Generator System Enhancements (Figure 7-12) <span class="new-tag">NEW</span></h3>
+<p>Complete generator system modeling per T.O. 1C-47-2 Figure 7-12:</p>
+<ul>
+    <li><strong>Equalizing Resistor:</strong> 2 milliohm resistors in each generator output circuit provide automatic load balancing between parallel generators. Voltage drop feedback naturally distributes load based on generator output characteristics.</li>
+    <li><strong>Generator Warning Lights:</strong> Individual warning lights for each generator illuminate when:
+        <ul>
+            <li>Generator failure (open/shorted winding)</li>
+            <li>Overvoltage condition (>31V, regulator failure)</li>
+            <li>Reverse current relay unexpectedly open</li>
+            <li>Low voltage when generator should be online</li>
+        </ul>
+    </li>
+    <li><strong>Warning Lights Brightness Rheostat:</strong> Manual control of warning light brightness (0-100%), with auto-dim when instrument panel lights are on</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Ground Power Unit (JetGo 550Mti) <span class="new-tag">NEW</span></h3>
+<p>Fully modeled AERO Specialties JetGo 550Mti diesel ground power unit with realistic startup and shutdown sequences:</p>
+<ul>
+    <li><strong>Diesel engine state machine:</strong> Six-state lifecycle (OFF, PREHEAT, CRANKING, RUNNING, COOLDOWN, STOPPING) replaces instant-on/off behavior</li>
+    <li><strong>Realistic startup sequence:</strong>
+        <ul>
+            <li>Glow plug preheat (~7 seconds)</li>
+            <li>Diesel cranking (~2.5 seconds)</li>
+            <li>Ramp to operating speed (3000 RPM)</li>
+            <li>Total time from switch to power: ~10 seconds</li>
+        </ul>
+    </li>
+    <li><strong>Realistic shutdown sequence:</strong>
+        <ul>
+            <li>Power disconnects immediately when battery switch leaves EXT</li>
+            <li>Diesel idles down for 60-second cooldown (turbo/cylinder temperature stabilization)</li>
+            <li>Engine decelerates to stop over ~4 seconds</li>
+            <li>GPU cart disappears after full shutdown</li>
+        </ul>
+    </li>
+    <li><strong>Cooldown cancellation:</strong> Switching back to EXT during cooldown cancels shutdown and restores power without a full restart cycle</li>
+    <li><strong>Correct specifications:</strong> 28.5V DC output, 550A continuous capacity (was incorrectly 28V/200A)</li>
+    <li><strong>Battery switch integration:</strong> GPU controlled by EXT position (position 0) on the overhead battery switch; aircraft must be on the ground</li>
+    <li><strong>3D model visibility:</strong> the GPU cart appears and disappears with the connection state</li>
+    <li><strong>FMOD sound integration:</strong> Engine RPM, start, and stop events drive the FMOD sound bank for diesel audio</li>
+    <li><strong>GPU CONNECTED annunciator:</strong> Overhead panel indicator illuminates when GPU reaches RUNNING state</li>
+</ul>
+<h4>Bug Fixes:</h4>
+<ul>
+    <li>Fixed the GPU cart visibility output never being registered (the GPU 3D model was always invisible)</li>
+    <li>Fixed a triple registration conflict for the GPU-connected state across three source files (only the first registration was effective, so the annunciator light never worked)</li>
+    <li>Fixed the GPU's FMOD sound outputs (engine RPM, start and stop events) being registered but never written to</li>
+</ul>
+<h4>GPU Access Panel <span class="new-tag">NEW</span></h4>
+<ul>
+    <li><strong>Over-center cam latch and hinged access door</strong> for the external GPU plug-in point</li>
+    <li><strong>DC3 Hangar integration:</strong> "Open GPU Access Panel" checkbox in OPTIONS &gt; Ground Services, between Set Chocks and Connect Ground Power</li>
+    <li><strong>Dependency logic:</strong>
+        <ul>
+            <li>Panel cannot close while GPU is connected</li>
+            <li>Connecting GPU auto-opens the access panel if closed</li>
+            <li>Cold &amp; Dark / Shutdown sequences close the panel automatically</li>
+        </ul>
+    </li>
+    <li><strong>3D clickspot support:</strong> Separate latch and door manipulators and animations for exterior model interaction</li>
+</ul>
+
+</div>
+
+<hr>
+
+<h2>HYDRAULIC SYSTEM REWRITE</h2>
+
+<div class="section">
+<h3>Pressure-Accumulator System</h3>
+<ul>
+    <li>Realistic pump displacement and response</li>
+    <li>Regulator controlled pressure 950-1100 PSI</li>
+    <li>Relief valve overpressure protection (1250 PSI)</li>
+    <li>Accumulator pre-charge dynamics (350 PSI air)</li>
+    <li>Hand pump operation for ground/emergency</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>System Operations</h3>
+<ul>
+    <li>Landing gear pressure (2000 PSI down, 3500 PSI up)</li>
+    <li>Wing flap pressure (1500 PSI)</li>
+    <li>Brake system pressure (925 PSI)</li>
+    <li>Emergency air system modeling</li>
+    <li>Windshield wipers hydraulically powered</li>
+    <li><strong>Parallel pump architecture (per T.O. 1C-47-2):</strong> Both engine-driven pumps feed system through check valves. Higher pressure pump supplies system automatically; single-engine operation fully supported.</li>
+    <li><strong>Engine pump selector valve (per T.O. 1C-47-2 para 1-65):</strong> Selector on hydraulic control panel routes the right engine pump between the main hydraulic system (NORMAL) and the autopilot servo system (ALTERNATE).</li>
+    <li><strong>Autopilot shutoff valve (per T.O. 1C-47-2 para 1-65):</strong> Gates hydraulic flow to autopilot servos. Must be OPEN for hydraulic pressure to reach the Sperry A-3A servo system.</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Hydraulic & Heater Control Panel <span class="new-tag">NEW</span></h3>
+<p>Complete cockpit control panel simulation for the hydraulic system and cabin heater controls (behind copilot seat):</p>
+
+<h4>Cabin Heater Controls</h4>
+<ul>
+    <li><strong>Master Switch:</strong> off or on</li>
+    <li><strong>Blower Speed:</strong> off, low or high</li>
+    <li>3-position push-pull rod controls with detent positions</li>
+</ul>
+
+<h4>Hydraulic Panel Push-Pull Valve Controls</h4>
+<ul>
+    <li><strong>Wing Flap Control Valve:</strong>
+        <ul>
+            <li>3-position: -1.0=UP, 0.0=NEUTRAL, +1.0=DOWN</li>
+        </ul>
+    </li>
+    <li><strong>Landing Gear Control Valve:</strong>
+        <ul>
+            <li>3-position: -1.0=UP, 0.0=OFF, +1.0=DOWN</li>
+            <li>Handle hides behind the safety lock when the gear is down</li>
+        </ul>
+    </li>
+    <li><strong>Hand Pump Shut-Off Valve:</strong>
+        <ul>
+            <li>Controls whether manual pump can supply pressure to system</li>
+        </ul>
+    </li>
+    <li><strong>Windshield Wiper Speed Control Valves (L/R):</strong>
+        <ul>
+            <li>Variable speed: 0.0=off to 1.0=full speed</li>
+            <li>Requires 400+ PSI hydraulic pressure to operate</li>
+            <li>Can freeze stuck below -10°C with ice present</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Manual Hydraulic Pump Handle</h4>
+<ul>
+    <li>Stroke detection: Plugin monitors lever movement between frames</li>
+    <li>Pressure generation: ~50 PSI per stroke</li>
+    <li>Requires hand pump shutoff valve OPEN to function</li>
+    <li>Used for building pressure during engine start or emergency backup</li>
+</ul>
+
+<h4>Wiper Blade Animation</h4>
+<ul>
+    <li>Oscillation rate tied to hydraulic pressure and switch position</li>
+    <li>Wiper speed factor: <code>0.1 × (pressure/750 PSI) × switch_position</code></li>
+    <li>Cold weather slowdown via hydraulic viscosity factor</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fire Extinguisher System <span class="new-tag">NEW</span></h3>
+<p>Complete CO₂ fire suppression system simulation per T.O. 1C-47-2 Section IV:</p>
+
+<h4>System Components</h4>
+<ul>
+    <li><strong>Two CO₂ Cylinders:</strong>
+        <ul>
+            <li>PORT cylinder (forward - station 47)</li>
+            <li>STBD cylinder (aft - station 64)</li>
+            <li>7 lbs capacity each (~900 PSI at 70°F)</li>
+            <li>Temperature-dependent pressure (ideal gas law PV=nRT)</li>
+        </ul>
+    </li>
+    <li><strong>Selector Valve:</strong>
+        <ul>
+            <li>Four positions: OFF, LEFT, RIGHT and HEATER COMPT, with the knob animated to match</li>
+        </ul>
+    </li>
+    <li><strong>Discharge Handles (PORT/STBD):</strong>
+        <ul>
+            <li>Pull either handle to discharge its cylinder</li>
+            <li>Safety interlock: Only discharge if selector not OFF</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Cylinder State Monitoring</h4>
+<ul>
+    <li><strong>Pressure:</strong> 0-1500 PSI, per cylinder</li>
+    <li><strong>Mass Remaining:</strong> 0-7 lbs, per cylinder</li>
+    <li><strong>Temperature:</strong> tracks ambient with roughly a 10 minute lag</li>
+    <li><strong>Discharged Status:</strong> ready or empty</li>
+    <li><strong>Yellow Indicator Disc:</strong> intact, or punched with the red disc visible</li>
+</ul>
+
+<h4>Fire Suppression Physics</h4>
+<ul>
+    <li><strong>Discharge Characteristics:</strong>
+        <ul>
+            <li>Full discharge in 8-10 seconds</li>
+            <li>CO₂ flows to selected compartment (left/right nacelle or heater) during discharge</li>
+            <li>One-shot system - cylinders must be recharged after use</li>
+        </ul>
+    </li>
+    <li><strong>Compartment CO₂ Concentration:</strong>
+        <ul>
+            <li>Tracked independently for the left nacelle, the right nacelle and the heater compartment</li>
+            <li>32% concentration required for fire extinction</li>
+        </ul>
+    </li>
+    <li><strong>CO₂ Dissipation:</strong>
+        <ul>
+            <li>Ground: Slow dissipation (~0.01/sec → 30-60 seconds)</li>
+            <li>Flight: Faster dissipation due to airflow (~0.03/sec)</li>
+            <li>Cowl flaps open: Doubled dissipation rate</li>
+        </ul>
+    </li>
+    <li><strong>Fire Suppression Status:</strong>
+        <ul>
+            <li>Reported per compartment: left nacelle, right nacelle and heater compartment</li>
+            <li>Indicates when CO₂ concentration sufficient to suppress fire</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Temperature Effects</h4>
+<ul>
+    <li><strong>Pressure-Temperature Relationship:</strong>
+        <ul>
+            <li>-20°F: ~500 PSI</li>
+            <li>0°F: ~600 PSI</li>
+            <li>70°F: ~900 PSI (nominal)</li>
+            <li>130°F: ~1200 PSI</li>
+        </ul>
+    </li>
+    <li>Cold weather reduces discharge effectiveness</li>
+    <li>Cylinders track ambient temperature with thermal inertia (~10 minute time constant)</li>
+</ul>
+
+<h4>Integration with X-Plane</h4>
+<ul>
+    <li>Reads X-Plane's own engine fire state</li>
+    <li>CO₂ suppresses fires when concentration exceeds 32%</li>
+    <li>Fire can reignite if fuel/ignition source not secured</li>
+</ul>
+
+<h4>Historical Accuracy</h4>
+<ul>
+    <li>Based on T.O. 1C-47-2 maintenance manual specifications</li>
+    <li>Authentic cylinder locations (fuselage stations 47 and 64)</li>
+    <li>Period-accurate control panel layout and operation</li>
+    <li>Yellow discharge indicator discs per original design</li>
+    <li>Realistic CO₂ physics and fire suppression behavior</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>FUEL SYSTEM OVERHAUL</h2>
+
+<div class="section">
+<h3>Tank Management</h3>
+<ul>
+    <li>4 independent center wing tanks</li>
+    <li>L-Main: 202 gal, R-Main: 202 gal</li>
+    <li>L-Aux: 200 gal, R-Aux: 200 gal</li>
+    <li>Total: 804 US gallons</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Selector System</h3>
+<ul>
+    <li><strong>5-position symmetric selectors (per T.O. 1C-47-2):</strong> Both left and right selectors are identical cable-operated valves with positions: OFF, L-AUX, L-MAIN, R-MAIN, R-AUX</li>
+    <li>Any center-wing tank can feed either engine for full crossfeed capability</li>
+    <li>Per-engine selector independence</li>
+    <li>Water contamination per tank</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fuel Low Warning <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Single warning light tied to fuel selector position</li>
+    <li>Illuminates when currently selected tank drops below 50 gallons</li>
+    <li>Warns for either engine's selected tank independently</li>
+    <li>Powered by FUEL_OIL_WARNING circuit breaker (position 38, 5A)</li>
+    <li>Adjustable brightness rheostat</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fuel Slosh Physics <span class="new-tag">NEW</span></h3>
+<p>Realistic fuel movement simulation in tanks based on aircraft motion:</p>
+<ul>
+    <li>Spring-mass-damper physics with 0.8 Hz natural frequency</li>
+    <li>Responds to roll rate, pitch rate, and G-forces</li>
+    <li>Aux tanks (outboard on wings) slosh 60% more than main tanks due to longer moment arm</li>
+    <li>When fuel near 50-gallon threshold, maneuvering causes warning light to flicker realistically</li>
+    <li>Left/right tanks respond oppositely to lateral forces</li>
+    <li>Front/rear tanks respond oppositely to longitudinal forces</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Fuel Boost Pump Indicator Lights <span class="new-tag">NEW</span></h3>
+<p>Indicator lights above the fuel boost pump switches on the overhead panel:</p>
+<ul>
+    <li>L/R boost pump indicator lights with adjustable brightness rheostats</li>
+    <li>Illuminates when corresponding boost pump switch is ON and powered</li>
+    <li>Wired through FUEL_BOOST_PUMP_L/R circuit breakers (positions 45-46, 15A each)</li>
+    <li>Requires minimum 18V bus voltage to illuminate</li>
+    <li>Brightness adjustable from DIM to BRIGHT</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Oil & Fuel Pressure Warning Lights <span class="new-tag">NEW</span></h3>
+<p>Enhanced warning light system with proper circuit breaker wiring:</p>
+<ul>
+    <li>L/R Oil pressure warning lights with adjustable brightness rheostats</li>
+    <li>L/R Fuel pressure warning lights with adjustable brightness rheostats</li>
+    <li><strong>Fuel pressure warning threshold set to 6 PSI</strong> per T.O. 1C-47-2 (carburetor chamber gauge reads 14-16 PSI at cruise, 7 PSI at idle; warning only at actual loss of fuel delivery)</li>
+    <li>All pressure warnings wired through FUEL_OIL_WARNING circuit breaker (position 38, 5A)</li>
+    <li>Warning lights require minimum 18V bus voltage to illuminate</li>
+    <li>Brightness adjustable from DIM to BRIGHT</li>
+</ul>
+
+<h3>Fuel Pressure Gauge Accuracy <span class="new-tag">CORRECTED</span></h3>
+<p>Fuel pressure gauges now read from the carburetor pressure chamber per T.O. 1C-47-2, not pump output:</p>
+<ul>
+    <li><strong>Normal cruise:</strong> 14-16 PSI (previously showed ~20 PSI pump output)</li>
+    <li><strong>Idle (~600 RPM):</strong> ~7 PSI</li>
+    <li><strong>Takeoff (2700 RPM):</strong> ~16 PSI</li>
+    <li>Pump output (19-21 PSI) drops through fuel lines and carburetor metering system to reach chamber pressure</li>
+    <li>Boost pump alone (starting, engine not running) reads pump output directly</li>
+    <li>Strainer restriction affects gauge reading proportionally</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Engine Fire Warning Lights <span class="new-tag">NEW</span></h3>
+<p>Enhanced fire warning system with proper circuit breaker wiring:</p>
+<ul>
+    <li>L/R Engine fire warning lights with adjustable brightness rheostats</li>
+    <li>Fire test button lights both warnings and triggers alarm</li>
+    <li>Wired through ENGINE_FIRE_WARNING circuit breaker (position 40, 5A)</li>
+    <li>Warning lights require minimum 18V bus voltage to illuminate</li>
+    <li>Fire test button syncs to electrical system test mode</li>
+    <li>Brightness adjustable from DIM to BRIGHT</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>GPU Connected Indicator Light <span class="new-tag">NEW</span></h3>
+<p>Enhanced GPU indicator with proper circuit breaker wiring (see also: Ground Power Unit entry under Electrical System Modernization):</p>
+<ul>
+    <li>Green indicator light shows when GPU reaches RUNNING state</li>
+    <li>Adjustable brightness rheostat (DIM to BRIGHT)</li>
+    <li>Wired through GENERAL_WARNING circuit breaker (position 35, 5A)</li>
+    <li>Requires minimum 18V bus voltage to illuminate</li>
+    <li>Brightness adjustable</li>
+    <li>Fixed: the annunciator now reads the shared GPU-connected state from the electrical system (it previously read a dead local variable, because of the triple registration conflict)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Marker Beacon Lights <span class="new-tag">NEW</span></h3>
+<p>Enhanced marker beacon indicator lights with proper circuit breaker wiring:</p>
+<ul>
+    <li>Inner marker (white), middle marker (amber), and outer marker (blue) lights</li>
+    <li>Each light has adjustable brightness rheostat (DIM to BRIGHT)</li>
+    <li>Wired through MARKER_BEACON circuit breaker (position 32, 5A)</li>
+    <li>Requires minimum 18V bus voltage to illuminate</li>
+    <li>Lights up during annunciator test mode</li>
+    <li>Brightness adjustable individually for each marker light</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Directional Gyro with Accurate Drift Physics <span class="new-tag">NEW</span></h3>
+<p>Study-level directional gyro simulation with latitude-dependent drift:</p>
+
+<h4>Drift Physics (Accurate Real-World Model)</h4>
+<ul>
+    <li><strong>Earth Rate Precession:</strong> 15°/hour × sin(latitude)
+        <ul>
+            <li>At equator: 0°/hour drift</li>
+            <li>At 45° latitude: ~10.6°/hour drift</li>
+            <li>At poles: 15°/hour drift</li>
+            <li>Northern hemisphere: clockwise drift</li>
+            <li>Southern hemisphere: counter-clockwise drift</li>
+        </ul>
+    </li>
+    <li><strong>Transport Precession:</strong> (groundspeed_kt / 60) × tan(latitude) × sin(track) °/hour
+        <ul>
+            <li>Caused by aircraft moving over curved Earth</li>
+            <li>More significant at higher latitudes and groundspeeds</li>
+        </ul>
+    </li>
+    <li><strong>Random Mechanical Drift:</strong> ±2°/hour (typical for 1940s-era gyros)
+        <ul>
+            <li>Bearing friction, mass imbalance, gimbal friction</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Cage Knob Operation (Push/Rotate Combination)</h4>
+<ul>
+    <li><strong>Push (Cage):</strong> Locks gyro, freezes displayed heading, stops drift accumulation</li>
+    <li><strong>Rotate:</strong> Adjusts heading card offset to sync with magnetic compass</li>
+    <li><strong>Release (Uncage):</strong> Gyro free, drift resumes accumulating</li>
+    <li>Displayed Heading = Actual Magnetic + User Offset + Accumulated Drift</li>
+</ul>
+
+<h4>Realistic Operation</h4>
+<ul>
+    <li>DG does NOT automatically track magnetic heading (unlike some simplified sims)</li>
+    <li>Pilot must periodically cage, sync with magnetic compass, and uncage</li>
+    <li>Separate pilot and copilot DG instruments with independent drift</li>
+    <li>Vacuum-driven DG requires engine-driven suction pump and gyro spin-up</li>
+</ul>
+
+<p>Cage state, displayed heading, user-set offset and accumulated drift are published separately for the
+pilot and copilot instruments.</p>
+
+<p>The cage knob, heading-set adjustment and cage/uncage action are all bindable for both the pilot and
+copilot instruments.</p>
+</div>
+
+<div class="section">
+<h3>Propeller Anti-Ice System <span class="new-tag">NEW</span></h3>
+<p>Alcohol-based propeller de-icing system for icing conditions (per FAA TCDS A-669):</p>
+<ul>
+    <li>4-gallon (16 quart) isopropyl alcohol tank for de-icing fluid</li>
+    <li>Independent L/R pump switches to control fluid flow</li>
+    <li>Fluid distributed via slinger rings on prop hubs</li>
+    <li>Consumption rate: 0.5 GPH per pump when active</li>
+    <li>Low fluid warning when tank drops below 1 gallon</li>
+    <li>Wired through DEICER_EQUIPMENT circuit breaker (position 57, 10A)</li>
+    <li>Requires minimum 18V bus voltage for pump operation</li>
+    <li>Tank refill available in DC3 Hangar maintenance tab</li>
+    <li>Persistent tank level saved across sessions</li>
+    <li>Cockpit alcohol quantity gauge displays fluid remaining for prop de-ice system</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>AUTOPILOT - SPERRY A-3A ENHANCEMENT</h2>
+
+<div class="section">
+<h3>Study-Level Realism</h3>
+<ul>
+    <li>Rudder-only heading control (period correct)</li>
+    <li>Gyro tumble limits (55° pitch, 85° bank)</li>
+    <li>Visible gyro drift requiring periodic correction</li>
+    <li>Gyro spin-up/spin-down timing</li>
+    <li>Mechanical cable backlash modeling</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Advanced Features</h3>
+<ul>
+    <li>Servo torque limits with clutch slippage</li>
+    <li>Temperature-dependent oil viscosity</li>
+    <li>Vacuum-driven gyros powered by engine suction pumps</li>
+    <li>Turn coordinator integration</li>
+    <li>Vacuum loss degrades gyro operation</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>TAILWHEEL SYSTEM <span class="new-tag">NEW</span></h2>
+
+<div class="section">
+<ul>
+    <li>Free castering tailwheel with lockable straight position</li>
+    <li>Lock engages only within ~5° of center</li>
+    <li>Lock automatically releases if steering force exceeded</li>
+    <li>Shimmy damping modeling</li>
+    <li>Ground loop damping assist</li>
+    <li>Steering effectiveness varies with speed</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>AVIONICS SYSTEMS</h2>
+
+<div class="section">
+<h3>Garmin GNS 530</h3>
+<ul>
+    <li>Full GPS navigation implementation</li>
+    <li>Flight plan management</li>
+    <li>CDI scaling (Enroute, Terminal, Approach)</li>
+    <li>Multiple page groups</li>
+    <li>X-Plane 12 avionics device integration</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Bendix/King KX165A NAV/COMM <span class="new-tag">ENHANCED</span></h3>
+<p>Full study-level simulation of the Bendix/King KX165A NAV/COMM transceiver:</p>
+
+<h4>COM Radio Features</h4>
+<ul>
+    <li>Frequency range: 118.000 - 136.975 MHz</li>
+    <li>8.33 kHz channel spacing for European airspace (toggle enabled)</li>
+    <li>25 kHz spacing mode for standard operations</li>
+    <li>Emergency frequency recall: One-button 121.500 MHz</li>
+    <li>TX indicator illuminates during transmission</li>
+    <li>Volume control integrated with X-Plane audio system</li>
+</ul>
+
+<h4>NAV Radio Features</h4>
+<ul>
+    <li>Frequency range: 108.00 - 117.95 MHz</li>
+    <li>Three display modes (cycled via mode button):
+        <ul>
+            <li>FREQUENCY: Standby frequency display (default)</li>
+            <li>RADIAL: Current radial FROM tuned VOR station</li>
+            <li>OBS: Selected course display (editable)</li>
+        </ul>
+    </li>
+    <li>OBS control via small knob toggle (±1° fine, ±10° coarse)</li>
+    <li>TO/FROM flag indication on display</li>
+    <li>NAV audio ident toggle</li>
+</ul>
+
+<h4>9-Channel Memory System</h4>
+<ul>
+    <li>Channels 1-9 for quick frequency recall</li>
+    <li>Default frequencies:
+        <ul>
+            <li>CH 1: 121.500 MHz (Emergency)</li>
+            <li>CH 2: 122.800 MHz (UNICOM)</li>
+            <li>CH 3: 123.450 MHz (Air-to-Air)</li>
+            <li>CH 4-9: User programmable</li>
+        </ul>
+    </li>
+    <li>Store current standby frequency to any channel</li>
+    <li>Channel mode indicator shows current channel (CH 1-9)</li>
+</ul>
+
+<h4>Display Features</h4>
+<ul>
+    <li>Cairo-based hardware-accelerated 7-segment LCD rendering</li>
+    <li>Active and standby frequency display</li>
+    <li>Flip-flop frequency swap (COM and NAV independent)</li>
+    <li>"8" indicator when 8.33 kHz mode active</li>
+    <li>"CH X" indicator when channel memory mode active</li>
+    <li>TO/FR (To/From) VOR flag indication</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>Reads X-Plane's COM2/NAV2 tuning (833 Hz precision)</li>
+    <li>Powered by DC Radio Bus circuit</li>
+    <li>Full persistence of channel memory</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Bendix/King KAP 140 Autopilot <span class="new-tag">NEW</span></h3>
+<p>Full study-level simulation of the Bendix/King KAP 140 Two Axis Autopilot with Altitude Preselect (Modern variant only):</p>
+
+<h4>Roll (Lateral) Modes</h4>
+<ul>
+    <li><strong>ROL:</strong> Wing leveler - maintains zero bank angle (default on engagement)</li>
+    <li><strong>HDG:</strong> Heading select - tracks heading bug on HSI</li>
+    <li><strong>NAV:</strong> VOR/RNAV/GPS navigation tracking with CDI centering</li>
+    <li><strong>APR:</strong> Approach mode - tighter localizer tracking with glideslope arm</li>
+    <li><strong>REV:</strong> Back course - reverse sensing for back course approaches</li>
+</ul>
+
+<h4>Pitch (Vertical) Modes</h4>
+<ul>
+    <li><strong>VS:</strong> Vertical speed hold (±2000 fpm, 100 fpm increments)</li>
+    <li><strong>ALT:</strong> Altitude hold - maintains captured altitude with ±20 ft nudge</li>
+    <li><strong>GS:</strong> Glideslope tracking - automatic capture from APR mode</li>
+</ul>
+
+<h4>Altitude Preselect System</h4>
+<ul>
+    <li>Dual concentric knob: Outer (100 ft coarse), Inner (20 ft fine)</li>
+    <li>ARM button engages altitude capture</li>
+    <li>Automatic capture based on VS and distance to target</li>
+    <li>Smooth transition from VS to ALT hold</li>
+</ul>
+
+<h4>Altitude Alerter</h4>
+<ul>
+    <li>1000 ft approach alert (solid ALERT annunciation)</li>
+    <li>200 ft safe band around target altitude</li>
+    <li>Deviation alert when outside safe band (flashing ALERT)</li>
+    <li>Audio alert tones (integrated with FMOD)</li>
+</ul>
+
+<h4>Display Features</h4>
+<ul>
+    <li>Preselected altitude display (default)</li>
+    <li>Vertical speed display (FPM) when UP/DN pressed</li>
+    <li>Barometric setting display (IN HG or HPA)</li>
+    <li>HDG flash annunciation after NAV/APR/REV selection</li>
+    <li>PT (Pitch Trim) annunciation with direction arrow</li>
+</ul>
+
+<h4>Engagement and Safety</h4>
+<ul>
+    <li>AP button requires hold (0.25 sec) to engage/disengage</li>
+    <li>Automatic disconnect at excessive attitudes (60° bank, 30° pitch)</li>
+    <li>PITCH and ROLL failure annunciations</li>
+    <li>Preflight test sequence</li>
+</ul>
+
+<h4>Control Authority</h4>
+<ul>
+    <li>Maximum bank angle: 25° (standard rate turn limit)</li>
+    <li>Maximum pitch angle: ±15°</li>
+    <li>Roll rate limit: 6°/second</li>
+    <li>Pitch rate limit: 3°/second</li>
+    <li>PID controllers with anti-windup for smooth response</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>HSI source integration (NAV1, NAV2, GPS)</li>
+    <li>Baro sync from aircraft altimeter (manual override available)</li>
+    <li>Powered by DC main bus (requires 10V+ for operation)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Bendix/King KT 73 Mode S Transponder <span class="new-tag">NEW</span></h3>
+<p>Full study-level simulation of the Bendix/King KT 73 Mode S Transponder (Modern variant only):</p>
+
+<h4>Operating Modes (7-position knob)</h4>
+<ul>
+    <li><strong>OFF:</strong> Transponder powered off</li>
+    <li><strong>SBY:</strong> Standby - powered but not transmitting</li>
+    <li><strong>GND:</strong> Ground mode - inhibits ATCRBS and Mode S All-Call replies, generates squitters only (for ground operations)</li>
+    <li><strong>ON:</strong> Mode A - squawk code reply only</li>
+    <li><strong>ALT:</strong> Mode C - squawk code plus pressure altitude</li>
+    <li><strong>FLT ID:</strong> Flight ID mode - displays and transmits 8-character Flight ID (Mode S feature)</li>
+    <li><strong>TST:</strong> Self-test mode - 4-second segment illumination, then "TEST OK" indication</li>
+</ul>
+
+<h4>Squawk Code Entry</h4>
+<ul>
+    <li>4-digit octal code (0-7 per digit, 4096 codes total)</li>
+    <li>Individual digit increment/decrement with wrap-around</li>
+    <li>VFR quick-set: One-button 1200 squawk code</li>
+    <li>Special codes recognized: 7700 (Emergency), 7600 (Comm Fail), 7500 (Hijack)</li>
+</ul>
+
+<h4>Flight ID System (Mode S)</h4>
+<ul>
+    <li>8-character alphanumeric Flight ID entry</li>
+    <li>Character set: A-Z, 0-9, and space</li>
+    <li>Per-position character increment/decrement</li>
+    <li>Flight ID transmitted in Mode S replies</li>
+</ul>
+
+<h4>IDENT Function</h4>
+<ul>
+    <li>18-second SPI (Special Position Identification) pulse per specification</li>
+    <li>Works in ON, ALT, and FLT ID modes only</li>
+    <li>Syncs with X-Plane's transponder IDENT system</li>
+</ul>
+
+<h4>Reply Light Indicator</h4>
+<ul>
+    <li>Flashes on radar interrogation when transmitting</li>
+    <li>Mode S: 2 flashes per second</li>
+    <li>ATCRBS: 1 flash per second</li>
+    <li>Solid during test mode segment check</li>
+</ul>
+
+<h4>BITE Self-Test</h4>
+<ul>
+    <li>4-second segment illumination phase (all display segments on)</li>
+    <li>Test passed indication after segment check</li>
+    <li>Reply light behavior indicates test status</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>Mode, squawk, individual digits, Flight ID string</li>
+    <li>IDENT active, reply light, test active/passed status</li>
+    <li>Syncs with X-Plane transponder system (code and mode)</li>
+    <li>Mode mapping: KT73 7-mode to X-Plane 4-mode system</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Bendix/King KR 87 ADF Receiver <span class="new-tag">NEW</span></h3>
+<p>Full study-level simulation of TWO Bendix/King KR 87 Automatic Direction Finder units per Installation Manual Section III (Modern variant only):</p>
+<p><strong>Dual ADF Units:</strong> Unit 1 syncs with X-Plane ADF1, Unit 2 with ADF2. The two units are fully independent, each with its own complete set of controls.</p>
+
+<h4>Frequency Tuning</h4>
+<ul>
+    <li>Frequency range: 200-1799 kHz in 1 kHz increments</li>
+    <li>Active and standby frequency windows</li>
+    <li>Big knob: ±100 kHz coarse tuning</li>
+    <li>Small knob: ±1 kHz fine tuning</li>
+    <li>Knobs tune ACTIVE frequency when timer displayed, STANDBY when FRQ displayed</li>
+    <li>FRQ button: Shows standby frequency OR swaps active/standby (per manual)</li>
+</ul>
+
+<h4>Operating Modes</h4>
+<ul>
+    <li><strong>ADF:</strong> Full automatic direction finding - needle tracks NDB bearing</li>
+    <li><strong>ANT:</strong> Antenna (audio) mode - audio reception only, needle parks at 90°</li>
+    <li><strong>BFO:</strong> Beat Frequency Oscillator - 1020 Hz tone for identifying CW/keyed NDB stations (can be combined with ADF or ANT)</li>
+</ul>
+
+<h4>Flight Timer (Section 3.1.3.B)</h4>
+<ul>
+    <li>Auto-starts at 0 when power is applied</li>
+    <li>Counts up to 59:59:59 (59 hours, 59 minutes, 59 seconds)</li>
+    <li>Displays MM:SS until 59:59, then shifts to HH:MM</li>
+    <li>SET/RST resets timer to 0 (keeps running)</li>
+</ul>
+
+<h4>Elapsed Timer (Section 3.1.3.C)</h4>
+<ul>
+    <li>Two modes: COUNT UP and COUNT DOWN</li>
+    <li>Power on: Starts in COUNT UP mode from 0</li>
+    <li>COUNT UP mode: RST resets to 0</li>
+    <li>Long-press RST (~2 seconds): Enters SET mode (ET flashes)</li>
+    <li>SET mode: Use knobs to set preset (max 59:59), 15-second auto-timeout</li>
+    <li>Press RST in SET mode: Loads preset and starts countdown</li>
+    <li>When countdown reaches 0: Switches to COUNT UP, display flashes 15 seconds, alarm pulses 1 second</li>
+</ul>
+
+<h4>Display Modes</h4>
+<ul>
+    <li><strong>STBY:</strong> Right window shows standby frequency (selected via FRQ button)</li>
+    <li><strong>FLT:</strong> Right window shows flight timer (MM:SS or HH:MM)</li>
+    <li><strong>ET:</strong> Right window shows elapsed timer (MM:SS or HH:MM)</li>
+    <li>FLT/ET button toggles between FLT and ET only (per manual)</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>Power state, mode, BFO, display mode, frequencies</li>
+    <li>Timer values (FLT, ET, ET preset) and running states</li>
+    <li>ET state (count up/down/setting), ET flashing, ET alarm output</li>
+    <li>ADF bearing and signal status</li>
+    <li>Unit 1 integrates with X-Plane's ADF1</li>
+    <li>Unit 2 integrates with X-Plane's ADF2</li>
+    <li>Both units powered by DC Radio Bus circuit</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Radio Signal Propagation <span class="new-tag">NEW</span></h3>
+<p>Realistic terrain-aware radio signal modeling using the ITM (Irregular Terrain Model):</p>
+
+<h4>VHF Navigation (VOR/ILS)</h4>
+<ul>
+    <li>Line-of-sight propagation - signals blocked by terrain</li>
+    <li>Fresnel zone clearance calculations for accurate obstruction detection</li>
+    <li>ITM knife-edge diffraction modeling when partially blocked</li>
+    <li>NAV flag appears when signal too weak or blocked</li>
+    <li>Flying higher restores reception over terrain</li>
+</ul>
+
+<h4>VHF Communication (COM1/COM2)</h4>
+<ul>
+    <li>Same terrain-aware propagation as navigation radios</li>
+    <li>Uses nearest airport as assumed ground station</li>
+    <li>Signal quality affects communication reliability</li>
+    <li>Blocked status reported to the cockpit</li>
+</ul>
+
+<h4>NDB/ADF Navigation</h4>
+<ul>
+    <li>Ground wave propagation - more forgiving of terrain</li>
+    <li>Signal degrades but not fully blocked by mountains</li>
+    <li>ADF needle becomes less stable as signal weakens</li>
+    <li>Ground conductivity factor in attenuation model</li>
+</ul>
+
+<h4>ITM Propagation Model</h4>
+<ul>
+    <li><strong>Earth Curvature Correction:</strong> At long distances, the Earth's curvature causes terrain to "bulge up" relative to a straight line between aircraft and station. Uses 4/3 effective Earth radius (k-factor) to account for atmospheric refraction - critical for accurate long-range propagation.</li>
+    <li><strong>Fresnel-Kirchhoff Diffraction:</strong> Proper calculation of diffraction parameter (v) for knife-edge obstacles</li>
+    <li><strong>Shadow Region Loss:</strong> Polynomial and logarithmic loss models for different obstruction severities</li>
+    <li><strong>Propagation Modes:</strong> LINE_OF_SIGHT → DIFFRACTION → TROPOSCATTER → BLOCKED</li>
+</ul>
+
+<h4>Audio Static for FMOD</h4>
+<ul>
+    <li>Signal quality drives radio static/noise volume</li>
+    <li>Static level tracked separately for NAV1, NAV2, ADF, COM1 and COM2</li>
+    <li>Good signal (>80% quality): Minimal background static</li>
+    <li>Weak signal (<20% quality): Heavy static/noise</li>
+    <li>Smooth transition with natural sound characteristics</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>X-Plane terrain probing along signal path (500m sampling)</li>
+    <li>Earth curvature applied to terrain profile before analysis</li>
+    <li>Real-time path loss calculations based on ITM model</li>
+    <li>2 Hz update rate for performance optimization</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Four-Course Radio Range (A-N Range) <span class="new-tag">NEW</span></h3>
+<p>Complete implementation of the low-frequency four-course radio range, the primary instrument navigation system of the 1940s-1950s. Operates on both Classic and Modern variants via the ADF receiver (190-415 kHz band).</p>
+
+<h4>Core System</h4>
+<ul>
+    <li>Two perpendicular antenna pairs transmit interlocking Morse-keyed 1020 Hz tones: A (dit-dah) and N (dah-dit)</li>
+    <li>Four beams (courses) where signals merge into a steady tone; four quadrants where one letter dominates</li>
+    <li>37.5-second station cycle: 30s A-N signal followed by 7.5s Morse station identification</li>
+    <li>Station ident split between antenna pairs so pilots can determine their quadrant during ident phase</li>
+    <li>Cone of silence directly above the station with accurate elevation-angle modeling</li>
+    <li>Figure-eight antenna pattern simulation with cos&sup2;/sin&sup2; signal blending at beam boundaries</li>
+    <li>5ms keying envelope smoothing to prevent audible clicks at dit/dah transitions</li>
+</ul>
+
+<h4>Audio Pipeline</h4>
+<ul>
+    <li>Keyed 1020 Hz tone generated as 48 kHz PCM, injected into the existing ADF audio buffer</li>
+    <li>2.5-second buffer (one full A-N keying cycle) eliminates loop-seam artifacts</li>
+    <li>Processed through RadioDSP for realistic noise injection, AGC compression, and voice-band EQ</li>
+    <li>Signal quality drives noise level: close to station is clean, edge of range is static-heavy</li>
+</ul>
+
+<h4>Z-Marker Beacon</h4>
+<ul>
+    <li>Automatic station-passage indicator when flying through the cone of silence</li>
+    <li>Triggers inner marker light (white) on the annunciator panel</li>
+    <li>3000 Hz audio tone on the interior audio bus (historically correct Z-marker modulation)</li>
+</ul>
+
+<h4>Night Effect (Ionospheric Skywave Interference)</h4>
+<ul>
+    <li>D-layer ionospheric absorption modeled using sun pitch angle from X-Plane</li>
+    <li>Peak instability during twilight (sun -2&deg; to -8&deg; below horizon), not full darkness</li>
+    <li>ADF bearing wander up to 25&deg; from layered low-frequency oscillators (7s, 15s, 23s periods)</li>
+    <li>Periodic signal fading (~4s cycle) from ground wave/skywave constructive-destructive interference</li>
+    <li>Distance scaling: minimal inside 15 NM (ground wave dominates), full effect beyond 60 NM</li>
+    <li>Frequency scaling: reduced severity below 350 kHz per FAA literature</li>
+</ul>
+
+<h4>Dual ADF Support and Power Gating</h4>
+<ul>
+    <li>Both ADF receivers operate independently: each can tune a different radio range station</li>
+    <li>ADF 1 (ADF_RED CB) audio on pilot bus; ADF 2 (ADF_GREEN CB) audio on copilot bus</li>
+    <li>ADF 2 available on Modern variant only (dual KR87 units)</li>
+    <li>Power gating: requires bus voltage &ge; 14V, respective circuit breaker closed, ADF mode not OFF</li>
+    <li>ADF mode switch integration: OFF = silent, ANT = audio only (for station identification), ADF = audio + bearing</li>
+    <li>Per-receiver night effect severity (same ionospheric wander, distance-dependent per station)</li>
+    <li>Z-marker triggers from either receiver's cone of silence detection</li>
+</ul>
+
+<h4>Navigation Integration</h4>
+<ul>
+    <li>ADF bearing needle automatically points to radio range stations (custom bearing override, ADF 1)</li>
+    <li>Distance-based signal quality model with power scaling</li>
+    <li>20 historical US radio range stations included (Northeast Corridor, Midwest, Southeast, Western US)</li>
+    <li>Editable plain-text station database at <code>resources/data/radio_range_stations.dat</code></li>
+    <li>Monitoring outputs for active state, on-beam, deviation, signal quality, cone, quadrant, night severity and Z-marker</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KCS 55A Compass System <span class="new-tag">NEW</span></h3>
+<p>Complete BendixKing KCS 55A slaved compass system for the Modern variant, replacing the Classic variant's manually-set vacuum DG with an electrically slaved heading reference and pictorial navigation display. The previous Lua release wired up the slaving plumbing but never populated the slave meter, never implemented flag logic, and left a flux valve library call commented out. The HSI worked at all times regardless of power state, with no warmup and no flag behavior. The C++ rewrite implements the system properly.</p>
+
+<h4>KI 525A HSI (Horizontal Situation Indicator)</h4>
+<p>Previously a passive readout of X-Plane's own values with no power dependency. Now a fully modeled instrument:</p>
+<ul>
+    <li>Combined heading, VOR/LOC deviation, and glideslope display in a single instrument</li>
+    <li>Compass card driven by slaved directional gyro (auto-corrected to flux valve heading)</li>
+    <li>Heading bug positioned via HDG knob, used as reference for KAP 140 HDG mode</li>
+    <li>Course deviation bar and course arrow controlled by CRS (OBS) knob</li>
+    <li>To/From indicator for VOR station sensing</li>
+    <li>Glideslope pointer for ILS approaches</li>
+    <li>Three warning flags (none existed in the Lua release):
+        <ul>
+            <li><strong>HDG flag:</strong> Visible when unpowered or gyro not warmed up</li>
+            <li><strong>NAV flag:</strong> Visible when unpowered or no VOR/LOC signal received</li>
+            <li><strong>GS flag:</strong> Visible when unpowered or no usable glideslope signal</li>
+        </ul>
+    </li>
+    <li>Temperature-dependent gyro warmup (not modeled in Lua release): 60 seconds at +55&deg;C, up to 300 seconds at &minus;46&deg;C (linear interpolation per KCS 55A Pilot's Guide)</li>
+    <li>Power loss resets warmup completely; full spin-up cycle restarts from zero</li>
+    <li>1.73A electrical load on the DC bus when powered (no load modeled in Lua release)</li>
+    <li>Knobs inoperative when unpowered (previously functional at all times)</li>
+</ul>
+
+<h4>KA 51A Slaving Accessory</h4>
+<p>Entirely new. The Lua release had no KA 51A implementation; the DG was permanently slaved with no pilot-accessible slave/free toggle or error meter.</p>
+<ul>
+    <li>Controls the slaving loop between KMT 112 flux valve and KG 102A directional gyro</li>
+    <li><strong>SLAVE mode:</strong> Flux valve continuously corrects DG heading to magnetic north</li>
+    <li><strong>FREE mode:</strong> DG runs independently with natural gyroscopic precession drift</li>
+    <li>Slave meter displays heading error between flux valve and DG (&plusmn;30&deg; full scale)</li>
+    <li>Meter needle has exponential lag filter for realistic D'Arsonval movement feel</li>
+    <li>CW/CCW momentary buttons for manual DG adjustment in FREE mode only</li>
+    <li>Power loss reverts DG to free mode and zeros the meter</li>
+</ul>
+
+<h4>Shared Power</h4>
+<ul>
+    <li>Both components powered through G-2 Compass circuit breaker (position 41, 5A)</li>
+    <li>Requires DC bus voltage above 18V</li>
+    <li>Pulling the CB disables both HSI and slaving simultaneously</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Panel Texture Display Rendering <span class="new-tag">NEW</span></h3>
+<p>Custom cockpit panel texture rendering for all Modern variant avionics displays:</p>
+
+<h4>Display Regions (4096x4096 panel texture)</h4>
+<ul>
+    <li><strong>KX165A NAV/COMM:</strong> x=0, y=221, 1065×127 pixels</li>
+    <li><strong>KR87 ADF #1:</strong> x=12, y=741, 1049×123 pixels</li>
+    <li><strong>KR87 ADF #2:</strong> x=12, y=590, 1049×119 pixels</li>
+    <li><strong>KT76 Transponder:</strong> x=8, y=385, 1057×176 pixels</li>
+    <li><strong>KAP140 Autopilot:</strong> x=0, y=0, 1028×205 pixels</li>
+</ul>
+
+<h4>LCD Display Features</h4>
+<ul>
+    <li>OpenGL-based 7-segment LCD rendering via xplm_Phase_Panel callbacks</li>
+    <li>Shared LCD utilities library for consistent segment rendering</li>
+    <li>Authentic segment patterns for digits 0-9 and letters (A-Z subset)</li>
+    <li>Support for decimal points, colons, and special characters</li>
+</ul>
+
+<h4>Display Colors</h4>
+<ul>
+    <li><strong>KX165A:</strong> Green LCD (hardware-accelerated Cairo rendering)</li>
+    <li><strong>KR87 ADF:</strong> Orange LCD (RGB: 1.0, 0.5, 0.0)</li>
+    <li><strong>KT76 Transponder:</strong> Green LCD (RGB: 0.0, 1.0, 0.4)</li>
+    <li><strong>KAP140 Autopilot:</strong> Green LCD (RGB: 0.0, 1.0, 0.4)</li>
+</ul>
+
+<h4>KR87 Display Content</h4>
+<ul>
+    <li>Active frequency (large, left side)</li>
+    <li>Standby frequency OR timer (right side)</li>
+    <li>Mode annunciators: ADF, ANT, BFO, FRQ, FLT, ET</li>
+    <li>Flashing ET display when countdown alarm active</li>
+</ul>
+
+<h4>KT76 Display Content</h4>
+<ul>
+    <li>4-digit squawk code (large, centered)</li>
+    <li>Mode indicator: SbY, GND, On, ALt, FLt, tSt</li>
+    <li>IDENT indicator when active</li>
+    <li>Reply light indicator (R)</li>
+    <li>Test mode: all 8s displayed</li>
+    <li>FLT ID mode: 8-character flight ID</li>
+</ul>
+
+<h4>KAP140 Display Content</h4>
+<ul>
+    <li>AP engaged indicator</li>
+    <li>Roll modes: ROL, HDG, NAV, APR, REV (solid=active, flash=armed)</li>
+    <li>Pitch modes: VS, ALT, GS (solid=active, flash=armed)</li>
+    <li>PT (Pitch Trim) indicator with direction arrow</li>
+    <li>FAIL indicators for roll/pitch axis failures</li>
+    <li>Right display: Altitude (ft), Vertical Speed (FPM), or Baro (IN HG/HPA)</li>
+    <li>ALERT annunciator (solid=approaching, flashing=deviation)</li>
+</ul>
+
+<h4>Technical Implementation</h4>
+<ul>
+    <li>Automatic variant detection - displays only render on Modern variant</li>
+    <li>Scale-independent rendering based on display region height</li>
+    <li>Proper OpenGL state management with XPLMSetGraphicsState</li>
+    <li>Alpha blending for smooth segment edges</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Audio Panel Radio Selector Switches <span class="new-tag">DOCUMENTED</span></h3>
+<p>Complete documentation of audio panel switches for pilot control of radio audio monitoring. These switches allow the pilot to select which radios to monitor through the headset:</p>
+
+<p>Each receiver has its own monitor switch and its own volume control. The switches run on X-Plane's
+standard audio selection system, so third-party hardware and tools that expect it work without any
+special handling.</p>
+
+<h4>Panel Configuration</h4>
+<ul>
+    <li><strong>Selector Switches:</strong> COM1, COM2, NAV1, NAV2, ADF1, ADF2, MKR (Marker Beacon)</li>
+    <li><strong>MIC and PHONE Labels:</strong> Indicate headset jack connections (not switches)</li>
+    <li>Multiple radios can be enabled simultaneously for monitoring</li>
+    <li>Does not affect radio functionality, only audio monitoring</li>
+</ul>
+
+<h4>Operation Notes</h4>
+<ul>
+    <li>Use selector switches to choose which radios to monitor through headset</li>
+    <li>Volume controls adjust individual radio audio levels</li>
+    <li>Standard X-Plane audio system integration ensures compatibility</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>COCKPIT INSTRUMENTS</h2>
+
+<div class="section">
+<h3>Crew Oxygen System <span class="new-tag">NEW</span></h3>
+<p>Demand-type oxygen system for high-altitude operations:</p>
+
+<h4>Cylinder and Pressure</h4>
+<ul>
+    <li>Oxygen cylinder: 450 PSI full, ~620 liters capacity</li>
+    <li>Cylinder pressure drives the cockpit gauge</li>
+    <li>Low pressure warning when below 100 PSI</li>
+</ul>
+
+<h4>Demand Regulators (Pilot and Copilot)</h4>
+<ul>
+    <li>Regulator switch and mask detection required for flow</li>
+    <li>Oxygen flows only when mask creates inhalation vacuum</li>
+    <li>Flow rate increases with altitude (more O2 needed in thinner air)</li>
+    <li>Blinker flow indicators pulse with each breath (~2 second cycle)</li>
+</ul>
+
+<h4>Altitude-Based Consumption</h4>
+<ul>
+    <li>10,000 ft: ~2 L/min (light supplemental)</li>
+    <li>18,000 ft: ~4 L/min (moderate)</li>
+    <li>25,000 ft: ~8 L/min (heavy)</li>
+    <li>Service ceiling: up to 15 L/min maximum</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Radio Compass Indicator <span class="new-tag">NEW</span></h3>
+<p>Period-correct ID-48/ARN-7 style ADF indicator for Classic variant copilot position:</p>
+
+<h4>Authentic Behavior</h4>
+<ul>
+    <li>Fixed compass card showing relative bearing to NDB (0-360°)</li>
+    <li>Damped needle movement with realistic slew rate</li>
+    <li>Signal-based wobble: weak signal = unstable, wandering needle</li>
+    <li>Integrates with Radio Propagation system for terrain masking effects</li>
+</ul>
+
+<h4>Panel Configuration</h4>
+<ul>
+    <li><strong>Pilot (left):</strong> RMI - magnetic bearing with compass card</li>
+    <li><strong>Copilot (right):</strong> Radio Compass - relative bearing only</li>
+    <li>Both use same ADF receiver, displayed differently</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Radio Altimeter (AN/APN-1) <span class="new-tag">NEW</span></h3>
+<p>Period-correct WWII-era radar altimeter showing height above ground level (AGL):</p>
+
+<h4>Specifications</h4>
+<ul>
+    <li>Range: 0-4000 feet AGL</li>
+    <li>Powered by ALTIMETER circuit breaker (position 33, 10A)</li>
+    <li>3-second warm-up delay (vacuum tube simulation)</li>
+    <li>Logarithmic scale: 0-500ft uses first 50% of needle travel for better low-altitude resolution</li>
+</ul>
+
+<h4>Features</h4>
+<ul>
+    <li>OFF flag displayed when unpowered, warming up, or signal invalid</li>
+    <li>Signal becomes invalid above 4000 ft (historical limitation)</li>
+    <li>Low altitude warning with adjustable setpoint (0-1000 ft)</li>
+    <li>Smooth needle response with realistic damping</li>
+</ul>
+
+<p>Current altitude, needle position, OFF flag state, the low-altitude warning and its settable warning
+height are all published for the gauge.</p>
+</div>
+
+<div class="section">
+<h3>Radium Dial Luminosity System <span class="new-tag">NEW</span></h3>
+<p><strong>Classic variant only.</strong> Authentic WWII-era self-luminous instrument markings for night flying.
+Modern variant uses post lights for gauge illumination (radium output is zero there).</p>
+
+<h4>Historical Background</h4>
+<ul>
+    <li>WWII instruments used radium-226 mixed with zinc sulfide (ZnS) phosphor paint</li>
+    <li>Radium alpha particles continuously excite the phosphor, causing visible glow</li>
+    <li>No "charging" required - glows continuously in total darkness</li>
+    <li>Original 1940s brightness has significantly degraded over 80+ years</li>
+</ul>
+
+<h4>Phosphor Decay Physics</h4>
+<ul>
+    <li>Exponential decay formula: I(t) = I₀ × (0.5)^(t/half_life)</li>
+    <li>Radium-226 half-life: 1,600 years (alpha source remains strong)</li>
+    <li>Zinc sulfide phosphor half-life: ~25 years (damaged by radiation)</li>
+    <li>After 80 years: approximately 10% of original brightness remains</li>
+</ul>
+
+<h4>Glow Modes</h4>
+<ul>
+    <li><strong>Aged mode (default):</strong> Realistic 80-year-old instruments - subtle, dim glow</li>
+    <li><strong>Like-new mode:</strong> Full brightness for users who prefer brighter dials</li>
+    <li>Master brightness control for user adjustment (0-1)</li>
+</ul>
+
+<h4>Per-Instrument Group Variation</h4>
+<ul>
+    <li><strong>Clock:</strong> Slightly brighter (less used, less wear)</li>
+    <li><strong>Flight instruments:</strong> Nominal intensity</li>
+    <li><strong>Engine instruments:</strong> Slightly dimmer (more heat/vibration exposure)</li>
+    <li><strong>Wet compass:</strong> Nominal intensity (same as flight instruments)</li>
+</ul>
+
+<h4>LIT Texture Integration</h4>
+<ul>
+    <li>An overall intensity output for uniform brightness across all dials</li>
+    <li>Per-group variation for a realistic difference between instruments</li>
+</ul>
+
+<p>A master brightness control, an aged-versus-new toggle, an overall calculated intensity, and separate
+intensity outputs for the clock dial, flight instruments, engine instruments and wet compass.</p>
+</div>
+
+<div class="section">
+<h3>Wet Compass Physics <span class="new-tag">NEW</span></h3>
+<p>Realistic wet compass behavior with physics-based vibration response:</p>
+
+<h4>Physics Model</h4>
+<ul>
+    <li>Damped harmonic oscillator (spring-mass-damper) simulation</li>
+    <li>Natural frequency: 1.5 Hz (realistic compass card oscillation)</li>
+    <li>Damping ratio: 0.4 (underdamped for authentic settling behavior)</li>
+    <li>Maximum displacement: ±3.0 mm vertical</li>
+</ul>
+
+<h4>Engine Vibration Response</h4>
+<ul>
+    <li><strong>Low RPM (startup/idle):</strong> Exaggerated vibration - rough, uneven shake</li>
+    <li><strong>High RPM (cruise):</strong> Minimal vibration - smooth operation</li>
+    <li>Multiple frequency components for realistic radial engine character</li>
+    <li>Extra roughness during engine start sequence (below 800 RPM)</li>
+</ul>
+
+<h4>Environmental Response</h4>
+<ul>
+    <li><strong>Runway bumps:</strong> Amplitude increases with groundspeed during taxi/takeoff/landing</li>
+    <li><strong>Turbulence:</strong> Responds to X-Plane weather turbulence intensity</li>
+    <li><strong>Landing impact:</strong> Impulse response on touchdown, strength based on vertical speed</li>
+    <li><strong>G-forces:</strong> Responds to vertical, lateral, and axial acceleration</li>
+</ul>
+
+<p>Vertical card displacement of roughly plus or minus 3 mm is published to drive the 3D animation.</p>
+</div>
+
+<div class="section">
+<h3>Dual-Time Cockpit Clock with Chronograph <span class="new-tag">NEW</span></h3>
+<p>Fully animated cockpit clock with dual hour hands (local time in white, Zulu time in green), shared minute and second hands, and an integrated chronograph/stopwatch.</p>
+
+<h4>Clock Mode</h4>
+<ul>
+    <li>Smooth, continuous hand rotation computed from sim time</li>
+    <li>Independent local and Zulu hour hands on a 12-hour dial</li>
+    <li>Runs independently of aircraft electrical power (mechanical movement)</li>
+</ul>
+
+<h4>Chronograph Mode</h4>
+<ul>
+    <li>Toggle between clock and chronograph with the mode button (top right)</li>
+    <li>Minute and second hands sweep smoothly from clock position to chrono position on mode change</li>
+    <li>Start/stop/reset cycle via the action button (lower left):
+        <ul>
+            <li>Press once: start (hands begin counting from zero)</li>
+            <li>Press again: stop (hands freeze at elapsed time)</li>
+            <li>Press again: reset (hands sweep back to zero)</li>
+        </ul>
+    </li>
+    <li>Elapsed time displayed on the same minute and second hands (no separate subdial)</li>
+</ul>
+
+<p>Separate outputs drive the local and Zulu hour hands, the blended minute and second hands, and the
+clock versus chronograph mode.</p>
+</div>
+
+<div class="section">
+<h3>Magnesyn Compass <span class="new-tag">NEW</span></h3>
+<p><strong>Classic variant only.</strong> Slaved gyro magnetic compass using a flux-valve-driven heading repeater, replacing the need to manually set the DG heading.</p>
+
+<h4>Servo Model</h4>
+<ul>
+    <li>Spring-damper servo tracks magnetic heading (spring constant 8, damping 5)</li>
+    <li>Smooth, realistic card rotation with no instantaneous jumps</li>
+    <li>Powered through G2_COMPASS circuit breaker, requires DC bus above 18V</li>
+    <li>Electrical draw: approximately 0.15A</li>
+</ul>
+
+<h4>Power Loss Behavior</h4>
+<ul>
+    <li>Compass card freezes at last known heading</li>
+    <li>Slow random drift begins with friction decay (simulates unpowered gyro rundown)</li>
+    <li>Card resumes tracking magnetic heading when power is restored</li>
+</ul>
+
+<p>Displayed heading and power state are published for the instrument.</p>
+</div>
+
+<div class="section">
+<h3>Cross-Pointer Course Indicator <span class="new-tag">NEW</span></h3>
+<p><strong>Classic variant only.</strong> Period-correct cross-pointer ILS instrument displaying localizer and glideslope deviation for precision approaches.</p>
+
+<h4>Needle Behavior</h4>
+<ul>
+    <li>Localizer needle: horizontal deflection, 2.5 dots full scale normalized to -1.0 to +1.0</li>
+    <li>Glideslope needle: vertical deflection, same normalization</li>
+    <li>Spring-damped needle dynamics (spring 10, damping 6) for smooth, realistic movement</li>
+</ul>
+
+<h4>Flag Logic</h4>
+<ul>
+    <li><strong>Barber pole flags:</strong> Both flags visible when instrument is unpowered</li>
+    <li><strong>LOC flag:</strong> Displayed when NAV1 has no valid localizer signal (fromto == 0)</li>
+    <li><strong>GS flag:</strong> Displayed when glideslope signal is invalid</li>
+    <li>Needles center and flags show simultaneously on power loss</li>
+</ul>
+
+<h4>Power Requirements</h4>
+<ul>
+    <li>Powered via DC bus above 18V (through NAV receiver circuit, no dedicated CB)</li>
+    <li>Reads NAV1 localizer and glideslope deflection from X-Plane</li>
+</ul>
+
+<p>Localizer and glideslope needle deflection and both flag states are published for the instrument.</p>
+</div>
+
+<hr>
+
+<h2>THIRD-PARTY INTEGRATIONS</h2>
+
+<div class="section">
+<h3>FSEconomy <span class="new-tag">NEW</span></h3>
+<p>Integration with the FSEconomy virtual airline economy system. Requires the user to install the xfseconnect plugin from fseconomy.net separately.</p>
+<ul>
+    <li>Automatic detection of the FSEconomy connect plugin at startup</li>
+    <li>Reads FSE status: connection state, active flight, flight time, lease time, fuel type</li>
+    <li>FSE status display in DC3 Hangar OPTIONS tab (connected, flying, flight time, can end flight)</li>
+    <li>FSE availability and in-flight state drive the 3D model</li>
+    <li>Graceful when FSE plugin not installed (no errors, status shows "not detected")</li>
+    <li>Zero direct server communication; all networking handled by the FSE plugin</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>TECHNICAL IMPROVEMENTS</h2>
+
+<div class="section">
+<h3>Architecture</h3>
+<ul>
+    <li><strong>Language:</strong> Lua → C++ (native plugin)</li>
+    <li><strong>Performance:</strong> Significant improvement from compiled code</li>
+    <li><strong>Maintainability:</strong> Modular class-based architecture</li>
+    <li><strong>Type Safety:</strong> Compile-time error checking</li>
+    <li><strong>Code Size:</strong> ~40,000 lines across 80+ files</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Data Persistence</h3>
+<ul>
+    <li>Aircraft state saving/loading</li>
+    <li>System health persistence</li>
+    <li>Fluid quantities persistence</li>
+    <li>Maintenance tracking</li>
+    <li>Oil grade selection storage</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>X-Plane 12 Integration</h3>
+<ul>
+    <li>Native SDK plugin (no Gizmo dependency)</li>
+    <li>XPLMCreateAvionicsEx() for cockpit devices</li>
+    <li>Full Graphics API 4 support</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>BUG FIXES</h2>
+
+<div class="section">
+<ul>
+    <li>Fixed incomplete oil quantity modeling</li>
+    <li>Fixed simplified hydraulic pressure behavior</li>
+    <li>Fixed basic electrical system limitations</li>
+    <li>Fixed fuel system oversimplification</li>
+    <li>Fixed limited autopilot capability</li>
+    <li>Removed numerous TODO items from original code</li>
+    <li>Fixed engine cold rough operation handling</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>UI/UX ENHANCEMENTS</h2>
+
+<div class="section">
+<h3>DC3 Hangar Settings Panel</h3>
+<ul>
+    <li>Oil grade selection with temperature recommendations</li>
+    <li>Comprehensive cold weather status displays:
+        <ul>
+            <li>Hydraulic fluid temperature and viscosity</li>
+            <li>Emergency air bottle pressure</li>
+            <li>Prop governor response</li>
+            <li>Gyro instrument status (vacuum-driven, per-pump readings)</li>
+            <li>Control cable trim offset</li>
+            <li>Tire pressure</li>
+            <li>Cabin heater status</li>
+            <li>Windshield frost/ice/visibility</li>
+            <li>Battery cold weather status</li>
+        </ul>
+    </li>
+    <li>Maintenance tracking displays</li>
+    <li>System warning indicators</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>LIGHTING SYSTEM ENHANCEMENTS</h2>
+
+<div class="section">
+<h3>Voltage-Based Incandescent Light Dimming <span class="new-tag">NEW</span></h3>
+<p>All aircraft lights now respond realistically to electrical bus voltage using physics-based tungsten filament modeling:</p>
+<ul>
+    <li>Brightness follows the tungsten luminous efficacy curve: (V/V_rated)^3.4</li>
+    <li>At nominal 28V: full brightness; at 24V: 58%; at 20V: 25%; at 16V: 7%; at 14V: effectively dark</li>
+    <li>Forgetting to turn on generators after engine start causes all lights to gradually dim as the battery drains</li>
+    <li>Landing lights (21.4A each) accelerate battery drain dramatically when generators are offline</li>
+    <li>Panel post lights and instrument backlighting dim on top of rheostat-set brightness levels</li>
+    <li>On the Modern variant, the gauge post lights are affected too; on the Classic variant, radium glow is unaffected since it requires no power</li>
+    <li>Applies to all light categories: landing, navigation, beacon, strobe, generic, panel, and instrument lights</li>
+    <li>Single generator operation provides full brightness (60A continuous is sufficient for all lighting loads)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Per-Circuit Breaker Panel Lighting <span class="new-tag">NEW</span></h3>
+<p>Cockpit panel lighting is now wired through three separate circuit breakers per T.O. 1C-47-2, allowing independent failure and control of each lighting zone:</p>
+<ul>
+    <li><strong>CB 20 - PILOT INST PANEL LIGHTS (5A):</strong> Pilot-side post lights, pedestal Grimes light, compass light, and the pilot-side and centre gauge post lights (Modern variant)</li>
+    <li><strong>CB 21 - COPILOT INST PANEL LIGHTS (5A):</strong> Copilot-side post lights, including the copilot gauge post lights (Modern variant)</li>
+    <li><strong>CB 19 - RADIO PANEL LIGHTS (5A):</strong> Radio stack illumination, controllable independently from flight instrument lighting</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Modern Variant Post Lighting <span class="new-tag">NEW</span></h3>
+<p>The Modern panel is lit by individual post lights at the instruments, replacing the Classic variant's
+radium glow. Each gauge gets its own lamp on the panel rather than a glow baked into the dial face, so
+the instruments are lit from outside exactly as the real panel is.</p>
+<ul>
+    <li>Pilot panel rheostat controls the pilot-side and centre engine gauge post lights</li>
+    <li>Copilot panel rheostat controls the copilot-side post lights</li>
+    <li>Two independent circuits, each protected by its own circuit breaker</li>
+    <li>Every lamp on a circuit shares that circuit's brightness, set by its rheostat</li>
+    <li>Brightness responds to bus voltage (dims with battery drain, like all incandescent lights), and the
+        lights go out entirely below 18 V</li>
+    <li>3 W per lamp, so a fully lit panel is a real load on the bus</li>
+    <li>Post lights also continue to flood-illuminate panel-mounted items such as the RMI and the flaps
+        indicator, on both variants</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>CUSTOM ICING PHYSICS ENGINE</h2>
+
+<div class="section">
+<h3>Messinger Heat Balance Model <span class="new-tag">NEW</span></h3>
+<p>Complete replacement of X-Plane's built-in icing with a physics-driven custom model based on the Messinger heat balance equation (1953). The engine computes ice accretion from first principles using thermodynamic energy balance at each surface.</p>
+<ul>
+    <li>12 independent ice zones tracked: wing leading edges (L/R), horizontal stabilizer, vertical stabilizer, propeller blades (L/R), pitot tubes (L/R), windshield, antenna, and cowl inlets (L/R)</li>
+    <li>Per-zone energy balance: kinetic and aerodynamic heating vs convective, evaporative, and sensible cooling</li>
+    <li>Freezing fraction determines ice type: rime (opaque, rough, sheds well), glaze (clear, smooth, adhesive, hard to shed), or mixed</li>
+    <li>Collection efficiency computed from Stokes number and body geometry; small bodies (pitot) collect ice faster than large surfaces (wing)</li>
+    <li>Convective heat transfer via Reynolds/Nusselt with Sutherland viscosity correction and laminar/turbulent flow regimes</li>
+    <li>Churchill-Bernstein correlation for cylindrical bodies (pitot, antenna)</li>
+    <li>Surface skin temperature model with per-zone thermal time constants</li>
+    <li>Natural sublimation when not in active icing conditions</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Weather-Driven LWC/MVD Estimation <span class="new-tag">NEW</span></h3>
+<p>Since X-Plane does not expose Liquid Water Content or Mean Volume Diameter directly, the engine estimates them from available weather data:</p>
+<ul>
+    <li>Cloud layer analysis from <code>XPLMGetWeatherAtLocation()</code> determines in-cloud conditions</li>
+    <li>Cloud type classification (stratus, cumulus, cumulonimbus) based on depth, coverage, and temperature</li>
+    <li>LWC estimated by cloud type: 0.15-0.25 g/m&sup3; (stratus), 0.3-0.7 g/m&sup3; (cumulus), 0.5-1.5 g/m&sup3; (Cb)</li>
+    <li>MVD estimated by cloud type: 15-20 &mu;m (stratiform), 18-25 &mu;m (cumulus)</li>
+    <li>Precipitation augments LWC; freezing rain/drizzle gives large MVD (100-500 &mu;m, SLD conditions)</li>
+    <li>Icing severity classification: none, trace, light, moderate, severe</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>De-Ice Boot Integration <span class="new-tag">NEW</span></h3>
+<p>The icing engine integrates with the existing pneumatic de-ice boot system for realistic ice shedding:</p>
+<ul>
+    <li>Boot shedding effectiveness depends on ice thickness: boots are ineffective below 3 mm (ice too thin to crack), optimal at 6-25 mm</li>
+    <li>Ice type matters: rime ice sheds well (1.0x effectiveness), mixed ice sheds moderately (0.75x), glaze ice sheds poorly (0.45x due to adhesion)</li>
+    <li>Inflation pressure must exceed 6 PSI for effective shedding (linear ramp from 4-8 PSI)</li>
+    <li>Intercycle residual ice: boots never shed 100% of ice; residual ice accumulates between cycles</li>
+    <li>Very thick ice (>25 mm) is harder to shed, with decreasing effectiveness</li>
+    <li>Critical realism: pilot must wait for sufficient buildup before cycling boots, matching real DC-3 procedures</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Propeller Alcohol Anti-Ice Integration <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Queries existing prop anti-ice alcohol pump state</li>
+    <li>Effective ice prevention above -15&deg;C OAT; partial protection below</li>
+    <li>RPM affects alcohol distribution (centrifugal force at blade roots)</li>
+    <li>Empty alcohol tank provides no protection</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Pitot Heat Model <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>162W per pitot tube heating element (5.77A at 28V per AN 01-40NK-2)</li>
+    <li>Sufficient to prevent icing under normal conditions</li>
+    <li>Overwhelmed in severe freezing rain (SLD)</li>
+    <li>Requires electrical power and functioning circuit breakers</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Windshield and Ground Frost <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Windshield collects ice at reduced rate (flat surface, oblique angle)</li>
+    <li>Wipers can partially clear thin frost (30% effectiveness) and thin rime (10%), but not glaze ice</li>
+    <li>Ground frost forms on parked aircraft when OAT is below 0&deg;C and surface temperature is below dewpoint</li>
+    <li>Frost persists across sessions via state persistence</li>
+    <li>X-Plane handles windshield frost/ice visual rendering</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Aerodynamic Penalties <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Lift coefficient (CL) reduction: ~0.8% per mm of wing leading edge ice (glaze 1.2x penalty, rime 0.6x)</li>
+    <li>Drag coefficient (CD) increase: ~4 drag counts per mm of wing ice, glaze 1.5x multiplier</li>
+    <li>Stall angle of attack reduction: ~0.2 degrees per mm of wing ice (capped at 8 degrees total)</li>
+    <li>Total ice mass tracked across all zones (25-75 kg at moderate accumulation)</li>
+    <li>Writes X-Plane's own airframe, pitot, propeller, inlet and window ice states each frame</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Icing Failure Modes (6 Types) <span class="new-tag">NEW</span></h3>
+<ul>
+    <li><strong>Pitot heat element failure (L/R):</strong> Heating element burned out, pitot ices up despite switch being on (MTBF: 5000 hrs)</li>
+    <li><strong>De-ice boot distributor motor failure:</strong> No boot cycling (MTBF: 4000 hrs)</li>
+    <li><strong>De-ice boot pressure leak:</strong> Reduced inflation pressure, degraded shedding (MTBF: 6000 hrs)</li>
+    <li><strong>Prop alcohol pump failure (L/R):</strong> No alcohol flow to propeller (MTBF: 3000 hrs)</li>
+    <li>All failures available in the failure scheduling UI under "Ice Protection"</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Difficulty Mode Integration <span class="new-tag">NEW</span></h3>
+<ul>
+    <li><strong>Tourist:</strong> Icing rate 0.3x, boot effectiveness 1.5x, no residual ice after shedding</li>
+    <li><strong>Standard:</strong> Normal physics (1.0x everything)</li>
+    <li><strong>Veteran:</strong> Icing rate 1.2x, boot effectiveness 0.8x, faster residual ice buildup</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Icing State Persistence <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Per-zone ice thickness, type, and surface temperature saved to LES.ini</li>
+    <li>Residual ice and ground frost persist across flights</li>
+    <li>Cold &amp; dark reset clears all ice</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>SHARED COCKPIT (MULTIPLAYER)</h2>
+
+<div class="section">
+<h3>Two-Player Cooperative Flight <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Fly the DC-3 with a second pilot over the network using peer-to-peer UDP</li>
+    <li>One player hosts, the other joins; both see a synchronized aircraft with full systems</li>
+    <li>Captain/First Officer seat assignment with in-session seat swap capability</li>
+    <li>Last-input-wins control model for flight controls, with throttle capture threshold to prevent surprises</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Full Systems Synchronization</h3>
+<ul>
+    <li><strong>Flight state:</strong> Position, attitude, velocities, accelerations (20 Hz server broadcast)</li>
+    <li><strong>Controls:</strong> Yoke, rudder, throttles, mixture, prop RPM, trim, flaps, gear</li>
+    <li><strong>Electrical:</strong> Battery, generators, bus ties, all 64 circuit breakers</li>
+    <li><strong>Engines:</strong> Starters, primers, magnetos, mixture controls, carburetor heat, cowl flaps</li>
+    <li><strong>Fuel:</strong> Tank selectors, crossfeed, boost pumps, fuel quantities</li>
+    <li><strong>Hydraulics:</strong> Pump selector, hand pump, gear handle, flap handle, parking brake</li>
+    <li><strong>Lighting:</strong> All switches and rheostats (landing, nav, panel, instrument, cabin, dome)</li>
+    <li><strong>Autopilot:</strong> Engage/disengage, heading, altitude, nav mode, vertical speed</li>
+    <li><strong>Environmental:</strong> De-ice boots, prop anti-ice, pitot heat, cabin heater, oxygen</li>
+    <li><strong>Avionics:</strong> Radio frequencies, transponder code, ADF settings</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Network and Security</h3>
+<ul>
+    <li>ENet reliable UDP library for low-latency, ordered delivery</li>
+    <li>HMAC-SHA256 authentication with shared secret (no passwords sent in cleartext)</li>
+    <li>Client-side interpolation for smooth remote position updates</li>
+    <li>Connection health monitoring with RTT and packet loss statistics in the UI</li>
+    <li>Automatic reconnection handling on connection loss</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Network Tab in DC3 Hangar</h3>
+<ul>
+    <li>Host or join sessions directly from the NETWORK tab</li>
+    <li>Color-coded connection state indicator (disconnected, connecting, active)</li>
+    <li>Real-time network statistics (round-trip time, packet loss percentage)</li>
+    <li>Seat swap request/accept/decline workflow</li>
+    <li>Configurable port number and IP address fields</li>
+</ul>
+</div>
+
+<hr>
+
+<h1>Addendum</h1>
+<h2>ADDITIONAL CHANGES SINCE VERSION 2.0 (LUA/GIZMO)</h2>
+
+<div class="version-info">
+    <strong>Scope:</strong> Compiled by direct comparison of the original 2.0 Lua/Gizmo scripts
+    (<code>scripts_src/init.lua</code>, <code>LES_01</code> through <code>LES_33</code>, plus modules)
+    against the current C++ source tree.<br>
+    <strong>Contents:</strong> Only material that was not already covered in the sections above. Nothing
+    above has been modified or removed.<br>
+    <strong>Compiled:</strong> August 2026
+</div>
+
+<hr>
+
+<h2>3D MODEL AND VISUAL PRESENTATION</h2>
+
+<div class="section">
+<h3>Remodelled from Scratch or Rebuilt in Greater Detail <span class="new-tag">NEW</span></h3>
+<p>The airframe and the flight deck have been rebuilt rather than touched up. Every item below is either
+new geometry or a substantial re-detailing of the 2.0 model:</p>
+<ul>
+    <li><strong>Fuselage</strong></li>
+    <li><strong>Wings</strong></li>
+    <li><strong>Vertical tail</strong></li>
+    <li><strong>Horizontal tail</strong></li>
+    <li><strong>Classic instrument panel and gauges</strong></li>
+    <li><strong>Modern instrument panel and gauges</strong></li>
+    <li><strong>Overhead panel</strong></li>
+    <li><strong>Centre pedestal</strong></li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Carried Over from 2.0</h3>
+<p>The following areas keep their existing geometry, either untouched or lightly reworked:</p>
+<ul>
+    <li><strong>Landing gear.</strong> The geometry is carried over. The systems modelling behind it is
+        entirely new, including the per-leg asymmetric gear model described under Landing Gear and Flaps</li>
+    <li><strong>Passenger cabin</strong></li>
+    <li><strong>Crew rest area</strong></li>
+</ul>
+<p>These areas still receive the aircraft-wide work below: new materials, new animations and the new
+lighting system all apply throughout, not only to the rebuilt sections.</p>
+</div>
+
+<div class="section">
+<h3>PBR Materials Throughout <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Every texture on the aircraft has been reworked for X-Plane 12's physically based rendering</li>
+    <li>Each surface now carries an albedo map, a normal map and a material map, the material texture
+        supplying the metalness and roughness that X-Plane 12's lighting model expects</li>
+    <li>Bare metal, painted skin, fabric, rubber, worn leather and glass each respond to light on their own
+        terms, instead of sharing a single flat shine as they did under the older material system</li>
+    <li>Illuminated surfaces carry their own LIT textures for night lighting: instrument faces, placards,
+        annunciators, switch legends and the cockpit interior. The plugin drives their emission directly,
+        so what glows and how brightly follows the live electrical state rather than a fixed day/night
+        switch</li>
+    <li>The result is an aircraft that reads correctly at any time of day, in any weather, under X-Plane
+        12's lighting rather than fighting it</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Animation <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Every animation in the aircraft has been redone, inside and out</li>
+    <li>Cockpit controls animate from the plugin's own state rather than from raw sim values, so levers,
+        switches, knobs and needles move with the mechanism they represent: detents, spring returns,
+        eased travel, mechanical interlocks and the hold-and-snap behaviour of the drum counters</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Lighting Built from Scratch <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>All aircraft lighting has been created from scratch and is driven by the plugin, not by X-Plane's
+        stock lighting behaviour</li>
+    <li>Every lamp answers to the electrical system: its circuit breaker, its rheostat and the live bus
+        voltage, so the lighting dims and dies exactly as the electrical state dictates</li>
+    <li>Covers the full set: exterior lighting, cockpit post lights and floods, panel and instrument
+        lighting, cabin and crew rest lighting, annunciators and warning lamps</li>
+    <li>The lighting sections later in this document cover the electrical behaviour in detail</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>FLIGHT DECK OPERATIONS AND CREW WORKFLOW</h2>
+
+<div class="section">
+<h3>Difficulty Modes <span class="new-tag">NEW</span></h3>
+<p>The 2.0 Lua build had no difficulty concept: failure behaviour was a single global MTBF value. The
+C++ plugin introduces three presets that scale failure probability, abuse tolerance, wear accumulation
+and several engine-handling behaviours. The mode is saved in the <code>[DIFFICULTY]</code> section of
+LES.ini and is recorded with every logbook entry.</p>
+<ul>
+    <li><strong>Tourist:</strong> random failures forced off, 5x abuse tolerance, quarter wear rate,
+        primer auto-cutoff after 0.5 s per press, cylinder fuel charge capped at over-rich so the engine
+        can never be fully flooded, levers immune to vibration drift</li>
+    <li><strong>Standard:</strong> normal rates throughout, user controls the random failure toggle,
+        primer auto-cutoff retained, flooding still capped, engine vibration drifts loose levers</li>
+    <li><strong>Veteran:</strong> random failures forced on, failures twice as likely, abuse thresholds
+        halved, double wear rate, checklist enforcement warnings, no primer auto-cutoff (continuous fuel
+        flow, exactly as the real switch behaves) and no flooding cap, so a mishandled primer will load
+        the cylinders and refuse to light</li>
+    <li>Other systems query the active mode directly: icing rate and boot effectiveness, hydraulic abuse
+        limits, engine abuse timers and wear accumulation all read from it</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Checklist System with Live Auto-Detection <span class="new-tag">NEW</span></h3>
+<p>Version 2.0 carried the checklists as plain text tables in <code>LES_24.lua</code> with a manual tick
+box per line. The C++ checklist reads the aircraft state and tells you whether each item is actually
+satisfied.</p>
+<ul>
+    <li>14 checklist phases from cockpit entry through securing the aircraft</li>
+    <li>Colour-coded per item: green when the condition is auto-detected as met, orange when detected as
+        not met, cyan for items that can only be checked by eye</li>
+    <li>Conditions are evaluated from cached aircraft state on a half-second timer, not per frame</li>
+    <li>Automatic flight phase detection (parked, engine start, warm-up, taxi, before takeoff, airborne,
+        approach, landed, shutdown) highlights the checklist you should be on</li>
+    <li>Items are variant-aware, so the Classic and Modern panels get the correct heading gyro entries</li>
+    <li>Landing gear items read the per-leg gear model's own truth rather than X-Plane's deploy ratio</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>AUTO START and AUTO SHUTDOWN Sequences <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Sequenced startup and shutdown procedures driven by a state machine that verifies each step
+        against the aircraft's actual state before moving on, rather than snapping switches into position</li>
+    <li>Covers the full chain: battery on, bus voltage confirmed, inverter on, AC bus confirmed, master
+        magneto, throttle set, then the engine start sequence itself</li>
+    <li>Shutdown walks mixture to cutoff, waits for the engines to actually stop, then generators,
+        inverter, magnetos and battery</li>
+    <li>A floating AUTO START / AUTO SHUTDOWN popup mirrors the sequence live so you can watch which step
+        the aircraft is on. VR-aware positioning</li>
+    <li>Boost pumps are commanded off after a successful start, and the mixture paddle is held so the
+        levers can physically reach cutoff</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Panel State Presets <span class="new-tag">ENHANCED</span></h3>
+<p>2.0 offered Powered, After Start and Persistent presets loaded from a states table. The C++ version
+keeps the same idea and hardens it considerably.</p>
+<ul>
+    <li>Cold &amp; Dark now resets every switch in the cockpit, not just the engine and electrical core</li>
+    <li>After Start is an instant snapshot taken with the engines genuinely running, rather than a table
+        of positions that the systems then have to reconcile</li>
+    <li>Powered and After Start deliberately leave the avionics master off, matching real procedure</li>
+    <li>Autopilot is left disengaged by every preset</li>
+    <li>Parking brake state survives the aircraft-load initialisation instead of being cleared by it</li>
+    <li>Modern presets also initialise the avionics stack (KX 165A, KR 87, KT 73) and the GNS 530 and
+        KAP 140 state</li>
+    <li>States are read from <code>resources/data/panel states.ini</code>; the persistent state is written
+        atomically so a crash mid-save cannot corrupt it</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Persistent Logbook <span class="new-tag">NEW</span></h3>
+<p>No equivalent existed in 2.0.</p>
+<ul>
+    <li>Automatic flight detection through a five-state machine: idle, engines running, taxiing, airborne,
+        landed</li>
+    <li>Records date, departure and arrival ICAO, block time (engine start to engine stop), flight time
+        (takeoff to landing), fuel burned in US gallons, number of landings and the difficulty mode flown</li>
+    <li>Airports are resolved from X-Plane's navigation database at the time of the event</li>
+    <li>Entries are stored as JSON in <code>resources/data/logbook.json</code>, so they can be read or
+        backed up outside the sim</li>
+    <li>Running totals for flights, block hours, flight hours, landings and fuel</li>
+    <li>Paginated LOGBOOK tab in DC3 Hangar</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Dispatch and Performance Calculator <span class="new-tag">NEW</span></h3>
+<p>A DISPATCH tab that computes real takeoff and landing numbers. All reference data is taken from the
+Quebecair Inc. DC-3 Flight Manual, January 1957, for the R-1830 S1C3G installation.</p>
+<ul>
+    <li>Inputs: zero fuel weight and takeoff weight, both CG positions, field elevation, OAT, QNH and
+        headwind component, with live values pulled from the sim where available</li>
+    <li>Derived atmosphere: pressure altitude, density altitude and ISA deviation</li>
+    <li>Takeoff ground roll, distance over 50 ft, and accelerate-stop distance</li>
+    <li>Two-engine and single-engine rate of climb</li>
+    <li>Maximum takeoff weight permitted by the field conditions</li>
+    <li>Period-correct V-speeds in MPH IAS: Vmca, Vlof, Vy, Vyse, Vref (120% of stall, full flap) and best
+        glide</li>
+    <li>Estimated landing weight and landing distance over 50 ft, using flight plan enroute burn when a
+        plan is loaded</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>SimBrief Integration and Flight Plan Clipboard <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>SimBrief OFP fetched by pilot ID directly from the OPTIONS tab, on a background worker thread so
+        the sim never stalls on the network call</li>
+    <li>Parses route, origin, destination, alternate, callsign, cruise altitude, distance, ETE, planned
+        ramp/enroute/reserve fuel and the full waypoint list with altitudes, leg distances, winds, airway
+        and flight stage</li>
+    <li>A draggable kneeboard-style clipboard window renders the plan in the cockpit (Cairo drawn), opened
+        from the DC-3 plugin menu or from the OPTIONS tab</li>
+    <li>The loaded plan also feeds the DISPATCH tab's estimated landing weight</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>FAILURE SYSTEM EXPANSION</h2>
+
+<div class="section">
+<h3>Full Failure Catalogue <span class="new-tag">ENHANCED</span></h3>
+<p>The 2.0 failure module was two rules and a global MTBF: engine failure above 4000 prop RPM sustained
+for five seconds, and an engine fire if oil pressure stayed above 115 PSI for thirty seconds. It also
+accumulated engine "fatigue points" from low oil temperature operation. The C++ system replaces this with
+a catalogue of <strong>71 discrete failure types</strong> across eleven groups, each with its own trigger
+logic, symptoms and repair path.</p>
+<ul>
+    <li><strong>Engine (14):</strong> left, right or both magnetos per engine, low oil pressure, oil leak,
+        partial power loss, complete failure</li>
+    <li><strong>Electrical (8):</strong> generator failed open, generator failed shorted and voltage
+        regulator failure on each side, battery internal failure, inverter failure</li>
+    <li><strong>Propeller (2):</strong> feather button auto-popout switch stuck, per engine</li>
+    <li><strong>Circuit breakers (9):</strong> fuel boost pumps, pitot heat, autopilot, inverter, gyro
+        horizon, directional gyro, turn and bank. These are repairable in flight by resetting the breaker</li>
+    <li><strong>Thermal relief valves (5):</strong> main hydraulic, left and right brake, gear, cowl</li>
+    <li><strong>Cabin heater (8):</strong> as described in the heater section above</li>
+    <li><strong>Ice protection (6):</strong> as described in the icing section above</li>
+    <li><strong>Landing gear (7):</strong> actuator seal leak per side, worn downlock per side, jammed
+        uplock per side, and bungee shock cords past their two-year service life</li>
+    <li><strong>Flaps (4):</strong> actuator seal leak per side, relief valve stuck open, asymmetric
+        rigging</li>
+    <li><strong>Vacuum (3):</strong> left and right engine-driven pump with severity encoding, plus a check
+        valve stuck open so a dead pump's side becomes a vacuum leak</li>
+    <li><strong>Compass and gyro instruments (5):</strong> KG 102A directional gyro dead or tumbled,
+        KMT 112 / KA 51B slaving lost so the gyro free-drifts, KI 525A HSI indicator itself dead,
+        copilot vacuum attitude gyro seized, copilot electric turn-and-bank rate gyro failed</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Failure Triggering and Management <span class="new-tag">NEW</span></h3>
+<ul>
+    <li><strong>Four independent trigger paths:</strong> MTBF-based random failures tied to flight hours,
+        wear-based degradation tied to component health from the maintenance record, abuse-induced failures
+        from exceeding CHT, oil temperature, manifold pressure or RPM limits, and manual triggers for
+        training</li>
+    <li><strong>Scheduled failures:</strong> arm a specific failure to occur after a set time, at an
+        altitude, or at a speed, for practising a known emergency</li>
+    <li><strong>Severity control:</strong> failures are not all binary. Vacuum pumps, oil pressure and
+        partial power failures carry a severity level so you get a degrading system rather than a switch</li>
+    <li><strong>Cascading:</strong> one failure can trigger related failures, for example a heater
+        thermostat stuck closed combined with a failed drop-out switch leading to a compartment fire</li>
+    <li><strong>Session or persistent:</strong> a popup asks whether triggered failures should clear at the
+        end of the session or follow the airframe. Active failures, configuration, schedules and abuse
+        accumulators all persist to LES.ini</li>
+    <li><strong>Difficulty scaling:</strong> MTBF probability and abuse thresholds are multiplied by the
+        active difficulty preset</li>
+    <li>All of this is exposed in a dedicated FAILURES tab rather than the single MTBF slider of 2.0</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>LANDING GEAR AND FLAPS</h2>
+
+<div class="section">
+<h3>Per-Leg Asymmetric Gear Model <span class="new-tag">NEW</span></h3>
+<p>2.0 treated the gear as a single unit following X-Plane's deploy ratio. Each main leg is now modelled
+independently, so one leg can lose hydraulic holding pressure and hang partially down and unlocked while
+the other stays up and locked. Reconciled against T.O. 1C-47-2 paragraphs 2-348, 2-356 and 2-409 and
+against Quebecair emergency procedures.</p>
+<ul>
+    <li>Hydraulic actuation in both directions, with an elastic bungee shock cord balancing gear weight
+        during travel and a cable-operated three-position mechanical safety latch holding the actuating
+        cylinder hook</li>
+    <li>Gravity extension is real: latch released, valve down, no pressure, and the leg falls under its own
+        weight plus airload. Slowing down and yawing seats the safety latch, exactly as the operator
+        procedure describes</li>
+    <li>Recovery is technique dependent. Hydraulic seating with the hand pump, or a low-speed slip, both
+        work</li>
+    <li>Asymmetric drag, yaw and roll from a hanging leg are applied additively through the plugin force
+        set, so X-Plane keeps doing all of its own gear and ground physics untouched</li>
+    <li>An unlatched leg collapses on the ground through the gear failure seam rather than a full override</li>
+    <li>Per-leg visual position is published for the 3D model to animate against</li>
+    <li>With no gear failure active the per-leg model tracks X-Plane's normal gear exactly, so taxi and
+        normal operation are unchanged</li>
+    <li>The gear warning horn now triggers off per-leg down-and-locked state, not raw deploy ratio</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Gear Handle Interlock and Lock Lever <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Three-tier interlock: safety clip, lock lever, then the gear control valve handle. Each must be
+        dealt with in order</li>
+    <li>The lock lever physically interlocks the gear handle, and the LOCKED / UNLOCKED indicator lights
+        track the lock lever rather than simply mirroring deploy state</li>
+    <li>Premature positive lock jam modelled, a real DC-3 failure mode where moving the lock lever too
+        early jams the mechanism</li>
+    <li>The lock lever can be re-latched in flight</li>
+    <li>Stock X-Plane gear and flap key bindings are intercepted and consumed, so the G key runs the full
+        DC-3 procedure instead of bypassing it, and refuses gear up on the ground</li>
+    <li>Dedicated gear lever popup window for users without a clear view of the pedestal</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Flap System Behaviour <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Spring-return flap lever with a drive-window latch, so the stock 1 and 2 keys give press-and-hold
+        continuous flap motion rather than stepping to fixed presets</li>
+    <li>Flap travel is gated on hydraulic pressure and slows realistically in cold, thick fluid</li>
+    <li>Four flap failure modes wired to the hydraulic system: seal leak per side causing slow travel and
+        creep under load, relief valve stuck open leaving the flaps inoperative, and asymmetric rigging
+        producing a roll tendency on deployment</li>
+    <li>Gear and flap travel sounds are suppressed on aircraft reload so a reload no longer plays a phantom
+        cycle</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>SURFACE DE-ICING BOOT SYSTEM</h2>
+
+<div class="section">
+<h3>Pneumatic Boot Distributor <span class="new-tag">NEW</span></h3>
+<p>In 2.0 the de-ice switch simply flipped X-Plane's own surface heat and boot switches. The C++ plugin models
+the actual installation per T.O. 1C-47-2 Section III paragraph 3-420 and Maintenance Manual Section C
+paragraphs 4-124 through 4-162.</p>
+<ul>
+    <li>Air supply from two engine-driven Type B-12 rotary four-vane positive-displacement pumps, one per
+        engine, through oil separators and a pressure regulating separator</li>
+    <li>Regulated pressure 8 +/- 0.5 PSI, 10 PSI maximum</li>
+    <li>Electric distributor valve on the DEICER EQUIPMENT circuit breaker, rotating through five positions.
+        One full revolution takes 40 seconds, each section inflating for roughly 8 seconds</li>
+    <li>Inflation sequence: outboard wing centre cells, outboard wing upper and lower cells, inboard wing
+        centre cells, inboard wing upper and lower cells, then the horizontal and vertical stabiliser boots</li>
+    <li>Switching off does not stop the system dead. The distributor motor keeps running until the rotor
+        reaches the exhaust port position, venting pump air overboard and deflating all boots</li>
+    <li>Feeds directly into the icing engine's shedding model, so inflation pressure and cycle position
+        determine how much ice actually comes off</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>MODERN VARIANT AVIONICS ADDITIONS</h2>
+
+<div class="section">
+<h3>KCS 55A Compass System, Full Component Model <span class="new-tag">NEW</span></h3>
+<p>2.0 drew the KI 525A as a gauge reading X-Plane's heading directly. The compass system is now modelled
+as its four real line-replaceable units, referenced to King Installation Manual 006-00111-0010 Rev
+February 2002 and the KCS 55A Pilot's Guide.</p>
+<ul>
+    <li><strong>KMT 112 magnetic azimuth transmitter (flux valve):</strong> wingtip-mounted flux gate
+        sensing the earth's field. Models bank-induced dip error, where a banked wing tilts the valve out
+        of the local horizontal plane and it picks up the vertical component of the field, with error
+        scaling by bank angle and magnetic dip. Optional installer deviation correction. Signal is lost
+        when the KG 102A is unpowered</li>
+    <li><strong>KG 102A directional gyro:</strong> the core of the system, hosting the slaving circuitry
+        and powering the rest of it. Slaving sensitivity +/- 0.5 degrees, slow slave rate 3 degrees per
+        minute, fast slave 180 degrees per minute. Unlike the older KCS 55 it fast-slaves until the error
+        is actually zero rather than stopping on a timer. Tumble detection triggers auto fast-slave above
+        25 degrees per second of yaw rate. Warm-up runs from 1 minute at +55 C to 5 minutes at -46 C,
+        interpolated, and the system-valid signal that the indicators and autopilot gate on only appears
+        once warm. Draws 1.5 A at 28 V DC</li>
+    <li><strong>KA 51B slaving control:</strong> panel-mounted head with a live slaving meter showing the
+        heading error between flux valve and gyro, a mechanical push-on / push-off SLAVE latching button
+        that springs back out when freed, and CW / CCW manual slew buttons for free-gyro mode. The meter
+        dies with power and the system reverts to free gyro</li>
+    <li><strong>KI 525A HSI:</strong> shares the KG 102A warm-up, holds the HDG flag until the system is
+        valid, needs 22 V minimum on the DC main bus, draws 0.27 A. Glideslope pointers come into view on
+        a delay after a usable signal appears, per the installation manual. Underdamped spring motion on
+        the course disc, eased CDI deviation bar, accelerating HDG and CRS knobs with 0.1 degree fine steps
+        that ramp with turn speed, and knob meshes geared 4:1 against the bug they drive</li>
+    <li>All components share the G2 COMPASS circuit breaker</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KI 229 Radio Magnetic Indicator <span class="new-tag">NEW</span></h3>
+<p>Referenced to KI 229 Installation Manual IM 006-00192-0002 Rev 2, January 1983. Without this module the
+3D model would read X-Plane's raw values and work regardless of power.</p>
+<ul>
+    <li>Canonical factory wiring: the No.2 double-bar pointer is dedicated solely to VOR on NAV2 and is not
+        switchable; the No.1 single-bar pointer switches between VOR (NAV1 / GNS 530) and ADF 1 through the
+        external VOR/ADF switch</li>
+    <li>Both pointers read against the slaved compass card from the KG 102A</li>
+    <li>A VOR pointer parks horizontally to the right when its VOR is invalid or a localizer is tuned,
+        exactly as the manual describes</li>
+    <li>Needles are servo-slewed rather than snapping, and park when the source radio is switched off</li>
+    <li>The single needle waits for the GNS 530 to finish its power-up boot before accepting NAV1</li>
+    <li>HDG / OFF flag follows the KCS 55A system validity. The KI 229 is a synchro repeater with no gyro
+        of its own, so it has no separate warm-up of its own</li>
+    <li>Spring-driven sliding annunciator tabs for the No.1 VOR/ADF selection, with a mechanical button
+        depress</li>
+    <li>0.75 A load on the G2 COMPASS breaker, plus 26 V AC 400 Hz from the inverter to the card servo</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Navigation Source Re-Wire <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>The KI 525A HSI is now driven by the <strong>GNS 530</strong>, with a selectable NAV1 VLOC or GPS
+        source. The CRS knob is inert in GPS mode, as it is on
+        the real installation</li>
+    <li>The KX 165A (NAV2) now drives a <strong>separate rotating-card VOR/ILS course indicator</strong>,
+        a new instrument with its own OBS card, lateral CDI, glideslope needle, TO/FROM flag and NAV/GS
+        warning flags. Signal-derived elements gate on the KX 165A's own power while the OBS card is
+        mechanical and holds its position with the radio off</li>
+    <li>The KAP 140 follows whichever source the HSI is on</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KDI 572 DME, Dual Installation <span class="new-tag">ENHANCED</span></h3>
+<p>2.0 drew a DME readout in Lua with OpenGL calls. The C++ implementation models two fully independent
+KDI 572 master indicators, each with its own KN 63 remote transceiver, per the KN 63 / KDI 572 Operating
+Instructions.</p>
+<ul>
+    <li>Three simultaneous readouts per unit: distance in NM, groundspeed in knots and time to station in
+        minutes, plus an RNV annunciator</li>
+    <li>Four-position rotary function selector: OFF, N1, HLD, N2. HOLD keeps the DME channelled to the last
+        selected frequency when the NAV radios are retuned, the classic "tune the ILS, keep the DME" trick,
+        and annunciates 1H or H2 accordingly</li>
+    <li>Roughly one second of search showing dashes before lock-on, then distance, then groundspeed and
+        time to station</li>
+    <li>Distance is slant range, 0.1 NM steps to 99.9 NM then 1 NM steps to 389 NM. Groundspeed to 999 kt,
+        time to station to 99 minutes</li>
+    <li>Groundspeed is the rate of change of slant range, so it is only meaningful tracking directly to or
+        from the station, as on the real unit</li>
+    <li>Because X-Plane models DME per NAV radio rather than as two independent transceivers, the two units
+        use different sim back-ends to stay genuinely independent</li>
+    <li>Red gas-discharge rendering with independent power gating and its own brightness</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Garmin GNS 530 Animation and Boot Sequence <span class="new-tag">NEW</span></h3>
+<p>X-Plane's stock GNS 530 exposes no button-depress or knob-rotation output for a 3D model. The plugin adds the missing
+layer without touching the unit's function.</p>
+<ul>
+    <li>Eased rotation on both lower dual-concentric knobs, driven by observing the stock tuning
+        controls. The manipulators drive the stock unit directly and the plugin only watches, never intercepts, so
+        function stays completely native including press-and-hold</li>
+    <li>Eased push-depress on the inner-knob pushes (C/V, CRSR, ID) and per-button depress
+        animation across the faceplate, with lit and unlit art swapping</li>
+    <li>The PWR/VOL knob is plugin-owned with a Bendix/King style OFF detent driving GPS power and COM
+        volume, plus PUSH/SQ squelch defeat giving the open-receiver hiss on COM1</li>
+    <li><strong>Authentic power-up sequence:</strong> a custom Leading Edge Simulations / Douglas DC-3
+        owner splash, then a nav database confirmation page showing the real AIRAC cycle and effective
+        dates (with an out-of-date warning where applicable), then an instrument panel self-test, each
+        advanced by ENT, before the live map appears. The splash auto-advances after a dwell for the
+        impatient</li>
+    <li>Downstream instruments respect the boot: NAV1 output is not valid until the unit is operational, so
+        a slaved RMI needle parks until the 530 finishes booting</li>
+    <li>GNS 530 and KAP 140 state is saved with the panel state presets</li>
+    <li>A GPS circuit breaker was added, and the unit is available on the Classic variant's tablet
+        installation as well</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KX 165A Additional Work <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Rebuilt against the "A" specification in five phases: five-mode NAV display, elapsed and countdown
+        timer, full channel and program mode matching the real unit, and a faceplate-aligned control set</li>
+    <li>Stuck-mic alert</li>
+    <li>Full CDI mode with stepped needle, bearing and radial readouts, and correct dashes on signal loss
+        and flag states</li>
+    <li>8.33 kHz handling: the coarse knob preserves the decimals on band-edge wrap, and leaving 8.33 snaps
+        to a valid 25 kHz channel</li>
+    <li>COM squelch test on the volume knob pull, defeating COM2 squelch for open-receiver static</li>
+    <li>CHAN and MODE buttons are momentary and stay held while the mouse is down, matching the real
+        faceplate feel</li>
+    <li>Volume knob rotation, an ON/OFF detent on the power knob, and per-side button and pull splits
+        for the 3D model</li>
+    <li>Moved to a 5 A circuit breaker (it had been sitting in the legacy 15 A C-47 VHF slot)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KR 87 ADF, Two Independent Units <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Two genuinely independent receivers with a symmetric per-unit control set, driving ADF 1 and
+        ADF 2 separately</li>
+    <li>VOL/OFF knob combining volume and power with a detent, per unit</li>
+    <li>Inner-knob push and pull tuning (push for the tens, pull for the units) per the installation manual,
+        one detent per click, and the large knob preserving the tens and units on wrap</li>
+    <li>Tuning knobs spin visually regardless of power, as the mechanical knobs do</li>
+    <li>Per-unit backlight and display illumination, and per-unit button depress animation</li>
+    <li>Hardened avionics-bus power gate matching the KAP 140 and KCS 55A</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KAP 140 Additional Work <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Functional preflight test and display test on power-up</li>
+    <li>Autopilot disconnect annunciation with a flashing AP and an aural tone</li>
+    <li>Altitude alerter rewritten to the Pilot's Guide</li>
+    <li>Mode annunciator layout corrected to active on the top line and armed on the bottom, on both axes;
+        the glideslope armed annunciator sits on the centre pitch line and NAV disarms GS</li>
+    <li>Dedicated power circuit breakers and avionics master gating</li>
+    <li>Faceplate manipulators, buttons held fully in while pressed, and backlight and display illumination
+        for the 3D model</li>
+    <li>The armed roll mode is now reported accurately</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>KT 73 Transponder Display Rework <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Red gas-discharge rendering rather than an LCD look, matching the real unit</li>
+    <li>Cursor-based code entry with a visible edit caret</li>
+    <li>-TEST OK self-test rendering aligned per display cell</li>
+    <li>ALT mode shows the flight level, SBY shows the standing squawk</li>
+    <li>GND annunciation and region-appropriate VFR code programming, per the Pilot's Guide</li>
+    <li>BRT brightness level carets rendered during test</li>
+    <li>Mode knob enumeration reordered to match the physical detents</li>
+    <li>Dedicated power breaker, AC load and animation fixes</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Avionics Popup Windows <span class="new-tag">NEW</span></h3>
+<p>Eleven floating popup windows covering the whole Modern stack, plus the Classic barometric placard.</p>
+<ul>
+    <li>Units covered: KAP 140, KX 165A, GNS 530, KT 73, both KR 87 ADFs, both KDI 572 DMEs, the KA 51B
+        compass slaving head, the complete avionics stack as one panel, and the barometric correction
+        placard</li>
+    <li>Each popup draws a photographic bezel with the unit's <strong>live display</strong> rendered into
+        the bezel's cutout by the same sprite code that draws the panel, so the popup is pixel-identical
+        to the cockpit and always in sync</li>
+    <li>Fully interactive: every knob, button and pull on the real faceplate has a clickspot firing the
+        cockpit control does, including press-and-hold</li>
+    <li>Animated knob and button overlays with pulled-knob state art and button depress illusions, so the
+        popup looks and feels like the physical unit rather than a flat image</li>
+    <li>Hover tooltips sourced from the 3D manipulators themselves, so the popup and the cockpit can never
+        drift apart, with dynamic text where the action depends on state (live tuning step, pull action
+        hints, CHAN and MODE behaviour)</li>
+    <li>Dock and undock clickspots on every unit and on the stack</li>
+    <li>Click the display itself to close, on every unit and on the stack</li>
+    <li>Window position and size persist across aircraft reloads</li>
+    <li>Movable, resizable, poppable out to an OS window, and VR capable</li>
+    <li>Also reachable from the DC-3 entry in the X-Plane plugins menu</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Audio Control Boxes <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Independent pilot and copilot audio control boxes rather than a single shared panel</li>
+    <li>Separate master volume per station, with per-receiver volume controls on each</li>
+    <li>Transmit selector properly separated from the monitor switches, so selecting a transmitter no
+        longer clobbers the COM monitor switch positions</li>
+    <li>Transmit state is asserted on change only, which frees the COM switches for normal use</li>
+    <li>The stock X-Plane radio values that online ATC clients read are driven correctly, so the DC-3
+        works with the common ATC client add-ons</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>INSTRUMENTS AND COCKPIT ANIMATION</h2>
+
+<div class="section">
+<h3>Dynamic Aircraft Registration <span class="new-tag">NEW</span></h3>
+<p>2.0 read the tail number from a data file and wrote it to X-Plane's registration string. It never
+appeared on the airframe. The C++ plugin renders it onto the aircraft.</p>
+<ul>
+    <li>Tail number drawn with Cairo and FreeType, composited onto the 4096 x 4096 panel texture through a
+        GLSL shader, with the exterior meshes referencing the panel texture</li>
+    <li>Three draw regions taken from the registration object's UV bounds: right rear fuselage, left rear
+        fuselage and left wing underside, the last shifted down to follow the taper of the mesh</li>
+    <li>Up to eight characters, also exposed for external tool compatibility</li>
+    <li>Live source in the DISPATCH tab, so changing the registration updates the airframe without a reload</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Tumbler Drum Animation System <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Generic rolling-digit drum system for altimeters, counters and any other mechanical digit stack</li>
+    <li>Handles the mechanical "hold and snap" carry-over between drums automatically, so each drum in the
+        3D model only needs a simple ten-step rotation instead of a hand-built multi-keyframe animation</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Altimeter and Airspeed Refinements <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Direct-drive, smoothed indicated-altitude needles with a matching Kollsman baro disc</li>
+    <li>Clamped baro range for the Kollsman disc and setting knob (28.00 to 31.00 inHg)</li>
+    <li>Classic MPH airspeed needle reads the failure-aware pilot gauge, so a pitot failure shows on the
+        needle</li>
+    <li>Modern ASI Vne redline fixed at 214 kts (it had been a settable value)</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Gyro Cage Mechanics <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Directional gyro cage knob modelled as the real push-and-rotate combination: caging the gyro is
+        what allows the heading to be set, and the caged card follows the knob</li>
+    <li>Cage cam spring decay and plunger physics, so the knob behaves mechanically rather than as a toggle</li>
+    <li>Panel DG tumble, and automatic caging of the Gyro Flux Gate unit on low spin</li>
+    <li>Unified drift model shared between the panel DG and the autopilot's own directional gyro</li>
+    <li>Rudder twitch on caging the autopilot gyro eliminated</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Modern Panel Gauge Behaviour <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Turbulence-driven needle jitter on the Modern gauge faces, derived from X-Plane's turbulence, gust,
+        wind and G-load rather than a fixed wobble</li>
+    <li>Bendix/King attitude indicator with clamped pitch and roll, vacuum-gyro sag and realistic
+        spin-up</li>
+    <li>Copilot attitude indicator runs on its own independent vacuum gyro with its own failure</li>
+    <li>Copilot turn-and-bank runs on an electric rate gyro with spool-up, circuit breaker gating and its
+        own failure</li>
+    <li>Turn needle clamped to the +/- 6 degree keyframe range of the physical instrument</li>
+    <li>Gyro readiness bar in the STATUS tab covering both the vacuum AI and the electric HSI spin-up</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Propeller Disc Rendering <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Uses X-Plane's custom prop disc system to replace the default propeller rendering with a
+        texture-atlas billboard system built for the three-blade Hamilton Standard Hydromatic</li>
+    <li>Physical 3D blades are shown at low RPM; above roughly 563 prop RPM (about 1000 engine RPM) the
+        plugin switches to front disc and side billboard rendering with motion-blur textures, with
+        hysteresis to prevent flickering at the transition</li>
+    <li>Four-column by two-row atlas: three increasing blur levels for the front disc, one column of side
+        blade profiles, one row per engine</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Cockpit Hat Pendulum Physics <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>The two hats hanging in the cockpit swing as real pendulums driven by aircraft accelerations,
+        published as X and Y swing angles per hat</li>
+    <li>The two hats have slightly different pendulum length and damping, so they drift out of phase under
+        any sustained excitation and produce organic, asynchronous motion rather than a synchronised wobble</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Particle and Visual Effects <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Engine exhaust flame intensity, propeller tip condensation driven by actual humidity and prop
+        speed, wingtip vortices and engine exhaust smoke, all driving X-Plane 12's particle system</li>
+    <li>Oil streaks, fuel stains and hydraulic puddles from the leak system, as described above</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>COCKPIT ENVIRONMENT AND CONTROLS</h2>
+
+<div class="section">
+<h3>Doors <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Crew door modelled with a two-stage action: the handle must be unlatched before the door will move,
+        and the handle stays unlatched while the door is open</li>
+    <li>Gravity physics on the crew door, so it swings under its own weight with real velocity rather than
+        animating linearly</li>
+    <li>Cabin entry door with its own slower travel, and a cockpit divider door with its own handle</li>
+    <li>Door open warning light with a sensible detection threshold, wired to the annunciator panel and its
+        rheostat</li>
+    <li>Audio triggers on every door and handle</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Throttle Quadrant and Pedestal <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Working friction lock. With the lock backed off, engine vibration drifts loose levers toward idle,
+        exactly as an unlocked quadrant behaves on the real aircraft. Difficulty-aware, and the position is
+        saved with the aircraft state</li>
+    <li>Mixture gate modelled with detent thresholds, so the levers stop at the gate rather than sliding
+        through it</li>
+    <li>Cowl flap rotary knobs on the side wall</li>
+    <li>Fuel selectors: a click per detent position, detent click sound, end-stop suppression and shortest-path
+        animation to the selected position</li>
+    <li>Smooth knob and switch animation throughout the cockpit, with panel sound triggers on the switch
+        bodies rather than on the underlying state</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Windows, Vents and Comfort Items <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Captain and first officer sliding windows with separate manipulator and animation positions</li>
+    <li>Cockpit air vents and window heating</li>
+    <li>Crew rest light toggle and reading lights</li>
+    <li>Cockpit muffling snapshot driven by the aperture state, so opening a window or a door changes the
+        audio immediately</li>
+    <li>Airframe creak and rattle detection system driven by load and turbulence</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Ground Handling <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Taxi steering reworked around differential power as the primary means of directional control, with
+        limited rudder steering authority, matching how the aircraft is actually taxied</li>
+    <li>Differential braking with its own sensitivity control</li>
+    <li>Chocks, with the DC3 Hangar checkbox reflecting live chock state</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Oxygen System <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Three-mode refill with full physics rather than an instant top-up</li>
+    <li>Partial hypoxia effects tied to the oxygen valve position</li>
+    <li>Smooth oxygen switch animation, and a storage leak model</li>
+    <li>Copilot oxygen automation</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>COCKPIT TABLET (AVITAB)</h2>
+
+<div class="section">
+<h3>iPad Installation <span class="new-tag">ENHANCED</span></h3>
+<p>2.0 loaded AviTab images through the Lua GUI. The C++ plugin models the tablet as a piece of aircraft
+equipment.</p>
+<ul>
+    <li>Yoke-mounted iPad on both variants, with AviTab rendering its own interface into the panel texture
+        region</li>
+    <li>Battery simulation charged from the aircraft DC bus, exposed as a percentage</li>
+    <li>Brightness control bridged to AviTab's own brightness control</li>
+    <li>Screen furniture drawn by the plugin around AviTab's content area: a header with battery icon and
+        fill bar, aircraft name, local time and battery percentage, and a footer with latitude and
+        longitude, groundspeed, GPS altitude, track and the Leading Edge Simulations logo</li>
+    <li>The tablet appears only when AviTab is actually installed. A yoke-mounted iPad reading "AviTab is
+        not installed" is worse than no iPad at all</li>
+    <li>Separate iPad popup window using AviTab's own floating window, reachable from the plugin menu</li>
+    <li>The in-house chart browser tab was retired in favour of AviTab, which does the job properly</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>SYSTEM DIAGNOSTICS AND MAINTENANCE</h2>
+
+<div class="section">
+<h3>Live System Schematics <span class="new-tag">NEW</span></h3>
+<ul>
+    <li><strong>Electrical schematic:</strong> a Cairo-rendered diagram showing live power flow through the
+        battery, generators, ground power, main bus, essential bus, radio bus, both inverters and the AC
+        bus, with live voltages, generator status, load summary and battery detail. Wires brighten with the
+        power actually flowing through them</li>
+    <li><strong>Hydraulic schematic:</strong> the same treatment for the hydraulic system</li>
+    <li>Both open as their own popup windows from the plugin menu</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Maintenance and Wear <span class="new-tag">ENHANCED</span></h3>
+<p>2.0 offered oil changes, spark plugs, engine overhaul, fluid fill-ups and battery recharge as buttons
+with a condition percentage. The C++ system keeps all of that and ties it into the failure and difficulty
+systems.</p>
+<ul>
+    <li>Component health drives wear-based failure probability directly, scaled by the difficulty mode</li>
+    <li>Abuse accumulators track time spent over CHT, oil temperature, manifold pressure and RPM limits and
+        persist between sessions, so mistreating the engines has consequences later</li>
+    <li>Service interval tracking, per-leak repair and per-tank or per-engine servicing</li>
+    <li>Everything persists through LES.ini alongside failure state and configuration</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>State Persistence <span class="new-tag">ENHANCED</span></h3>
+<ul>
+    <li>Sectioned INI persistence covering the persistent panel state, difficulty, active failures, failure
+        configuration, failure schedules and abuse accumulators</li>
+    <li>Atomic save, so an interrupted write cannot corrupt the file</li>
+    <li>Each system writes only its own section rather than rewriting the whole file, so parallel systems
+        cannot clobber each other</li>
+    <li>Coverage extended over the development cycle to include console controls, flood lights, audio
+        settings, the oxygen valve, cowl knobs, the friction lock, the hand pump shutoff valve, the de-ice
+        boot master switch, firewall shutoff valve positions and the per-zone icing state</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>SOUND</h2>
+
+<div class="section">
+<h3>FMOD Integration <span class="new-tag">ENHANCED</span></h3>
+<p>2.0 exposed a small set of FMOD values from <code>LES_32.lua</code>. The C++ plugin publishes
+a comprehensive, purpose-built interface for the sound bank.</p>
+<ul>
+    <li>Engine: starter, flywheel whine, combustion catch, running state, shutdown, per-engine cranking and
+        start-combustion fire</li>
+    <li>Cockpit switches and levers: individual triggers for the switch bodies, flap lever, fuel selectors,
+        gear and flap travel, gear direction, doors, crew door and cabin entry</li>
+    <li>Systems: hydraulic pump and hand pump, wiper hydraulic hiss, per-engine CO2 discharge, fire warning
+        bell, gear warning horn, clock, reading lights</li>
+    <li>Environmental: wind with airspeed and weather gating, cabin rumble, airframe creaks and rattles</li>
+    <li>Cockpit muffling snapshot tied to window and door aperture state, stopped immediately on exterior
+        view for clean external audio</li>
+    <li>Rheostat slots for continuous controls including the autopilot sensitivity dials and the copilot
+        gyro adjust knobs</li>
+    <li>Radio audio is generated as PCM by the plugin, including static, range station tones and the
+        Z-marker, and handed to FMOD</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>USER INTERFACE</h2>
+
+<div class="section">
+<h3>DC3 Hangar <span class="new-tag">ENHANCED</span></h3>
+<p>The 2.0 GUI had five pages. DC3 Hangar has a ten-tab icon sidebar, and every tab is drawn twice, once
+per variant, so the interface matches the aircraft you are flying.</p>
+<ul>
+    <li>Tabs: AIRFRAME, MAINT, STATUS, OPTIONS, LOADING, DISPATCH, CHECKLIST, FAILURES, LOGBOOK and NETWORK</li>
+    <li><strong>Classic theme:</strong> antique-tan sepia palette, framed period background and sepia
+        controls and buttons</li>
+    <li><strong>Modern theme:</strong> stainless and slate-blue palette with a framed background and 3D
+        graphic buttons</li>
+    <li>Themed buttons carry a press-scale animation, shrinking while held and springing back on release</li>
+    <li>Live livery browser with thumbnails</li>
+    <li>Loading tab with fuel per tank, seating, cargo and a live weight and balance readout against the CG
+        envelope</li>
+    <li>Status warning banner as its own screen-level window: dismissable, auto-clearing, on a two-tier
+        cooldown so it cannot nag, and no longer able to steal clicks from other windows</li>
+    <li>VR-aware positioning on every window</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Windowing and Input <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>One ImGui context per window, fixing dead clicks whenever two plugin windows were open at once</li>
+    <li>Click buffering so fast clicks between frames are not dropped</li>
+    <li>Cross-window input isolation, so a click intended for one popup cannot leak into another</li>
+    <li>Every plugin window is movable, resizable, poppable out to an OS window and usable in VR</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>COMPATIBILITY AND ENGINEERING</h2>
+
+<div class="section">
+<h3>X-Plane 12.4 Compatibility <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>X-Plane 12.4 renamed a batch of long-standing sim values. The plugin now prefers the
+        new names and falls back to the old ones only when the new name does not exist, so it stays silent
+        in Log.txt on 12.4 and later while continuing to work on 12.0.x installs that predate the rename</li>
+    <li>Where the rename also changed units, for example sea-level pressure moving from inches of mercury
+        to pascals, the conversion is handled at the lookup so callers ask for the unit they want</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Cross-Platform Build <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>CMake build made fully cross-platform, with continuous integration building macOS, Windows and
+        Linux from the same tree</li>
+    <li>Cached third-party library redistributables in the CI pipeline</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Stability and Performance Work <span class="new-tag">NEW</span></h3>
+<ul>
+    <li>Repeated full-tree code audits through the development cycle, with the findings fixed and recorded</li>
+    <li>Resource leaks closed on shutdown, and the plugin's menu item removed cleanly on unload</li>
+    <li>Global flight-loop delta-time clamp, so a stutter or a loading pause cannot inject a huge time step
+        into the physics</li>
+    <li>Frame-rate independent decay and animation throughout, replacing per-frame constants</li>
+    <li>Radio DSP and terrain work staggered across frames rather than spiking a single frame</li>
+    <li>Periodic diagnostic logging gated behind a debug switch instead of running always</li>
+    <li>Several thousand lines of dead and unreachable code removed across successive sweeps</li>
+    <li>Per-frame data traffic trimmed in the fuel, rendering and update paths</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>ADDITIONAL FIXES AND CORRECTIONS</h2>
+
+<div class="section">
+<h3>Engine and Fuel</h3>
+<ul>
+    <li>Firewall shutoff valves are now opened by the start procedures. Closed valves were the real reason
+        engines would sometimes refuse to start</li>
+    <li>Engine start stops pulsing the ignition once the engine is lit, and no longer keeps feeding a dying
+        engine</li>
+    <li>The starter assist is carried through to idle, and the engine is verified running before the state
+        machine declares it so</li>
+    <li>Flameout detection while running</li>
+    <li>Idle RPM reconciled across the plugin and both aircraft files at the installed figure of 700 RPM,
+        rather than the R-1830 manual's test-stand figure for an engine driving nothing</li>
+    <li>The direct-crank starter was removed. Both variants use the Eclipse E-80 inertia starter, which is
+        what the aircraft actually has</li>
+    <li>Generator cut-in RPM made variant-specific: 950 on the Classic, 1300 on the Modern</li>
+    <li>Primer switches work correctly in Veteran mode, where there is no auto-cutoff</li>
+    <li>Fuel quantity selector wrapping fixed, and its detented behaviour documented</li>
+    <li>Fuel quantity now also reported in US gallons for the Modern gauge</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Electrical</h3>
+<ul>
+    <li>Peukert's Law implemented in battery discharge, so high current draw genuinely reduces available
+        capacity</li>
+    <li>Battery cold-capacity model corrected and wired to actual depletion</li>
+    <li>Inverted battery voltage sign fixed</li>
+    <li>Stale discharge current reading fixed</li>
+    <li>Avionics power is published correctly on a shared cockpit client, so the joining pilot's gauges are
+        not dead</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Hydraulics and Fire Protection</h3>
+<ul>
+    <li>Dedicated gear-circuit pressure gauge with seal-failure bleed-down</li>
+    <li>The hand pump warms the fluid directly, which is the intended cold-weather technique</li>
+    <li>Thermal relief valves actually relieve pressure, and latched damage is no longer re-applied every
+        frame</li>
+    <li>The engine fire state was repaired, which revived the entire fire chain from detection through
+        warning to suppression</li>
+    <li>Nacelle engine fires now extinguish on a proper CO2 ramp rather than instantly</li>
+    <li>The heater compartment fire can be both started and extinguished</li>
+    <li>Fire warning bell on a real fire, a heater fire lamp, and the correct behaviour for a
+        dead engine</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Icing and Anti-Ice</h3>
+<ul>
+    <li>Propeller alcohol tank re-specified to 50 litres, with a matching gauge needle</li>
+    <li>Carburettor heat thermodynamics reworked</li>
+    <li>The never-applied pitching-moment icing penalty was removed rather than left as dead weight</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Shared Cockpit</h3>
+<ul>
+    <li>Authoritative state mirror on the client, with input suppression so both machines cannot fight over
+        the same control</li>
+    <li>Connect-time state synchronisation, so a pilot joining mid-flight inherits the current aircraft
+        state rather than a default one</li>
+    <li>Authentication hardening</li>
+    <li>Modern avionics control forwarding, so radio and autopilot manipulation is mirrored to the other
+        pilot</li>
+    <li>Mirrored state refreshed for the gauges the client actually reads</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Housekeeping</h3>
+<ul>
+    <li>The RealityXP GPS options were removed. The integration had never been functional end to end, and
+        leaving inert options in the interface is worse than not offering them</li>
+    <li>Credits consolidated, with Turbine Sound Studios added</li>
+    <li>Variant lifecycle fixes covering a resource leak and switch desynchronisation when swapping variants</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="footer">
+    <strong>Release Date:</strong> <em>TBD</em><br>
+    <strong>Minimum X-Plane Version:</strong> 12.00<br>
+    <strong>Platforms:</strong> macOS, Windows, Linux<br><br>
+    <em>DC-3 Plugin by Leading Edge Simulations</em>
+</div>
+
+</body>
+</html>
