@@ -295,6 +295,13 @@
     border-bottom: 3px double var(--color-border);
     margin-bottom: 2rem;
   }
+  .cover img {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto 2.5rem;
+  }
   .cover h1 {
     font-size: 3rem;
     border: none;
@@ -381,10 +388,7 @@
      ════════════════════════════════════════════════════ -->
 
 <div class="cover">
-  <div class="image-placeholder" style="border:none; background:none; padding:1rem;">
-    <span class="label">[COVER IMAGE]</span>
-    <span class="description">DC-3 in flight, three-quarter front view, dramatic lighting</span>
-  </div>
+  <img src="images/dc3_cover.jpg" alt="Douglas DC-3 on an airfield apron, engines running and propellers turning">
   <h1>Douglas DC-3</h1>
   <div class="subtitle">Aircraft Operating Manual</div>
   <div class="edition">For X-Plane 12</div>
@@ -897,7 +901,18 @@ DC3 Hangar is your primary interface for configuring, monitoring, and managing t
 </p>
 
 <p>
-<strong>To open DC3 Hangar:</strong> Use the X-Plane menu (<em>Plugins &gt; LES DC-3 &gt; DC3 Hangar</em>), or click the small circular bezel above the wet compass glass on the centre glareshield. This bezel acts as a quick-access toggle: click once to open DC3 Hangar, click again to close it.
+<strong>To open DC3 Hangar,</strong> take whichever of these suits how you fly:
+</p>
+
+<ul>
+  <li><strong>The X-Plane menu</strong> &ndash; <em>Plugins &gt; LES DC-3 &gt; DC3 Hangar</em>.</li>
+  <li><strong>The glareshield bezel</strong> &ndash; the small circular bezel above the wet compass glass on the centre glareshield. Click once to open DC3 Hangar, click again to close it.</li>
+  <li><strong>The shortcut tab</strong> &ndash; a tab at the lower-left edge of the screen that slides out when you hover over it. Click it to open or close the Hangar. It is switched off until you enable it; see below.</li>
+  <li><strong>A key or button of your own</strong> &ndash; the command <em>Toggle DC3 Hangar Window</em> can be assigned to a keyboard key or a joystick button in X-Plane's own controls settings. Worth doing if you fly with a HOTAS and would rather not reach for the mouse.</li>
+</ul>
+
+<p>
+All four do the same thing, and any of them will close the window again.
 </p>
 
 <div class="image-placeholder">
@@ -1109,10 +1124,24 @@ Automated engine start and shutdown sequences. Click AUTO START to have the airc
 <h4>Misc Options</h4>
 <ul>
   <li><strong>Show Trim Pop-Ups</strong> &ndash; Display trim position indicators on screen when adjusting elevator, rudder, or aileron trim</li>
-  <li><strong>Show Status Warnings</strong> &ndash; Show or hide on-screen status and warning messages</li>
-  <li><strong>Show Status Warnings</strong> &ndash; Enable on-screen warnings for conditions requiring attention (cold weather effects, system degradation)</li>
+  <li><strong>Show Status Warnings</strong> &ndash; Enable on-screen status and warning messages for conditions requiring attention (cold weather effects, system degradation)</li>
+  <li><strong>Show Shortcut Tab</strong> &ndash; Show the slide-out DC3 Hangar tab at the lower-left edge of the screen. Off by default; see <em>The Shortcut Tab</em> below</li>
   <li><strong>Show Startup State Selector</strong> &ndash; Show or hide the state-selection popup that appears on load (Cold &amp; Dark, Powered, After-Start, or your saved persistent state)</li>
 </ul>
+
+<h4>The Shortcut Tab</h4>
+
+<p>
+The shortcut tab is a small tab at the lower-left edge of the screen that opens and closes DC3 Hangar with a single click, without going to the menu or looking for the glareshield bezel. <strong>It is switched off by default.</strong> Turn it on with the <strong>Show Shortcut Tab</strong> checkbox in Misc Options above; until you do, it is not on screen and there is nothing to look for. The setting is remembered between sessions, so you only need to set it once.
+</p>
+
+<p>
+With it enabled, the tab sits mostly hidden against the left edge, showing only a narrow strip so it stays out of your way. Move the mouse onto that strip and it slides out to its full width; move away and it slides back. Click it to open DC3 Hangar, and click it again to close.
+</p>
+
+<p>
+On a multi-monitor setup the tab stays on the monitor showing the main panel rather than wandering to another screen, and it follows the panel if you rearrange your displays during a session.
+</p>
 
 <h4>FSEconomy Status</h4>
 <p>
