@@ -295,6 +295,16 @@
     border-bottom: 3px double var(--color-border);
     margin-bottom: 2rem;
   }
+  figure.wide {
+    width: 92vw;
+    max-width: 1500px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  figure.wide img { width: 100%; height: auto; display: block; }
+  @media print {
+    figure.wide { width: 100%; max-width: 100%; margin-left: 0; transform: none; }
+  }
   figure.narrow img {
     max-width: 800px;
     width: 100%;
@@ -576,10 +586,10 @@ After the war, the United States government sold thousands of surplus C-47s at a
 Decades passed. Jets arrived. The Boeing 707, the Douglas DC-8, the de Havilland Comet. One by one, the piston-powered transports were retired, scrapped, converted to crop dusters, left to rust on remote airfields. All of them. Except the DC-3.
 </p>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Buffalo Airways photograph]</span>
-  <span class="description">Buffalo Airways DC-3 on a gravel strip in Canada's Northwest Territories, cargo door open, winter conditions</span>
-</div>
+<figure>
+  <img src="images/buffalo_airways_dc3.jpg" alt="A Buffalo Airways DC-3 in polished bare metal on the ramp at Hay River, Northwest Territories, propellers stopped">
+  <figcaption>A Buffalo Airways DC-3 at Hay River in the Northwest Territories. Nothing about this aeroplane is preserved or commemorative: the polish is what happens to bare metal that is worked and washed, the pickup truck at the wingtip is there because freight is about to move, and the aircraft is parked on an ordinary working morning in the Canadian north. It is the same airframe layout the Army Air Forces jumped paratroopers from, still earning a living seventy years later. <span class="credit">Photograph by Shawn (Airdrie, Canada), via Wikimedia Commons. Licensed CC BY-SA 2.0.</span></figcaption>
+</figure>
 
 <p>
 As of this writing, DC-3s continue to fly commercial operations. The most famous operator is Buffalo Airways, based in Yellowknife, Northwest Territories, Canada. Founded by "Buffalo" Joe McBryde in 1970, the airline operates a fleet of classic piston and turboprop aircraft, including several DC-3s, hauling freight and passengers across the Canadian subarctic. The airline gained international recognition through the television series <em>Ice Pilots NWT</em>, which documented the daily challenges of operating vintage aircraft in one of the harshest environments on Earth.
@@ -633,10 +643,10 @@ This matters because physics produces emergent behavior that scripted simulation
 The simulation includes two aircraft variants, selectable via livery:
 </p>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Side-by-side panel comparison]</span>
-  <span class="description">Classic variant instrument panel (left) and Modern variant panel (right)</span>
-</div>
+<figure class="wide">
+  <a href="images/panels_classic_modern.jpg" title="Open the full-size comparison"><img src="images/panels_classic_modern.jpg" alt="The Classic instrument panel on the left with round-dial instruments and period radios, beside the Modern panel on the right with its Bendix/King and Garmin avionics stack"></a>
+  <figcaption>The two panels side by side: Classic on the left, Modern on the right. The flight instruments and the basic architecture are shared, which is the point. What changes is the radio stack and what sits in front of the pilot for navigation, exactly as it changed on the real aeroplanes as they were re-equipped over the decades. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <h4>DC3 Classic</h4>
 <p>
