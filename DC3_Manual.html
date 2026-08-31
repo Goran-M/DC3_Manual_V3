@@ -96,6 +96,21 @@
     margin: 1.2rem 0 1.8rem;
     font-size: 0.95rem;
   }
+  /* Tables keep their natural width and scroll inside their own box on narrow
+     screens, instead of pushing the whole page sideways. */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.2rem 0 1.8rem;
+  }
+  .table-scroll > table {
+    margin: 0;
+    min-width: 32rem;
+  }
+  @media print {
+    .table-scroll { overflow-x: visible; }
+    .table-scroll > table { min-width: 0; }
+  }
   th, td {
     padding: 0.55rem 0.8rem;
     border: 1px solid var(--color-border);
@@ -605,7 +620,7 @@ The DC-3 was not supposed to last this long. No one designed a ninety-year servi
 
 <h3>Specifications</h3>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th colspan="2">Douglas DC-3 / C-47 Skytrain</th></tr>
   <tr><td><strong>Wingspan</strong></td><td>95 ft 0 in (28.96 m)</td></tr>
   <tr><td><strong>Length</strong></td><td>64 ft 5.5 in (19.65 m)</td></tr>
@@ -621,7 +636,7 @@ The DC-3 was not supposed to last this long. No one designed a ninety-year servi
   <tr><td><strong>Max Speed</strong></td><td>230 mph (200 kts)</td></tr>
   <tr><td><strong>Service Ceiling</strong></td><td>23,200 ft</td></tr>
   <tr><td><strong>Range</strong></td><td>1,500 miles (typical load)</td></tr>
-</table>
+</table></div>
 
 <hr>
 
@@ -664,7 +679,7 @@ A retrofitted configuration representing the many DC-3s that received avionics u
 Not every pilot wants the same experience. The simulation offers three difficulty modes that affect multiple systems simultaneously:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Intended For</th><th>Key Characteristics</th></tr>
   <tr>
     <td><strong>Tourist</strong></td>
@@ -681,7 +696,7 @@ Not every pilot wants the same experience. The simulation offers three difficult
     <td>Study-level realism</td>
     <td>Realistic spring-loaded primer with flooding risk. Random failures enabled. Strict abuse limits. Double wear rate. The full DC-3 experience, for those who want to earn every takeoff.</td>
   </tr>
-</table>
+</table></div>
 
 <p>
 These modes affect multiple systems simultaneously: primer switch behavior, failure probability, wear accumulation rate, and maintenance intervals. You can change difficulty at any time through the DC3 Hangar interface.
@@ -880,7 +895,7 @@ The Modern variant represents a DC-3 that has received avionics upgrades during 
 The flight instruments, engine instruments, overhead panel, and pedestal are identical to the Classic variant. The differences are concentrated in the avionics stack:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>System</th><th>Classic</th><th>Modern</th></tr>
   <tr><td>NAV/COMM</td><td>Period radio equipment</td><td>Bendix/King KX165A</td></tr>
   <tr><td>Autopilot</td><td>Sperry A-3A Gyropilot</td><td>Bendix/King KAP 140</td></tr>
@@ -891,7 +906,7 @@ The flight instruments, engine instruments, overhead panel, and pedestal are ide
   <tr><td>Flight Director</td><td>None</td><td>KI 256 Flight Command Indicator</td></tr>
   <tr><td>Instrument Lighting</td><td>Radium glow (no power required)</td><td>Electric backlighting (power required)</td></tr>
   <tr><td>GPS</td><td>None</td><td>Garmin GNS 530</td></tr>
-</table>
+</table></div>
 
 <div class="callout note">
   <div class="callout-title">Lighting Difference</div>
@@ -1544,7 +1559,7 @@ If you change your mind during the cooldown period and switch back to EXT, the G
   <p>The GPU's 550-amp capacity is sufficient to power the inertia starter system while simultaneously keeping all avionics and instruments energized. This is a significant advantage over battery-only starts, where heavy starter current causes bus voltage to sag. When the GPU is connected, the battery is effectively isolated from the load, preserving its charge for later use. Switch to BAT after both engines are running and generators are online.</p>
 </div>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Specification</th><th>Value</th></tr>
   </thead>
@@ -1557,7 +1572,7 @@ If you change your mind during the cooldown period and switch back to EXT, the G
     <tr><td>Time to Power</td><td>~10 seconds from switch</td></tr>
     <tr><td>Cooldown Idle</td><td>~60 seconds before shutdown</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── AC Power: Inverters ── -->
 
@@ -1609,7 +1624,7 @@ The DC-3's generators are rated for 60 amps continuous, and the main inverter al
 A guarded override switch above the copilot's side window bypasses this interlock, allowing full AC loads on the ground when necessary (for example, when testing the autopilot during maintenance). Use it with caution: the total generator load must not exceed 135 amps during ground operations.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Inverter</th><th>Part Number</th><th>Rating</th><th>DC Draw</th><th>Spin-Up Time</th></tr>
   </thead>
@@ -1617,7 +1632,7 @@ A guarded override switch above the copilot's side window bypasses this interloc
     <tr><td>Main</td><td>E-1737-1</td><td>1,500 VA</td><td>~48 A (58 A inrush)</td><td>~2 seconds</td></tr>
     <tr><td>Auxiliary</td><td>E-1617-1</td><td>250 VA</td><td>~8 A</td><td>~1.5 seconds</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── Bus Topology ── -->
 
@@ -1716,7 +1731,7 @@ A breaker that trips due to an actual fault (as opposed to being manually pulled
 The 64 breakers are grouped into functional sections on the panel:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Positions</th><th>Section</th><th>Circuits</th></tr>
   </thead>
@@ -1728,7 +1743,7 @@ The 64 breakers are grouped into functional sections on the panel:
     <tr><td>41&ndash;51</td><td>Instruments &amp; Radios</td><td>G-2 compass, autopilot, temperature instruments, fuel quantity, fuel boost pumps (L and R, 15A each), cockpit flood lights, IFF, HF/VHF/UHF transceivers</td></tr>
     <tr><td>52&ndash;62</td><td>Engine &amp; Utility</td><td>Oil cooler doors (L and R), engine starter/ignition, alcohol quantity, de-icer equipment, airscoop heater, pitot heaters (L and R), DC turn-and-bank, cockpit C-4 lights, junction box flood light. <em>Note: the DC-3 cowl flaps are hydraulically actuated, not electric, so there are no cowl flap circuit breakers on this panel.</em></td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── Warning Systems ── -->
 
@@ -1925,7 +1940,7 @@ A master magneto switch and individual L/R switches control the grounding circui
 
 <h4>Priming Guidelines</h4>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Condition</th><th>OAT Range</th><th>Primer Shots</th><th>Notes</th></tr>
   </thead>
@@ -1936,7 +1951,7 @@ A master magneto switch and individual L/R switches control the grounding circui
     <tr><td>Cold</td><td>Below 0&deg;C</td><td>8-12</td><td>Difficult start, patience required</td></tr>
     <tr><td>Severe cold</td><td>Below -20&deg;C</td><td>10-15</td><td>Oil dilution strongly recommended</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The cylinder fuel charge is modeled in detail. Each primer stroke adds fuel to the cylinders, but that fuel does not stay indefinitely. In warm cylinders, fuel vaporizes and dissipates quickly (the charge decays at about 0.08 per second). In cold cylinders, fuel sits as liquid and barely evaporates (0.001 per second), which is both why you need more primer in cold weather and why flooding is a real risk: the fuel just accumulates. The optimal fuel charge for ignition is between 25% and 50%. Below 15%, there is not enough fuel to fire. Above 80%, the mixture is too rich. At 100%, the engine is flooded.
@@ -1982,7 +1997,7 @@ Restarting a recently-run engine is straightforward: warm oil flows freely, warm
 Engine power is managed through three primary controls:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Control</th><th>Function</th><th>Normal Cruise Setting</th></tr>
   </thead>
@@ -1991,13 +2006,13 @@ Engine power is managed through three primary controls:
     <tr><td>Propeller RPM</td><td>Controls prop governor target RPM</td><td>2,050 RPM</td></tr>
     <tr><td>Mixture</td><td>Controls fuel-air ratio</td><td>Auto lean at cruise altitude</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The relationship between throttle and RPM deserves attention. The constant-speed propeller governor automatically adjusts blade pitch to maintain the selected RPM. When you advance the throttle, the engine produces more power, but the RPM stays constant because the governor increases blade pitch to absorb the additional power. The result is that manifold pressure (shown on the MAP gauge) is your primary power indicator, not RPM.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Power Setting</th><th>RPM</th><th>MAP</th><th>BHP (approx.)</th></tr>
   </thead>
@@ -2007,7 +2022,7 @@ The relationship between throttle and RPM deserves attention. The constant-speed
     <tr><td>Normal Climb</td><td>2,250</td><td>33"</td><td>800</td></tr>
     <tr><td>Normal Cruise</td><td>2,050</td><td>30.5"</td><td>625</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <div class="callout caution">
   <div class="callout-title">Caution: Over-boost</div>
@@ -2072,7 +2087,7 @@ Each engine carries 29 quarts (7.25 gallons) of oil in its tank. Oil is not just
 Oil pressure varies with RPM and temperature. The engine-driven oil pump delivers pressure proportional to engine speed, while temperature affects oil viscosity and therefore flow resistance. Normal readings:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Condition</th><th>Oil Pressure</th></tr>
   </thead>
@@ -2084,7 +2099,7 @@ Oil pressure varies with RPM and temperature. The engine-driven oil pump deliver
     <tr><td>Climb (2,550 RPM at 200&deg;F)</td><td>80 PSI minimum</td></tr>
     <tr><td>Maximum normal</td><td>90 PSI</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 An oil pressure warning light on the instrument panel illuminates when pressure drops below the safe threshold. If the light comes on in flight, you have a short window to diagnose the cause (oil quantity, leak, pump failure) before bearing damage begins. Reduce power immediately to minimize the load on oil-starved bearings.
@@ -2095,7 +2110,7 @@ An oil pressure warning light on the instrument panel illuminates when pressure 
 Oil temperature is monitored on a gauge with a spring-damped needle that responds slowly, just like the real instrument. The gauge reading lags actual temperature significantly: when you see the oil temp gauge start to climb after engine start, the oil itself has been warming for a while already.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Condition</th><th>Oil Temperature</th></tr>
   </thead>
@@ -2105,7 +2120,7 @@ Oil temperature is monitored on a gauge with a spring-damped needle that respond
     <tr><td>Maximum continuous</td><td>85&deg;C</td></tr>
     <tr><td>Maximum inlet</td><td>100&deg;C</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Oil Coolers</h4>
 <p>
@@ -2167,7 +2182,7 @@ A solenoid valve (Minneapolis-Honeywell G10402) routes fuel from the carburetor 
 The required dilution time depends on the expected cold-soak temperature before the next start:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Expected Temperature</th><th>Dilution Time</th></tr>
   </thead>
@@ -2178,7 +2193,7 @@ The required dilution time depends on the expected cold-soak temperature before 
     <tr><td>0&deg;F to -20&deg;F (-29&deg;C)</td><td>3 minutes</td></tr>
     <tr><td>Below -20&deg;F (-29&deg;C)</td><td>4 minutes</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Fuel flows into the oil at approximately 3 gallons per hour. Full dilution reduces oil viscosity by 60 to 70%, making the oil thin enough for the starter to crank the engine even in extreme cold. Once the engine is started and oil temperature reaches approximately 60&deg;C, the fuel component begins to evaporate out of the oil. By the time oil temperature reaches 82&deg;C, the fuel has fully evaporated and the oil returns to its normal properties.
@@ -2233,7 +2248,7 @@ When both engines are shut down, the Hamilton Standard Hydromatic propellers eng
 
 <h3>Engine Temperature Limits</h3>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Parameter</th><th>Limit</th><th>Notes</th></tr>
   </thead>
@@ -2247,7 +2262,7 @@ When both engines are shut down, the Hamilton Standard Hydromatic propellers eng
     <tr><td>Oil temp (max continuous)</td><td>85&deg;C</td><td>Sustained operation above causes degradation</td></tr>
     <tr><td>Oil temp (max inlet)</td><td>100&deg;C</td><td>Oil cooler system unable to keep up</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── Engine Shutdown ── -->
 
@@ -2346,7 +2361,7 @@ The DC-3 carries fuel in four center-wing tanks, positioned in the wing center s
 
 <h3>Tank Layout</h3>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Tank</th><th>Designation</th><th>Capacity</th><th>Location</th></tr>
   </thead>
@@ -2357,7 +2372,7 @@ The DC-3 carries fuel in four center-wing tanks, positioned in the wing center s
     <tr><td>Right Auxiliary</td><td>No. 1 (Right Rear)</td><td>200 US gal</td><td>Right wing, outboard</td></tr>
     <tr><td colspan="3"><strong>Total: 804 US gallons</strong></td><td></td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The main tanks are inboard, closest to the engines, and provide the most direct fuel path. The auxiliary tanks are outboard. All four tanks sit in the center wing section, above and slightly forward of the cabin, which gives them a gravity head of approximately 2 PSI to assist fuel flow even when the pumps are not running.
@@ -2380,7 +2395,7 @@ Fuel density is not constant. AVGAS at the standard reference temperature of 15&
 Each engine has an independent cable-operated fuel selector on the cockpit floor, one for the left engine and one for the right. Each selector can route fuel from any of the four tanks to its engine. The selectors have five positions:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Position</th><th>Source</th><th>Use</th></tr>
   </thead>
@@ -2391,7 +2406,7 @@ Each engine has an independent cable-operated fuel selector on the cockpit floor
     <tr><td>R MAIN</td><td>Right Main tank</td><td>Normal operations, crossfeed</td></tr>
     <tr><td>R AUX</td><td>Right Auxiliary tank</td><td>Cruise, crossfeed</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The key point is that both selectors can independently select any of the four tanks. The left engine is not limited to left-side tanks, and the right engine is not limited to right-side tanks. This gives you full crossfeed capability: if the right engine fails, you can feed the left engine from the right-side tanks to use that fuel rather than waste it. You can also feed both engines from a single tank if necessary, though this will drain it twice as fast.
@@ -2510,7 +2525,7 @@ The hour hands always show the current time regardless of mode. Only the minute 
 Two fuel pressure gauges on the instrument panel (one per engine) show the pressure in the fuel line between the pump and the carburetor. Normal indications:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Condition</th><th>Pressure</th></tr>
   </thead>
@@ -2520,7 +2535,7 @@ Two fuel pressure gauges on the instrument panel (one per engine) show the press
     <tr><td>Boost pump on, engine off</td><td>~21 PSI</td></tr>
     <tr><td>Warning light threshold</td><td>Below 6 PSI</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The fuel pressure warning lights (one per engine, with adjustable brightness) illuminate when fuel pressure drops below 6 PSI. This is your first indication of a fuel delivery problem: wrong tank selected, empty tank, clogged strainer, failed pump, or icing in the fuel lines. If a fuel pressure warning light comes on in flight, your immediate action is to verify the tank selector, check the fuel quantity in the selected tank, and turn on the boost pump for that engine.
@@ -2534,7 +2549,7 @@ The fuel pressure warning lights (one per engine, with adjustable brightness) il
 The mixture levers control the fuel-to-air ratio entering each engine's carburetor. On the DC-3, the mixture system uses a gated lever mechanism with four distinct ranges:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Gate</th><th>Lever Position</th><th>Fuel/Air Ratio</th><th>Use</th></tr>
   </thead>
@@ -2544,7 +2559,7 @@ The mixture levers control the fuel-to-air ratio entering each engine's carburet
     <tr><td>AUTO RICH</td><td>Second detent forward</td><td>~0.08</td><td>Takeoff, climb, landing</td></tr>
     <tr><td>EMERGENCY RICH</td><td>Full forward</td><td>Maximum rich</td><td>Emergency only (bypasses auto control)</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The gates are physical detents that prevent accidental movement between ranges. To move the mixture lever past a gate, you must first press and hold the release lever (a small paddle on the mixture quadrant), then move the mixture lever through the detent. Without the release lever pressed, the mixture lever will stop at the gate boundary. This prevents you from accidentally pulling the mixture to CUT OFF when you meant to go to AUTO LEAN, or accidentally shoving it to EMERGENCY RICH when you meant AUTO RICH.
@@ -2563,7 +2578,7 @@ The gates are physical detents that prevent accidental movement between ranges. 
 Fuel flow is calculated based on the R-1830-92 engine's actual performance data, taking into account RPM, manifold pressure, mixture setting, and altitude. The simulation tracks per-engine fuel flow in gallons per hour and deducts consumption only from the tank currently selected by that engine's fuel selector. There is no automatic equalization: X-Plane's built-in fuel management is completely overridden.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Power Setting</th><th>RPM</th><th>MAP</th><th>Mixture</th><th>Flow (per engine)</th></tr>
   </thead>
@@ -2575,7 +2590,7 @@ Fuel flow is calculated based on the R-1830-92 engine's actual performance data,
     <tr><td>Economy Cruise</td><td>1,750</td><td>25"</td><td>Auto Lean</td><td>~40 GPH</td></tr>
     <tr><td>Idle</td><td>~800</td><td>12"</td><td>Any</td><td>~8 GPH</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 At economy cruise (40 GPH per engine, 80 GPH total), 804 gallons gives a theoretical endurance of roughly 10 hours. At takeoff power (155 GPH per engine, 310 GPH total), you would drain all tanks in under 2.6 hours. Real-world endurance falls between these extremes, depending on your power management, altitude, and how long you spend at high power settings during climb.
@@ -2607,7 +2622,7 @@ The dangerous thing about carburetor icing is how broad the conditions are. It c
 Carburetor ice builds progressively. The simulation tracks five severity levels:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Severity</th><th>Ice Level</th><th>Symptoms</th></tr>
   </thead>
@@ -2618,7 +2633,7 @@ Carburetor ice builds progressively. The simulation tracks five severity levels:
     <tr><td>Severe</td><td>50-80%</td><td>Significant blockage, engine running rough. Immediate carb heat.</td></tr>
     <tr><td>Critical</td><td>&gt;80%</td><td>Near-complete blockage. Engine failure imminent.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Carburetor Heat</h4>
 <p>
@@ -2670,7 +2685,7 @@ Fuel temperature affects engine starting directly. Cold fuel vaporizes poorly, w
 The practical effect is that cold starts require more primer strokes to wet the cylinder walls with enough fuel to fire. The number of extra strokes depends on fuel temperature:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Fuel Temperature</th><th>Extra Primer Strokes Needed</th></tr>
   </thead>
@@ -2680,7 +2695,7 @@ The practical effect is that cold starts require more primer strokes to wet the 
     <tr><td>-10&deg;C to 0&deg;C</td><td>3 to 6 extra</td></tr>
     <tr><td>Below -10&deg;C</td><td>6 to 8 extra</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Fuel temperature approximates the outside air temperature after the aircraft has been sitting. Once an engine is running, heat from the cylinders gradually warms the fuel in the lines and nearby tank structure. This warming is slow and partial; the bulk of the fuel in the wing tanks remains close to ambient temperature throughout the flight.
@@ -2690,7 +2705,7 @@ Fuel temperature approximates the outside air temperature after the aircraft has
 
 <h3>System Specifications</h3>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Parameter</th><th>Value</th></tr>
   </thead>
@@ -2712,7 +2727,7 @@ Fuel temperature approximates the outside air temperature after the aircraft has
     <tr><td>Carb icing OAT range</td><td>-15&deg;C to +25&deg;C</td></tr>
     <tr><td>Max strainer pressure drop</td><td>8 PSI (when contaminated)</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── Chapter 9: Hydraulic System ─────────────────────── -->
 
@@ -3031,7 +3046,7 @@ MIL-H-5606 hydraulic fluid becomes more viscous as it gets cold, and this is not
 This section describes cold-weather behaviour in <strong>Standard</strong> and <strong>Veteran</strong> modes. In <strong>Tourist</strong> mode the fluid never thickens whatever the temperature, so the warm-up chore below does not apply (see <a href="#difficulty-modes">Difficulty Modes</a>).
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Fluid temperature</th><th>Thickness</th><th>Brake response</th><th>On-screen warning</th></tr>
   </thead>
@@ -3043,7 +3058,7 @@ This section describes cold-weather behaviour in <strong>Standard</strong> and <
     <tr><td>-20&deg;C</td><td>6.2x normal</td><td>48%</td><td>WARNING</td></tr>
     <tr><td>-40&deg;C</td><td>17.5x normal</td><td>32%</td><td>WARNING</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Cold viscosity affects everything the hydraulic system touches:
@@ -3087,7 +3102,7 @@ Be clear about what this does and does not affect. Cold, thick fluid degrades th
 The plugin watches how thick the fluid is and warns you in two tiers, keyed to the thickness multiplier on the STATUS tab. The on-screen banner appears only if status warnings are enabled in the OPTIONS tab.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Indication</th><th>Thickness</th><th>Typically when</th><th>Action</th></tr>
   </thead>
@@ -3096,7 +3111,7 @@ The plugin watches how thick the fluid is and warns you in two tiers, keyed to t
     <tr><td>Amber CAUTION: "Cold hydraulic fluid..."</td><td>Above 3.0x normal</td><td>A cold ramp; fluid below roughly -6&deg;C</td><td>Warm the system before high-flow use</td></tr>
     <tr><td>Red WARNING: "Hydraulic fluid extremely thick!"</td><td>Above 5.0x normal</td><td>A cold-soaked or deep sub-freezing ramp; fluid below roughly -16&deg;C</td><td>Run the warm-up procedure before taxi and takeoff</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The WARNING banner prompts you to "Click to view STATUS tab." Its Hydraulic Cold Weather Status shows the live fluid temperature, the system pressure, and a Thickness readout (the viscosity multiplier, shown as "X.Xx normal"); you warm the system while watching the Thickness fall toward 1.0x and the temperature climb. The banner clears itself once the fluid thins past the threshold. While the fluid is thick you will also feel the effects directly: flap travel slows, up to twice as long as normal in deep cold, the brakes apply with a sluggish delay and reduced force, and system pressure sits a few hundred PSI higher than usual as the pumps fight the thick fluid. Landing-gear speed is unaffected.
@@ -3177,7 +3192,7 @@ When the aircraft is parked after a flight, heat from the hot engines soaks into
 The DC-3 has five independent thermal relief valves protecting different zones of the hydraulic system:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Thermal Relief Valve</th><th>Relief Setpoint</th><th>Trapped Volume</th></tr>
   </thead>
@@ -3188,7 +3203,7 @@ The DC-3 has five independent thermal relief valves protecting different zones o
     <tr><td>Landing gear actuators</td><td>1,000 PSI</td><td>0.3 gal</td></tr>
     <tr><td>Cowl flap control valves (integral relief, per engine)</td><td>550 PSI</td><td>0.15 gal</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 When pressure in a zone exceeds its setpoint, the relief valve cracks open and vents fluid back to the reservoir at up to 0.5 gallons per minute. The valve reseats once pressure drops approximately 50 PSI below the setpoint. This cycling is normal and expected after engine shutdown on a warm day. You may notice slight fluid level changes in the reservoir sight glass as thermal relief valves cycle.
@@ -3230,7 +3245,7 @@ Each engine-driven pump tracks operating hours independently. Warning threshold 
 The system logs events where pressure exceeds 1,200 PSI. After 100 such events, a warning is generated. High-pressure events accelerate seal wear and indicate a regulator or thermal relief issue that should be investigated.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Component</th><th>Warning Threshold</th><th>Overhaul Threshold</th></tr>
   </thead>
@@ -3240,13 +3255,13 @@ The system logs events where pressure exceeds 1,200 PSI. After 100 such events, 
     <tr><td>Pump hours (per engine)</td><td>800 hrs</td><td>1,500 hrs</td></tr>
     <tr><td>High pressure events (&gt;1,200 PSI)</td><td>100 events</td><td>N/A</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- ── Hydraulic Specs Table ── -->
 
 <h3>System Specifications</h3>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Parameter</th><th>Value</th></tr>
   </thead>
@@ -3270,7 +3285,7 @@ The system logs events where pressure exceeds 1,200 PSI. After 100 such events, 
     <tr><td>Engine pump flow rate</td><td>3 GPM at 1,400 RPM</td></tr>
     <tr><td>Gravity extension threshold</td><td>&lt;100 PSI</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
@@ -3299,7 +3314,7 @@ The DC-3's flight controls are mechanically operated through cables and push-pul
 The control forces in a DC-3 are substantial, particularly in roll. The right aileron carries a geared trim tab with about 12&deg; of trim travel, driven by aileron trim, on top of its geared aerodynamic assist. The ailerons are large surfaces that require real effort to deflect at speed. Pilots who have flown smaller aircraft may notice the DC-3 feels heavier on the controls, because it is.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Surface</th><th>UP / LEFT</th><th>DOWN / RIGHT</th></tr>
   </thead>
@@ -3311,7 +3326,7 @@ The control forces in a DC-3 are substantial, particularly in roll. The right ai
     <tr><td>Rudder trim tab</td><td>12&deg; left</td><td>12&deg; right</td></tr>
     <tr><td>Flaps (split)</td><td colspan="2">0&deg; to 45&deg;</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h3>Trim</h3>
 
@@ -3584,11 +3599,11 @@ The AN/APN-1 system consists of a transmitter/receiver unit (RT-7) mounted remot
 
 <h4>Indicator Controls</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Control</th><th>Location</th><th>Function</th></tr>
   <tr><td>ON Switch</td><td>Lower left knob</td><td>Powers the unit on and off</td></tr>
   <tr><td>RANGE Switch</td><td>Upper right knob</td><td>Two-position: Low (0-400 ft) or High (0-4000 ft)</td></tr>
-</table>
+</table></div>
 
 <p>
 The indicator displays altitude through a single needle sweeping a semicircular arc. Four rolling number drums visible through cutouts in the dial face show the scale markings for the currently selected range. When set to Low range, the drums read 1, 2, 3, 4 (hundreds of feet). When switched to High range, the drums roll to show 10, 20, 30, 40 (hundreds of feet, representing 1000 to 4000 ft). The drums transition smoothly when the range switch is changed.
@@ -3600,7 +3615,7 @@ An OFF flag appears in the dial window whenever the instrument is unpowered, war
 
 <h4>Specifications</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Parameter</th><th>Value</th></tr>
   <tr><td>Low Range</td><td>0 to 400 feet AGL</td></tr>
   <tr><td>High Range</td><td>0 to 4,000 feet AGL</td></tr>
@@ -3609,7 +3624,7 @@ An OFF flag appears in the dial window whenever the instrument is unpowered, war
   <tr><td>Power Required</td><td>28VDC, ALTIMETER circuit breaker</td></tr>
   <tr><td>Current Draw</td><td>~5.5A inrush, ~2.5A steady state</td></tr>
   <tr><td>Warmup Time</td><td>Approximately 5 seconds (vacuum tube warmup)</td></tr>
-</table>
+</table></div>
 
 <h4>Operation</h4>
 
@@ -3663,13 +3678,13 @@ The aircraft carries two CO2 fire bottles (port and starboard) for fire suppress
 The selector valve has four positions:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Position</th><th>Target</th></tr>
   <tr><td>OFF</td><td>No compartment selected (safe position)</td></tr>
   <tr><td>LEFT ENGINE</td><td>Left engine nacelle</td></tr>
   <tr><td>RIGHT ENGINE</td><td>Right engine nacelle</td></tr>
   <tr><td>HEATER COMPT</td><td>Cabin heater compartment (below cabin floor)</td></tr>
-</table>
+</table></div>
 
 <div class="callout caution">
   <div class="callout-title">Caution</div>
@@ -3696,7 +3711,7 @@ A single NAF 1133-297 compressed oxygen cylinder, charged to 1,800 PSI, carries 
 Each crew position (pilot and copilot) has an independent A-12A oxygen regulator (AN6004-1) mounted on the cockpit sidewall. The regulator has three controls:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Control</th><th>Function</th></tr>
   </thead>
@@ -3705,7 +3720,7 @@ Each crew position (pilot and copilot) has an independent A-12A oxygen regulator
     <tr><td>Mode Paddle</td><td>NORMAL (diluter-demand) or 100% OXYGEN</td></tr>
     <tr><td>Red Emergency Knob</td><td>Continuous free-flow bypass (pulls open)</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 In NORMAL mode, the regulator operates as a diluter-demand system: it mixes oxygen with cabin air in a ratio that increases with altitude. At 10,000 feet, only a small supplement is needed (roughly 2 liters per minute). At 25,000 feet, the mix is heavily oxygen-enriched at approximately 8 liters per minute. This altitude-based metering conserves oxygen by delivering only what is physiologically necessary.
@@ -3761,7 +3776,7 @@ The insidious nature of hypoxia is that the affected pilot often feels fine. The
   <p><strong>10,000 ft:</strong> Supplemental oxygen recommended. <strong>14,000 ft:</strong> Required for flights exceeding 30 minutes at this altitude. <strong>15,000 ft:</strong> Required at all times. These thresholds are based on FAR 91.211 standards of the era. The DC-3's service ceiling is well above 15,000 feet, so high-altitude operations require oxygen system management as a matter of course.</p>
 </div>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Parameter</th><th>Value</th></tr>
   </thead>
@@ -3775,7 +3790,7 @@ The insidious nature of hypoxia is that the affected pilot often feels fine. The
     <tr><td>100% mode flow</td><td>10 L/min constant</td></tr>
     <tr><td>Emergency free-flow</td><td>25 L/min</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Cylinder Storage Leak</h4>
 
@@ -3799,7 +3814,7 @@ P(t) = P_atmospheric + (P_initial − P_atmospheric) × e<sup>−t/τ</sup>
 The time constant τ is tuned for a realistic well-maintained period system that loses approximately 3% of its (cylinder − atmospheric) pressure differential per month under storage. Practical figures starting from a 1,800 PSI fresh fill:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Idle Time</th><th>Approximate Gauge Reading</th><th>Loss From Fresh Fill</th></tr>
   </thead>
@@ -3813,7 +3828,7 @@ The time constant τ is tuned for a realistic well-maintained period system that
     <tr><td>3 years</td><td>~600 PSI</td><td>~67%</td></tr>
     <tr><td>5 years</td><td>~310 PSI</td><td>~83%</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The leak operates regardless of the cylinder shutoff valve position. Closing the valve only blocks downstream flow to the regulators; it does not seal the bottle itself, because the bottle's own valve seats and fittings are upstream of the shutoff. This is the real-world behavior, and it is why a parked aircraft loses oxygen pressure whether the master switch is on or off.
@@ -3838,7 +3853,7 @@ The maintenance tab provides three refill modes for the oxygen cylinder, accessi
 The choice exists because real cylinder refills take time, and not every flight session is the right moment to sit and wait for a ground cart to top off a bottle. The three modes let you choose how much of that physics you want to engage with.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Mode</th><th>Behavior</th><th>Empty to Full</th><th>From 1,500 PSI</th></tr>
   </thead>
@@ -3847,7 +3862,7 @@ The choice exists because real cylinder refills take time, and not every flight 
     <tr><td>ACCELERATED</td><td>Twice the realistic rate. Same exponential physics as REALISTIC, just compressed in time.</td><td>~5 minutes</td><td>~1.5 minutes</td></tr>
     <tr><td>REALISTIC</td><td>Matches a careful single-bottle ground fill from a cascade source, with full pressure-differential physics.</td><td>~10 minutes</td><td>~3 minutes</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 The physics for the gradual modes follows the same form as the leak, but in reverse. Real aviation oxygen carts maintain their storage cylinders at roughly 2,400 PSI, deliberately higher than the 1,800 PSI aircraft target. The reason: to drive the aircraft bottle to full, the source pressure must remain above the target throughout the fill. If the source matched the target, the fill would slow asymptotically and never quite reach 1,800. With source above target, the fill can complete and is then manually stopped by the operator at the target reading.
@@ -3940,7 +3955,7 @@ A separate case is ground frost, which forms on a parked aircraft when the surfa
 What the ice looks like, and how much it hurts, depends on how quickly the water freezes when it strikes the surface. This is not cosmetic: the type matters as much as the amount.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Type</th><th>Appearance</th><th>How it forms</th><th>Why it matters</th></tr>
   </thead>
@@ -3949,7 +3964,7 @@ What the ice looks like, and how much it hurts, depends on how quickly the water
     <tr><td><strong>Mixed</strong></td><td>Between the two</td><td>Partial freezing on impact</td><td>Behaves between rime and glaze.</td></tr>
     <tr><td><strong>Glaze</strong></td><td>Clear, smooth, heavy</td><td>Droplets flow back before freezing, typically nearer 0&deg;C</td><td>The dangerous one. It builds horn shapes that wreck the airflow, it is heavier, and it clings to the boots rather than cracking off.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>What It Costs You</h4>
 
@@ -3994,7 +4009,7 @@ The wing and tail leading edges are cleared by the de-ice boots, described in th
 Boot timing rewards judgement, and the simulation models why. The boots crack ice off by inflating underneath it, and that works within a window:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Ice on the leading edge</th><th>What a boot cycle achieves</th></tr>
   </thead>
@@ -4003,7 +4018,7 @@ Boot timing rewards judgement, and the simulation models why. The boots crack ic
     <tr><td>About 6 to 25 mm</td><td>The effective window. The ice cracks and sheds cleanly.</td></tr>
     <tr><td>More than about 25 mm</td><td>Shedding becomes less effective again; the accumulation is too thick and heavy to break away cleanly.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Ice type stacks on top of that. Rime sheds willingly; glaze is adhesive and resists the boots even inside the window, which is the real-world bridging problem and the reason glaze is treated so seriously. The practical doctrine is to let a genuine layer build, then cycle, rather than either cycling continuously on a trace or leaving it until the wing is loaded. In glaze, expect to work harder for a poorer result, and consider leaving the icing conditions rather than managing them.
@@ -4077,11 +4092,11 @@ The Stewart-Warner (Janitrol) S-100 combustion heater burns aviation gasoline fr
 
 <h4>Controls</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Control</th><th>Function</th></tr>
   <tr><td>Master Switch</td><td>ON/OFF. Enables the heater system.</td></tr>
   <tr><td>Blower Speed</td><td>OFF / LOW / HIGH. Controls the cabin air blower motor speed. Higher speed moves more air through the heat exchanger.</td></tr>
-</table>
+</table></div>
 
 <h4>Normal Operation</h4>
 
@@ -4208,13 +4223,13 @@ Two rotating beacons, one on the vertical tail (upper) and one on the belly (low
 
 <h4>Exterior Lighting Summary</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Light</th><th>Power</th><th>Current</th><th>Circuit Breaker</th></tr>
   <tr><td>Landing Light (per side)</td><td>600W</td><td>21.4A</td><td>CB 17/18 (35A) + CB 15/16 Control (10A)</td></tr>
   <tr><td>Navigation Light (per lamp)</td><td>25W</td><td>0.9A</td><td>CB 14: Navigator Lights (10A)</td></tr>
   <tr><td>Wing Edge Light (per side)</td><td>100W</td><td>3.6A</td><td>CB 23: Wing Leading Edge Lights (10A)</td></tr>
   <tr><td>Anti-Collision Beacon (per unit)</td><td>50W</td><td>1.8A</td><td>Bus power (no dedicated CB)</td></tr>
-</table>
+</table></div>
 
 <h3>Cockpit Lighting</h3>
 
@@ -4240,12 +4255,12 @@ This means that in a dark cockpit with the dome lights off, the overhead panels 
 Three sets of flood lights illuminate the instrument panel from above:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Flood Light</th><th>Controls</th><th>Circuit Breaker</th></tr>
   <tr><td>Pilot Flood</td><td>Switch + rheostat</td><td>CB 20: Pilot Inst Panel Lights (5A)</td></tr>
   <tr><td>Copilot Flood</td><td>Switch + rheostat</td><td>CB 21: Copilot Inst Panel Lights (5A)</td></tr>
   <tr><td>Pedestal Flood</td><td>Switch</td><td>CB 20: Pilot Inst Panel Lights (5A)</td></tr>
-</table>
+</table></div>
 
 <h4>Instrument Panel Backlighting</h4>
 
@@ -4309,12 +4324,12 @@ Fourteen individual 10-watt reading lights are installed above the passenger sea
 
 <h4>Entry, Lavatory, and Tail Access</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Light</th><th>Power</th><th>Switch</th><th>Notes</th></tr>
   <tr><td>Entry Light</td><td>25W</td><td>Switch + rheostat</td><td>Illuminates the main boarding door area</td></tr>
   <tr><td>Lavatory Light</td><td>15W</td><td>Switch</td><td>Aft cabin lavatory</td></tr>
   <tr><td>Tail Access Light</td><td>15W</td><td>Switch</td><td>Illuminates the tail section for maintenance access</td></tr>
-</table>
+</table></div>
 
 <h4>Cabin Signs</h4>
 
@@ -4347,11 +4362,11 @@ The Classic variant's post lights (controlled by the panel lighting rheostats) s
 The Modern variant replaces the radium paint with electric backlighting inside the instrument gauges. This provides brighter, more controllable gauge illumination, but requires electrical power. The backlighting is controlled by two separate rheostats:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Rheostat</th><th>Illuminates</th><th>Circuit Breaker</th></tr>
   <tr><td>Pilot Panel</td><td>Pilot-side instrument gauges and center panel gauges</td><td>CB 20: PILOT INST PANEL LIGHTS (5A)</td></tr>
   <tr><td>Copilot Panel</td><td>Copilot-side instrument gauges</td><td>CB 21: COPILOT INST PANEL LIGHTS (5A)</td></tr>
-</table>
+</table></div>
 
 <p>
 In addition to gauge backlighting, the post lights provide flood illumination over the instrument panel. Items such as the RMI and flaps indicator are illuminated by these post lights rather than by internal backlighting. Post lights are controlled by the same panel lighting rheostats and are also protected by their respective circuit breakers.
@@ -4376,14 +4391,14 @@ All incandescent lights on the DC-3, both interior and exterior, respond realist
 The most dramatic demonstration of this effect occurs when the pilot forgets to turn on the generators after engine start. With generators offline, all electrical loads are powered solely by the 24-volt battery. As the battery drains, bus voltage drops and every light on the aircraft dims progressively. Landing lights, which draw over 21 amps each, accelerate battery drain significantly. Within a few minutes of operating on battery alone with landing lights on, the pilot will notice the lights fading from full brightness to a dull orange glow before going dark entirely.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Bus Voltage</th><th>Approximate Brightness</th><th>Situation</th></tr>
   <tr><td>28V (nominal)</td><td>100%</td><td>Normal operations, generators online</td></tr>
   <tr><td>24V</td><td>58%</td><td>Battery only, light load, early discharge</td></tr>
   <tr><td>20V</td><td>32%</td><td>Battery draining, noticeable dimming</td></tr>
   <tr><td>16V</td><td>15%</td><td>Battery low, dim</td></tr>
   <tr><td>14V</td><td>9%</td><td>Battery nearly depleted, dim</td></tr>
-</table>
+</table></div>
 
 <p>
 Panel post lights and instrument lighting are also affected. The rheostat-set brightness level is scaled by the voltage-dependent factor, so even with the panel light rheostat at full, the instruments will dim as the battery drains. On the Modern variant, this includes the electric gauge backlighting; on the Classic variant, the radium glow is unaffected by voltage since it requires no power.
@@ -4400,7 +4415,7 @@ Panel post lights and instrument lighting are also affected. The rheostat-set br
 Every incandescent bulb on the aircraft has a finite lifespan. The simulation tracks operating hours for 102 individual bulbs across the aircraft, and each bulb can fail independently based on its accumulated hours and rated life. This is not random destruction for its own sake; it is a realistic maintenance consideration that rewards proper systems management.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Bulb Category</th><th>Rated Life</th><th>Count</th></tr>
   </thead>
@@ -4416,7 +4431,7 @@ Every incandescent bulb on the aircraft has a finite lifespan. The simulation tr
     <tr><td>Seat belt / no smoking signs</td><td>3,000 hours</td><td>2</td></tr>
     <tr><td>Post lights (Modern variant)</td><td>2,000 hours</td><td>57</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Bulb hours accumulate in all difficulty modes, but failures only occur in Standard and Veteran modes. In Tourist mode, hours are tracked but bulbs never fail. Bulb wear persists between flights through the save system.
@@ -4551,7 +4566,7 @@ The attitude gyroscopes have physical gimbal limits. Exceeding approximately 60&
 </p>
 
 <h4>Specifications</h4>
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Parameter</th><th>Value</th></tr>
   </thead>
@@ -4573,7 +4588,7 @@ The attitude gyroscopes have physical gimbal limits. Exceeding approximately 60&
     <tr><td>Engagement ramp time</td><td>1.5 seconds</td></tr>
     <tr><td>Vacuum required</td><td>&ge;3.5" Hg</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Panel Layout and Controls</h4>
 
@@ -4777,7 +4792,7 @@ The antenna patterns create four sectors (quadrants) radiating from the station.
 
 <h4>What the Pilot Hears</h4>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Position</th><th>Audio</th><th>Meaning</th></tr>
   </thead>
@@ -4787,7 +4802,7 @@ The antenna patterns create four sectors (quadrants) radiating from the station.
     <tr><td>On beam</td><td>Steady 1020 Hz tone</td><td>On course (within ~3&deg;)</td></tr>
     <tr><td>Cone of silence</td><td>Signal drops to nothing</td><td>Directly over the station</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 Every 37.5 seconds, the station transmits its Morse code identifier. The ident is sent first on the A antenna pair (3.75 seconds), then on the N antenna pair (3.75 seconds). This tells you which quadrant you are in: if you hear the ident clearly during the first half, you are in an A quadrant. If during the second half, you are in an N quadrant.
@@ -4874,7 +4889,7 @@ The simulation models this interference with two effects:
 The severity depends on three factors:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Factor</th><th>Effect</th></tr>
   </thead>
@@ -4883,7 +4898,7 @@ The severity depends on three factors:
     <tr><td>Distance</td><td>Inside 15 NM, the ground wave dominates and night effect is minimal. Beyond 30 NM, it increases rapidly. The critical zone is 30-60 NM.</td></tr>
     <tr><td>Frequency</td><td>Stations below 350 kHz are less affected than those above it.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <div class="callout tip">
   <div class="callout-title">Practical Advice</div>
@@ -4892,7 +4907,7 @@ The severity depends on three factors:
 
 <h4>Datarefs</h4>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Dataref</th><th>Type</th><th>Description</th></tr>
   </thead>
@@ -4906,7 +4921,7 @@ The severity depends on three factors:
     <tr><td><code>les/dc3/radio/range_night_severity</code></td><td>float</td><td>Night effect severity (0.0 = none, 1.0 = peak twilight)</td></tr>
     <tr><td><code>les/dc3/radio/range_zmarker</code></td><td>int</td><td>1 if Z-marker beacon is active (in cone of silence)</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
@@ -5003,20 +5018,20 @@ The Bendix/King KX165A is a combined VHF communication and VOR/ILS navigation re
 </p>
 
 <h4>COM Radio</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Parameter</th><th>Specification</th></tr>
   <tr><td>Frequency Range</td><td>118.000 - 136.975 MHz</td></tr>
   <tr><td>Channel Spacing</td><td>25 kHz</td></tr>
   <tr><td>Active/Standby</td><td>Yes, with flip-flop button</td></tr>
-</table>
+</table></div>
 
 <h4>NAV Radio</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Parameter</th><th>Specification</th></tr>
   <tr><td>Frequency Range</td><td>108.00 - 117.95 MHz</td></tr>
   <tr><td>Capabilities</td><td>VOR bearing, ILS localizer and glideslope</td></tr>
   <tr><td>DME</td><td>Hold function available</td></tr>
-</table>
+</table></div>
 
 <h4>Operation</h4>
 <ul>
@@ -5044,23 +5059,23 @@ The KAP 140 is a two-axis autopilot with altitude preselect capability, a signif
 </p>
 
 <h4>Lateral Modes</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Function</th></tr>
   <tr><td>ROL</td><td>Wing leveler (default)</td></tr>
   <tr><td>HDG</td><td>Heading hold (follows heading bug)</td></tr>
   <tr><td>NAV</td><td>VOR/GPS course tracking</td></tr>
   <tr><td>APR</td><td>ILS approach (localizer tracking)</td></tr>
   <tr><td>REV</td><td>ILS back-course approach</td></tr>
-</table>
+</table></div>
 
 <h4>Vertical Modes</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Function</th></tr>
   <tr><td>VS</td><td>Vertical speed hold</td></tr>
   <tr><td>ALT</td><td>Altitude hold</td></tr>
   <tr><td>ARM</td><td>Altitude capture armed (captures preselected altitude)</td></tr>
   <tr><td>GS</td><td>Glideslope tracking (with APR mode)</td></tr>
-</table>
+</table></div>
 
 <h4>Operation</h4>
 <ol>
@@ -5088,7 +5103,7 @@ The KT 73 is a Mode S datalink transponder that replies to ground radar interrog
 </p>
 
 <h4>Modes</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Function</th></tr>
   <tr><td>OFF</td><td>Unit powered down</td></tr>
   <tr><td>FLT ID</td><td>Displays and edits the eight-character Flight ID; does not transmit</td></tr>
@@ -5097,7 +5112,7 @@ The KT 73 is a Mode S datalink transponder that replies to ground radar interrog
   <tr><td>GND</td><td>Ground; Mode S only, suppresses the older replies that clutter the surface picture</td></tr>
   <tr><td>ON</td><td>Replies with the squawk code (Mode A and Mode S), altitude reporting off</td></tr>
   <tr><td>ALT</td><td>Replies with the squawk code and pressure altitude (Mode A, C, and S); normal operation</td></tr>
-</table>
+</table></div>
 
 <h4>Operation</h4>
 <ul>
@@ -5120,12 +5135,12 @@ The Modern variant includes two Bendix/King KR87 ADF receivers, one for each pil
 </p>
 
 <h4>Modes</h4>
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Function</th></tr>
   <tr><td>REC</td><td>Receive only (audio monitoring, no bearing)</td></tr>
   <tr><td>ADF</td><td>Automatic Direction Finding (bearing needle active)</td></tr>
   <tr><td>BFO</td><td>Beat Frequency Oscillator (for identifying CW beacons)</td></tr>
-</table>
+</table></div>
 
 <h4>Operation</h4>
 <ul>
@@ -5231,7 +5246,7 @@ Switching the radar to OFF does not produce an instant shutdown. The antenna ent
 The mode selector cycles through seven states. Each serves a distinct purpose, and understanding when to use each one is the difference between a radar that helps you and a radar that clutters your scan.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Mode</th><th>Display</th><th>Purpose</th></tr>
   <tr><td><strong>OFF</strong></td><td>Blank</td><td>No power. Antenna parks at -30&deg;.</td></tr>
   <tr><td><strong>SBY</strong></td><td>Warmup countdown</td><td>Magnetron warmup, no transmission. Required for 60 seconds before first use.</td></tr>
@@ -5240,7 +5255,7 @@ The mode selector cycles through seven states. Each serves a distinct purpose, a
   <tr><td><strong>WxA</strong></td><td>4-color + flash</td><td>Weather with turbulence alert. Identical to WX, but areas of turbulence (magenta returns) flash on and off at 1 Hz to draw the eye.</td></tr>
   <tr><td><strong>MAP</strong></td><td>3-color terrain</td><td>Ground mapping. Displays terrain, coastlines, and cultural features. Uses three colors only (green, yellow, magenta; no red), per the BendixKing color convention for ground returns.</td></tr>
   <tr><td><strong>TURB</strong></td><td>Turbulence only</td><td>Filters display to show only turbulence signatures. Useful for identifying clear-air turbulence in areas that appear benign in WX mode.</td></tr>
-</table>
+</table></div>
 
 <div class="callout tip">
   <div class="callout-title">When to Use WxA</div>
@@ -5266,13 +5281,13 @@ Three dotted cyan range rings divide the display into quarters. Labels on the ri
 The color mapping follows BendixKing's standard palette. In weather modes (WX, WxA, TURB), four colors are used:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Color</th><th>Meaning (WX Modes)</th><th>Meaning (MAP Mode)</th></tr>
   <tr><td style="background:#00cc00;color:#000;">Green</td><td>Light precipitation</td><td>Low terrain/weak returns</td></tr>
   <tr><td style="background:#cccc00;color:#000;">Yellow</td><td>Moderate precipitation</td><td>Moderate terrain/returns</td></tr>
   <tr><td style="background:#cc0000;color:#fff;">Red</td><td>Heavy precipitation</td><td><em>Not used in MAP mode</em></td></tr>
   <tr><td style="background:#cc00cc;color:#fff;">Magenta</td><td>Extreme/turbulence</td><td>Strong terrain/cultural features</td></tr>
-</table>
+</table></div>
 
 <p>
 MAP mode deliberately omits red from its palette. The BendixKing manual specifies three colors for ground mapping because the intensity gradations that matter for terrain are different from those that matter for weather. Seeing red on a weather radar means "avoid this." The same color on a terrain display would create false urgency.
@@ -5284,7 +5299,7 @@ MAP mode deliberately omits red from its palette. The BendixKing manual specifie
 The radar overlays several text annotations on the display. Knowing where to look and what each one means is part of operating the unit efficiently.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Annotation</th><th>Location</th><th>Color</th><th>Meaning</th></tr>
   <tr><td>Mode label (WX, WXA, MAP, etc.)</td><td>Bottom-left</td><td>Green</td><td>Current operating mode</td></tr>
   <tr><td>NAV / NO NAV</td><td>Bottom-left, above mode</td><td>Green</td><td>Flight plan overlay status</td></tr>
@@ -5297,7 +5312,7 @@ The radar overlays several text annotations on the display. Knowing where to loo
   <tr><td>L/R + bearing</td><td>Bottom-left</td><td>Green</td><td>VP cursor bearing (e.g., L 6, R 25)</td></tr>
   <tr><td>TX FLT</td><td>Center</td><td>Red, large</td><td>Transmit fault (on ground)</td></tr>
   <tr><td>ANT FLT</td><td>Center</td><td>Red, large</td><td>Antenna fault</td></tr>
-</table>
+</table></div>
 
 <p>
 Fault annunciations (TX FLT, ANT FLT) override the entire display when active. You will not see weather returns behind a fault message. The fault must be resolved before the radar is usable.
@@ -5469,7 +5484,7 @@ Both fault annunciations completely override the normal display. You will not se
 
 <h4>Controls Summary</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Control</th><th>Function</th><th>Notes</th></tr>
   <tr><td>Power</td><td>Toggles radar on/off</td><td>OFF triggers 30-second antenna park</td></tr>
   <tr><td>Mode Up/Down</td><td>Cycles operating mode</td><td>OFF, SBY, TEST, WX, WxA, MAP, TURB</td></tr>
@@ -5486,7 +5501,7 @@ Both fault annunciations completely override the normal display. You will not se
   <tr><td>VP Cursor Up/Down</td><td>Adjusts VP range</td><td>&plusmn;5 nm per step</td></tr>
   <tr><td>NAV MAP</td><td>Toggles flight plan overlay</td><td>Requires loaded SimBrief plan</td></tr>
   <tr><td>Target Alert</td><td>Toggles distant weather warning</td><td>Red bars at top of display</td></tr>
-</table>
+</table></div>
 
 <h3>KI 525A HSI (Horizontal Situation Indicator)</h3>
 
@@ -5556,11 +5571,11 @@ If power is interrupted (by pulling the G-2 Compass circuit breaker, losing bus 
 
 <h4>Knob Controls</h4>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Knob</th><th>Function</th><th>Notes</th></tr>
   <tr><td>HDG</td><td>Rotates the heading bug around the compass card</td><td>About 0.1&deg; per deliberate click, accelerating to ~1&deg; per click when spun quickly. Sets the target heading for KAP 140 HDG mode.</td></tr>
   <tr><td>CRS</td><td>Rotates the course arrow (OBS)</td><td>About 0.1&deg; per deliberate click, accelerating to ~1&deg; per click when spun quickly. Sets the VOR radial or ILS inbound course for CDI display.</td></tr>
-</table>
+</table></div>
 
 <p>
 Both knobs are mechanical and remain operable in cold and dark; only the CRS knob goes inert, and only when the GNS 530 HSI source is set to GPS.
@@ -5920,7 +5935,7 @@ This cascading behavior is not scripted. It emerges from the interaction of mode
 The following failure categories are modeled:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Category</th><th>Examples</th><th>Base MTBF</th></tr>
   </thead>
@@ -5938,11 +5953,11 @@ The following failure categories are modeled:
     <tr><td>Landing Gear</td><td>Actuator seal leak, downlock worn, uplock jammed, bungee cord degraded</td><td>2,000-8,000 hrs</td></tr>
     <tr><td>Flaps</td><td>Actuator seal leak, relief valve stuck, asymmetric rigging</td><td>5,000-10,000 hrs</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Landing Gear Failures</h4>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Failure</th><th>What You Notice</th><th>Action</th></tr>
   </thead>
@@ -5968,11 +5983,11 @@ The following failure categories are modeled:
       <td>If hydraulic extension is available, use it instead. If forced to rely on gravity extend, allow maximum time. Positive G maneuvers (pull-ups) can help shake the gear into the locked position.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Flap Failures</h4>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Failure</th><th>What You Notice</th><th>Action</th></tr>
   </thead>
@@ -5993,7 +6008,7 @@ The following failure categories are modeled:
       <td>Trim out the roll tendency with aileron trim. The condition is manageable at all flap settings. If the roll is severe, reduce flap extension. Report for maintenance after landing.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>Fluid Leaks</h4>
 <p>
@@ -6005,7 +6020,7 @@ The simulation models progressive fluid leaks at specific locations on the aircr
 Abuse-induced failures have specific time-at-condition thresholds:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Abuse Type</th><th>Limit</th><th>Time to Failure</th></tr>
   </thead>
@@ -6015,7 +6030,7 @@ Abuse-induced failures have specific time-at-condition thresholds:
     <tr><td>Manifold pressure over-boost</td><td>Above 48" Hg</td><td>~2 minutes sustained</td></tr>
     <tr><td>RPM over-speed</td><td>Above 2,700 RPM</td><td>~1 minute sustained</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 In Veteran mode, these thresholds are halved (stricter). In Tourist mode, they are multiplied by 5 (very forgiving). Abuse accumulates progressively; backing off within limits does not instantly clear the counter, but it stops accumulating and slowly counts back down toward zero (a cooldown).
@@ -6083,7 +6098,7 @@ The MAINTENANCE tab in DC3 Hangar shows the condition of each major system as a 
 Maintenance intervals indicate hours remaining before service is required. When maintenance is due, the system can be serviced through the MAINTENANCE tab (both engines must be shut down).
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <thead>
     <tr><th>Maintenance Item</th><th>Interval</th></tr>
   </thead>
@@ -6096,7 +6111,7 @@ Maintenance intervals indicate hours remaining before service is required. When 
     <tr><td>Spark plug replacement</td><td>250 hours</td></tr>
     <tr><td>Engine TBO (time between overhaul)</td><td>1,000 hours</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <p>
 All maintenance tracking persists between sessions in Persistent mode. Neglecting maintenance does not prevent you from flying (the real aircraft does not have a software lockout either), but it increases wear rates and failure probability. An aircraft flown past its TBO with overdue oil changes will break more often than one kept on schedule.
@@ -6145,13 +6160,13 @@ All four tanks can be loaded independently. Fuel quantity is set in US gallons. 
 
 <h3>Weight Limits</h3>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Category</th><th>Weight</th></tr>
   <tr><td>Empty Weight (typical)</td><td>~18,000 lbs</td></tr>
   <tr><td>Dispatch operating limit</td><td>26,200 lbs</td></tr>
   <tr><td>Structural max takeoff (normal)</td><td>31,000 lbs</td></tr>
   <tr><td>Structural max takeoff (overload)</td><td>36,000 lbs</td></tr>
-</table>
+</table></div>
 
 <p>
 The 31,000 lb figure is the structural certification limit of the DC-3/C-47 airframe. The simulation's DISPATCH model applies a more conservative operating limit of 26,200 lbs, reflecting typical operator practice (the Quebecair operating weight the flight model is tuned around). Plan loadings against the 26,200 lb operating limit for representative performance; the airframe will physically fly heavier, up to the structural limits, but handling and climb margins degrade accordingly.
@@ -6173,7 +6188,7 @@ The CHECKLIST tab in DC3 Hangar provides interactive checklists for every phase 
 
 <h3>Available Checklists</h3>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>#</th><th>Checklist</th><th>Phase</th></tr>
   <tr><td>1</td><td>Entering Cockpit</td><td>Pre-flight</td></tr>
   <tr><td>2</td><td>Before Engine Start</td><td>Pre-flight</td></tr>
@@ -6189,7 +6204,7 @@ The CHECKLIST tab in DC3 Hangar provides interactive checklists for every phase 
   <tr><td>12</td><td>Shutdown</td><td>Shutdown</td></tr>
   <tr><td>13</td><td>Secure Aircraft</td><td>Post-flight</td></tr>
   <tr><td>14</td><td>In-Flight Engine Start</td><td>Emergency</td></tr>
-</table>
+</table></div>
 
 <h3>Auto-Detect Feature</h3>
 
@@ -6251,11 +6266,11 @@ Position, orientation, and velocity are transmitted at high frequency (20 times 
 The shared cockpit uses UDP for low-latency communication. The connection is direct (peer-to-peer), with no relay server required. Both players need a stable internet connection. Typical bandwidth usage is modest: approximately 15-25 KB/s in each direction during active flight.
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Metric</th><th>Acceptable</th><th>Degraded</th><th>Poor</th></tr>
   <tr><td>Round-trip time (RTT)</td><td>Below 80 ms</td><td>80 - 200 ms</td><td>Above 200 ms</td></tr>
   <tr><td>Packet loss</td><td>Below 1%</td><td>1% - 5%</td><td>Above 5%</td></tr>
-</table>
+</table></div>
 
 <p>
 High RTT introduces a visible delay between when the client moves a control and when the result appears. At 200+ ms, throttle and mixture inputs will feel noticeably sluggish. Packet loss above 5% may cause intermittent state glitches. The NETWORK tab in DC3 Hangar displays these metrics in real time with color-coded indicators (green, yellow, red).
@@ -6334,7 +6349,7 @@ The host always starts in the Captain (left) seat and the client in the First Of
 The following systems are fully synchronized between host and client:
 </p>
 
-<table>
+<div class="table-scroll"><table>
   <tr><th>Category</th><th>Details</th></tr>
   <tr><td>Position and flight model</td><td>Latitude, longitude, altitude, velocity, orientation, angular rates</td></tr>
   <tr><td>Control surfaces</td><td>Aileron, elevator, rudder, elevator trim, rudder trim</td></tr>
@@ -6351,7 +6366,7 @@ The following systems are fully synchronized between host and client:
   <tr><td>Fire extinguisher</td><td>CO2 cylinder pressure and mass, nacelle fire state, discharge status</td></tr>
   <tr><td>All cockpit switches</td><td>117 switch/lever/knob positions (electrical, engine, fuel, hydraulic, lighting, autopilot, cockpit items, fire, de-ice, oxygen, cabin, door)</td></tr>
   <tr><td>Remote pilot avatar</td><td>Head position and orientation (visible as head movement in the other seat)</td></tr>
-</table>
+</table></div>
 
 <h3>Disconnecting</h3>
 
