@@ -502,7 +502,7 @@ This guide covers the Bendix/King KT 73 transponder as fitted to the DC-3 Modern
   <p><strong>Replies:</strong> Mode A, Mode C, Mode S</p>
   <p><strong>Flight ID:</strong> 8 characters</p>
   <p><strong>Entry:</strong> Cursor-based (CRSR + DATA)</p>
-  <p><strong>Display:</strong> Gas-discharge, auto-dimming</p>
+  <p><strong>Display:</strong> Gas-discharge</p>
   <p><strong>Power:</strong> DC Radio Bus, TRANSPONDER breaker</p>
 </div>
 
@@ -535,7 +535,7 @@ This is the KT 73, the Mode S datalink member of the Silver Crown Plus line. It 
   <tr><td>Flight ID</td><td>Up to 8 alphanumeric characters</td></tr>
   <tr><td>Altitude reporting</td><td>Pressure altitude, shown as a flight level in ALT mode</td></tr>
   <tr><td>Ident duration</td><td>About 18 seconds</td></tr>
-  <tr><td>Brightness</td><td>Auto-dimming, with manual adjustment (up to 8 carets, default 4)</td></tr>
+  <tr><td>Brightness</td><td>Manual adjustment (up to 8 carets, default 4)</td></tr>
 </table>
 
 <div class="callout note">
@@ -573,10 +573,10 @@ The KT 73 is a single low box: a display across the top, four knobs along the bo
   <tr><td>1</td><td><span class="ctl">IDT</span></td><td>Ident button. Sends the ident pulse when ATC asks you to "ident."</td></tr>
   <tr><td>2</td><td><span class="ctl">CRSR</span></td><td>Cursor knob. Moves the cursor across the code digits or the Flight ID characters.</td></tr>
   <tr><td>3</td><td><span class="ctl">FLT ID</span></td><td>Sets the Flight ID character under the cursor (in FLT ID mode).</td></tr>
-  <tr><td>4</td><td><span class="ctl">DATA</span></td><td>Sets the squawk digit under the cursor (0 through 7).</td></tr>
+  <tr><td>4</td><td><span class="ctl">DATA</span></td><td>Sets the squawk digit under the cursor (0 through 7). This is the third knob from the left, the one with no legend printed above it.</td></tr>
   <tr><td>5</td><td><span class="ctl">BRT</span></td><td>Display brightness, adjusted in TST mode.</td></tr>
   <tr><td>6</td><td><span class="ctl">Function selector</span></td><td>The mode knob on the right: OFF, FLT ID, SBY, TST, GND, ON, ALT.</td></tr>
-  <tr><td>7</td><td><span class="ctl">VFR</span></td><td>Recalls the VFR code with one press; holds to restore the previous code.</td></tr>
+  <tr><td>7</td><td><span class="ctl">VFR</span></td><td>Recalls the VFR code with one press; holds to restore the previous code. Pressing it while holding IDT in SBY reprograms the stored VFR code, so take care not to do that by accident.</td></tr>
 </table>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -601,7 +601,7 @@ In FLT ID mode the cursor moves across the eight Flight ID characters instead of
 
 <h3>BRT</h3>
 <p>
-The display dims itself to the ambient light, but you can trim it by hand. Brightness is adjusted in TST mode: turn the function selector to TST, then turn BRT to taste. A row of small carets under the readout shows the level: the number lit is the setting, from none up to eight, and four is the factory default. Pressing IDT while in TST snaps the brightness back to that default.
+Brightness is set by hand rather than automatically; there is no ambient-light sensing in this build. Brightness is adjusted in TST mode: turn the function selector to TST, then turn BRT to taste. A row of small carets under the readout shows the level: the number lit is the setting, from none up to eight, and four is the factory default. Pressing IDT while in TST snaps the brightness back to that default.
 </p>
 
 <h3>IDT (ident)</h3>
@@ -629,7 +629,7 @@ The display has two windows and a few annunciations. The right window almost alw
   <tr><td>ID code window</td><td>Right cells</td><td>The active four-digit squawk code.</td></tr>
   <tr><td>IDT</td><td>Lower left</td><td>Lit for about 18 seconds after you press the ident button.</td></tr>
   <tr><td>FLT</td><td>Upper left</td><td>Lit while the function selector is in FLT ID and you are editing the aircraft ID.</td></tr>
-  <tr><td>Reply "R"</td><td>Far right</td><td>Flashes each time the transponder answers an interrogation, and pulses during the TST self-test.</td></tr>
+  <tr><td>Reply "R"</td><td>Far right</td><td>On the real unit it flashes each time the transponder answers an interrogation. In this build it blinks steadily whenever the unit is replying rather than tracking real interrogations, so treat it as a sign of life, not as evidence that anyone is looking at you.</td></tr>
   <tr><td>Cursor</td><td>Under the active cell</td><td>The edit caret. Marks the code digit or Flight ID character you are changing.</td></tr>
 </table>
 
@@ -680,7 +680,12 @@ A self-test. The display lights every segment for several seconds so you can con
 
 <h4>GND (ground)</h4>
 <p>
-A Mode S nicety for busy airports. In GND the transponder still answers selective Mode S interrogations and emits its squitter, so surface-movement radar can see it, but it suppresses the older all-call replies that would otherwise clutter the ground picture. Use it while taxiing where it is called for.
+A Mode S nicety for busy airports. On the real unit, GND keeps the transponder answering selective Mode S interrogations and emitting its squitter, so surface-movement radar can see you, while suppressing the older all-call replies that would otherwise clutter the ground picture. Use it while taxiing where it is called for.</p>
+<div class="callout note">
+  <div class="callout-title">GND does not yet transmit in this build</div>
+  <p>GND currently holds the transponder silent rather than replying selectively, so while the face reads GND the aircraft is not visible to traffic systems or to online radar. If you want to be seen while taxiing, use ALT.</p>
+</div>
+<p>
 </p>
 
 <h4>ON</h4>
@@ -720,7 +725,7 @@ The normal in-flight mode. The transponder replies with both your code and your 
 <h3>Go active for flight</h3>
 <ol>
   <li>Entering the runway, turn the function selector to ALT.</li>
-  <li>Confirm the reply "R" begins flashing as ATC interrogates you, and that your flight level reads in the altitude window.</li>
+  <li>Confirm the reply "R" is blinking and that your flight level reads in the altitude window.</li>
 </ol>
 
 <h3>Ident</h3>
@@ -807,15 +812,15 @@ The KT 73 also appears in the unified <strong>Avionics Stack</strong> popup, a s
 
 <h4>Healthy operation</h4>
 <p>
-A working KT 73 in flight sits in ALT, showing your code on the right and your flight level on the left, with the reply "R" winking each time ATC interrogates you. No dashes in the altitude window, just a steady code.
+A working KT 73 in flight sits in ALT, showing your code on the right and your flight level on the left, with the reply "R" winking away. No dashes in the altitude window, just a steady code.
 </p>
 
 <h4>What to watch for</h4>
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
   <tr><td>Display dark</td><td>No power: avionics off, the bus is dead, or the TRANSPONDER breaker is open.</td><td>Restore avionics power and check the breaker.</td></tr>
-  <tr><td>Dashes in the altitude window</td><td>In ALT mode, the altitude source is invalid or out of range.</td><td>The code still works; altitude reporting does not until the source is valid.</td></tr>
-  <tr><td>No reply "R" in flight</td><td>The selector is in SBY or OFF, or you are not being interrogated.</td><td>Confirm the selector is in ALT and that you are in radar coverage.</td></tr>
+  <tr><td>Dashes in the altitude window</td><td>In ALT mode, the altitude is outside the range the display can show.</td><td>The code still works; altitude reporting does not until the source is valid.</td></tr>
+  <tr><td>No reply "R" in flight</td><td>The selector is in SBY or OFF. The lamp does not indicate radar coverage in this build, so its absence does not mean nobody is interrogating you.</td><td>Confirm the selector is in ALT.</td></tr>
 </table>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -828,7 +833,7 @@ A working KT 73 in flight sits in ALT, showing your code on the right and your f
   <li><strong>Octal only.</strong> Code digits run 0 to 7. If you are reaching for an 8 or 9, you are reading the clearance wrong.</li>
   <li><strong>Ident is one press.</strong> Tap IDT and let it time out. Holding it does nothing extra.</li>
   <li><strong>Flight level is meant to differ from your altimeter.</strong> The transponder reports on the standard 29.92 datum, so off-standard days will show a different number. That is correct.</li>
-  <li><strong>Set the Flight ID once.</strong> Enter your callsign or registration in FLT ID mode and leave it; it is part of your identity on a Mode S scope.</li>
+  <li><strong>Set the Flight ID when you load.</strong> Enter your callsign or registration in FLT ID mode; it is part of your identity on a Mode S scope. It is not saved between sessions in the current build, so it needs re-entering each time you load the aircraft.</li>
   <li><strong>Brightness lives in TST.</strong> If the display is too bright or too dim, that is the one place to fix it.</li>
 </ul>
 

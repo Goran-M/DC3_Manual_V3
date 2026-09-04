@@ -411,7 +411,7 @@ This guide covers the Bendix/King KI 229 Radio Magnetic Indicator as fitted to t
   <p><strong>Shows:</strong> Aircraft heading + bearing to two stations</p>
   <p><strong>Pointers:</strong> Single bar (No.&nbsp;1), double bar (No.&nbsp;2)</p>
   <p><strong>Card:</strong> Slaved, from the KCS 55A compass system</p>
-  <p><strong>Sources:</strong> No.&nbsp;1 = NAV&nbsp;1 / ADF&nbsp;1, switchable; No.&nbsp;2 = NAV&nbsp;2, VOR only</p>
+  <p><strong>Sources:</strong> No.&nbsp;1 = NAV&nbsp;1 / ADF&nbsp;1, switchable; No.&nbsp;2 = ADF&nbsp;2, dedicated</p>
 </div>
 
 <p>
@@ -423,7 +423,7 @@ The KI 229 is a Bendix/King Silver Crown RMI, the indicator designed to work wit
 </p>
 
 <p>
-In this aircraft the KI 229 carries two pointers. The <strong>single-bar</strong> pointer (No.&nbsp;1) is switchable: it follows either the VOR on NAV&nbsp;1 (your GNS&nbsp;530) or the ADF, selected by a button on the face. The <strong>double-bar</strong> pointer (No.&nbsp;2) is dedicated to the VOR on NAV&nbsp;2 (your KX&nbsp;165A). The compass card beneath them is slaved to the KCS 55A.
+In this aircraft the KI 229 carries two pointers. The <strong>single-bar</strong> pointer (No.&nbsp;1) is the VOR needle, and it is the switchable one: it follows either the VOR on NAV&nbsp;1 (your GNS&nbsp;530) or ADF&nbsp;1, selected by a button on the face. The <strong>double-bar</strong> pointer (No.&nbsp;2) is dedicated solely to ADF, and follows ADF&nbsp;2. The compass card beneath them is slaved to the KCS 55A.
 </p>
 
 <figure class="figure">
@@ -492,8 +492,8 @@ The face is dominated by the rotating compass card. A fixed pointer at the very 
   <tr><th>Element</th><th>What it is</th></tr>
   <tr><td><strong>A &ndash; Compass card</strong></td><td>A full 360&deg; card that rotates so your current magnetic heading sits under the lubber line. It is driven by the slaved compass system, not a free gyro.</td></tr>
   <tr><td><strong>B &ndash; Lubber line</strong></td><td>The fixed reference at the top of the face. The number under it is your magnetic heading.</td></tr>
-  <tr><td><strong>C &ndash; No.&nbsp;1 single-bar pointer</strong></td><td>The thin, single pointer. Switchable between VOR (NAV&nbsp;1) and ADF.</td></tr>
-  <tr><td><strong>D &ndash; No.&nbsp;2 double-bar pointer</strong></td><td>The wide, double pointer. Dedicated to the VOR on NAV&nbsp;2.</td></tr>
+  <tr><td><strong>C &ndash; No.&nbsp;1 single-bar pointer</strong></td><td>The thin, single pointer. The VOR needle, switchable to ADF&nbsp;1.</td></tr>
+  <tr><td><strong>D &ndash; No.&nbsp;2 double-bar pointer</strong></td><td>The wide, double pointer. Dedicated solely to ADF, on ADF&nbsp;2.</td></tr>
   <tr><td><strong>E &ndash; HDG flag</strong></td><td>A warning flag that drops into view when the heading is not valid, or power is lost.</td></tr>
   <tr><td><strong>F &ndash; Source annunciators</strong></td><td>Small windows in the lower corners showing which source each pointer is following.</td></tr>
   <tr><td><strong>G &ndash; VOR/ADF button</strong></td><td>Switches the No.&nbsp;1 pointer between VOR and ADF. The No.&nbsp;2 pointer has no switch.</td></tr>
@@ -528,23 +528,23 @@ Because the card is slaved to magnetic north, the numbers are always magnetic be
 <h2 id="pointers">5. The Two Pointers</h2>
 
 <p>
-The KI 229 carries two independent pointers so you can watch two stations at once, typically a VOR and an NDB, or two VORs. They are told apart by shape: one is a single bar, the other a double bar.
+The KI 229 carries two independent pointers so you can watch two stations at once, typically a VOR and an NDB, or two NDBs. They are told apart by shape: one is a single bar, the other a double bar.
 </p>
 
 <table>
   <tr><th>Pointer</th><th>Source in this aircraft</th><th>Switchable?</th></tr>
-  <tr><td><strong>No.&nbsp;1, single bar</strong></td><td>VOR on NAV&nbsp;1 (GNS&nbsp;530), or ADF</td><td>Yes &mdash; the lower-left button</td></tr>
-  <tr><td><strong>No.&nbsp;2, double bar</strong></td><td>VOR on NAV&nbsp;2 (KX&nbsp;165A)</td><td>No &mdash; always VOR</td></tr>
+  <tr><td><strong>No.&nbsp;1, single bar</strong></td><td>VOR on NAV&nbsp;1 (GNS&nbsp;530), or ADF&nbsp;1</td><td>Yes &mdash; the lower-left button</td></tr>
+  <tr><td><strong>No.&nbsp;2, double bar</strong></td><td>ADF&nbsp;2 (KR&nbsp;87 no.&nbsp;2)</td><td>No &mdash; always ADF</td></tr>
 </table>
 
-<div class="callout warning">
-  <div class="callout-title">This RMI is backwards from the textbook</div>
-  <p>On most RMIs the single bar is the VOR needle and the double bar is the ADF. The KI 229 is the other way around: the <strong>double-bar pointer is the VOR needle</strong> (fixed), and the <strong>single-bar pointer is the switchable one</strong>. If you have RMI muscle memory from other aircraft, take a second to confirm which needle you are reading.</p>
+<div class="callout">
+  <div class="callout-title">Which needle is which</div>
+  <p>The KI 229 follows the usual convention: the <strong>double-bar pointer is the ADF needle</strong> and the <strong>single-bar pointer is the VOR needle</strong>. The single bar is also the one that switches, so it can be pointed at an NDB as well &mdash; in which case both needles are showing ADF bearings, from different receivers. The lower-left annunciators tell you what each is doing.</p>
 </div>
 
 <h3>Switching the No.&nbsp;1 pointer (VOR/ADF)</h3>
 <p>
-Press the button in the lower-left corner of the face to switch the single-bar pointer between VOR and ADF. The source annunciator next to it slides to show the new selection, and the needle sweeps smoothly to its new bearing. The No.&nbsp;2 double-bar pointer is unaffected; it is wired permanently to the VOR on NAV&nbsp;2 and has no switch of its own.
+Press the button in the lower-left corner of the face to switch the single-bar pointer between VOR and ADF. The source annunciator next to it slides to show the new selection, and the needle sweeps smoothly to its new bearing. The No.&nbsp;2 double-bar pointer is unaffected; it is wired permanently to ADF&nbsp;2 and has no switch of its own.
 </p>
 
 <p>
@@ -601,7 +601,7 @@ A pointer only means something when it has a station to point at. When it does n
 <ul>
   <li><strong>There is no usable VOR signal</strong> &mdash; out of range, behind terrain, or no station tuned.</li>
   <li><strong>A localizer is tuned</strong> &mdash; an ILS/localizer frequency carries no omnidirectional bearing, so there is nothing for the pointer to indicate.</li>
-  <li><strong>Its source radio is switched off</strong> &mdash; turn off the KX&nbsp;165A and the double-bar pointer parks; switch the single-bar pointer to a VOR whose GNS&nbsp;530 is off and it parks too.</li>
+  <li><strong>Its source radio is switched off</strong> &mdash; turn off the no.&nbsp;2 KR&nbsp;87 and the double-bar pointer parks; switch the single-bar pointer to a VOR whose GNS&nbsp;530 is off and it parks too.</li>
 </ul>
 
 <div class="callout note">
@@ -623,12 +623,12 @@ The ADF pointer behaves a little differently: it follows the ADF receiver direct
   <li>Apply electrical power and switch the avionics master on. Confirm the G2 COMPASS breaker is closed.</li>
   <li>Expect the HDG flag in view and the card unreliable. The gyro is spinning up.</li>
   <li>Wait for the warmup to complete, about a minute warm, up to five minutes cold. The flag snaps up and the card settles onto your heading.</li>
-  <li>Cross-check the card against the magnetic compass. If it is off, use the KA 51B to slave or manually slew it onto the correct heading.</li>
+  <li>Cross-check the card against the magnetic compass. If it is off, press SLAVE on the KA 51B and let the slaving loop pull it round. To set the card by hand instead, release SLAVE first: the CW and CCW buttons only slew in free gyro.</li>
 </ol>
 
 <h3>Set up the pointers</h3>
 <ol>
-  <li>Tune and identify the VOR you want on the double-bar pointer using the KX&nbsp;165A (NAV&nbsp;2).</li>
+  <li>Tune and identify the NDB you want on the double-bar pointer using the no.&nbsp;2 KR&nbsp;87, and select ADF on that receiver &mdash; in ANT it produces no bearing and the needle stays parked.</li>
   <li>For the single-bar pointer, decide whether you want VOR or ADF and press the lower-left button to select it. Confirm the lower-left annunciator.</li>
   <li>Tune and identify that source: a VOR on the GNS&nbsp;530 (NAV&nbsp;1), or an NDB on the ADF.</li>
   <li>Confirm both needles have come off the park and are pointing at their stations.</li>
@@ -664,7 +664,7 @@ Powered, warmed up, and slaved: the HDG flag is stowed out of sight, the card re
   <tr><td>HDG flag in view in flight</td><td>The compass system has lost power, or the gyro (KG 102A) has failed or tumbled. A slaving fault does not raise this flag; it shows instead as a wrong card heading with no flag.</td><td>Check the G2 COMPASS breaker and the avionics bus. Cross-check the magnetic compass; expect the HSI to flag too.</td></tr>
   <tr><td>A pointer parked at 3 o'clock</td><td>That pointer has no usable signal: out of range, a localizer tuned, or its radio off.</td><td>Confirm the station is tuned, identified, in range, and its radio is on. Do not navigate on a parked needle.</td></tr>
   <tr><td>Single-bar pointer parked after switching to VOR</td><td>The GNS&nbsp;530 may still be booting, or no usable VOR is tuned on NAV&nbsp;1.</td><td>Let the 530 finish starting up; confirm a VOR is tuned and identified.</td></tr>
-  <tr><td>Card heading wrong but no flag</td><td>The gyro is running but slaved to the wrong heading, or in free (unslaved) mode.</td><td>Use the KA 51B to re-slave or slew the card onto the correct magnetic heading.</td></tr>
+  <tr><td>Card heading wrong but no flag</td><td>The gyro is running but slaved to the wrong heading, or in free (unslaved) mode.</td><td>Press SLAVE on the KA 51B to let it pull the card round, or release SLAVE and use CW/CCW to slew it by hand. The slew buttons do nothing while the system is slaved.</td></tr>
 </table>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -673,7 +673,7 @@ Powered, warmed up, and slaved: the HDG flag is stowed out of sight, the card re
 <h2 id="notes">10. Notes and Tips</h2>
 
 <ul>
-  <li><strong>Double bar is VOR, single bar switches.</strong> The opposite of most RMIs. The one thing to remember about this instrument.</li>
+  <li><strong>Double bar is ADF, single bar is VOR and switches.</strong> The single bar can be pointed at an NDB too, so check the annunciators rather than assuming.</li>
   <li><strong>Give the gyro time.</strong> The HDG flag at start-up is the gyro warming up, not a fault. Up to five minutes in the cold. Start the compass early.</li>
   <li><strong>A needle at 3 o'clock means nothing.</strong> The park is the instrument saying it has no signal. Identify before you trust any pointer.</li>
   <li><strong>Head to, tail from.</strong> Pointer head = bearing to the station; tail = the radial you are on.</li>

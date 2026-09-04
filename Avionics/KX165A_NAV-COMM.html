@@ -607,7 +607,7 @@ The leftmost knob sets how loud the COMM receiver is in your headset. Turn it do
 
 <h3>COMM tuning knobs (PULL 8.33K)</h3>
 <p>
-The COMM frequency is set with the dual concentric knob. The <strong>outer</strong> knob steps the megahertz digits (the part left of the decimal). The <strong>inner</strong> knob steps the kilohertz digits (the part right of the decimal) in 25 kHz increments. Tuning always changes the <strong>standby</strong> frequency, never the active one. The frequency wraps around at the ends of the band, so you can spin past 136.975 straight back to 118.000.
+The COMM frequency is set with the dual concentric knob. The <strong>outer</strong> knob steps the megahertz digits (the part left of the decimal). The <strong>inner</strong> knob steps the kilohertz digits (the part right of the decimal) in 25 kHz increments. Tuning always changes the <strong>standby</strong> frequency, never the active one. The frequency wraps at the ends of the band, so keeping the outer knob turning past 136 rolls it round to 118. Note that in the current build the inner knob wraps the whole frequency in the same way rather than rolling the kilohertz digits over in place, so turning it up past 136.975 jumps you to 118.000 instead of stepping the megahertz digit. Set the megahertz with the outer knob and the kilohertz with the inner one and you will not meet it.
 </p>
 <p>
 Pull the inner knob out to engage <strong>8.33 kHz</strong> spacing. The standby frequency snaps to the nearest valid 8.33 kHz channel, and the inner knob now steps through the finer 8.33 kHz channel set. Push the knob back in to return to 25 kHz spacing.
@@ -915,7 +915,7 @@ A working, powered KX 165A shows a steady orange readout: active and standby COM
   <li><strong>Identify before you trust it.</strong> Pull IDENT and confirm the Morse callsign before you navigate on any VOR or localizer.</li>
   <li><strong>The timer follows you.</strong> The timer keeps running in the background even when you switch the NAV display to another mode. Switch back to Timer mode any time to read it.</li>
   <li><strong>8.33 is optional.</strong> Leave the unit in 25 kHz spacing unless you are flying where 8.33 kHz channels are assigned.</li>
-  <li><strong>Volume versus power.</strong> The volume knobs set listening level only. The radios are powered from the avionics bus, so turning a volume knob fully down mutes that side without switching the unit off.</li>
+  <li><strong>The COMM volume knob is the power switch.</strong> Turning it fully down does not just mute the radio, it switches the whole unit off, NAV side and display included. To quieten the COM without losing the unit, leave the knob just off its stop.</li>
 </ul>
 
 <hr>

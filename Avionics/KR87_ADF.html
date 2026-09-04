@@ -442,7 +442,7 @@ This is the KR 87, the digital member of the Silver Crown Plus line, with active
 
 <div class="callout note">
   <div class="callout-title">Power: the volume knob is the switch</div>
-  <p>Each KR 87 is turned on by its own VOL/OFF knob: rotate it clockwise off the OFF detent to power the unit up and set the listening level; turn it fully back to OFF and that unit shuts down. On top of that, the unit needs avionics power on the DC Radio Bus and its own ADF circuit breaker closed (the two units sit on separate breakers). If a KR 87 is dark, check the volume knob first, then the breaker, then the avionics master.</p>
+  <p>Each KR 87 is turned on by its own VOL/OFF knob: rotate it clockwise off the OFF detent to power the unit up and set the listening level; turn it fully back to OFF and that unit's display and Morse identifier stop. Note that the receiver hiss on the audio panel does not stop with it in the current build, so if you want silence, deselect ADF on your audio selector panel as well. On top of that, the unit needs avionics power on the DC Radio Bus and its own ADF circuit breaker closed (the two units sit on separate breakers). If a KR 87 is dark, check the volume knob first, then the breaker, then the avionics master.</p>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -537,7 +537,7 @@ The display has two windows. The left always shows the active frequency, the one
 
 <h4>ADF mode</h4>
 <p>
-This is the mode that earns the box its name. The receiver senses the direction the signal is arriving from and drives the pointer to it. With a good signal the needle settles on the station and follows it as you fly; lose the signal and the needle drifts off, which is its honest way of telling you there is nothing reliable to point at.
+This is the mode that earns the box its name. The receiver senses the direction the signal is arriving from and drives the pointer to it. With a good signal the needle settles on the station and follows it as you fly. Lose the signal, by flying out of range or putting terrain between you and the beacon, and the needle parks rather than pointing somewhere plausible and wrong. A parked needle is the instrument telling you it has nothing to work with.
 </p>
 
 <h4>ANT mode</h4>
@@ -547,7 +547,7 @@ In antenna mode the receiver uses only its sense antenna, which gives the strong
 
 <h4>BFO</h4>
 <p>
-Most NDBs modulate their carrier, so you hear the Morse identifier straight away. Some, particularly older and marine beacons, key an unmodulated carrier instead, and a plain receiver hears only silence broken by faint clicks. Switch BFO on and the receiver injects a tone offset that turns that keyed carrier into an audible beep you can read the Morse from. Leave BFO off for normal beacons; reach for it when a beacon you believe is there makes no sound.
+Most NDBs modulate their carrier, so you hear the Morse identifier straight away. Some, particularly older and marine beacons, key an unmodulated carrier instead, and a plain receiver hears only silence broken by faint clicks. On the real unit, switching BFO on injects a tone offset that turns that keyed carrier into an audible beep you can read the Morse from. In the current build the BFO button lights its annunciator but does not yet change what you hear, so an unmodulated beacon stays silent with BFO on or off.
 </p>
 
 <div class="callout caution">
@@ -602,7 +602,7 @@ The flight timer counts up, and it starts itself the moment the unit powers on. 
 
 <h4>Elapsed timer (ET)</h4>
 <p>
-The elapsed timer is the working stopwatch. By default it counts up from zero, and a quick press of SET/RST zeros it whenever you like, whatever the window happens to be showing. That alone covers the classic job: cross the fix, reset, and time the leg.
+The elapsed timer is the working stopwatch. By default it counts up from zero, and a quick press of SET/RST zeros it, whatever the window happens to be showing. That alone covers the classic job: cross the fix, reset, and time the leg. One exception: while a countdown is actually running, a quick press does nothing. Hold SET/RST for about two seconds to stop it first.
 </p>
 <p>
 It also counts down, which is where it shines on a non-precision approach. To set a countdown:
@@ -647,7 +647,7 @@ A working KR 87 shows the active frequency on the left and your chosen timer or 
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
   <tr><td>Display dark</td><td>The VOL/OFF knob is in OFF, the breaker is open, or there is no avionics power.</td><td>Turn the volume knob up, then check the breaker and the avionics master.</td></tr>
-  <tr><td>Needle wandering or parked</td><td>No usable signal: out of range, terrain in the way, or you are in ANT mode.</td><td>Confirm ADF mode, recheck the frequency, and remember NDB range shrinks over rough terrain and at night.</td></tr>
+  <tr><td>Needle parked</td><td>No usable signal (out of range or terrain in the way), or the unit is in ANT mode rather than ADF.</td><td>Confirm ADF mode, recheck the frequency, and remember NDB range shrinks over rough terrain and at night.</td></tr>
   <tr><td>No audio identifier</td><td>Weak station, wrong frequency, or a keyed beacon with BFO off.</td><td>Switch to ANT for cleaner audio; try BFO if the beacon is keyed.</td></tr>
   <tr><td>Needle points at the wrong place</td><td>You may be tuned to interference or another station on the same frequency.</td><td>Re-identify by the Morse code before trusting the bearing.</td></tr>
 </table>

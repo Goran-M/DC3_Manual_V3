@@ -1006,8 +1006,17 @@ If more than one font is available, a <strong>REG FONT</strong> dropdown appears
 </div>
 
 <p>
-The MAINTENANCE tab shows the current condition of every major system. Wear levels are displayed as percentages, with visual indicators that progress from green (healthy) through yellow (attention needed) to red (maintenance required). Maintenance intervals show hours remaining before the next scheduled service.
+The MAINTENANCE tab shows the current condition of every major system. Wear levels are displayed as percentages, with visual indicators that progress from green (healthy) through yellow (attention needed) to red (maintenance required).
 </p>
+
+<p>
+Two scheduled inspections are tracked against airframe hours: <strong>Check 1</strong> at 180 hours or 120 days, and <strong>Check 2</strong> at 950 hours or one year, whichever falls first. Both count as you fly and carry over between sessions, so an airframe you have used heavily arrives at its next inspection sooner than one you have flown occasionally. Engine oil quantity is remembered between sessions in the same way.
+</p>
+
+<div class="callout note">
+  <div class="callout-title">What Wear Actually Costs You</div>
+  <p>In <strong>Standard</strong> and <strong>Veteran</strong>, accumulated wear feeds the failure model: a well-used system is genuinely more likely to give trouble than a freshly serviced one, and looking after the aeroplane is worth doing. In <strong>Tourist</strong>, the hours still count and the tab still shows them, but wear carries no consequence, so a Tourist aircraft never becomes less reliable however hard it is worked.</p>
+</div>
 
 <p>
 Fluid levels for hydraulic fluid, engine oil, and propeller de-ice alcohol are displayed with progress bars showing the current quantity in US gallons. Each has a FILL UP button to restore the fluid to full capacity. The hydraulic fluid level shown here matches the reservoir sight glass in the cockpit; filling it up here is equivalent to a ground crew topping off the reservoir during a service stop.
@@ -1194,7 +1203,7 @@ If the FSEconomy xfseconnect plugin is installed, a status section appears at th
 
 <h4>SimBrief Flight Plan</h4>
 <p>
-Enter your SimBrief username or Pilot ID and click <strong>Fetch Flight Plan</strong> to download your latest flight plan. The Pilot ID can be found in your SimBrief account settings. Once fetched, the flight plan is available to the LOADING tab for fuel recommendations and to the weather radar's NAV MAP overlay for waypoint display. A separate <strong>View Flight Plan</strong> button displays a formatted flight plan summary as an overlay clipboard window.
+Enter your SimBrief username or Pilot ID and click <strong>Fetch Flight Plan</strong> to download your latest flight plan. The Pilot ID can be found in your SimBrief account settings. Once fetched, the flight plan is available to the LOADING tab for fuel recommendations. A separate <strong>View Flight Plan</strong> button displays a formatted flight plan summary as an overlay clipboard window.
 </p>
 
 <p>
@@ -2911,25 +2920,25 @@ When the flap lever is in the NEUTRAL position, hydraulic fluid is trapped in th
 </p>
 
 <p>
-However, if the actuator seals have worn past their service limit, fluid can bypass the piston internally. With no pump pressure to oppose the leak, gravity slowly pulls the flaps down. This flap creep is gradual and may not be immediately obvious, but over time you may return to the aircraft and find the flaps have sagged from their retracted position. The rate depends on the severity of the seal wear: a mildly degraded system may take many minutes to show any movement, while a severely worn system will sag noticeably within a few minutes.
+However, if the actuator seals have worn past their service limit, fluid can bypass the piston internally and the lock no longer holds. The flaps then creep <strong>toward the retracted position</strong>, not down: a DC-3 flap with nothing holding it is pushed up, and its own weight is not what moves it. The creep is gradual and may not be immediately obvious, but a set of flaps you left part-extended can be found further up than you left them. The rate depends on the severity of the seal wear: a mildly degraded system may take many minutes to show any movement, while a severely worn system moves noticeably within a few minutes.
 </p>
 
 <p>
-Flap creep is an indication that the hydraulic flap actuator seals need attention. Check the MAINTENANCE tab in DC3 Hangar for flap seal wear percentage and schedule maintenance accordingly. Retract the flaps using the hand pump before flight if they have crept down during a long park.
+Flap creep is an indication that the hydraulic flap actuator seals need attention. Check the MAINTENANCE tab in DC3 Hangar for flap seal wear percentage and schedule maintenance accordingly. Creep from worn seals occurs in <strong>Veteran mode only</strong>; in Tourist and Standard a flap with no pressure on it simply holds where you left it, however worn the seals are.
 </p>
 
 <h4>Aerodynamic Flap Drift (Loss of Hydraulic Pressure in Flight)</h4>
 
 <p>
-The hydraulic lock that holds the flaps in position depends on fluid trapped in the actuating cylinder. If hydraulic system pressure drops below 500 PSI while airborne, the actuator can no longer resist aerodynamic loads acting on the flap surfaces. Air pressure pushes the flaps toward the fully extended position at a rate proportional to airspeed: the faster you fly, the faster they drift.
+The hydraulic lock that holds the flaps in position depends on fluid trapped in the actuating cylinder. If hydraulic system pressure drops below 500 PSI while airborne, the actuator can no longer resist the air loads on the flap surfaces, and those loads <strong>blow the flaps up, toward retracted</strong>. The rate follows dynamic pressure, so it rises with the square of airspeed: the faster you are flying, the faster they come up.
 </p>
 
 <p>
-At typical approach speeds (90 to 100 knots), drift is gradual and may take over a minute to produce a noticeable change. At cruise speeds (140 to 160 knots), the flaps can drift to full extension in under 30 seconds. This is not a subtle event at cruise: the sudden increase in drag will decelerate the aircraft, increase the pitch-down moment, and significantly raise fuel consumption.
+At around 120 knots the flaps take roughly forty seconds to travel from full extension to fully up. Slower than that and the drift is gentle enough that you may not notice it for some time; faster and it accelerates sharply, though the rate is capped so that even at high speed the flaps cannot be slammed through their full travel. The consequence is the opposite of what you might expect from a hydraulic failure: you lose lift and drag rather than gaining it, so on an approach the aircraft quietly goes cleaner and faster while the lever still says the flaps are down.
 </p>
 
 <p>
-Aerodynamic drift does not occur on the ground. With no airflow over the wing, there is no force to push the flaps down, so they remain in whatever position they were last commanded to.
+Aerodynamic drift does not occur on the ground, and it does not occur below about 20 knots: with no meaningful airflow over the wing there is no load to move the flaps, so they stay where they were last commanded. It also occurs in <strong>Veteran mode only</strong>. An unannounced flap retraction on short final is precisely the sort of event the easier modes exist to keep out, so in Tourist and Standard an unpressurised flap holds its position instead.
 </p>
 
 <p>
@@ -3029,7 +3038,7 @@ The wipers can help clear light frost mechanically, but they are useless against
 <h3>Cowl Flap Actuators</h3>
 
 <p>
-The engine cowl flaps are hydraulically actuated. Each engine has its own independent four-way selector valve fed from the brake pressure line (which itself taps off main system pressure), with a double-acting strut mounted on the lower segment of the anti-drag ring. The selector has four detented positions (OFF, CLOSE, TRAIL, OPEN) described in detail in the <a href="#ch-throttle">throttle quadrant chapter</a>.
+The engine cowl flaps are hydraulically actuated. Each engine has its own independent four-way selector valve fed from the brake pressure line (which itself taps off main system pressure), with a double-acting strut mounted on the lower segment of the anti-drag ring. The selector has four detented positions (OFF, CLOSE, TRAIL, OPEN) described in detail in the <a href="#ch-engines">engines chapter</a>.
 </p>
 
 <p>
@@ -3233,7 +3242,7 @@ The gear and flap actuator seals wear gradually with use. Normal cycling (extend
 </p>
 
 <p>
-At 30% wear, seals are beginning to degrade but function normally. At 70%, internal leakage begins: fluid bypasses the piston seals, causing the gear to drift slowly toward the extended position and the flaps to creep downward under gravity. At 100%, leakage is severe enough that holding a position becomes unreliable. Check the MAINTENANCE tab for current seal wear percentages.
+At 30% wear, seals are beginning to degrade but function normally. At 70%, internal leakage begins: fluid bypasses the piston seals, so an actuator with no pressure on it can no longer hold station. The gear settles toward extended, while the flaps creep the other way, toward retracted, because air load rather than gravity is what moves a DC-3 flap. At 100%, leakage is severe enough that holding a position becomes unreliable. Check the MAINTENANCE tab for current seal wear percentages. Flap creep from seal wear occurs in Veteran mode only.
 </p>
 
 <h4>Cycle Counts</h4>
@@ -4939,6 +4948,10 @@ The severity depends on three factors:
 The Modern variant replaces the Classic avionics with a Bendix/King stack that represents the kind of retrofit commonly seen on DC-3s that continue flying in regulated airspace. These are proven, well-understood units that provide the functionality required for modern operations without fundamentally changing the aircraft's character.
 </p>
 
+<p>
+The Modern airframe is wired for a BendixKing RDR 2000 weather radar, but the unit is not fitted in this release. There is no radar display or control head in the cockpit, and nothing in the panel is waiting for one.
+</p>
+
 <div class="callout note">
   <div class="callout-title">Per-Unit Operating Guides</div>
   <p>Each unit in the Modern stack has its own illustrated operating guide, covering every control, display mode and procedure in far more detail than this chapter. They live alongside this manual in the <code>Avionics</code> folder:</p>
@@ -5192,323 +5205,6 @@ When you first channel a station the display shows dashes while the unit searche
 Full details, including the display ranges and the behaviour on station passage, are in the <a href="Avionics/KDI572_DME.html">KDI 572 DME Operating Guide</a>.
 </p>
 
-<h3>Weather Radar</h3>
-
-<div class="sidebar">
-  <div class="sidebar-title">BendixKing RDR 2000</div>
-  <p><strong>Type:</strong> Airborne Weather Radar</p>
-  <p><strong>Power Output:</strong> 3.5 kW nominal</p>
-  <p><strong>Power Input:</strong> 28 VDC, 3.0 Amps</p>
-  <p><strong>Weight:</strong> 9.9 lbs (4.5 kg)</p>
-  <p><strong>Display:</strong> 256 x 256 pixels</p>
-  <p><strong>Range:</strong> 10 to 240 nm</p>
-  <p><strong>Scan Rate:</strong> 25&deg;/second</p>
-  <p><strong>Tilt:</strong> &plusmn;15&deg; (manual), &plusmn;30&deg; (VP)</p>
-  <p><strong>Sector:</strong> 90&deg; or 100&deg;</p>
-  <p><strong>Warmup:</strong> 60 seconds (magnetron)</p>
-</div>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Weather radar display]</span>
-  <span class="description">BendixKing RDR 2000 weather radar display showing precipitation returns in WX mode with range rings and mode annotations</span>
-</div>
-
-<p>
-When BendixKing introduced the RDR 2000 in the late 1980s, it brought capabilities to single-pilot general aviation that had previously required a dedicated radar operator and a rack of equipment in the back of a transport aircraft. For the first time, a lightweight, affordable unit could give a pilot in a Cessna or Beechcraft the same weather picture that airline crews relied on. The unit became one of the most widely installed weather radars in general aviation history, and it found its way into retrofitted aircraft of every description, the DC-3 included.
-</p>
-
-<p>
-The LES DC-3 Modern variant carries a BendixKing RDR 2000 (with optional RDR 2100 extended range). The simulation was coded directly from BendixKing's installation and operation manual, reproducing every mode, control, display behavior, fault condition, and operational quirk documented in that manual. This is not a simplified weather overlay. It is a study-level simulation of a specific piece of avionics, integrated with X-Plane 12.3's volumetric weather radar API to produce actual precipitation scanning from the simulator's live weather engine.
-</p>
-
-<div class="callout note">
-  <div class="callout-title">System Requirement</div>
-  <p>The weather radar requires X-Plane 12.3 or later with SDK version 4.20 (XPLM420). If your X-Plane installation does not meet this requirement, the radar will not initialize and will remain unavailable. No error is shown; the display simply stays dark.</p>
-</div>
-
-<h4>Power-Up and Warmup</h4>
-
-<p>
-Like the real unit, the radar does not produce a picture the instant you flip the switch. The magnetron, the vacuum tube that generates the microwave pulse, needs time to reach operating temperature. When you first switch from OFF to SBY (Standby), the display shows a warmup countdown. For sixty seconds, the magnetron heats. The antenna parks at its stowed position of -30&deg; tilt. You cannot transmit during this period, and any attempt to advance to a transmit mode will be held at SBY until warmup completes.
-</p>
-
-<p>
-This is not a nuisance delay; it is magnetron physics. Transmitting before the tube is thermally stable degrades the pulse quality and shortens the tube's life. The real manual is explicit about this, and so is the simulation.
-</p>
-
-<p>
-When warmup completes, the display shows READY. You may now select any operating mode. On first transition to a transmit mode after power-up, the radar automatically selects WX mode at 80 nm range, matching the real unit's behavior.
-</p>
-
-<h4>Shutdown and Antenna Parking</h4>
-
-<p>
-Switching the radar to OFF does not produce an instant shutdown. The antenna enters a 30-second parking sequence, driving to its stowed position at -30&deg; tilt to protect the feed horn and waveguide. During this period the display goes dark but the unit remains internally active. This is the same behavior described in the BendixKing manual, and it prevents mechanical damage from abrupt power cuts during antenna movement.
-</p>
-
-<h4>Operating Modes</h4>
-
-<p>
-The mode selector cycles through seven states. Each serves a distinct purpose, and understanding when to use each one is the difference between a radar that helps you and a radar that clutters your scan.
-</p>
-
-<div class="table-scroll"><table>
-  <tr><th>Mode</th><th>Display</th><th>Purpose</th></tr>
-  <tr><td><strong>OFF</strong></td><td>Blank</td><td>No power. Antenna parks at -30&deg;.</td></tr>
-  <tr><td><strong>SBY</strong></td><td>Warmup countdown</td><td>Magnetron warmup, no transmission. Required for 60 seconds before first use.</td></tr>
-  <tr><td><strong>TEST</strong></td><td>Color arcs</td><td>Display self-test. Four concentric arcs (green, yellow, red, magenta) verify all four color channels are rendering correctly.</td></tr>
-  <tr><td><strong>WX</strong></td><td>4-color weather</td><td>Primary weather detection. Precipitation returns mapped to intensity: green (light), yellow (moderate), red (heavy), magenta (extreme).</td></tr>
-  <tr><td><strong>WxA</strong></td><td>4-color + flash</td><td>Weather with turbulence alert. Identical to WX, but areas of turbulence (magenta returns) flash on and off at 1 Hz to draw the eye.</td></tr>
-  <tr><td><strong>MAP</strong></td><td>3-color terrain</td><td>Ground mapping. Displays terrain, coastlines, and cultural features. Uses three colors only (green, yellow, magenta; no red), per the BendixKing color convention for ground returns.</td></tr>
-  <tr><td><strong>TURB</strong></td><td>Turbulence only</td><td>Filters display to show only turbulence signatures. Useful for identifying clear-air turbulence in areas that appear benign in WX mode.</td></tr>
-</table></div>
-
-<div class="callout tip">
-  <div class="callout-title">When to Use WxA</div>
-  <p>The WxA mode's flashing magenta is specifically designed for situations where you need to distinguish between heavy precipitation (which is dangerous but predictable) and embedded turbulence (which is dangerous and sudden). If you are flying near convective weather and need to identify which cells contain turbulence versus which are simply heavy rain, switch to WxA. The flashing areas are the ones to give the widest berth.</p>
-</div>
-
-<h4>Display Interpretation</h4>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Radar color legend]</span>
-  <span class="description">Weather radar color scale showing intensity levels from green (light) through yellow (moderate), red (heavy), to magenta (extreme/turbulence)</span>
-</div>
-
-<p>
-The radar display is a 256 x 256 pixel screen oriented heading-up, with your aircraft at the bottom center. North is not fixed; the display rotates with your heading, so what you see directly ahead is always at the top of the screen.
-</p>
-
-<p>
-Three dotted cyan range rings divide the display into quarters. Labels on the right edge show the distance each ring represents at the current range setting. If you are set to 80 nm, the rings appear at 20, 40, and 60 nm, with the full range of 80 nm at the top of the display.
-</p>
-
-<p>
-The color mapping follows BendixKing's standard palette. In weather modes (WX, WxA, TURB), four colors are used:
-</p>
-
-<div class="table-scroll"><table>
-  <tr><th>Color</th><th>Meaning (WX Modes)</th><th>Meaning (MAP Mode)</th></tr>
-  <tr><td style="background:#00cc00;color:#000;">Green</td><td>Light precipitation</td><td>Low terrain/weak returns</td></tr>
-  <tr><td style="background:#cccc00;color:#000;">Yellow</td><td>Moderate precipitation</td><td>Moderate terrain/returns</td></tr>
-  <tr><td style="background:#cc0000;color:#fff;">Red</td><td>Heavy precipitation</td><td><em>Not used in MAP mode</em></td></tr>
-  <tr><td style="background:#cc00cc;color:#fff;">Magenta</td><td>Extreme/turbulence</td><td>Strong terrain/cultural features</td></tr>
-</table></div>
-
-<p>
-MAP mode deliberately omits red from its palette. The BendixKing manual specifies three colors for ground mapping because the intensity gradations that matter for terrain are different from those that matter for weather. Seeing red on a weather radar means "avoid this." The same color on a terrain display would create false urgency.
-</p>
-
-<h4>Display Annotations</h4>
-
-<p>
-The radar overlays several text annotations on the display. Knowing where to look and what each one means is part of operating the unit efficiently.
-</p>
-
-<div class="table-scroll"><table>
-  <tr><th>Annotation</th><th>Location</th><th>Color</th><th>Meaning</th></tr>
-  <tr><td>Mode label (WX, WXA, MAP, etc.)</td><td>Bottom-left</td><td>Green</td><td>Current operating mode</td></tr>
-  <tr><td>NAV / NO NAV</td><td>Bottom-left, above mode</td><td>Green</td><td>Flight plan overlay status</td></tr>
-  <tr><td>UP/DN + angle</td><td>Upper-right</td><td>Green</td><td>Current tilt angle (e.g., UP2.0, DN5.5)</td></tr>
-  <tr><td>Range values</td><td>Right edge, at rings</td><td>Cyan</td><td>Distance in nm at each range ring</td></tr>
-  <tr><td>CAL / U/D offset</td><td>Upper-right (MAP only)</td><td>Green</td><td>Gain setting: CAL = auto, U0.5 = manual above cal, D0.3 = below</td></tr>
-  <tr><td>STAB OFF</td><td>Lower-right</td><td>Yellow</td><td>Antenna stabilization disabled</td></tr>
-  <tr><td>STAB LMT</td><td>Lower-right</td><td>Yellow</td><td>Stabilization gimbal limit exceeded</td></tr>
-  <tr><td>PROFILE</td><td>Bottom-left</td><td>Green</td><td>Vertical Profile mode active</td></tr>
-  <tr><td>L/R + bearing</td><td>Bottom-left</td><td>Green</td><td>VP cursor bearing (e.g., L 6, R 25)</td></tr>
-  <tr><td>TX FLT</td><td>Center</td><td>Red, large</td><td>Transmit fault (on ground)</td></tr>
-  <tr><td>ANT FLT</td><td>Center</td><td>Red, large</td><td>Antenna fault</td></tr>
-</table></div>
-
-<p>
-Fault annunciations (TX FLT, ANT FLT) override the entire display when active. You will not see weather returns behind a fault message. The fault must be resolved before the radar is usable.
-</p>
-
-<h4>Range Selection</h4>
-
-<p>
-Six range settings are available on the RDR 2000: 10, 20, 40, 80, 160, and 240 nm. The range up/down commands cycle through these in order. Direct range selection commands are also available if you need to jump immediately to a specific setting.
-</p>
-
-<p>
-Choosing the right range is a judgment call. Short ranges (10-40 nm) give you fine detail for immediate maneuvering decisions. Medium ranges (80 nm) provide a good balance for enroute weather avoidance. Long ranges (160-240 nm) let you see the big picture for strategic planning, but at the cost of resolution; a small but dangerous cell can be a single pixel at 240 nm.
-</p>
-
-<div class="callout tip">
-  <div class="callout-title">Range Discipline</div>
-  <p>Experienced radar operators develop a habit of cycling through ranges. Check 160 or 240 nm every few minutes for strategic awareness, then return to 40 or 80 nm for tactical maneuvering. The weather picture changes constantly, and what was a benign area at long range can reveal embedded cells at shorter range that were below the resolution threshold.</p>
-</div>
-
-<h4>Antenna Tilt</h4>
-
-<p>
-The antenna tilt control adjusts the vertical angle of the radar beam from -15&deg; (below horizon) to +15&deg; (above horizon) in 0.5&deg; steps. This is one of the most important and most misunderstood controls on the radar.
-</p>
-
-<p>
-The radar beam is not a pencil line; it is a cone. At long range, the beam covers a significant vertical slice of the atmosphere. But the beam's center must be aimed correctly to produce useful returns. Tilt the antenna too far down and you paint the ground, producing clutter that obscures weather. Tilt it too far up and you look over the tops of cells, seeing clear air where dangerous weather exists below your scan.
-</p>
-
-<h4>Auto-Tilt</h4>
-
-<p>
-Auto-tilt calculates the antenna angle needed to place the lower edge of the beam at the ground approximately 80% of the current range setting. This ensures the beam covers the atmosphere from ground level up to your altitude and beyond, without painting excessive ground clutter. As your altitude or range setting changes, auto-tilt adjusts automatically.
-</p>
-
-<p>
-Auto-tilt is a good default for enroute operations. For approach and departure phases, where you may want to see weather at specific altitudes or suppress ground returns more aggressively, manual tilt gives you finer control. Any manual tilt adjustment disables auto-tilt until you re-enable it.
-</p>
-
-<h4>Antenna Stabilization</h4>
-
-<p>
-In turbulence or during maneuvering, the aircraft pitches and rolls, which would normally drag the radar beam across the sky and produce a smeared, useless picture. The stabilization system compensates for aircraft attitude changes, keeping the beam pointed at the same spot in space regardless of how the aircraft moves.
-</p>
-
-<p>
-Stabilization has mechanical limits. The gimbal can only compensate so far. If the combined pitch, roll, and tilt angle exceeds 30&deg;, the system reaches its limit and the display shows STAB LMT in yellow. This is not a failure; it is a physical constraint. In steep turns or during aggressive maneuvering, the radar picture may degrade temporarily. Level the wings and the picture stabilizes.
-</p>
-
-<p>
-You can disable stabilization with the STAB toggle, which shows STAB OFF on the display. There is rarely a reason to do this in normal operations, but it is available for troubleshooting or for situations where the stabilization reference is unreliable.
-</p>
-
-<h4>Gain Control</h4>
-
-<p>
-In weather modes (WX, WxA, TURB), the radar uses Sensitivity Time Logic (STL) to auto-calibrate the gain. STL adjusts sensitivity based on range, compensating for the fact that distant targets return weaker signals than nearby ones. The gain is locked at the calibrated position and manual adjustment is not available. This is by design; STL produces the most accurate weather intensity picture.
-</p>
-
-<p>
-In MAP mode, STL is disabled and manual gain control is available. Ground returns vary enormously depending on terrain, surface type, and angle of incidence. Auto-calibration cannot account for these variables, so the pilot adjusts gain to optimize the picture. The display shows CAL when at the calibrated position, or a U/D offset value when manually adjusted (e.g., U0.5 means gain is 0.5 above calibrated).
-</p>
-
-<h4>Ground Clutter Suppression</h4>
-
-<p>
-The GCS toggle enables or disables ground clutter suppression. In weather modes, GCS is typically enabled to filter out ground returns that would otherwise obscure precipitation. In MAP mode, GCS is automatically disabled, since ground returns are exactly what you want to see.
-</p>
-
-<h4>Sector Width</h4>
-
-<p>
-The antenna sweeps a sector of the sky ahead of the aircraft. The RDR 2000 offers two sector widths: 90&deg; (&plusmn;45&deg; from the nose) and 100&deg; (&plusmn;50&deg;). A wider sector shows more of the sky to either side, but each sweep takes longer, meaning the display updates more slowly. For most operations, 90&deg; provides adequate coverage with the fastest update rate.
-</p>
-
-<h4>Vertical Profile Mode</h4>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: VP mode display]</span>
-  <span class="description">Weather radar in Vertical Profile mode showing a cross-section of a thunderstorm cell with altitude on the vertical axis and range on the horizontal axis</span>
-</div>
-
-<p>
-Vertical Profile was a BendixKing exclusive feature, and it remains one of the most useful tools on any weather radar. Instead of the normal plan-view sweep, VP mode tilts the antenna through a &plusmn;30&deg; vertical arc along a single bearing, building up a cross-section view of the weather. The display shows altitude on the vertical axis and range on the horizontal axis.
-</p>
-
-<p>
-This is how you determine the vertical extent of a cell. A plan-view display tells you where the weather is horizontally, but it cannot tell you how high it goes. VP mode answers the question every pilot asks when looking at a red return: "Can I go over it?"
-</p>
-
-<p>
-To use VP mode:
-</p>
-
-<ol>
-  <li>First, identify the cell of interest in normal WX mode. Note its approximate bearing and range.</li>
-  <li>Use the VP cursor bearing controls (left/right) to place the cursor line on the cell. A yellow track line (TRK) appears briefly on the horizontal display to show where the VP slice will be taken.</li>
-  <li>Toggle VP mode. The display switches to the vertical cross-section view, showing "PROFILE" in the lower left and the cursor bearing as "L" or "R" plus degrees.</li>
-  <li>Read the vertical extent of the weather. A green reference line marks the horizon (0&deg; tilt). Returns above this line are above your altitude; returns below are beneath you.</li>
-  <li>Toggle VP mode again to return to horizontal scan.</li>
-</ol>
-
-<p>
-The TRK line that appears when you adjust the VP cursor bearing in horizontal mode disappears after 15 seconds. This is intentional; it prevents a permanent line from cluttering the weather picture. If you need to see it again, nudge the cursor.
-</p>
-
-<div class="callout warning">
-  <div class="callout-title">VP Mode Limitations</div>
-  <p>VP mode scans a single bearing. While you are examining one cell's vertical structure, you have no scan coverage anywhere else. Weather moves and develops. Do not stay in VP mode for extended periods. Get the information you need, make your decision, and return to horizontal scan.</p>
-</div>
-
-<h4>Target Alert</h4>
-
-<p>
-Target Alert warns you that significant weather exists beyond your current range setting. When active, two short red bars appear at the top of the display, flanking the center. This is your cue to increase the range setting and take a look at what is building out there.
-</p>
-
-<p>
-Target Alert is enabled by default and can be toggled off if the indication becomes distracting in a high-weather environment where you are already aware of distant activity.
-</p>
-
-<h4>NAV MAP Overlay</h4>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: NAV MAP overlay]</span>
-  <span class="description">Weather radar display with NAV MAP active, showing waypoint diamonds and route legs overlaid on weather returns</span>
-</div>
-
-<p>
-The real BendixKing RDR 2000 has a NAV MAP button that, with the optional KGR 2000 graphics unit and a connected FMS, overlays flight plan waypoints on the radar display. The DC-3 simulation implements this feature using the SimBrief flight plan integration as its data source.
-</p>
-
-<p>
-When a SimBrief flight plan has been loaded via the flight plan clipboard, pressing NAV MAP activates the overlay. Waypoints appear as small diamond symbols with their ident labels. Route legs are drawn as lines connecting consecutive waypoints. The display shows "NAV" in the lower left to indicate the overlay is active.
-</p>
-
-<p>
-The active waypoint (the one you are navigating toward) and the leg leading to it are highlighted in white. All other waypoints and legs are drawn in cyan, consistent with the range ring color scheme. As you fly the route and waypoints sequence, the highlighting advances automatically.
-</p>
-
-<p>
-The overlay uses heading-up orientation, matching the radar's own display convention. Waypoints rotate as your heading changes, and they scale with the selected range setting. At short ranges, only nearby waypoints are visible. At longer ranges, more of the route appears. This is by design; the overlay shows you the same spatial picture as the weather returns beneath it, letting you correlate your planned route with the weather ahead.
-</p>
-
-<p>
-If no SimBrief flight plan is loaded when NAV MAP is pressed, the display shows "NO NAV" in the lower left corner. Load a plan, press NAV MAP again, and the overlay appears.
-</p>
-
-<div class="callout tip">
-  <div class="callout-title">Practical Use</div>
-  <p>The NAV MAP overlay is most useful at medium ranges (40-80 nm). At these ranges you can see both your upcoming waypoints and any weather that lies along the route, making it straightforward to identify which legs will need deviation and which are clear. At very long ranges the waypoint symbols become crowded; at very short ranges you may only see one or two waypoints. Toggle NAV MAP off when you do not need it, to keep the weather picture uncluttered.</p>
-</div>
-
-<h4>Fault Conditions</h4>
-
-<p>
-The radar monitors itself for two fault conditions:
-</p>
-
-<ul>
-  <li><strong>TX FLT (Transmit Fault):</strong> The radar has been commanded to transmit while the aircraft is on the ground. In the real aircraft, a weight-on-wheels switch prevents ground transmission to protect ground personnel from microwave radiation. The simulation enforces this with a software check. If you switch to a transmit mode on the ground, TX FLT appears in large red text and overrides the entire display. Switch to SBY or OFF to clear it.</li>
-  <li><strong>ANT FLT (Antenna Fault):</strong> An antenna malfunction has been detected. This can be triggered by the failure system. When active, ANT FLT appears in large red text, overriding the display. The fault must be resolved before the radar can be used.</li>
-</ul>
-
-<p>
-Both fault annunciations completely override the normal display. You will not see weather returns, range rings, or any other information until the fault condition is resolved. This is realistic; a fault means the radar is not producing reliable data, and showing a partial picture would be worse than showing nothing.
-</p>
-
-<h4>Controls Summary</h4>
-
-<div class="table-scroll"><table>
-  <tr><th>Control</th><th>Function</th><th>Notes</th></tr>
-  <tr><td>Power</td><td>Toggles radar on/off</td><td>OFF triggers 30-second antenna park</td></tr>
-  <tr><td>Mode Up/Down</td><td>Cycles operating mode</td><td>OFF, SBY, TEST, WX, WxA, MAP, TURB</td></tr>
-  <tr><td>Range Up/Down</td><td>Changes range setting</td><td>10, 20, 40, 80, 160, 240 nm</td></tr>
-  <tr><td>Tilt Up/Down</td><td>Adjusts antenna tilt</td><td>&plusmn;15&deg; in 0.5&deg; steps; disables auto-tilt</td></tr>
-  <tr><td>Auto Tilt</td><td>Toggles auto-tilt</td><td>Altitude-based beam positioning</td></tr>
-  <tr><td>Gain Up/Down</td><td>Adjusts gain (MAP only)</td><td>0 to 2, calibrated position at 1.0</td></tr>
-  <tr><td>Gain Auto</td><td>Returns gain to calibrated</td><td>MAP mode only</td></tr>
-  <tr><td>STAB</td><td>Toggles stabilization</td><td>Compensates for aircraft attitude</td></tr>
-  <tr><td>GCS</td><td>Toggles ground clutter suppression</td><td>Auto-disabled in MAP mode</td></tr>
-  <tr><td>Sector</td><td>Cycles sector width</td><td>90&deg; / 100&deg;</td></tr>
-  <tr><td>VP Toggle</td><td>Switches horizontal/vertical profile</td><td>&plusmn;30&deg; vertical scan</td></tr>
-  <tr><td>VP Cursor L/R</td><td>Adjusts VP bearing</td><td>&plusmn;2&deg; per step</td></tr>
-  <tr><td>VP Cursor Up/Down</td><td>Adjusts VP range</td><td>&plusmn;5 nm per step</td></tr>
-  <tr><td>NAV MAP</td><td>Toggles flight plan overlay</td><td>Requires loaded SimBrief plan</td></tr>
-  <tr><td>Target Alert</td><td>Toggles distant weather warning</td><td>Red bars at top of display</td></tr>
-</table></div>
-
 <h3>KI 525A HSI (Horizontal Situation Indicator)</h3>
 
 <div class="sidebar">
@@ -5564,7 +5260,7 @@ The KI 525A has three warning flags that indicate when information should not be
 <h4>Gyro Warmup</h4>
 
 <p>
-The KI 525A contains an internal directional gyro that must spin up to operating speed before it can provide stable heading information. When power is first applied, the HDG flag appears and remains visible until the gyro is ready. The warmup time depends on temperature: in warm conditions (+55&deg;C), the gyro is ready in about 60 seconds. In extreme cold (&minus;46&deg;C), it can take up to 5 minutes. This is not a fixed delay; it scales linearly with temperature, per the KCS 55A Pilot's Guide specifications.
+The KI 525A is a display: its heading comes from the remote KG 102A directional gyro, which must spin up to operating speed before the system can provide stable heading information. When power is first applied, the HDG flag appears and remains visible until the gyro is ready. The warmup time depends on temperature: in warm conditions (+55&deg;C), the gyro is ready in about 60 seconds. In extreme cold (&minus;46&deg;C), it can take up to 5 minutes. This is not a fixed delay; it scales linearly with temperature, per the KCS 55A Pilot's Guide specifications.
 </p>
 
 <p>
@@ -5601,7 +5297,7 @@ The KI 525A does not operate in isolation. It is the display component of the KC
 </ul>
 
 <p>
-When the system is in slaved mode (the normal configuration), the flux valve keeps the DG aligned with magnetic north, and the HSI compass card reads correctly without any pilot intervention. This is a significant upgrade over the Classic variant, where the vacuum-driven DG must be manually reset to the magnetic compass every 10-15 minutes.
+When the system is in slaved mode, the flux valve keeps the DG aligned with magnetic north, and the HSI compass card reads correctly without any pilot intervention. Note that the aircraft always loads with the SLAVE button out, in free gyro, whatever state you start in. Slaving is not restored from a saved flight, so pressing SLAVE belongs in your start-up flow alongside the avionics master. This is a significant upgrade over the Classic variant, where the vacuum-driven DG must be manually reset to the magnetic compass every 10-15 minutes.
 </p>
 
 <div class="callout tip">
@@ -5622,7 +5318,7 @@ When the system is in slaved mode (the normal configuration), the flux valve kee
 
 <div class="image-placeholder">
   <span class="label">[IMAGE: KA 51B unit]</span>
-  <span class="description">BendixKing KA 51B Slaving Accessory showing slave meter, SLAVE toggle switch, and CW/CCW adjustment buttons</span>
+  <span class="description">BendixKing KA 51B Slaving Accessory showing slave meter, SLAVE pushbutton, and CW/CCW adjustment buttons</span>
 </div>
 
 <p>
@@ -5630,13 +5326,13 @@ The KA 51B is a small panel-mounted accessory that controls the relationship bet
 </p>
 
 <p>
-In normal operation, the KA 51B keeps the system in <strong>slaved mode</strong>. The flux valve continuously senses magnetic heading and feeds corrections to the directional gyro, keeping it aligned with magnetic north. The slave meter on the face of the unit shows the heading error between the two; in slaved mode, this needle should remain near center, drifting slightly and then correcting back as the slaving loop does its work.
+In normal operation, the KA 51B keeps the system in <strong>slaved mode</strong>. The flux valve continuously senses magnetic heading and feeds corrections to the directional gyro, keeping it aligned with magnetic north. The slave meter on the face of the unit shows the heading error between the two. In steady flight this needle sits at or very close to centre, because the loop nulls small errors as fast as they appear. It swings off centre during a turn and after a large heading change; what you are looking for is that it comes back to centre once you roll out and settle. A needle that stays hard over in level flight is the one worth investigating.
 </p>
 
 <h4>SLAVE / FREE Mode</h4>
 
 <p>
-The SLAVE toggle switch selects between two operating modes:
+The SLAVE button is a push-on, push-off latch. Pressed in, it selects slaved; pressed again it releases to free. It selects between two operating modes:
 </p>
 
 <ul>
@@ -5737,6 +5433,24 @@ Most flight simulations treat radio navigation as a simple geometry problem: if 
 
 <p>
 VHF signals (used by VOR, ILS localizer, and ILS glideslope) travel in straight lines. They do not follow the curvature of the Earth, and they are blocked by terrain. The simulation uses the Longley-Rice Irregular Terrain Model (ITM) to calculate signal propagation, accounting for the actual terrain between your aircraft and the transmitter.
+</p>
+
+<p>
+Because the signal travels in a straight line, what limits your range in clear air is the horizon, not the transmitter. The higher you fly, the further you see, and the further you can receive:
+</p>
+
+<div class="table-scroll"><table>
+  <thead>
+    <tr><th>Altitude</th><th>Approximate VHF range in clear air</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>3,000 ft</td><td>About 67 nm</td></tr>
+    <tr><td>10,000 ft</td><td>About 123 nm</td></tr>
+  </tbody>
+</table></div>
+
+<p>
+These are the same figures for VOR, the ILS localizer and glideslope, and VHF communications, since all of them share the same physics. Down low you are working with a small radio horizon, which is why a station can be perfectly serviceable and still unreadable from 1,500 ft at eighty miles. Climbing is the cure. Note that this does not apply to the ADF: NDBs work on a much lower frequency that follows the ground rather than the line of sight, and their range is governed by the ground wave described in the next section.
 </p>
 
 <p>
@@ -7001,7 +6715,7 @@ Key physical principles modeled in the simulation:
   <li><strong>Thermal relief valve actuation:</strong> While the engine runs, hydraulic fluid trapped in the cowl-flap actuator sits in the hot nacelle (well above ambient) and expands. Pressure rises. If it climbs past the setpoint, the relief valve opens, venting fluid back to the reservoir. The STATUS tab shows this happening. (Opening the cowl flaps is real-world good practice to keep nacelle heat down, though the current model does not tie cowl-flap position to this calculation.)</li>
   <li><strong>Cold weather sluggishness:</strong> Cold hydraulic fluid flows more slowly. Flap travel takes longer and brake response feels softer and slower. This improves as the fluid warms during engine operation. Landing-gear travel is not affected by cold fluid.</li>
   <li><strong>Pressure recovery time:</strong> After operating a major actuator, system pressure drops as the accumulator delivers stored energy. The engine-driven pump must run for several seconds to recharge the accumulator. Rapid sequential operations (gear up immediately followed by flap retraction) can outpace the pump.</li>
-  <li><strong>Seal wear:</strong> Hydraulic seals wear over time, especially under continuous pressure. Worn seals allow internal leakage, which can cause slow gear (and flap) drift from the retracted position. This wear is tracked in the maintenance system.</li>
+  <li><strong>Seal wear:</strong> Hydraulic seals wear over time, especially under continuous pressure. Worn seals allow fluid to bypass the piston, so the actuator can no longer hold position without pressure. On the flaps this shows as creep toward the retracted position; on the landing gear it is modelled per leg, so one leg can misbehave while the others are sound. This wear is tracked in the maintenance system.</li>
 </ul>
 
 <h3>Why It Matters</h3>

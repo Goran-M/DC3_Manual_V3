@@ -460,7 +460,7 @@ The screen dominates the face. Around it sit two knobs at the top for power and 
 
 <table>
   <tr><th>Control</th><th>What it is</th></tr>
-  <tr><td><span class="ctl">PWR/VOL</span></td><td>Power switch (off the OFF detent) and COM 1 volume. Push (PUSH/SQ) defeats the COM squelch.</td></tr>
+  <tr><td><span class="ctl">PWR/VOL</span></td><td>Power switch (off the OFF detent) and COM 1 volume. Push (PUSH/SQ) defeats the COM squelch, in the pop-out and the stack.</td></tr>
   <tr><td><span class="ctl">COM &#8644;</span></td><td>Swaps the active and standby COM frequencies.</td></tr>
   <tr><td><span class="ctl">VOL/PUSH-ID</span></td><td>NAV 1 volume; push toggles the NAV station identifier audio.</td></tr>
   <tr><td><span class="ctl">NAV &#8644;</span></td><td>Swaps the active and standby NAV (VLOC) frequencies.</td></tr>
@@ -495,7 +495,7 @@ The bottom-right dual knob drives the GPS pages. The outer ring moves between pa
 <table>
   <tr><th>Key</th><th>Function</th></tr>
   <tr><td><span class="ctl">CDI</span></td><td>Selects the GNS 530's own navigation source, GPS or VLOC.</td></tr>
-  <tr><td><span class="ctl">OBS</span></td><td>Holds the active waypoint (suspends automatic sequencing) and lets you select a course to or from it.</td></tr>
+  <tr><td><span class="ctl">OBS</span></td><td>Holds the active waypoint, suspending automatic sequencing. On the real unit you can then select a course to or from it; in this build the HSI course knob is inert while the source is GPS, so the course stays on the GPS desired track.</td></tr>
   <tr><td><span class="ctl">MSG</span></td><td>Shows system messages when the message annunciator prompts you.</td></tr>
   <tr><td><span class="ctl">FPL</span></td><td>Opens the flight plan pages to build or edit a route.</td></tr>
   <tr><td><span class="ctl">VNAV</span></td><td>Opens vertical navigation planning.</td></tr>
@@ -528,6 +528,10 @@ The screen shows the active radio frequencies along the top and the current GPS 
 
 <p>
 Switch the GNS 530 on, by rotating the PWR/VOL knob off its OFF detent, and it runs through the same start-up sequence a real Garmin 530 performs, in order: a splash screen, a navigation database confirmation, and an instrument self-test, before it settles on the moving map. After the splash, each page waits for you to press ENT, so you step through the start-up at your own pace.
+</p>
+
+<p>
+The sequence runs on every power-on, which includes loading the aircraft in any state where the unit is already switched on, so the After Start, Powered and saved-state presets all put you on the splash screen rather than the map. Until you have pressed ENT through all three pages the unit is not yet navigating, and the HSI shows a NAV flag even though the 530 is plainly lit. That is the sequence, not a fault.
 </p>
 
 <div class="image-placeholder">
@@ -603,6 +607,7 @@ The GNS 530 rewards a few habits. Almost everything is some combination of: turn
 <div class="callout note">
   <div class="callout-title">The CDI source drives the HSI</div>
   <p>The CDI key picks whether the GNS 530 feeds GPS or VLOC guidance to the panel, and that choice drives the KI 525A HSI and, through it, the KAP 140 autopilot. So a coupled ILS or VOR approach is flown on the 530's VLOC receiver with the source set to VLOC, and a GPS approach with it set to GPS. See <a href="#integration">Integration with the DC-3 Stack</a> for how the pieces fit together.</p>
+  <p><strong>Use the CDI key on the panel itself.</strong> In the current build only the 3-D key moves the HSI source. The same key in the pop-out window and in the avionics stack does not, so if you press it there the annunciation can change without the HSI, the KAP 140 or your guidance following it. Before a coupled approach, set the source on the panel and confirm the HSI agrees.</p>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -618,7 +623,7 @@ The GNS 530 rewards a few habits. Almost everything is some combination of: turn
 
 <h3>Squelch defeat (PUSH/SQ)</h3>
 <ol>
-  <li>Click the centre of the PWR/VOL knob (PUSH/SQ). The knob pops out and the open-receiver static fades in.</li>
+  <li>Click the centre of the PWR/VOL knob (PUSH/SQ). The knob pops out and the open-receiver static fades in. This clickspot exists in the pop-out window and the avionics stack; there is no squelch clickspot on the 3-D panel in the current build, so use one of those two to defeat squelch.</li>
   <li>Listen. Hearing the hiss confirms the COM 1 receiver is powered and alive. A weak station too faint to break the squelch on its own can also be read through the static this way.</li>
   <li>Set your listening level: click the left or right side of the PWR/VOL knob, or roll the mouse wheel over it, turning COM volume up for a louder hiss, down toward the OFF detent for quieter.</li>
   <li>Click the centre again. The knob seats back in, the squelch re-engages, and the channel goes quiet until a transmission comes in.</li>
@@ -653,7 +658,7 @@ The GNS 530 is wired as the number-one radio set, and it drives the panel's prim
 
 <ul>
   <li><strong>It is COM 1 and NAV 1.</strong> Its COM is COM 1 and its VLOC is NAV 1. The Bendix/King KX 165A is the number-two set (COM 2 / NAV 2).</li>
-  <li><strong>It feeds the DME.</strong> Set a KDI 572 to N1 and it channels its DME from the GNS 530's NAV 1 (VLOC) frequency.</li>
+  <li><strong>It feeds the DME.</strong> Set a KDI 572 to N1 and it channels its DME from the GNS 530's NAV 1 (VLOC) frequency. In this build the DME keeps channelling from that frequency even with the 530's own power knob at OFF, so a DME reading is not by itself proof that the 530 is running.</li>
   <li><strong>It drives the HSI.</strong> The KI 525A HSI shows the GNS 530's course and glideslope, and the CDI key selects which source it uses, GPS or the 530's VLOC (VOR/ILS) receiver. The HSI needs the 530 powered and booted to show a valid course.</li>
   <li><strong>The autopilot follows it.</strong> The KAP 140 couples to whatever the HSI is showing, so a coupled VOR or ILS approach is flown on the 530 with the CDI source set to VLOC, and a GPS or RNAV approach with it set to GPS.</li>
   <li><strong>The KX 165A drives its own course head.</strong> The number-two radio feeds the separate round VOR/ILS course indicator, not the HSI, so the panel has two independent course displays: the HSI on the 530, the VOR head on the KX 165A.</li>
@@ -690,6 +695,7 @@ A powered GNS 530 shows the moving map with your position and route, the active 
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
   <tr><td>Screen dark</td><td>The PWR/VOL knob is in OFF, the GPS breaker is open, or there is no avionics power.</td><td>Turn the PWR/VOL knob off OFF, then check the GPS breaker and the avionics master.</td></tr>
+  <tr><td>HSI shows a NAV flag with the 530 lit</td><td>The unit is still in its power-on sequence and has not started navigating.</td><td>Press ENT to step through the splash, database and self-test pages until the moving map appears.</td></tr>
   <tr><td>MSG annunciator</td><td>The unit has a message for you.</td><td>Press MSG to read it, then clear it.</td></tr>
   <tr><td>No NAV identifier</td><td>Wrong VLOC frequency, out of range, or the ident audio is off.</td><td>Recheck the frequency and push VOL/PUSH-ID to bring up the identifier.</td></tr>
 </table>

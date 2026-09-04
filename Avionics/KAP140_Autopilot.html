@@ -637,7 +637,7 @@ ARM turns altitude-preselect capture on and off. You usually do not need to pres
 
 <h3>BARO</h3>
 <p>
-Press BARO to show the current barometric setting in the display for a few seconds. While it is shown, the inner knob adjusts it. Hold BARO for about two seconds to switch the units between inches of mercury and hectopascals. Keep this setting matched to your altimeter so the preselect and alerting altitudes are correct.
+Press BARO to show the current barometric setting in the display for a few seconds. While it is shown, the inner knob adjusts it. Hold BARO for about two seconds to switch the units between inches of mercury and hectopascals. In this build the setting is a readout only: the preselect and alerting altitudes are taken from the pilot's altimeter regardless of what the autopilot shows here.
 </p>
 
 <h3>The dual knob</h3>
@@ -731,7 +731,7 @@ Altitude preselect is the headline feature of this autopilot. You dial in the al
 
 <h4>Preselect and capture</h4>
 <ol>
-  <li>Dial the target altitude on the knob (outer ring for hundreds, inner knob for finer steps). With the autopilot engaged, dialing a new altitude arms capture automatically and ARM appears.</li>
+  <li>Dial the target altitude on the knob (outer ring in 1000 ft steps, inner knob in 100 ft steps). With the autopilot engaged, dialing a new altitude arms capture automatically and ARM appears.</li>
   <li>Set a climb or descent with UP or DN. The autopilot flies the vertical speed toward the target.</li>
   <li>As you approach the target altitude, the autopilot captures it, switches to ALT, and holds. You do not need to do anything; it levels off on its own.</li>
 </ol>
@@ -741,9 +741,9 @@ Altitude preselect is the headline feature of this autopilot. You dial in the al
 The alerter watches the preselected altitude and warns you about it, whether or not the autopilot is flying. It is useful even when you are hand-flying.
 </p>
 <ul>
-  <li><strong>Approaching:</strong> about 1000 ft before the selected altitude, ALERT comes on steady and a tone sounds. It stays lit until you are within about 200 ft, then goes out as you acquire the altitude.</li>
+  <li><strong>Approaching:</strong> about 1000 ft before the selected altitude, ALERT comes on steady. It stays lit until you are within about 200 ft, then goes out as you acquire the altitude. The alerter is a light only in this build; there is no tone with it.</li>
   <li><strong>Reached:</strong> as you level off at the selected altitude, ALERT gives a brief flash and clears.</li>
-  <li><strong>Deviating:</strong> if you later drift more than 200 ft away from the selected altitude, ALERT flashes and a tone sounds to call your attention back.</li>
+  <li><strong>Deviating:</strong> if you later drift more than 200 ft away from the selected altitude, ALERT flashes to call your attention back.</li>
 </ul>
 
 <figure class="mode-strips">
@@ -765,7 +765,7 @@ The alerter watches the preselected altitude and warns you about it, whether or 
 <h2 id="baro">9. Barometric Setting</h2>
 
 <p>
-Because the preselect and alerting altitudes are based on the autopilot's own pressure sensing, the KAP 140 carries its own barometric setting, and you should keep it matched to your altimeter. By default it follows the aircraft altimeter automatically; once you adjust it by hand it stays where you put it.
+The real KAP 140 does its own pressure sensing, so it carries its own barometric setting. In this build that setting is displayed but not used: the preselect and alerting altitudes come from the pilot's altimeter. By default the autopilot's baro follows the aircraft altimeter automatically; once you adjust it by hand it stays where you put it, and nothing else changes.
 </p>
 <ol>
   <li>Press BARO. The current setting appears in the display.</li>
@@ -789,7 +789,7 @@ The lateral side of the KAP 140 does more than hold a heading. NAV tracks a cour
 
 <h4>NAV</h4>
 <p>
-NAV intercepts and tracks a VOR course. Press NAV and the mode arms: the HDG annunciator flashes for a few seconds as a reminder to check the heading bug (this happens whenever the mode arms, whether you were in HDG or wing-level ROL), and the autopilot holds its current lateral path until the course comes alive, then it captures and tracks it. Set the course you want with the HSI course pointer first, so the autopilot knows which radial to fly.
+NAV intercepts and tracks a VOR course. Press NAV and the mode arms. If you were in HDG, the HDG annunciator flashes for a few seconds as a reminder to check the heading bug; arming from wing-level ROL shows no flash, because there is no HDG legend lit to flash. The autopilot holds its current lateral path until the course comes alive, then captures and tracks it. Capture happens as soon as the needle is on the scale at all, so if you arm NAV with the course already alive it will go straight into NAV. Set the course you want with the HSI course pointer first, so the autopilot knows which radial to fly.
 </p>
 
 <figure class="mode-strips">
@@ -807,7 +807,7 @@ APR is the ILS mode, and it arms both axes at once: the localizer laterally and 
 
 <h4>REV (back course)</h4>
 <p>
-REV flies a localizer back course, where the localizer signal is reversed. It tracks the back-course lateral guidance and does not use a glideslope. Tune the localizer on the KX 165A and set the front-course heading as the reference; the autopilot handles the reverse sensing.
+REV flies a localizer back course, where the localizer signal is reversed. It tracks the back-course lateral guidance and does not use a glideslope. Tune the localizer on the GNS 530 and select its VLOC source, the same as for the other coupled modes, then set the front-course heading as the reference; the autopilot handles the reverse sensing. The KX 165A drives the separate VOR/ILS head and is not what REV tracks.
 </p>
 
 <h4>Glideslope (GS)</h4>
@@ -940,7 +940,7 @@ Every time the autopilot disconnects, by your press or on its own, the AP annunc
   <li><strong>Hold to engage, tap to drop.</strong> Engaging takes a deliberate press and hold; disengaging is a single press. This keeps a stray click from engaging the autopilot.</li>
   <li><strong>Trim before you engage.</strong> Hand the autopilot a trimmed, stable aircraft. It flies better, and watch for the PT prompt asking you to trim in flight.</li>
   <li><strong>Dial altitudes early.</strong> Set each cleared altitude into the preselect as you receive it, so the alerter and capture are working for you.</li>
-  <li><strong>Keep baro matched.</strong> The autopilot's baro setting drives the preselect and alerting altitudes. Keep it set to your altimeter.</li>
+  <li><strong>The autopilot's baro is a readout.</strong> It is worth keeping matched to your altimeter for tidiness, but in this build it does not affect the preselect or alerting altitudes, which come from the altimeter itself.</li>
   <li><strong>Heading comes from the HSI.</strong> There is no heading knob on the autopilot. The heading bug on the HSI is the reference for HDG mode.</li>
   <li><strong>The alerter works hand-flown.</strong> Altitude alerting is independent of the autopilot, so it warns you about the preselected altitude even when you are flying by hand.</li>
 </ul>

@@ -494,7 +494,7 @@ Three numbers, shown together: distance on the left in nautical miles, groundspe
 
 <table>
   <tr><th>Indication</th><th>Meaning</th></tr>
-  <tr><td>Dashes in all windows</td><td>Searching, or no usable signal. Lock-on takes about a second.</td></tr>
+  <tr><td>Dashes in all windows</td><td>Searching, or no usable signal. Lock-on takes about a second. After a retune the windows may briefly hold the previous station's figures instead of dashing, so give the numbers a moment to settle before you trust them.</td></tr>
   <tr><td>Distance and a low groundspeed, time dashed</td><td>Locked on, but not tracking toward or away from the station: the time-to-station is no longer meaningful and dashes, while the groundspeed reads low.</td></tr>
   <tr><td>All three reading</td><td>Locked on and closing on the station: distance, groundspeed, and time-to-station.</td></tr>
   <tr><td>1H or H2</td><td>The DME is in HOLD, channeled to the held NAV 1 (1H) or NAV 2 (H2) source.</td></tr>
@@ -542,7 +542,7 @@ This earns its keep on an instrument approach. Many ILS frequencies have no DME 
 <ol>
   <li>With avionics power on and the DME breaker closed, rotate the function selector off OFF to N1 or N2, whichever NAV radio carries the station you want.</li>
   <li>Tune the VOR or VORTAC on that NAV radio. The DME searches briefly (dashes), then locks on and shows the distance, followed by groundspeed and time.</li>
-  <li>Identify the station by its Morse code on the NAV audio, just as you would for navigation. The DME has no separate identifier of its own.</li>
+  <li>Identify the station by its Morse code on the NAV audio, just as you would for navigation. A real DME transmits its own identifier as well, but this aircraft's audio panel has no DME monitor position, so the NAV audio is the only way to identify the station here.</li>
 </ol>
 
 <h3>Keep DME through an ILS approach</h3>
@@ -579,7 +579,7 @@ Each KDI 572 can be opened in its own floating window, handy on a second monitor
 </p>
 
 <p>
-Inside the window the selector works as it does in the cockpit: roll the mouse wheel over it, or click its halves, to step through OFF, N1, HLD, and N2. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize, with the bezel letterboxed so the face keeps its proportions.
+Inside the window, roll the mouse wheel over the selector to step through OFF, N1, HLD and N2, or click its left and right halves to step it down and up. The wheel behaves the same on the 3-D panel; the click halves do not, so on the panel itself the wheel is the reliable way to step the selector both ways. Click the unit's nameplate to dock or undock the window. Docked, it fills the window edge to edge; undocked, it floats as an ordinary window you can drag and resize, with the bezel letterboxed so the face keeps its proportions.
 </p>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -596,14 +596,15 @@ A working KDI 572 channeled to a station you are tracking shows all three number
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
   <tr><td>Display dark</td><td>The selector is in OFF, the DME breaker is open, or there is no avionics power.</td><td>Turn the selector off OFF, then check the breaker and the avionics master.</td></tr>
+  <tr><td>Both DMEs dark, rest of the stack alive</td><td>The Powered and After Start presets bring the radios and transponder up but leave both DME selectors in OFF.</td><td>Turn each function selector off OFF to N1 or N2. Nothing is wrong.</td></tr>
   <tr><td>Persistent dashes</td><td>No DME signal: out of range, terrain in the way, the NAV is tuned to a station with no DME, or below line of sight.</td><td>Confirm the NAV is tuned to a DME-equipped station and that you are within range and line of sight.</td></tr>
   <tr><td>Time-to-station dashed, groundspeed low</td><td>You are not tracking toward or away from the station.</td><td>Normal. Both read true again when the station is ahead of or behind you.</td></tr>
   <tr><td>1H or H2 unexpectedly</td><td>The selector is in HOLD, frozen on an old source.</td><td>Return to N1 or N2 to channel from the current NAV tuning.</td></tr>
 </table>
 
 <div class="callout note">
-  <div class="callout-title">DME range is terrain-aware</div>
-  <p>Reception in the DC-3 is modeled with real propagation. DME is line-of-sight, so range grows with altitude and a station can drop out behind high terrain even when the chart says you are close enough. A lock that comes and goes near terrain is the model working, not a failure.</p>
+  <div class="callout-title">What decides whether the DME locks</div>
+  <p>The DME locks when the tuned frequency has a DME facility associated with it and a distance is available. It is not run through the terrain-aware propagation model that the navigation and communication receivers use, so it will not fade behind a ridge the way a VOR does. Treat a lost lock as a tuning or coverage question rather than a terrain one.</p>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -613,11 +614,11 @@ A working KDI 572 channeled to a station you are tracking shows all three number
 
 <ul>
   <li><strong>The DME follows the NAV radio.</strong> There is nothing to tune on the box. Tune the station on NAV 1 or NAV 2 and select the matching source.</li>
-  <li><strong>Identify on the NAV audio.</strong> The DME has no identifier of its own. Confirm the station by its Morse code on the NAV side.</li>
+  <li><strong>Identify on the NAV audio.</strong> This aircraft's audio panel has no DME monitor position, so confirm the station by its Morse code on the NAV side.</li>
   <li><strong>HOLD for the approach.</strong> Channel a VORTAC, switch to HOLD, then tune the ILS, and the DME stays with the VORTAC. Watch for 1H or H2 so you remember it is held.</li>
   <li><strong>It is slant range.</strong> Near and high, the distance is more than the ground distance, and it will not read zero overhead. Past three times your altitude, the difference is nothing.</li>
   <li><strong>Groundspeed needs the station ahead or behind.</strong> Off to the side, the groundspeed sags toward zero and the time-to-station dashes out. That is geometry, not a fault.</li>
-  <li><strong>Two boxes, two breakers.</strong> The captain's and first officer's DMEs power up and channel independently.</li>
+  <li><strong>Two boxes, two breakers.</strong> The captain's and first officer's DMEs power up and channel independently, and they are not simply the same box twice: they use different lock criteria, so on a marginal station one can show a distance while the other still shows dashes. If they disagree, the station is marginal.</li>
 </ul>
 
 <hr>
