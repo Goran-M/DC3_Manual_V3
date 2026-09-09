@@ -582,7 +582,7 @@ The DC-3's installation is the two-axis version with altitude preselect. The aut
 </figure>
 
 <p>
-The KAP 140 has a single display window, a row of mode buttons, and one dual concentric knob on the right. There are no separate annunciator lamps: every active mode is spelled out on the display itself.
+The KAP 140 has a single display window, a row of mode buttons, and one dual concentric knob on the right. Every active mode is spelled out in the display window rather than on a bank of separate mode lamps. The only lamps on the face itself are the two red axis annunciators, described below the control table.
 </p>
 
 <table>
@@ -597,6 +597,18 @@ The KAP 140 has a single display window, a row of mode buttons, and one dual con
   <tr><td>8</td><td><span class="ctl">BARO</span></td><td>Shows the baro setting; hold to switch units. Inner knob adjusts it.</td></tr>
   <tr><td>9</td><td><span class="ctl">ARM</span></td><td>Arms or disarms altitude preselect capture.</td></tr>
   <tr><td>10</td><td><span class="ctl">Knob (dual concentric)</span></td><td>Outer ring = coarse altitude preselect (1000 ft per click). Inner = fine altitude (100 ft per click), or the baro setting when baro is shown.</td></tr>
+</table>
+
+<h3>The axis annunciators</h3>
+
+<p>
+Two small red lamps sit on the bezel itself rather than inside the display window. They are on the left of the faceplate, side by side, below the round light sensor and directly above the <span class="ctl">AP</span> button, with <span class="ctl">P</span> on the left and <span class="ctl">R</span> beside it. Each reports the health of one of the autopilot's two axes, and they are the only indications on the unit that are not part of the display.
+</p>
+
+<table>
+  <tr><th>Lamp</th><th>Axis</th><th>What it means when lit</th></tr>
+  <tr><td><span class="ctl">P</span></td><td>Pitch</td><td>A pitch axis failure. The autopilot disengages, and the pitch axis cannot be engaged.</td></tr>
+  <tr><td><span class="ctl">R</span></td><td>Roll</td><td>A roll axis failure. The autopilot disengages, and it will not engage at all.</td></tr>
 </table>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -917,11 +929,30 @@ A powered KAP 140 shows its display steadily, with the preselected altitude on t
 Every time the autopilot disconnects, by your press or on its own, the AP annunciator flashes for about five seconds and a short aural tone sounds. Because the warning is wired to the battery bus, it still fires even if the autopilot dropped out because it lost the avionics bus. Treat any unexpected disconnect warning as a prompt to take the controls and re-trim.
 </p>
 
+<h4>The axis annunciators, P and R</h4>
+<p>
+The two red lamps on the bezel report the health of the autopilot's two axes. A lit <strong>P</strong> is a pitch axis failure: the autopilot disengages and the pitch axis cannot be engaged. A lit <strong>R</strong> is a roll axis failure: the autopilot disengages and will not engage at all. Either way, hand-fly, and do not expect the autopilot back while the lamp is on.
+</p>
+<p>
+A red P is not always a failure, though. There are two everyday cases where it lights and then clears on its own.
+</p>
+<p>
+<strong>Just after the preflight test.</strong> The pitch axis accelerometer needs a moment to settle, and the P can stay lit for up to thirty seconds while it does. Engagement is locked out until the lamp goes out. Wait for it, then engage as normal.
+</p>
+<p>
+<strong>After rough air.</strong> The P can light with the autopilot not even engaged, when the unit's own G limits have been exceeded in turbulence or manoeuvring. Engagement is locked out again while it is lit. Fly the aeroplane, let things settle, and engage once the lamp clears.
+</p>
+<p>
+In both cases the lamp goes out by itself and the autopilot becomes available again. A P that will not clear, or an R at any time, is the failure indication rather than one of these.
+</p>
+
 <h4>What to watch for</h4>
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
-  <tr><td>Display dark</td><td>No power: avionics master off, or the AUTOPILOT breaker is open.</td><td>Restore avionics power and check the breaker. The autopilot cannot engage unpowered.</td></tr>
+  <tr><td>Display dark</td><td>No power: avionics master off, or the AUTOPILOT breaker is open.</td><td>Restore avionics power and check the breaker. The autopilot cannot engage unpowered, and its knobs and buttons do nothing until power returns; they still turn and click.</td></tr>
   <tr><td>AP annunciator flashing + tone</td><td>The autopilot has disconnected.</td><td>Take the controls, re-trim, and re-engage if appropriate.</td></tr>
+  <tr><td>Red <span class="ctl">P</span> lit</td><td>A pitch axis failure. The autopilot drops out and the pitch axis will not engage.</td><td>Hand-fly. If it has just finished its preflight test, or you have been through rough air, give it a moment: see above.</td></tr>
+  <tr><td>Red <span class="ctl">R</span> lit</td><td>A roll axis failure. The autopilot drops out and will not engage at all.</td><td>Hand-fly. Neither axis is available while it is lit.</td></tr>
   <tr><td>PT with an arrow</td><td>The autopilot is calling for pitch trim in the indicated direction.</td><td>Trim in the direction shown to relieve the pitch servo.</td></tr>
   <tr><td>ALERT flashing</td><td>You have deviated more than 200 ft from the selected altitude.</td><td>Return to the selected altitude, or set a new one.</td></tr>
 </table>

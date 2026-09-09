@@ -607,7 +607,7 @@ The leftmost knob sets how loud the COMM receiver is in your headset. Turn it do
 
 <h3>COMM tuning knobs (PULL 8.33K)</h3>
 <p>
-The COMM frequency is set with the dual concentric knob. The <strong>outer</strong> knob steps the megahertz digits (the part left of the decimal). The <strong>inner</strong> knob steps the kilohertz digits (the part right of the decimal) in 25 kHz increments. Tuning always changes the <strong>standby</strong> frequency, never the active one. The frequency wraps at the ends of the band, so keeping the outer knob turning past 136 rolls it round to 118. Note that in the current build the inner knob wraps the whole frequency in the same way rather than rolling the kilohertz digits over in place, so turning it up past 136.975 jumps you to 118.000 instead of stepping the megahertz digit. Set the megahertz with the outer knob and the kilohertz with the inner one and you will not meet it.
+The COMM frequency is set with the dual concentric knob. The <strong>outer</strong> knob steps the megahertz digits (the part left of the decimal). The <strong>inner</strong> knob steps the kilohertz digits (the part right of the decimal) in 25 kHz increments. Tuning always changes the <strong>standby</strong> frequency, never the active one. The frequency wraps at the ends of the band, so keeping the outer knob turning past 136 rolls it round to 118. The inner knob rolls the kilohertz digits over in place: past .975 it comes round to .000 of the same megahertz, and the megahertz digit moves only with the outer knob.
 </p>
 <p>
 Pull the inner knob out to engage <strong>8.33 kHz</strong> spacing. The standby frequency snaps to the nearest valid 8.33 kHz channel, and the inner knob now steps through the finer 8.33 kHz channel set. Push the knob back in to return to 25 kHz spacing.
@@ -787,7 +787,7 @@ You never tune the active frequency directly. Pre-tune in standby, then transfer
 
 <h3>Store and recall COMM channels</h3>
 <p>
-The KX 165A holds 32 programmable COMM presets. In this release the presets reset to their defaults each time the aircraft is reloaded; cross-session persistence is planned for a later update. Use them for the frequencies you tune again and again: your home field, common UNICOM, the en-route centers you work.
+The KX 165A holds 32 programmable COMM presets in non-volatile memory: what you program is there on the next flight, as on the real unit. Use them for the frequencies you tune again and again: your home field, common UNICOM, the en-route centers you work.
 </p>
 <p><strong>To recall a stored channel:</strong></p>
 <ol>
@@ -893,7 +893,7 @@ A working, powered KX 165A shows a steady orange readout: active and standby COM
 <h4>What to watch for</h4>
 <table>
   <tr><th>Indication</th><th>Meaning</th><th>What to do</th></tr>
-  <tr><td>Display is dark</td><td>No power. Avionics master off, no electrical power, or the COM/NAV breaker is open.</td><td>Restore avionics power and check the breaker.</td></tr>
+  <tr><td>Display is dark</td><td>No power. Avionics master off, no electrical power, or the COM/NAV breaker is open.</td><td>Restore avionics power and check the breaker. The knobs and buttons do nothing until power returns, though they still turn, pull and click; a knob pulled while dark takes effect when the unit comes alive.</td></tr>
   <tr><td>No station identifier when PULL IDENT is out</td><td>You are not receiving a usable navaid, or the volume is down.</td><td>Recheck the frequency, the volume, and that you are within range of the station.</td></tr>
   <tr><td>Bearing-To / Radial-From blank or static</td><td>No usable VOR signal.</td><td>These modes need a received VOR. Confirm tuning, range, and terrain.</td></tr>
   <tr><td>T indicator stays on / stuck-mic alert</td><td>The mic has been keyed past 33 seconds.</td><td>Release the microphone. The alert clears when the key is released.</td></tr>

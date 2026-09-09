@@ -805,7 +805,7 @@ Engine instruments are arranged in matched pairs, left engine on the left, right
   <li><strong>Cylinder Head Temperature Gauges</strong> &ndash; Maximum 260&deg;C</li>
   <li><strong>Fuel Pressure Gauges</strong> &ndash; Normal range 14-16 PSI</li>
   <li><strong>Fuel Quantity Gauge</strong> &ndash; Single gauge with 4-position selector knob (L AUX, L MAIN, R MAIN, R AUX)</li>
-  <li><strong>Carburetor Temperature Gauge</strong> &ndash; Monitor for icing conditions</li>
+  <li><strong>Carburetor Temperature Gauge</strong> &ndash; Induction air at the carburetor scoop; shows the preheat rise, not the icing drop</li>
 </ul>
 
 <h4>Overhead Panel</h4>
@@ -898,7 +898,7 @@ The Modern variant represents a DC-3 that has received avionics upgrades during 
 <h3>What Changed</h3>
 
 <p>
-The flight instruments, engine instruments, overhead panel, and pedestal are identical to the Classic variant. The differences are concentrated in the avionics stack:
+The flight instruments, engine instruments, overhead panel, and pedestal are otherwise identical to the Classic variant, with one detail worth knowing: the Modern airspeed indicators flutter with turbulence, and each needle is fed from its own pitot line, so the two do not move as one and a blocked pitot shows on that side alone. The rest of the differences are concentrated in the avionics stack:
 </p>
 
 <div class="table-scroll"><table>
@@ -908,7 +908,7 @@ The flight instruments, engine instruments, overhead panel, and pedestal are ide
   <tr><td>Transponder</td><td>Mode A/C transponder</td><td>Bendix/King KT 73 Mode S</td></tr>
   <tr><td>ADF</td><td>Radio compass</td><td>Dual Bendix/King KR87</td></tr>
   <tr><td>Compass / HSI</td><td>Vacuum DG + Magnesyn compass</td><td>KCS 55A: KI 525A HSI + KA 51B slaving</td></tr>
-  <tr><td>RMI</td><td>None</td><td>KI 229 Radio Magnetic Indicator</td></tr>
+  <tr><td>RMI</td><td>Two ID-250 azimuth indicators</td><td>KI 229 Radio Magnetic Indicator</td></tr>
   <tr><td>Flight Director</td><td>None</td><td>KI 256 Flight Command Indicator</td></tr>
   <tr><td>Instrument Lighting</td><td>Radium glow (no power required)</td><td>Electric backlighting (power required)</td></tr>
   <tr><td>GPS</td><td>None</td><td>Garmin GNS 530</td></tr>
@@ -1010,6 +1010,10 @@ The MAINTENANCE tab shows the current condition of every major system. Wear leve
 </p>
 
 <p>
+The Condition block at the top covers six systems: the two engines, and beside them the hydraulic pumps, the landing gear, the flaps and the brakes. The hydraulic and brake bars each show the <em>worse</em> of their pair rather than an average of the two, and that is deliberate. An aeroplane with one good pump and one failing one is not in half-decent shape, and one with a good left brake and a spent right one is not either; it is an aeroplane that will swerve. Averaging would bury exactly the thing you need to see, so the bar reports the weaker half and lets you find out which on the detail lines below.
+</p>
+
+<p>
 Two scheduled inspections are tracked against airframe hours: <strong>Check 1</strong> at 180 hours or 120 days, and <strong>Check 2</strong> at 950 hours or one year, whichever falls first. Both count as you fly and carry over between sessions, so an airframe you have used heavily arrives at its next inspection sooner than one you have flown occasionally. Engine oil quantity is remembered between sessions in the same way.
 </p>
 
@@ -1020,6 +1024,14 @@ Two scheduled inspections are tracked against airframe hours: <strong>Check 1</s
 
 <p>
 Fluid levels for hydraulic fluid, engine oil, and propeller de-ice alcohol are displayed with progress bars showing the current quantity in US gallons. Each has a FILL UP button to restore the fluid to full capacity. The hydraulic fluid level shown here matches the reservoir sight glass in the cockpit; filling it up here is equivalent to a ground crew topping off the reservoir during a service stop.
+</p>
+
+<p>
+The emergency air bottle has a bar of its own below the fluids, reading in PSI stored against its full charge rather than in gallons, with a <strong>RECHARGE</strong> button beside it. Like the FILL UP buttons, RECHARGE appears only on the ground. There is no compressor aboard the aeroplane, so charging the bottle is a ground job and there is no way to get it back once you are airborne. The figure on the bar is the charge the bottle holds; what it will actually deliver drops in the cold, so a full bar on a freezing ramp is worth less than the same bar on a warm day. The bottle is covered in <a href="#ch-hydraulics">Chapter 9</a>.
+</p>
+
+<p>
+Below that sits <strong>BRAKE LINING CONDITION</strong>, one line per main wheel. Each reads the percentage of lining left with the adjusting pin's recession beside it, measured against the quarter-inch limit. Past the limit the line turns amber and counts down the twenty-five landings you have left before a reline is due; past the countdown it reads red. A wheel whose brake has been overheated says so on its own line, because that damage does not heal and only a reline will clear it. <strong>RELINE BRAKES</strong> fits a new set, on the ground. This panel is the only place lining condition can be seen anywhere in the aeroplane, for the reason set out in <a href="#ch-hydraulics">Chapter 9</a>.
 </p>
 
 <div class="callout note">
@@ -1050,7 +1062,7 @@ When critical situations arise, the STATUS tab displays step-by-step emergency p
 
 <h4>Fuel System Condition</h4>
 <p>
-Real-time fuel system monitoring including outside air temperature, humidity, carburetor icing risk assessment, fuel line ice accumulation, cold start priming requirements, cylinder fuel charge status (ranging from Dry through Flooded), and water contamination levels per tank with drain buttons.
+Real-time fuel system monitoring including outside air temperature, humidity, carburetor icing risk assessment, fuel line ice accumulation, cold start priming requirements, cylinder fuel charge status (ranging from Dry through Flooded), and the water in each tank's sump and each engine's strainer bowl, with the drains.
 </p>
 
 <h4>Gyroscopic Instruments</h4>
@@ -1060,7 +1072,7 @@ Vacuum pump output, pump temperature and efficiency, attitude indicator and dire
 
 <h4>Hydraulic System</h4>
 <p>
-Main system pressure, fluid temperature, and thermal relief valve status.
+Main system pressure, fluid temperature, and thermal relief valve status, together with the emergency air bottle. The bottle is reported as <em>applications remaining</em> rather than as a pressure: how many stops you have left at full braking, and how many before the bottle is spent altogether. When the question is how many times you can still stop the aeroplane, that is a more useful answer than a number in PSI.
 </p>
 
 <h4>Battery and Electrical</h4>
@@ -1096,7 +1108,16 @@ The rear main cabin entry door can be opened and closed from the OPTIONS tab. Th
 
 <h4>Autopilot Mode</h4>
 <p>
-For the Classic variant, choose between the full-fidelity Sperry A-3A simulation and a simplified version with more forgiving behavior.
+For the Classic variant, choose how the Sperry A-3A holds heading. <strong>Realistic</strong> is the default.
+</p>
+<p>
+<strong>Realistic</strong> is rudder-only heading control, which is what the real A-3A had. It is also why the real unit had a reputation for being squirrelly and wanting watching: with nothing damping the yaw, it holds a heading but hunts around it, and you coordinate the turn yourself with rudder trim.
+</p>
+<p>
+<strong>Simplified</strong> adds turn-coordinator and slip damping that the real unit never had. The aeroplane sits steadier and asks less of you. It is a deliberate choice to make, not a fallback.
+</p>
+<p>
+Your choice is remembered between sessions.
 </p>
 
 <h4>Hardware Settings</h4>
@@ -1108,6 +1129,10 @@ Ground handling assistance for pilots without rudder pedals or who prefer simpli
   <li><strong>Rudder Controls Differential Brakes</strong> &ndash; Rudder input applies differential braking</li>
   <li>Sensitivity sliders for both options</li>
 </ul>
+<h4>Radium Dials (Classic)</h4>
+<p>
+<strong>Aged dials</strong> switches the radium glow from paint as it was in service to what an eighty-year-old unrestored dial gives today, which is nearly dark. The slider sets the overall radium brightness. Both are remembered between sessions.
+</p>
 
 <h4>Mixture Controls</h4>
 <p>
@@ -1267,7 +1292,10 @@ The DISPATCH tab is your flight-planning worksheet. It takes the loading you set
 <h4>Weights and Balance</h4>
 
 <p>
-The left side lists every weight component (empty weight, passengers by compartment, cargo holds, and fuel), totalling to <strong>zero fuel weight</strong> and <strong>takeoff weight</strong>, each with its computed centre-of-gravity arm, plus an estimated landing weight. Two limit checks are shown in plain language: takeoff weight is flagged <em>WITHIN LIMITS</em> up to the simulation's operating limit of <strong>26,200 lbs</strong>, and the CG is checked against the loaded envelope (approximately 6.05 to 6.65 m). An out-of-limit weight or CG turns red so you can catch it before you taxi.
+The left side lists every weight component (empty weight, passengers by compartment, cargo holds, and fuel), totalling to <strong>zero fuel weight</strong> and <strong>takeoff weight</strong>, each with its computed centre-of-gravity arm, plus an estimated landing weight. Three limit checks are shown in plain language: takeoff weight is flagged <em>WITHIN LIMITS</em> up to the simulation's operating limit of <strong>26,200 lbs</strong>, and the CG is checked twice against the loaded envelope (approximately 6.05 to 6.65 m), once at takeoff weight and again at zero fuel. Anything out of limits turns red, and the tab names which of the two centres of gravity is the problem, so you can catch it before you taxi.
+</p>
+<p>
+The zero-fuel check is worth understanding, because the reason for it is not obvious. Both fuel arms sit aft of the aft CG limit, so fuel always pulls the centre of gravity aft and burning it off always walks the CG forward. An aeroplane loaded nose-heavy can therefore sit comfortably inside the envelope at takeoff and slide out through the <em>forward</em> limit as the tanks empty. Checking the CG only at takeoff weight would miss it entirely.
 </p>
 
 <h4>Performance</h4>
@@ -1378,47 +1406,6 @@ AviTab is a free, open-source Electronic Flight Bag plugin by Folke Will, now ma
 
 <p>
 <strong>Battery.</strong> The tablet runs on its own battery and charges from the aircraft's DC bus, drawing a small load whenever aircraft power is available. On battery alone a full charge lasts roughly five and a half hours of screen-on time; if it runs flat the screen goes dark, AviTab included, until aircraft power returns and charges it. Keep an eye on the percentage during long cold-and-dark sessions.
-</p>
-
-<h3>System Schematic Popups</h3>
-
-<p>
-Two additional popup windows display live system schematics:
-</p>
-
-<h4>Electrical System Schematic</h4>
-<p>
-Opened by binding the command <code>les/dc3/cmd/misc/elec_schematic</code> to a key or button (it toggles the window open and closed).
-</p>
-<p>
-Displays the complete DC-3 electrical system with live data overlays: battery voltage, GPU output, generator voltages and amperages, and active power paths highlighted based on current switch positions. The schematic updates in real time, allowing you to trace power flow and diagnose electrical issues visually.
-</p>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Electrical schematic popup]</span>
-  <span class="description">Electrical system schematic window showing bus layout, generators, battery, with live voltage/amperage readings</span>
-</div>
-
-<h4>Hydraulic System Schematic</h4>
-<p>
-Opened by binding the command <code>les/dc3/cmd/misc/hyd_schematic</code> to a key or button (it toggles the window open and closed).
-</p>
-<p>
-Displays the hydraulic system with color-coded pressure status:
-</p>
-<ul>
-  <li><span style="color:#27ae60;font-weight:bold;">Green (NORMAL)</span> &ndash; 650-875 PSI</li>
-  <li><span style="color:#e67e22;font-weight:bold;">Orange (MARGINAL)</span> &ndash; 400-650 PSI</li>
-  <li><span style="color:#c0392b;font-weight:bold;">Red (LOW/HIGH)</span> &ndash; Below 400 or above 875 PSI</li>
-</ul>
-
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Hydraulic schematic popup]</span>
-  <span class="description">Hydraulic system schematic showing pump, accumulator, actuators, pressure gauge with color status</span>
-</div>
-
-<p>
-Both schematics are resizable and can remain open during flight. They are particularly useful during pre-flight checks, troubleshooting, and training scenarios.
 </p>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -1633,7 +1620,7 @@ Two transformers in the voltage regulator compartment step the inverter output d
 <h4>AC Ground Interlock</h4>
 <p>
 The DC-3's generators are rated for 60 amps continuous, and the main inverter alone draws 48 amps from the DC bus. On the ground with only one generator running, the inverter's load combined with everything else could easily overload the generator. To prevent this, an AC ground interlock relay is actuated by the landing gear safety switch. When the aircraft is on the ground, the interlock automatically removes the autopilot (175 VA) and the IFF system (175 VA) from the inverter's load, cutting the inverter's DC draw by roughly 10 to 12 amps.
-</p>
+ A ground interlock override, bound to <code>les/dc3/cmd/elec/ac_interlock_override_toggle</code>, defeats the relay so the autopilot and IFF can be run from the inverter on the ground for testing, as the real override switch does.</p>
 
 <p>
 A guarded override switch above the copilot's side window bypasses this interlock, allowing full AC loads on the ground when necessary (for example, when testing the autopilot during maintenance). Use it with caution: the total generator load must not exceed 135 amps during ground operations.
@@ -1694,7 +1681,7 @@ The 115V, 400-hertz AC bus is fed by whichever inverter is running (main takes p
 
 <div class="callout tip">
   <div class="callout-title">Bus Limiters Are Not Circuit Breakers</div>
-  <p>Bus limiters are fusible links. Unlike circuit breakers, they cannot be reset in flight. If a bus limiter blows, everything downstream of it is gone for the remainder of the flight. The aircraft is designed so that a blown limiter on one branch does not cascade to the others, but you will need to identify which loads you have lost and manage accordingly. The electrical schematic popup (Plugins > DC-3 > Electrical Schematic) shows limiter status in real time.</p>
+  <p>Bus limiters are fusible links. Unlike circuit breakers, they cannot be reset in flight. If a bus limiter blows, everything downstream of it is gone for the remainder of the flight. The aircraft is designed so that a blown limiter on one branch does not cascade to the others, but you will need to identify which loads you have lost and manage accordingly.</p>
 </div>
 
 <!-- ── Emergency Power ── -->
@@ -1828,7 +1815,7 @@ With both generators offline, you are on battery power only. Battery duration de
 </p>
 
 <p>
-If the main bus itself has failed (a bus limiter blown, a wiring fault), the emergency power switch provides battery power directly to basic instrument lighting and the copilot's turn-and-bank indicator, bypassing the main bus entirely. This is your absolute last resort for maintaining instrument reference.
+If the main bus itself has failed (a bus limiter blown, a wiring fault), the emergency power switch provides battery power directly to basic instrument lighting and the copilot's turn-and-bank indicator, bypassing the main bus entirely. This is your absolute last resort for maintaining instrument reference. In this build the switch is not yet modelled in the cockpit: bind the command <code>les/dc3/cmd/elec/emergency_power_toggle</code> (or the separate on and off commands) to a key or button.
 </p>
 
 <hr>
@@ -1969,7 +1956,7 @@ A master magneto switch and individual L/R switches control the grounding circui
 </table></div>
 
 <p>
-The cylinder fuel charge is modeled in detail. Each primer stroke adds fuel to the cylinders, but that fuel does not stay indefinitely. In warm cylinders, fuel vaporizes and dissipates quickly (the charge decays at about 0.08 per second). In cold cylinders, fuel sits as liquid and barely evaporates (0.001 per second), which is both why you need more primer in cold weather and why flooding is a real risk: the fuel just accumulates. The optimal fuel charge for ignition is between 25% and 50%. Below 15%, there is not enough fuel to fire. Above 80%, the mixture is too rich. At 100%, the engine is flooded.
+The cylinder fuel charge is modeled in detail. Each primer stroke adds fuel to the cylinders, but that fuel does not stay indefinitely. In warm cylinders, fuel vaporizes and dissipates quickly (the charge decays at about 0.08 per second). In cold cylinders, fuel sits as liquid and barely evaporates (0.001 per second), which is both why you need more primer in cold weather and why flooding is a real risk: the fuel just accumulates. The optimal fuel charge for ignition is between 25% and 50%. Below 15%, there is not enough fuel to fire. Above 80%, the mixture is too rich. At 100%, the engine is flooded. The lean-side figures are of the vaporized part of the charge, which is what the spark can light and which shrinks in the cold (see Cold Fuel and Engine Starting in the physics chapter); the rich-side figures are of the total, liquid included.
 </p>
 
 <div class="callout note">
@@ -1995,7 +1982,7 @@ When the aircraft has been sitting in cold conditions, multiple systems are affe
   <li><strong>Fuel:</strong> Cold cylinders do not vaporize fuel efficiently. Raw fuel injected by the primer remains as liquid, accumulating rather than combusting. More primer shots are required, but each shot lingers longer, increasing flood risk.</li>
   <li><strong>Battery:</strong> Cold batteries deliver less capacity. Combined with the higher current draw from cranking a stiff engine (the starter heats up faster fighting thick oil), cold weather can turn engine starting into a race between getting the engine lit and running out of battery.</li>
   <li><strong>Gyros:</strong> Vacuum-driven gyro instruments spin up slowly in cold weather due to thickened lubricant in their bearings. Do not trust them until fully stabilized (up to five minutes in severe cold).</li>
-  <li><strong>Prop Governor:</strong> The constant-speed propeller governor uses engine oil to change blade pitch. In extreme cold, thickened governor oil slows the governor's response to RPM changes. The governor's response factor can drop to as little as 10% of its normal speed at -40&deg;C, meaning blade pitch changes sluggishly after engine start until the oil warms up.</li>
+  <li><strong>Prop Governor:</strong> The constant-speed propeller governor uses engine oil to change blade pitch. In the cold, thickened oil throttles that flow and the blades take longer to move, bottoming out at about 10% of normal speed. This is a start-up and taxi effect: it fades as the governor oil warms and is gone by about 40&deg;C, which is also the minimum oil temperature for takeoff, so it has always cleared before the aeroplane is legal to fly.</li>
 </ul>
 
 <h4>Hot Starts</h4>
@@ -2086,7 +2073,7 @@ An engine cover interlock blocks the TRAIL and OPEN positions while a cover is i
 
 <h4>Magneto Check</h4>
 <p>
-During run-up at approximately 2,350 RPM, each magneto is tested individually by switching from BOTH to L and then to R, noting the RPM drop. Normal RPM drop is 50 to 75 RPM per magneto, with a maximum allowable drop of 100 RPM and a maximum allowable difference between L and R of 40 RPM. A drop exceeding 100 RPM indicates a weak magneto or fouled plugs. No drop at all is worse: it means the magneto switch is not properly grounding the opposite magneto, which is a safety hazard (the engine could fire unexpectedly when someone pulls the prop through on the ground).
+During run-up at approximately 2,350 RPM, each magneto is tested individually by switching from BOTH to L and then to R, noting the RPM drop. Normal RPM drop is 50 to 75 RPM per magneto, with a maximum allowable drop of 100 RPM and a maximum allowable difference between L and R of 40 RPM. A drop exceeding 100 RPM indicates a weak magneto or fouled plugs. If an engine dies outright when you select one side, that magneto has failed, and this is where you find out: the run-up check is a real diagnostic here, not a ritual. No drop at all is worse: it means the magneto switch is not properly grounding the opposite magneto, which is a safety hazard (the engine could fire unexpectedly when someone pulls the prop through on the ground).
 </p>
 
 <!-- ── Oil System ── -->
@@ -2094,25 +2081,27 @@ During run-up at approximately 2,350 RPM, each magneto is tested individually by
 <h3>Oil System</h3>
 
 <p>
-Each engine carries 29 quarts (7.25 gallons) of oil in its tank. Oil is not just a lubricant in a radial engine; it is the engine's lifeblood. It lubricates bearings, cools internal components through heat transfer, operates the constant-speed propeller governor, and provides hydraulic pressure for prop pitch changes. Losing oil pressure is not a warning. It is the beginning of the end for that engine.
+Each engine carries 27&frac34; US gallons (111 quarts) of usable oil in a saddle-shaped tank behind the firewall, with room above that for expansion, a warming hopper inside it, and a standpipe in the sump that keeps a reserve for the propeller feathering pump alone. Oil is not just a lubricant in a radial engine; it is the engine's lifeblood. It lubricates bearings, cools internal components through heat transfer, operates the constant-speed propeller governor, and provides hydraulic pressure for prop pitch changes. Losing oil pressure is not a warning. It is the beginning of the end for that engine.
 </p>
 
 <h4>Oil Pressure</h4>
 <p>
-Oil pressure varies with RPM and temperature. The engine-driven oil pump delivers pressure proportional to engine speed, while temperature affects oil viscosity and therefore flow resistance. Normal readings:
+Oil pressure comes from a gear pump driven by the engine and a relief valve. The pump delivers flow in proportion to RPM; the bearings and galleries leak it back at a rate set by the oil's viscosity, so at low RPM with hot, thin oil the pressure is whatever the engine's own clearances hold, and as the engine wears toward overhaul that falls. Once the pump delivers more than the engine leaks, the relief valve bypasses the excess and holds the pressure near its setting, about 85 PSI. Diluted oil is thinner and reads lower until the fuel boils off; the wrong grade reads high or low the same way. What a healthy engine reads, beside the limits from the engine manual:
 </p>
 
 <div class="table-scroll"><table>
   <thead>
-    <tr><th>Condition</th><th>Oil Pressure</th></tr>
+    <tr><th>Condition</th><th>Healthy engine</th><th>Manual limit</th></tr>
   </thead>
   <tbody>
-    <tr><td>Idle (~800 RPM)</td><td>15 PSI minimum</td></tr>
-    <tr><td>1,200 RPM at 185&deg;F</td><td>45 PSI minimum</td></tr>
-    <tr><td>2,000 RPM at 140&deg;F</td><td>80-85 PSI (nominal)</td></tr>
-    <tr><td>2,250 RPM at 200&deg;F</td><td>65 PSI minimum</td></tr>
-    <tr><td>Climb (2,550 RPM at 200&deg;F)</td><td>80 PSI minimum</td></tr>
-    <tr><td>Maximum normal</td><td>90 PSI</td></tr>
+    <tr><td>Idle (~800 RPM), oil still warming (60&deg;C)</td><td>80-85 PSI, on the relief valve</td><td>15 PSI minimum</td></tr>
+    <tr><td>Idle (~800 RPM), oil hot (85&deg;C)</td><td>40-45 PSI</td><td>15 PSI minimum</td></tr>
+    <tr><td>1,200 RPM at 185&deg;F</td><td>About 65 PSI</td><td>45 PSI minimum</td></tr>
+    <tr><td>2,000 RPM at 140&deg;F</td><td>85-90 PSI</td><td>80-90 PSI desired</td></tr>
+    <tr><td>2,230 RPM at 185&deg;F</td><td>About 85 PSI</td><td>65 PSI minimum</td></tr>
+    <tr><td>Climb (2,550 RPM at 200&deg;F)</td><td>About 85 PSI</td><td>80 PSI minimum</td></tr>
+    <tr><td>Cold start (oil near 0&deg;C)</td><td>90-92 PSI, pinned on the relief valve</td><td>100 PSI gauge limit</td></tr>
+    <tr><td>Engine at overhaul time</td><td>Reads the manual's minimums</td><td></td></tr>
   </tbody>
 </table></div>
 
@@ -2173,11 +2162,11 @@ Oil temperature cannot be driven below approximately ambient + 15&deg;C by the c
 
 <h4>Oil Consumption and Leaks</h4>
 <p>
-The R-1830 consumes oil during normal operation. At idle, consumption is about 0.5 quarts per hour. At cruise, expect approximately 2.5 quarts per hour. At takeoff power, consumption can reach 5 quarts per hour. With a 29-quart tank and a low warning at 12 quarts, you have reasonable endurance, but on long flights at high power, oil level is worth monitoring.
+The R-1830 consumes oil in proportion to the power it makes. The flight manual's limits are 0.020 lb per horsepower-hour at 70 percent of rated power and 0.025 at rated power, about 6 quarts an hour at cruise for an engine at the end of its overhaul life; a fresh engine burns roughly half that, and the figure climbs with the hours on the overhaul clock. With 111 quarts usable and the low warning at 18, a fresh engine has a day and a half of oil at cruise. The MAINTENANCE tab shows the same figure the engine drains, and LES.ini keeps it between sessions; FILL UP and CHANGE OIL fill the tank to the dipstick mark. Let the tank run down to the feathering standpipe and the engine pump has nothing to draw: the oil pressure collapses and the warning light comes on.
 </p>
 
 <p>
-Oil leaks can develop at several locations: propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines. Leak severity ranges from minor (1 quart per hour, manageable) to catastrophic (20 quarts per hour, engine loss imminent). Visual oil streaks appear on the engine nacelle when a leak is active. The MAINTENANCE tab shows oil levels and leak status.
+Oil leaks can develop at several locations: propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines; hydraulic leaks at the pump, the reservoir, the gear actuator and the brake lines. The odds of a new one grow with the flight hours since the last service, about one prop-seal seep per engine per 150 hours on average, and an engine overhaul or Check 1 resets that clock. Severity ranges from a seep (1 quart per hour, manageable) to a rupture (20 quarts per hour, engine loss imminent). The MAINTENANCE tab lists every active leak with its rate and what it has cost, with a REPAIR button for each, engines stopped; an overhaul repairs that engine's leaks. Leaks and the service clocks are kept in LES.ini between sessions. The oil leak on the FAILURES tab is a real leak in that engine's oil line, draining the tank at 8 quarts an hour until it is repaired on either tab.
 </p>
 
 <!-- ── Oil Dilution ── -->
@@ -2238,7 +2227,13 @@ The propeller governor maintains the RPM you select on the prop lever by automat
 </p>
 
 <p>
-In cold weather, the governor oil thickens and the governor's response to RPM changes slows. At -40&deg;C, the governor's response speed can drop to 10% of normal, meaning blade pitch changes sluggishly. You may notice RPM fluctuations during power changes that would not occur with warm oil. The governor warms up along with the engine oil, so this effect diminishes as the flight progresses.
+In cold weather the governor oil thickens. The governor still wants the same RPM; the pitch-change piston just takes longer to deliver it, bottoming out at around 10% of its normal rate. Blade pitch changes sluggishly as a result.
+</p>
+<p>
+This is a warm-up and taxi effect, not something you fly with. The lag fades as the governor oil warms and is gone by roughly 40&deg;C, which is the minimum oil temperature for takeoff, so it clears before the aeroplane is legal to leave the ground. Where you notice it is the run-up: on cold oil the propeller cycle check takes noticeably longer to move and to recover, and a throttle push overshoots the tachometer and settles back slowly.
+</p>
+<p>
+This is part of why the DC-3 run-up exercises the propellers rather than simply checking them once. Cycling the prop circulates warm oil through the dome, and shortening that lag is the point of the exercise.
 </p>
 
 <h4>Propeller Feathering</h4>
@@ -2330,7 +2325,7 @@ Response to an engine fire:
 </ol>
 
 <p>
-Fire damage is cumulative. A fire caught and extinguished in the first few seconds may leave the engine recoverable. A fire that burns for about 8 seconds or more will cause sufficient damage to render the engine unusable for the remainder of the flight, even if extinguished. The fire extinguisher system is covered in <a href="#ch-environmental">Chapter 12: Environmental Systems</a>.
+Fire damage is cumulative. Oil pressure on the burning engine begins to fall after about 20 seconds, the engine runs rough and loses power after about 30, and a fire left to burn for about 50 seconds destroys it: the engine quits, appears in the FAILURES tab as a complete engine failure, and stays failed until repaired. A fire put out before that leaves the engine recoverable. With the failure system switched off, a fire still burns with its heat and pressure effects but does not destroy the engine. The fire extinguisher system is covered in <a href="#ch-environmental">Chapter 12: Environmental Systems</a>.
 </p>
 
 <!-- ── Engine Covers ── -->
@@ -2477,7 +2472,7 @@ A fuel strainer (filter) sits in the fuel line between the tank selector and eac
 </p>
 
 <p>
-A severely contaminated strainer can clog completely, blocking fuel flow to that engine. This is a realistic failure mode, and it is worth understanding what does and does not clear it. The simulation tracks two separate things: the particulate loading that restricts the strainer and produces the pressure drop (up to 8 PSI, which the fuel-pressure gauge reflects), and water, which collects in the tanks and drives fuel-line icing in cold weather. The STATUS tab provides drain buttons for each tank, reproducing the real-world practice of sumping fuel before flight: they clear the accumulated water, resetting it to zero. They do not clear a particulate strainer blockage, which is a wear/failure condition managed through the FAILURES and MAINTENANCE systems.
+A severely contaminated strainer can clog completely, blocking fuel flow to that engine. This is a realistic failure mode, and it is worth understanding what does and does not clear it. The simulation tracks two separate things: the particulate loading that restricts the strainer and produces the pressure drop (up to 8 PSI, which the fuel-pressure gauge reflects), and water. Water collects in the sump at the bottom of each tank, from moist air breathing in and out of the vented tank while the aeroplane is parked, from a landing with the fuel colder than the ground's dew point, from dissolved water separating as the fuel cools, and from what every fuel delivery brings with it; what reaches an engine's line is caught in its strainer bowl. The STATUS tab shows each sump and each bowl in cc, with the two drains the aeroplane has: DRAIN SUMP for each tank and DRAIN STRAINER for each engine, on the ground, the real preflight. They do not clear a particulate strainer blockage, which is a wear/failure condition managed through the FAILURES and MAINTENANCE systems. Tourist mode accrues no water.
 </p>
 
 <!-- ── Fuel Quantity ── -->
@@ -2625,11 +2620,11 @@ The cabin heater burns fuel from the aircraft's tanks (it is a combustion heater
 <h3>Carburetor Icing</h3>
 
 <p>
-Carburetor icing is one of the most insidious hazards of piston-engine flight, and the R-1830 is not immune. As fuel vaporizes in the carburetor's venturi, it absorbs heat from the surrounding air. Combined with the cooling effect of the venturi itself (air accelerating through a constriction drops in temperature), the temperature at the carburetor throat can fall 11 to 22&deg;C (20 to 40&deg;F) below the outside air temperature. If that puts the throat temperature near or below freezing, and there is moisture in the air, ice forms on the internal surfaces of the carburetor and progressively restricts airflow.
+Carburetor icing is one of the most insidious hazards of piston-engine flight, and the R-1830 is not immune, though it ices differently from a light aircraft. Its Bendix-Stromberg PD12 is a pressure-injection carburetor: fuel is discharged under pressure below the throttle, so there is none of the venturi refrigeration icing a float carburetor suffers. NACA iced this carburetor on this engine in a 1944 laboratory series and found two things that matter. In clear humid air at part throttle, condensate from the expansion through the venturis freezes on the throttle plates, which are chilled by the throttle expansion and by fuel eddying back from the nozzle below; this happens at carburetor air temperatures up to about 13&deg;C (56&deg;F) in saturated air and about 19&deg;C (66&deg;F) when the humidity is nearer 45 percent, and it is slow: the worst laboratory run lost 5 percent of its air flow in a quarter of an hour. In rain or cloud between freezing and about 18&deg;C (65&deg;F), water carried into the scoop freezes on the fuel nozzle's spray bar and on the vanes at the supercharger entrance, and that is fast: heavy rain at 4&deg;C halved the air flow in fifteen minutes. With the throttles wide open there is no icing in clear air at any temperature; rain can still ice the induction system up to about 23&deg;C (73&deg;F). Ice can also form on the air scoop and screen in visible moisture below freezing.
 </p>
 
 <p>
-The dangerous thing about carburetor icing is how broad the conditions are. It can occur at outside air temperatures as high as 21&deg;C (70&deg;F) if humidity is high. Most pilots associate icing with cold weather, but a warm, damp day at low altitude is a classic carb ice scenario. The most dangerous throttle setting is partial power (cruise and descent), where venturi velocity is high enough to produce maximum cooling but engine heat is not sufficient to keep the carburetor warm.
+The conditions are not the ones a light-aircraft pilot learned. Clear-air throttle ice needs part throttle and cool, humid air, roughly -4 to 13&deg;C outside when the air is near saturation and up to about 19&deg;C when it is drier; the warm, damp day that ices a float carburetor does not ice this one, and above about 19&deg;C (66&deg;F) NACA could make no ice in clear air at any humidity. The case to respect is rain or cloud below about 18&deg;C, at any power, and it is worst when it is cold: a wet approach at 5&deg;C with the heat cold is the scenario the crews' rule of preheat fifteen minutes before known icing was written for. The most exposed throttle setting is partial power (cruise and descent); wide open, clear air cannot ice the carburetor at all.
 </p>
 
 <h4>Icing Severity</h4>
@@ -2652,16 +2647,16 @@ Carburetor ice builds progressively. The simulation tracks five severity levels:
 
 <h4>Carburetor Heat</h4>
 <p>
-The carburetor heat control on each engine diverts heated air (warmed by the exhaust manifold) into the carburetor intake, raising the temperature of the incoming air by up to 35&deg;C. This either prevents ice from forming or melts existing ice. Applying carburetor heat costs approximately 8% of engine power, because hot air is less dense and the engine breathes less mass per cycle. At high throttle settings (above 75%), carburetor heat effectiveness is reduced because the large volume of intake air overwhelms the heat exchanger.
+The carburetor heat control on each engine opens a preheat door in the carburetor air scoop, admitting air warmed by the exhaust collector in place of cold ram air. The lever locks in any position and the door modulates: as the hot side opens, the cold duct closes in proportion, so the lever sets the mix rather than switching it on or off. At full heat the incoming air is raised by about 56 to 60&deg;C, the figure the C-47 maintenance manual gives for the installation, at any power setting. This either prevents ice from forming or melts existing ice. Heated air costs power in proportion to how far the lever is pulled, roughly 8% at full heat, because hot air is less dense and the engine breathes less mass per cycle. The carburetor air temperature gauge reads the air entering the carburetor, from a bulb in the air scoop directly above it, so it shows the preheat rise directly: pull the lever and the needle walks up to the heated-air temperature.
 </p>
 
 <p>
-Use carburetor heat preventively when the carburetor air temperature gauge indicates conditions near freezing, especially at partial throttle during cruise and descent. Do not wait for symptoms. By the time you notice an RPM drop from carb ice, the blockage is already significant. Carb heat is normally removed for takeoff and landing (you want full power available), unless active icing conditions are present.
+The gauge sits upstream of the throttle plate, so it will never show you the drop where the ice forms; in cold ram air it simply reads a little above outside air temperature. Use it the way DC-3 crews did: set the lever to hold about 32&deg;C on the gauge, and never let it read above 38&deg;C, the limit for carburetor air with preheat. On a mild day full heat reads far above that limit, which is why the lever modulates; about a third of the travel is enough at 15&deg;C outside, most of it at -20&deg;C. When conditions are in the icing band, roughly -4 to 19&deg;C outside in humid clear air at part throttle, or rain and cloud below about 18&deg;C at any power, apply carburetor heat before ice forms and hold the gauge at 32&deg;C; the STATUS tab in the Hangar carries a caution for those conditions. Do not wait for symptoms. By the time you notice an RPM drop from carb ice, the blockage is already significant. If ice has formed, go to full heat for half a minute, then ease the lever back until the gauge holds 32&deg;C. Carb heat is normally removed for takeoff and landing (you want full power available), unless active icing conditions are present.
 </p>
 
 <div class="callout warning">
   <div class="callout-title">Carb Ice During Descent</div>
-  <p>Descent is the most common phase of flight for carburetor icing events. You are at partial throttle (low engine heat), descending through moist air, and possibly distracted by approach briefing and checklists. Monitor the carburetor air temperature gauge during every descent, and apply carb heat if the temperature is anywhere near the icing range. Ice builds gradually and the engine may run normally until the restriction becomes severe enough to cause a power loss that gets your attention at exactly the wrong moment.</p>
+  <p>Descent is the most common phase of flight for carburetor icing events. You are at partial throttle (low engine heat), descending through moist air, and possibly distracted by approach briefing and checklists. Check the outside air temperature and humidity before every descent, and if they are anywhere near the icing band, apply carb heat for the descent and watch the gauge confirm the rise. Ice builds gradually and the engine may run normally until the restriction becomes severe enough to cause a power loss that gets your attention at exactly the wrong moment.</p>
 </div>
 
 <!-- ── Icing: Fuel Lines ── -->
@@ -2677,11 +2672,11 @@ When outside air temperature drops below 0&deg;C and water contamination is pres
 </p>
 
 <p>
-The simulation tracks water contamination per tank. Fuel line ice builds at a rate proportional to the contamination level and the degree of cold. Once the ice level reaches approximately 10%, fuel flow begins to be restricted. Above 70%, the line is effectively blocked and the engine will starve for fuel.
+The simulation tracks the water in each tank's sump and in each engine's strainer bowl. Water reaches the bowl when a sump overflows, or when sloshing on the takeoff roll or in turbulence stirs it up to the tank outlet. Above freezing, a bowl that overflows passes a slug of water to the carburetor: the engine coughs, quits and catches again as the slug passes, and does it again while water keeps arriving. That is the classic water-in-the-fuel stoppage, and the takeoff roll is the worst place for it. Below freezing, the water in the bowl freezes onto the strainer screen over minutes. The ice restricts the strainer, which shows on the fuel pressure gauge as a drop of up to 8 PSI; at about 90% the strainer is blocked and the engine starves. A sump whose water has frozen cannot be drained until the fuel is warm again.
 </p>
 
 <p>
-Prevention is straightforward: drain the tank strainers before flight. This removes accumulated water from the bottom of the tanks where it collects. In the simulation, use the drain buttons on the STATUS tab. In cold weather operations, this is not optional.
+Prevention is straightforward: sump the tanks and drain the strainers before flight. Sumping takes the water out of the well at the bottom of each tank where it collects; the strainer drains empty what has already been carried toward the engines. In the simulation, use the DRAIN SUMP and DRAIN STRAINER buttons on the STATUS tab. In cold weather operations, this is not optional.
 </p>
 
 <p>
@@ -2693,11 +2688,11 @@ Fuel line ice thaws slowly when the engine is warm (oil temperature above 40&deg
 <h3>Cold Fuel and Engine Starting</h3>
 
 <p>
-Fuel temperature affects engine starting directly. Cold fuel vaporizes poorly, which means the fuel-air mixture entering the cylinders during cranking may not be rich enough to ignite reliably. The simulation models this as a vaporization factor that ranges from 1.0 (good vaporization at 15&deg;C and above) down to 0.3 (poor vaporization at very cold temperatures).
+Fuel temperature affects engine starting directly. The primer puts liquid fuel into the induction system, and only the part of it that becomes vapour makes a mixture the spark can light; the rest wets the walls. The vapour pressure of avgas falls steeply with temperature, so the simulation carries a vaporization fraction: 1.0 at 15&deg;C and above, following the fuel's vapour-pressure curve below that (about 0.45 at 0&deg;C and 0.25 at -10&deg;C), with a floor of 0.2 at about -15&deg;C, where the booster coil's spark lighting fuel droplets is what starts an engine at all. The STATUS tab shows it.
 </p>
 
 <p>
-The practical effect is that cold starts require more primer strokes to wet the cylinder walls with enough fuel to fire. The number of extra strokes depends on fuel temperature:
+The practical effect is that the engine fires on the vapour but floods on the total. Each primer stroke delivers the same quantity of fuel at any temperature; in the cold, more strokes are needed before the vapour reaches the lean limit, while the liquid keeps piling up toward the flooding limit, and the two limits close on each other as it gets colder. Extra strokes needed, beyond the three or four of a warm day:
 </p>
 
 <div class="table-scroll"><table>
@@ -2706,9 +2701,9 @@ The practical effect is that cold starts require more primer strokes to wet the 
   </thead>
   <tbody>
     <tr><td>15&deg;C and above</td><td>0 (standard priming)</td></tr>
-    <tr><td>0&deg;C to 15&deg;C</td><td>1 to 3 extra</td></tr>
-    <tr><td>-10&deg;C to 0&deg;C</td><td>3 to 6 extra</td></tr>
-    <tr><td>Below -10&deg;C</td><td>6 to 8 extra</td></tr>
+    <tr><td>0&deg;C to 15&deg;C</td><td>1 to 4 extra</td></tr>
+    <tr><td>-10&deg;C to 0&deg;C</td><td>4 to 9 extra; the catch is lean and rough</td></tr>
+    <tr><td>Below -10&deg;C</td><td>9 to 12 extra; a stroke or two separates first fire from over-rich</td></tr>
   </tbody>
 </table></div>
 
@@ -2736,11 +2731,18 @@ Fuel temperature approximates the outside air temperature after the aircraft has
     <tr><td>Low fuel pressure warning</td><td>Below 6 PSI</td></tr>
     <tr><td>Gravity head assist</td><td>~2 PSI</td></tr>
     <tr><td>Fuel low warning threshold</td><td>~50 US gal per feed tank</td></tr>
-    <tr><td>Carb heat temp rise</td><td>Up to 35&deg;C</td></tr>
-    <tr><td>Carb heat power penalty</td><td>~8%</td></tr>
-    <tr><td>Carb temp drop (venturi + vaporization)</td><td>11-22&deg;C below OAT</td></tr>
-    <tr><td>Carb icing OAT range</td><td>-15&deg;C to +25&deg;C</td></tr>
-    <tr><td>Max strainer pressure drop</td><td>8 PSI (when contaminated)</td></tr>
+    <tr><td>Carb heat temp rise (full heat)</td><td>56-60&deg;C</td></tr>
+    <tr><td>Carb air temp with preheat</td><td>Hold 32&deg;C, 38&deg;C maximum</td></tr>
+    <tr><td>Carb heat power penalty</td><td>~8% at full heat, in proportion to the lever</td></tr>
+    <tr><td>Throttle-plate cooling (readout, never on the gauge)</td><td>Up to 13&deg;C</td></tr>
+    <tr><td>Carb icing, clear air (NACA 1944, this carburetor)</td><td>-4 to 13&deg;C saturated, to 19&deg;C drier; part throttle only</td></tr>
+    <tr><td>Carb icing, rain or cloud</td><td>0 to 18&deg;C, 23&deg;C wide open; any power</td></tr>
+    <tr><td>Worst clear-air rate</td><td>About 5% of air flow per 15 min</td></tr>
+    <tr><td>Heavy rain at 4-5&deg;C</td><td>Up to 50% of air flow per 15 min</td></tr>
+    <tr><td>Max strainer pressure drop</td><td>8 PSI (when contaminated or iced)</td></tr>
+    <tr><td>Tank sump capacity</td><td>1 US gal per tank (estimate)</td></tr>
+    <tr><td>Strainer bowl</td><td>0.3 litres per engine (estimate)</td></tr>
+    <tr><td>Water slug that stumbles the engine</td><td>About 30 cc, 1 to 3 seconds</td></tr>
   </tbody>
 </table></div>
 
@@ -2785,12 +2787,12 @@ When the selector is in ALTERNATE, the left engine pump alone maintains main sys
 
 <h4>Autopilot Shutoff Valve</h4>
 <p>
-A separate shutoff valve gates hydraulic pressure to the autopilot servos. It must be open for the A-3A to function. When closed, the autopilot has no hydraulic authority regardless of the pump selector position. This valve is normally closed when the autopilot is not in use, isolating the servo circuit from the main system.
+A separate shutoff valve gates hydraulic pressure to the autopilot servos. It must be open for the A-3A to function. When closed, the autopilot has no hydraulic authority regardless of the pump selector position. This valve is normally closed when the autopilot is not in use, isolating the servo circuit from the main system. The Gyropilot will not engage with it closed, and drops out if it is closed in flight. Its pedestal lever is not yet in the cockpit, so the valve starts open; the toggle command in the hydraulic group closes it.
 </p>
 
 <h4>Reservoir</h4>
 <p>
-The hydraulic reservoir holds 2.5 US gallons (10 quarts) of MIL-H-5606 fluid. On the real aircraft it is divided into two compartments: a main compartment (1.75 gallons, 7 quarts) feeding the engine-driven pumps and a separate reserve compartment (0.75 gallons, 3 quarts) feeding the hand pump exclusively, so that a leak draining the main system still leaves the hand pump reserve for emergency use. The simulation models the reservoir as a single fluid level (shown on the MAINTENANCE tab and the cockpit sight glass) rather than reproducing the isolated-compartment protection during a leak.
+The hydraulic reservoir holds 2.5 US gallons (10 quarts) of MIL-H-5606 fluid. It is divided into two compartments: a main compartment (1.75 gallons, 7 quarts) feeding the engine-driven pumps and a separate reserve (0.75 gallons, 3 quarts) at the bottom feeding the hand pump exclusively, so that a leak draining the main system still leaves the hand pump its reserve for a gear extension. The simulation keeps a serviced fill under the displacement: the sight glass shows the fill less what is out in the gear, flap, accumulator and brake circuits, leaks lower the fill, FILL UP on the MAINTENANCE tab restores it, and the fill is kept in LES.ini between sessions. Let it fall into the reserve and the engine-driven pumps have nothing to draw: system pressure decays, and the hand pump alone still works, down to the bottom of the glass.
 </p>
 
 <h4>Reservoir Sight Glass</h4>
@@ -2845,15 +2847,15 @@ Before the hand pump can deliver pressure, the hand pump shutoff valve must be o
 
 <h4>Emergency Air Bottle</h4>
 <p>
-A compressed air bottle charged to 1,590 PSI provides a pneumatic reserve for emergency wheel braking if the main hydraulic system loses brake pressure. The bottle's pressure varies with ambient temperature (governed by the Ideal Gas Law), so the gauge will read lower on cold days and higher on hot days even when the bottle is fully charged. A pressure gauge on the cockpit panel shows current bottle pressure.
+A compressed air bottle, charged on the ground to 1,590 PSI, provides a pneumatic reserve for the wheel brakes if the hydraulic system loses brake pressure. The bottle's pressure varies with its temperature (the Ideal Gas Law), so the gauge reads lower on a cold day and higher on a hot one even when the bottle is fully charged. A steel bottle takes the best part of an hour to follow the outside air, so a bottle charged in a warm hangar keeps its pressure into the first cold climb, and one left out overnight starts the day low. On the real aeroplane a 0 to 2,000 PSI gauge marked EMER. AIR BRAKE PRESS. shows the bottle; that gauge is not modelled yet, so the bottle reads on the MAINT tab in DC3 Hangar instead.
 </p>
 
 <p>
-The bottle feeds an emergency brake valve that routes air pressure to the wheel brakes. The bottle itself, its temperature-dependent pressure, and its depletion as pressure is drawn off are all simulated. Note, however, that this build does not yet bind an in-cockpit control to open the valve, so emergency air braking is not currently a pilot-selectable function. The bottle does not extend the landing gear; emergency gear extension is by gravity free-fall (see Gravity Extension), not air pressure.
+The bottle feeds an emergency air brake control valve, a lever to the left of the centreline just below the windshield. Opening it sends air to both wheel brakes together; the pedals play no part, because a shuttle valve at each brake passes whichever pressure is higher, hydraulic or air, and closes the other port. There is no pressure reducer, so the lever meters bottle pressure straight to the brakes: the first application is the strongest the brakes will ever see, and each one after it is a little weaker. Every opening of the valve draws on the bottle; holding it open costs nothing more, so it is pumping the lever that empties it. A warm bottle gives about four applications at full strength and around twenty before there is nothing left. One cold-soaked to minus thirty starts lower and gives three. Until the lever is modelled in the cockpit the valve is on three commands, <code>les/dc3/cmd/brakes/emerg_air_open</code>, <code>emerg_air_close</code> and <code>emerg_air_toggle</code>, which you can bind to a key or a button.
 </p>
 
 <p>
-It is a one-shot system: once discharged, the bottle cannot be recharged in flight.
+It is a one-shot system: there is no compressor on board, so once discharged the bottle cannot be recharged in flight. RECHARGE on the MAINT tab, on the ground, is the ground crew. The bottle's charge is kept between flights. In Tourist mode the bottle is always full. The bottle does not extend the landing gear; emergency gear extension is by gravity free-fall (see Gravity Extension), not air pressure.
 </p>
 
 <!-- ── Landing Gear ── -->
@@ -2896,7 +2898,7 @@ An audible warning horn sounds when the throttles are retarded to low power and 
 
 <h4>Gravity Extension</h4>
 <p>
-If all hydraulic pressure is lost (below approximately 100 PSI) and the emergency air bottle is depleted, the landing gear will extend under its own weight. This is not a controlled extension; it is gravity pulling the heavy gear legs down with no hydraulic damping. The gear will fall and lock, but the process is rougher and slower than a normal hydraulic extension. It is the last line of defense, and it works, because the gear is heavy and hinges are reliable even when everything else has failed.
+If all hydraulic pressure is lost (below approximately 100 PSI), the landing gear will extend under its own weight. The emergency air bottle plays no part in this; it serves the wheel brakes only. This is not a controlled extension; it is gravity pulling the heavy gear legs down with no hydraulic damping. The gear will fall and lock, but the process is rougher and slower than a normal hydraulic extension. It is the last line of defense, and it works, because the gear is heavy and hinges are reliable even when everything else has failed.
 </p>
 
 <!-- ── Wing Flaps ── -->
@@ -2973,9 +2975,41 @@ If you lose hydraulic pressure in flight with the flaps retracted, the flaps wil
 Hydraulic disc brakes are operated by toe pedals on both the captain's and first officer's rudder pedals. Brake pressure comes from the main hydraulic system, limited to 875 PSI by a brake control valve. A brake pressure gauge on the instrument panel shows the pressure being applied.
 </p>
 
+<p>
+How hard the brakes bite follows that pressure. With the system up at its normal operating pressure, full pedal gives you the full braking the aeroplane has. As pressure falls the brakes weaken in step with it, so a system that is bleeding down gives you progressively less for the same push, and below roughly 100 PSI the linings do not bite at all: the pedals go down and nothing happens. This is worth knowing before you need it, because the pressure can be gone long before anything else in the cockpit looks wrong. If the pedals have stopped working, see <em>Emergency Brakes</em> below.
+</p>
+
+<h4>Lining Wear</h4>
+<p>
+The DC-3 brake is a single-disc self-adjusting spot brake, and the self-adjusting part has a consequence worth understanding before you fly it. As the linings wear away, the return springs draw the adjusting pin a little further through its packing nut and the whole piston assembly walks in toward the disc, taking up the slack as it goes. The maintenance manual is blunt about what that buys: the brake needs no adjustment for the entire life of the lining, and the pedal sits in the same place regardless of how worn the lining is.
+</p>
+<p>
+So the brakes give you no warning at all. There is no soft pedal, no travel creeping longer over the weeks, nothing that feels different on the ramp. Braking is at full strength right up to the moment the lining is gone, and then it is not.
+</p>
+
+<div class="callout warning">
+  <div class="callout-title">Warning: Worn Linings Feel Exactly Like New Ones</div>
+  <p>Nothing in the cockpit will tell you your brakes are nearly finished. The only place lining condition can be seen is the MAINTENANCE tab in DC3 Hangar. If you have flown the aeroplane for a while and never looked, look now, because the first sign you get otherwise will be a landing where one side barely slows you and the aircraft pulls toward the good brake.</p>
+</div>
+
+<p>
+The tab shows each main wheel separately, as a percentage remaining with the adjusting pin's recession beside it in thousandths of an inch. That recession is the real aircraft's own wear gauge, and the limit it is measured against is a quarter of an inch. Reach it and the tab turns amber and starts counting: the manual allows twenty-five more landings from that point, and no more. Fly past the countdown and the linings are through on that wheel. It keeps a little braking, not much, and since the two wheels are unlikely to run out together the aeroplane will pull under braking.
+</p>
+
+<p>
+Wear follows braking <em>energy</em>, not hours in the air or the number of landings. A heavy aeroplane stopped hard off a fast approach takes more out of the linings than a light one rolled to a walk, riding the brakes while taxiing wears them for nothing, and braking one side harder than the other wears the two wheels apart, so they can reach the limit at quite different times. Expect a few hundred landings of ordinary use from a set.
+</p>
+
+<p>
+<strong>RELINE BRAKES</strong> on the MAINTENANCE tab fits a new set and clears the countdown. Like the other maintenance actions it is available on the ground only. No lining wear accrues at all in Tourist; Veteran wears them faster than Standard.
+</p>
+
 <h4>Differential Braking</h4>
 <p>
-Differential braking (applying more brake to one side) is the primary method for directional control during taxi, especially at low speeds where rudder authority is limited. The OPTIONS tab in DC3 Hangar offers an option to link rudder input to differential brakes for pilots without toe brake hardware, with adjustable sensitivity (four levels).
+Differential braking (applying more brake to one side) is the primary method for directional control during taxi, especially at low speeds where rudder authority is limited. The OPTIONS tab in DC3 Hangar offers an option to link rudder input to differential brakes for pilots without toe brake hardware, with a sensitivity slider running smoothly from 0 to 100.
+</p>
+<p>
+The assist works the same brakes as the pedals, so it is limited by the same pressure. With the hydraulics dead the rudder-to-brake link does nothing at all, however far the pedals move, and the emergency air brake is the only braking left. That will stop you but it cannot steer you, so plan on the tailwheel and the throttles for direction.
 </p>
 
 <h4>Parking Brake</h4>
@@ -2996,9 +3030,13 @@ If you need to set the parking brake with engines off (for example, after being 
 Releasing the parking brake requires no pressure. Simply push the handle in to unlatch it.
 </p>
 
+<p>
+<strong>If you fly with the keyboard.</strong> X-Plane's brake toggle, the key most simmers know as <em>b</em>, is the parking brake on this aeroplane and is held to the same rule as the handle. With pressure in the system it sets and releases exactly as the handle does. Below 100 PSI it will not set, and pressing it simply does nothing, which will be a change if you have used that key for years and never had it refuse. Build pressure first, with the engines or a few strokes of the hand pump, and it behaves as it always has. Releasing with the key needs no pressure either way. The separate hold-brake keys are not the parking brake: they act like pressing the pedals, for as long as you hold them, and they fade with falling pressure just as the pedals do.
+</p>
+
 <h4>Emergency Brakes</h4>
 <p>
-The DC-3 carries a compressed-air bottle intended as a pneumatic brake reserve if main hydraulic pressure is lost. In the current build the bottle and its emergency brake valve are simulated (pressure, temperature, and depletion), but there is no cockpit control bound to route that pressure to the brakes, so it cannot yet be commanded in flight. See <em>Emergency Air Bottle</em> above for the full description.
+The wheel brakes need pressure, and the simulation no longer supplies it for free. Pedal braking is only as strong as the hydraulic pressure behind it: with both engine pumps stopped the pedals fade over a minute or two as the system bleeds down, the hand pump buys some of it back, and the parking brake cannot be set below 100 PSI. When brake pressure is gone, open the emergency air brake control valve. Air from the bottle goes to both wheels together, strongest on the first application and weaker on each one after it, and a cold bottle starts with less. Close the valve between applications rather than pumping it, since every opening draws on the bottle. The keyboard brakes obey the same pressure as the pedals, and the keyboard brake toggle is the parking brake, gated the same way as the knob. See <em>Emergency Air Bottle</em> in the Hydraulic System chapter for the bottle, the gauge and the recharge.
 </p>
 
 <!-- ── Windshield Wipers ── -->
@@ -3010,7 +3048,7 @@ Hydraulic windshield wipers operate from system pressure through a three-positio
 </p>
 
 <p>
-<strong>Hydraulic pressure requirements.</strong> Like the gear, flaps, and cowl flaps, the wipers are driven by the main hydraulic system, not by an electric motor. With the engines shut down and the system depressurized, moving the wiper switch to LOW or HIGH does nothing &mdash; the blades will not move and no fluid flows. To run the wipers on the ground before engine start, open the hand pump shutoff valve and stroke the hand pump until the hydraulic gauge shows adequate pressure; the wipers will then come to life. You will hear hydraulic fluid begin to flow through the wiper valve at the moment pressure becomes available and the blades start to move &mdash; switching the wipers on with a dead system produces no such sound, because nothing is flowing. Once an engine is running, the engine-driven pumps keep the system pressurized and the wipers operate normally.
+<strong>Hydraulic pressure requirements.</strong> Like the gear, flaps, and cowl flaps, the wipers are driven by the main hydraulic system, not by an electric motor. With the engines shut down and the system depressurized, moving the wiper switch to LOW or HIGH does nothing: the blades will not move and no fluid flows. To run the wipers on the ground before engine start, open the hand pump shutoff valve and stroke the hand pump until the hydraulic gauge shows adequate pressure; the wipers will then come to life. You will hear hydraulic fluid begin to flow through the wiper valve at the moment pressure becomes available and the blades start to move. Switching the wipers on with a dead system produces no such sound, because nothing is flowing. Once an engine is running, the engine-driven pumps keep the system pressurized and the wipers operate normally.
 </p>
 
 <p>
@@ -3200,7 +3238,7 @@ The STATUS tab is your gauge of progress, and the Thickness readout is the most 
 <h3>Thermal Relief</h3>
 
 <p>
-When the aircraft is parked after a flight, heat from the hot engines soaks into the nacelles and warms the hydraulic fluid trapped in the lines. Fluid expands as it heats up. In a closed volume with no room to expand (a sealed actuator, a trapped brake line), pressure rises at roughly 50 PSI for every degree Celsius of temperature increase. Without protection, this thermal expansion could burst lines, blow seals, or damage actuators.
+When the aircraft is parked after a flight, heat from the hot engines soaks into the nacelles and warms the hydraulic fluid trapped in the lines. Fluid expands as it heats up. In a closed volume with no room to expand (a sealed actuator, a trapped brake line), pressure rises steeply with every degree of warming: a few PSI per degree in the gas-cushioned accumulator, about twenty in the brake lines with their flexible hoses, and fifty or more in the rigid gear and cowl flap lines. Without protection, this thermal expansion could burst lines, blow seals, or damage actuators.
 </p>
 
 <p>
@@ -3216,12 +3254,16 @@ The DC-3 has five independent thermal relief valves protecting different zones o
     <tr><td>Left brake line</td><td>750 PSI</td><td>0.1 gal</td></tr>
     <tr><td>Right brake line</td><td>750 PSI</td><td>0.1 gal</td></tr>
     <tr><td>Landing gear actuators</td><td>1,000 PSI</td><td>0.3 gal</td></tr>
-    <tr><td>Cowl flap control valves (integral relief, per engine)</td><td>550 PSI</td><td>0.15 gal</td></tr>
+    <tr><td>Cowl flap control valves (integral relief, per engine)</td><td>1,150 PSI</td><td>0.15 gal</td></tr>
   </tbody>
 </table></div>
 
 <p>
 When pressure in a zone exceeds its setpoint, the relief valve cracks open and vents fluid back to the reservoir at up to 0.5 gallons per minute. The valve reseats once pressure drops approximately 50 PSI below the setpoint. This cycling is normal and expected after engine shutdown on a warm day. You may notice slight fluid level changes in the reservoir sight glass as thermal relief valves cycle.
+</p>
+
+<p>
+Overheating a brake circuit badly enough to make its relief valve dump does lasting harm. The heat glazes the linings and scores the disc, and that wheel stays noticeably weaker than its partner until the brakes are relined; no amount of cooling brings it back. The MAINTENANCE tab names the wheel and says why, so an aeroplane that has started pulling to one side under braking is worth checking there before you assume it is a rigging problem.
 </p>
 
 <p>
@@ -3255,11 +3297,6 @@ The system tracks total gear and flap cycles separately. Warning thresholds are 
 Each engine-driven pump tracks operating hours independently. Warning threshold is 800 hours; overhaul threshold is 1,500 hours. Pump degradation reduces flow rate and the pump's ability to maintain the 650-875 PSI regulator cycle.
 </p>
 
-<h4>High Pressure Events</h4>
-<p>
-The system logs events where pressure exceeds 1,200 PSI. After 100 such events, a warning is generated. High-pressure events accelerate seal wear and indicate a regulator or thermal relief issue that should be investigated.
-</p>
-
 <div class="table-scroll"><table>
   <thead>
     <tr><th>Component</th><th>Warning Threshold</th><th>Overhaul Threshold</th></tr>
@@ -3268,7 +3305,6 @@ The system logs events where pressure exceeds 1,200 PSI. After 100 such events, 
     <tr><td>Gear cycles (up + down)</td><td>5,000</td><td>10,000</td></tr>
     <tr><td>Flap cycles (up + down)</td><td>8,000</td><td>15,000</td></tr>
     <tr><td>Pump hours (per engine)</td><td>800 hrs</td><td>1,500 hrs</td></tr>
-    <tr><td>High pressure events (&gt;1,200 PSI)</td><td>100 events</td><td>N/A</td></tr>
   </tbody>
 </table></div>
 
@@ -3294,6 +3330,8 @@ The system logs events where pressure exceeds 1,200 PSI. After 100 such events, 
     <tr><td>Flap minimum operating pressure</td><td>500 PSI</td></tr>
     <tr><td>Flap relief valve</td><td>430-485 PSI</td></tr>
     <tr><td>Brake control valve limit</td><td>875 PSI</td></tr>
+    <tr><td>Brake bite threshold</td><td>100 PSI</td></tr>
+    <tr><td>Parking brake minimum set pressure</td><td>100 PSI</td></tr>
     <tr><td>Emergency air bottle (at 15&deg;C)</td><td>1,590 PSI</td></tr>
     <tr><td>Wiper minimum pressure</td><td>400 PSI</td></tr>
     <tr><td>Hand pump output per stroke</td><td>~50 PSI</td></tr>
@@ -3366,11 +3404,15 @@ The tailwheel is a full-castering, 360-degree swiveling wheel that provides dire
 
 <h4>Tailwheel Lock</h4>
 <p>
-A spring-loaded locking pin can be engaged to prevent the tailwheel from castering freely. The lock engages only when the wheel is within 5&deg; of center and the aircraft is moving at least 2 knots. If steering forces push the wheel angle past 8&deg;, the lock releases automatically. This means you cannot lock the tailwheel while in a turn; bring the tail straight first, then engage the lock.
+A spring-loaded locking pin can be engaged to prevent the tailwheel from castering freely. The lock engages only when the wheel is within 5&deg; of center and the aircraft is moving at least 2 knots. The lock is a positive key and slot, as on the real aircraft, and steering forces do not release it; only the cockpit lever does. Because it engages only near centre, you cannot lock the tailwheel while in a turn; bring the tail straight first, then engage the lock.
 </p>
 
 <p>
 For takeoff and landing, the tailwheel lock should be engaged. It holds the tail straight during the ground roll, when directional stability matters most. For taxi, unlock the tailwheel to allow full castering for tight turns with differential braking and throttle.
+</p>
+
+<p>
+The lock is protected by an aluminium shear pin, as on the real aircraft. Swerve hard or turn with the lock engaged on dry ground and the pin shears: the tailwheel castors freely, the lock will not engage again, and the FAILURES tab lists the sheared pin until it is repaired there on the ground. On wet, snowy or icy ground the tyre skids before the pin can shear. Unlock before turning, and roll straight for a moment before unlocking, as the maintenance manual instructs. Tourist mode never shears the pin; Veteran shears it a little earlier, as a worn pin would.
 </p>
 
 <h4>Shimmy</h4>
@@ -3400,7 +3442,7 @@ The OPTIONS tab in DC3 Hangar provides assistance options for pilots without ful
 <h3>Control Cable Tension</h3>
 
 <p>
-In cold weather, the steel control cables contract, increasing tension and making the controls feel stiffer. This is a real phenomenon in cable-operated aircraft, and the simulation models it based on ambient temperature using the thermal expansion coefficient of steel. The effect accumulates gradually: a 30&deg;C temperature drop from a warm hangar to a cold cruise altitude shifts the neutral trim point by a noticeable amount, requiring retrimming of both elevator and rudder. The STATUS tab shows the current cable temperature and the resulting elevator and rudder trim bias. Expect to re-trim as the aircraft cold-soaks during climb or warms up during descent.
+In cold weather the control cables go slack, not tight. The DC-3 is an aluminium airframe, and aluminium contracts about twice as much per degree as steel, so a cold-soaked fuselage shrinks more than the steel cables running through it. That is why the maintenance manual's rigging chart gives cable tension against temperature. With the slack, a trim tab can float a little under air load and the neutral trim point moves. The simulation models this from the cable temperature, which follows the outside air with a lag of a few minutes: a 30&deg;C drop from a warm hangar to a cold cruise altitude shifts the neutral trim point by about a degree of tab, enough to need retrimming of both elevator and rudder. The STATUS tab shows the current cable temperature and the resulting elevator and rudder trim bias. Expect to re-trim as the aircraft cold-soaks during climb or warms up during descent.
 </p>
 
 <hr>
@@ -3490,6 +3532,10 @@ The AI cage knob works the same way. While caged, the adjust dial slews the mini
 
 <p>
 Caging in flight does <em>not</em> reset or zero the indication. The card freezes at whatever heading or pitch reference it was reading at the moment you caged. The cage is a freeze-and-slew mechanism, not a recentre button.
+</p>
+
+<p>
+Losing suction does not freeze the attitude indicator. The rotor of an air-driven gyro coasts for a while after the vacuum fails, but its erection system stops at once, so within a minute the horizon bar begins to wander, then droops and banks toward its rest pose, wobbling as the rotor slows. Cage the instrument and fly on the turn-and-slip; the copilot's unit is electric and unaffected. When suction returns the gyro spools back up and the bar recovers over the same minute and a half it takes after an engine start, longer in the cold. There is no instant reset. The same applies before start: with the engines off, an uncaged horizon lies wherever its gimbals settled, which is why the instrument is caged for start and uncaged once the vacuum is up.
 </p>
 
 <h4>Classic and Modern Heading Gyros</h4>
@@ -3690,20 +3736,20 @@ The aircraft carries two CO2 fire bottles (port and starboard) for fire suppress
 </p>
 
 <p>
-The selector valve has four positions:
+The selector valve has three positions. It sweeps an arc with the left engine at one end, the heater compartment at the bottom centre, and the right engine at the other end:
 </p>
 
 <div class="table-scroll"><table>
   <tr><th>Position</th><th>Target</th></tr>
-  <tr><td>OFF</td><td>No compartment selected (safe position)</td></tr>
-  <tr><td>LEFT ENGINE</td><td>Left engine nacelle</td></tr>
-  <tr><td>RIGHT ENGINE</td><td>Right engine nacelle</td></tr>
-  <tr><td>HEATER COMPT</td><td>Cabin heater compartment (below cabin floor)</td></tr>
+  <tr><td>L.H. ENG.</td><td>Left engine nacelle</td></tr>
+  <tr><td>HEATER COMPT.</td><td>Cabin heater compartment (below cabin floor)</td></tr>
+  <tr><td>R.H. ENG.</td><td>Right engine nacelle</td></tr>
 </table></div>
 
 <div class="callout caution">
   <div class="callout-title">Caution</div>
-  <p>Each fire bottle has a limited capacity. There are no second chances. Select the correct compartment before discharging. Discharging into the wrong compartment wastes a bottle and leaves you without suppression for the actual fire.</p>
+  <p><strong>There is no neutral position.</strong> The valve is always pointing at one of the three compartments, so a discharge handle pulled at any time always sends CO2 somewhere. The cockpit placard puts it plainly: <em>to operate, set valve then pull one handle</em>. Set the valve first, every time.</p>
+  <p>Each fire bottle has a limited capacity and there are no second chances. Discharging into the wrong compartment wastes a bottle and leaves you without suppression for the actual fire.</p>
 </div>
 
 <p>
@@ -3925,7 +3971,7 @@ An alcohol-based anti-icing system prevents ice accumulation on the propeller bl
 </p>
 
 <p>
-Each engine has an independent pump switch. The pumps draw 2 amps each from the DC bus through the DEICER_EQUIPMENT circuit breaker (10A) and require a minimum bus voltage of 18V. When active, each pump delivers alcohol at approximately 0.5 gallons per hour. At that rate, the 50-litre (~13 gal) tank provides roughly 26 hours of single-engine protection (one pump) or about 13 hours with both pumps running (1 GPH total).
+Each engine has an independent pump switch. The pumps draw 1.75 amps each from the DC bus through the DEICER_EQUIPMENT circuit breaker (10A) and require a minimum bus voltage of 18V. When active, each pump delivers alcohol at approximately 0.5 gallons per hour. At that rate, the 50-litre (~13 gal) tank provides roughly 26 hours of single-engine protection (one pump) or about 13 hours with both pumps running (1 GPH total).
 </p>
 
 <p>
@@ -3984,7 +4030,7 @@ What the ice looks like, and how much it hurts, depends on how quickly the water
 <h4>What It Costs You</h4>
 
 <p>
-Ice on the wings and tail degrades the aerofoil directly. For the same thickness, glaze costs you appreciably more than rime, because the shape it forms disrupts the airflow far more than a rough conforming layer does.
+Ice on the wings and tail degrades the aerofoil directly. For the same thickness, glaze costs you appreciably more than rime, because the shape it forms disrupts the airflow far more than a rough conforming layer does. The tailplane feels it sooner than the wing: its chord is smaller, so the same thickness is a larger share of the aerofoil, and a tailplane in trouble shows itself on the approach, with flap down and the nose heavy.
 </p>
 
 <ul>
@@ -4151,7 +4197,7 @@ In flight, ram air provides combustion airflow naturally and the ground blower i
 <h4>Overheat Protection</h4>
 
 <p>
-A Fenwal drop-out switch monitors discharge duct temperature as a safety device. If the temperature reaches 176&deg;C (350&deg;F), the drop-out switch activates, permanently disabling the heater by blowing a one-shot thermal fuse. The heater-inoperative light illuminates and the system cannot be restarted until maintenance resets the fuse on the ground.
+A Fenwal drop-out switch monitors discharge duct temperature as a safety device. If the temperature reaches 176&deg;C (350&deg;F), the drop-out switch activates, permanently disabling the heater by blowing a one-shot thermal fuse. The heater-inoperative light illuminates and the system cannot be restarted until the fuse is replaced on the ground: REPLACE FUSE on the MAINTENANCE tab of the DC3 Hangar, or the reset command in the cabin heater group.
 </p>
 
 <p>
@@ -4221,7 +4267,7 @@ The DC-3's landing lights are fixed, faired-in installations (not the retractabl
 <h4>Navigation Lights</h4>
 
 <p>
-Standard position lights: red on the left wing tip, green on the right, white on the tail. Each lamp draws approximately 0.9 amps. A master switch controls all three, with an additional flash mode that cycles the lights at 90 flashes per minute (1.5 Hz, 50% duty cycle) via a flasher relay. Protected by CB 14: Navigator Lights (10A).
+Six position lights, as on the real aircraft: red on the left wing tip, green on the right, a white and a red light side by side in the tail cone, and one on the top and one on the bottom of the fuselage. Each lamp draws about 0.87 amps. The switch has two lit positions: STEADY lights the wing tips and the white tail light; FLASHER alternates the fuselage lights and the red tail light against them at 90 flashes per minute (1.5 Hz) through a flasher relay. Protected by CB 14: Navigator Lights (10A).
 </p>
 
 <h4>Wing Leading Edge Lights</h4>
@@ -4364,7 +4410,7 @@ The Classic variant's instrument markings use radium-based luminous paint, stand
 </p>
 
 <p>
-The simulation models this glow effect based on ambient lighting conditions. In bright daylight, the radium markings are invisible. As cockpit lighting dims (twilight, night, overcast), the glow becomes progressively more visible. In complete darkness with all panel lights off, the radium glow provides enough illumination to read the primary flight instruments, exactly as the original designers intended.
+The simulation models this glow effect based on ambient lighting conditions. In bright daylight, the radium markings are invisible. As cockpit lighting dims (twilight, night, overcast), the glow becomes progressively more visible. In complete darkness with all panel lights off, the radium glow provides enough illumination to read the primary flight instruments, exactly as the original designers intended. By default the dials glow as they did in service, with paint a few years old. An <strong>Aged dials</strong> option on the OPTIONS tab gives the eighty-year survivor instead, the nearly dark dial an unrestored 1940s instrument shows today, and a slider beside it sets the overall radium brightness. Both are remembered between sessions.
 </p>
 
 <p>
@@ -4761,35 +4807,58 @@ The Sperry A-3A was developed from the Sperry A-3, which first flew in commercia
   <p>The OPTIONS tab in DC3 Hangar offers two modes for the Sperry A-3A: <strong>Realistic</strong> (full gyro drift, clutch slippage, cable backlash, temperature effects) and <strong>Simplified</strong> (turn-coordinator yaw damping for smoother tracking; full gyro drift is still modeled in both modes). Choose Simplified if you want heading hold without the full maintenance demands of a period-correct gyropilot.</p>
 </div>
 
-<h3>Radio Compass (ADF)</h3>
+<h3>Radio Magnetic Indicators (ID-250)</h3>
 
 <div class="image-placeholder">
-  <span class="label">[IMAGE: Radio compass indicator]</span>
-  <span class="description">Copilot's ADF bearing indicator showing needle pointing to an NDB station</span>
+  <span class="label">[IMAGE: ID-250 azimuth indicator]</span>
+  <span class="description">An ID-250 radio magnetic indicator: rotating compass card with the ADF and VOR pointers read against it</span>
 </div>
 
 <p>
-The Classic variant includes a radio compass (ID-48/ARN-7 style indicator) on the copilot's panel that provides bearing information to NDB (Non-Directional Beacon) stations. The indicator displays a single needle that points toward the tuned NDB, providing a relative bearing that can be combined with the aircraft's heading to determine the direction to the station.
+The Classic variant carries two ID-250 azimuth indicators, one on the pilot's main instrument panel and one on the copilot's. The ID-250 is a radio magnetic indicator: its compass card rotates with the aircraft's magnetic heading, and the pointers are read against that card. A pointer therefore gives you the <strong>magnetic bearing</strong> to the station directly, with no mental arithmetic. You do not add anything to your heading, because the card has already done it for you.
 </p>
 
 <p>
-ADF navigation is a skill that predates VOR and GPS. The needle simply points "that way," and the pilot must interpret the indication, account for crosswind drift, and track courses using timing, heading corrections, and the procedural knowledge that was fundamental to instrument flying before electronic course guidance.
+Each indicator carries two pointers, and each pointer is tied to one receiver:
+</p>
+
+<div class="table-scroll"><table>
+  <tr><th>Indicator</th><th>Pointers</th></tr>
+  <tr><td>Pilot's</td><td>ADF 1 and NAV 1</td></tr>
+  <tr><td>Copilot's</td><td>ADF 2 and NAV 2</td></tr>
+</table></div>
+
+<p>
+The two-needle layout is the whole point of an RMI. One pointer can sit on an NDB while the other sits on a VOR radial, so a single glance gives you a cross-fix without retuning anything. Each pointer's source is fixed as listed above, so the pilot and copilot indicators show different stations whenever the two sets of receivers are tuned differently.
+</p>
+
+<p>
+ADF navigation is a skill that predates VOR and GPS. The pointer simply lies along the bearing to the station, and the pilot must interpret the indication, account for crosswind drift, and track courses using timing, heading corrections, and the procedural knowledge that was fundamental to instrument flying before electronic course guidance.
 </p>
 
 <h4>Signal Quality and Needle Behavior</h4>
 <p>
-The radio compass needle's behavior reflects the actual quality of the received NDB signal, which is calculated by the terrain-aware radio propagation model (see <a href="#ch-radio-propagation">Chapter 16</a>). On a strong signal, the needle tracks the bearing accurately and smoothly, with a maximum slew rate of 90&deg; per second and gentle damping. As signal quality degrades (due to terrain masking, distance, or low altitude), the needle begins to wobble. At moderate signal strength, the wobble is a few degrees of flutter. At very weak signal levels, the needle wanders through up to 15&deg; of erratic oscillation, making the bearing unreliable. Below a signal quality threshold of 0.3, the needle is effectively unusable.
+The ADF pointers reflect the actual quality of the received NDB signal, which is calculated by the terrain-aware radio propagation model (see <a href="#ch-radio-propagation">Chapter 16</a>). On a strong signal a pointer sits steady on the bearing. As signal quality degrades, through terrain masking, distance, or low altitude, it begins to wobble. At moderate signal strength that is a few degrees of flutter. At very weak signal it wanders through as much as 15&deg;, and with no signal at all the full 15&deg; of wander is all you have, swinging around wherever the pointer happens to be resting. There is no point at which the pointer gives up and parks; it simply becomes less and less worth reading, which is exactly the judgement a real ADF asks of you.
 </p>
 
 <p>
-The wobble is not random noise. It is composed of three layered oscillation frequencies (0.8 Hz primary, plus two harmonics) that produce the characteristic "searching" behavior of a real ADF needle hunting for a weak station. If you have ever watched an ADF needle trying to track an NDB behind a mountain ridge, this is what it looks like.
+The wobble is not random noise. It is composed of three layered oscillation frequencies (0.8 Hz primary, plus two harmonics) that produce the characteristic "searching" behavior of a real ADF needle hunting for a weak station. If you have ever watched an ADF needle trying to track an NDB behind a mountain ridge, this is what it looks like. The two ADF pointers run their own independent wobble, so they never search in step with one another.
 </p>
 
 <p>
-The radio compass requires electrical power (minimum 14V bus voltage) and the ADF_RED circuit breaker must be closed. Without power, the needle freezes at its last position.
+The VOR pointers are not affected by this. Wobble belongs to the ADF receivers.
 </p>
 
-<h3>Four-Course Radio Range (A-N Range)</h3>
+<h4>Night Wander</h4>
+<p>
+Tuned to a four-course radio range after dark, an ADF pointer also drifts slowly off the true bearing. This is skywave interference, the same night effect that makes the range audio unreliable, and it reaches the pointer as well as the headphones. It is worst at distance and at the lower frequencies, and worst of all through the twilight transition rather than in full night. A pointer that starts wandering at dusk is telling you something real about the signal, not about the instrument. The <a href="#radio-range">four-course radio range section below</a> covers the effect and how to work around it.
+</p>
+
+<p>
+The indicators freeze at their last reading when bus voltage falls below 18 volts. There is no separate breaker on the indicator itself; if the pointers and the card have stopped moving together, look at the bus rather than at the panel.
+</p>
+
+<h3 id="radio-range">Four-Course Radio Range (A-N Range)</h3>
 
 <p>
 Before VOR, before ILS, the primary instrument navigation system in the United States was the low-frequency four-course radio range. From the late 1930s through the mid-1950s, a network of roughly 400 radio range stations defined the Federal Airways, and the DC-3 flew them all. This simulation includes a complete implementation of the system.
@@ -4842,7 +4911,7 @@ The Modern variant's two KR87 ADF receivers can each tune a different radio rang
 <h4>Flying the Beam</h4>
 
 <p>
-To navigate using the radio range, tune the ADF receiver to the station's frequency and set the mode to ADF. The radio compass needle will point toward the station, just as it does for any NDB. But the real navigation information is in the audio.
+To navigate using the radio range, tune the ADF receiver to the station's frequency and set the mode to ADF. The ADF pointer homes on the station's carrier, as a radio compass did on any low-frequency transmitter, so it gives you a bearing to the station and, after dark, the same skywave wander the audio suffers. But a four-course range is flown by ear: the navigation information is in the audio. The A and N quadrants tell you which side of the beam you are on, the merged steady tone tells you that you are on it, and the cone of silence tells you that you have arrived. The pointer tells you where the station is; the tone tells you where the course is.
 </p>
 
 <p>
@@ -4977,6 +5046,10 @@ The Modern airframe is wired for a BendixKing RDR 2000 weather radar, but the un
 
 <p>
 Each unit in the Modern stack can be popped out into its own floating window, handy for tuning on a second monitor or working a box in VR. The Avionics Stack popup goes one step further: it is a single window that shows the entire radio stack at once, every unit's live screen side by side, with every control fully usable. You can open one unit on its own, open the whole stack, or run any mix of the two; they coexist happily. This is a Modern-variant feature.
+</p>
+
+<p>
+One rule holds across the Modern stack: a unit's knobs and buttons register only with the unit powered and, where it has one, its selector out of OFF. Dark, the knobs still turn, the buttons still depress and click, and a knob pulled while dark takes effect when the unit comes alive. Each unit's guide says so in its troubleshooting table.
 </p>
 
 <p>
@@ -5268,7 +5341,7 @@ During warmup, all three flags (HDG, NAV, GS) remain visible. The compass card, 
 </p>
 
 <p>
-If power is interrupted (by pulling the G-2 Compass circuit breaker, losing bus voltage, or any other power loss), the warmup resets completely. When power is restored, the full warmup cycle begins again from zero.
+If power is interrupted (by pulling the G-2 Compass circuit breaker, losing bus voltage, or any other power loss), the gyro coasts rather than stopping: its readiness runs down over about four minutes. A brief interruption therefore costs only a few seconds of warmup once power returns, with the HDG flag in view until it completes; a long outage runs the gyro down and the full warmup cycle begins again.
 </p>
 
 <h4>Knob Controls</h4>
@@ -5620,7 +5693,7 @@ When random failures are enabled (always in Veteran mode, user-configurable in S
 </ul>
 
 <p>
-Failures can be total (system stops working) or partial (degraded performance). An engine may lose a magneto, reducing power but not stopping the engine. A generator may develop a regulator fault, producing unstable voltage. A hydraulic seal may begin leaking, causing slow pressure loss rather than immediate failure.
+Failures can be total (system stops working) or partial (degraded performance). An engine may lose a magneto. On BOTH the engine keeps running on the surviving magneto and gives up its 50 to 100 RPM, rough but flying. Select the dead side on its own and the engine stops, exactly as though you had turned the switch to OFF, because that is what a dead magneto is: nothing to select. That is how you find out which of the two has gone. A generator may develop a regulator fault, producing unstable voltage. A hydraulic seal may begin leaking, causing slow pressure loss rather than immediate failure.
 </p>
 
 <h4>Abuse-Induced Failures</h4>
@@ -5730,9 +5803,53 @@ The following failure categories are modeled:
   </tbody>
 </table></div>
 
+<h4>Brake Failures</h4>
+
+<div class="table-scroll"><table>
+  <thead>
+    <tr><th>Failure</th><th>What You Notice</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Shuttle valve stuck (one wheel)</td>
+      <td>The pedals brake one wheel only, and the aeroplane swings toward the working side every time you use them. The emergency air brake still reaches both wheels normally, because it is the hydraulic side that is shut out.</td>
+      <td>Use the emergency air brake, which reaches both wheels equally and so will not swing you. Expect the swing on every landing until it is repaired, and allow for it before you need the brakes on a narrow runway.</td>
+    </tr>
+    <tr>
+      <td>Brake line leak (one wheel)</td>
+      <td>That wheel goes soft and then dead, and the hydraulic reservoir falls whenever the pedals are used, because the pump is feeding the leak. Steady braking will empty it.</td>
+      <td>Brake as little as you can, watch the reservoir, and use the emergency air brake instead. Refill the reservoir on the MAINTENANCE tab once you are down.</td>
+    </tr>
+    <tr>
+      <td>Power brake control valve</td>
+      <td>Neither wheel brakes from the pedals, at any hydraulic pressure. The gauge can read a healthy system and the pedals still do nothing, because the valve that meters pedal force into brake pressure has failed.</td>
+      <td>This is the exact case the emergency air brake was fitted for. Use it, and plan the landing around braking that stops but does not steer.</td>
+    </tr>
+    <tr>
+      <td>Emergency air bottle leak</td>
+      <td>The bottle loses charge while the aeroplane is parked rather than holding it. This one shows up on the calendar, not in the air: leave the aircraft a few days and a good part of the charge has gone.</td>
+      <td>Check the bottle before any flight where the brakes might matter, and RECHARGE on the ground. A bottle that will not hold its charge between flights is the failure, not the weather.</td>
+    </tr>
+    <tr>
+      <td>Brake overheated (one wheel)</td>
+      <td>One wheel is weaker than the other after a spell of hard or prolonged braking, and it stays that way. Letting the brakes cool makes no difference, which is what separates this from a brake that is merely hot.</td>
+      <td>Reline that wheel. Nothing short of new linings restores it. Until then, expect the pull and allow for it on landing.</td>
+    </tr>
+    <tr>
+      <td>Brake linings through</td>
+      <td>One or both wheels barely slow the aeroplane, and it pulls toward the better side. There was no cockpit warning beforehand.</td>
+      <td>Reline the brakes. See <em>Lining Wear</em> in the Hydraulic System chapter for why this arrives without notice and how to see it coming.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>
+The stuck shuttle valve is the counterintuitive one and worth a moment. The shuttle valve exists to let the emergency air system reach the brakes, and it is a failure in that emergency system which takes your normal brakes away on that wheel. The emergency side goes on working perfectly; it is the everyday one you lose.
+</p>
+
 <h4>Fluid Leaks</h4>
 <p>
-The simulation models progressive fluid leaks at specific locations on the aircraft. Oil can leak from propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines. Fuel can leak from tank seals, fuel lines, and selector valves. Hydraulic fluid can leak from the pump, reservoir, gear actuators, and brake lines. Each leak has a severity ranging from minor (barely noticeable) to catastrophic (rapid fluid loss). Visual indicators appear on the aircraft: oil streaks on the engine nacelles, fuel stains on the wing, and hydraulic puddles beneath the aircraft. The MAINTENANCE tab shows active leaks and their severity.
+The simulation models progressive fluid leaks at specific locations on the aircraft. Oil can leak from propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines. Fuel can leak from tank seals, fuel lines, and selector valves. Hydraulic fluid can leak from the pump, reservoir, gear actuators, and brake lines. A leak bad enough to empty the system takes the wheel brakes with it, so on a hydraulic leak plan the landing around the emergency air brake described in <a href="#ch-hydraulics">Chapter 9</a>. Each leak has a severity ranging from minor (barely noticeable) to catastrophic (rapid fluid loss). Visual indicators appear on the aircraft: oil streaks on the engine nacelles, fuel stains on the wing, and hydraulic puddles beneath the aircraft. The MAINTENANCE tab shows active leaks and their severity.
 </p>
 
 <h4>Abuse Thresholds</h4>
@@ -5973,7 +6090,7 @@ The shared cockpit allows two players to fly the DC-3 together over the internet
 <h3>How It Works</h3>
 
 <p>
-The host runs the physics simulation. All engine, electrical, hydraulic, fuel, and environmental calculations happen on the host's machine. The client receives a continuous stream of system state updates and displays them locally. When the client manipulates a control (flips a switch, moves a lever, applies yoke input), that input is sent to the host, which incorporates it into the simulation and sends the result back.
+The host runs the physics simulation. All engine, electrical, hydraulic, fuel, and environmental calculations happen on the host's machine. The client receives a continuous stream of system state updates and displays them locally. When the client manipulates a control (flips a switch, moves a lever, applies yoke input), that input is sent to the host, which incorporates it into the simulation and sends the result back. That includes the circuit breakers: a breaker the client pulls or resets pops on the host's panel, and the host's state comes back. The client's carburettor air temperature gauge and its carburettor icing caution follow the host's.
 </p>
 
 <p>
@@ -5991,6 +6108,10 @@ The shared cockpit uses UDP for low-latency communication. The connection is dir
   <tr><td>Round-trip time (RTT)</td><td>Below 80 ms</td><td>80 - 200 ms</td><td>Above 200 ms</td></tr>
   <tr><td>Packet loss</td><td>Below 1%</td><td>1% - 5%</td><td>Above 5%</td></tr>
 </table></div>
+
+<p>
+The NETWORK section also shows what the other pilot's simulator is doing: <strong>Flying</strong>, <strong>Paused</strong> or <strong>In replay</strong>. When they pause or enter replay, an on-screen caution says so. It matters both ways: a paused host freezes your aeroplane in the air, and a paused guest who holds the controls keeps sending the same frozen inputs, so the host should take the controls until they resume.
+</p>
 
 <p>
 High RTT introduces a visible delay between when the client moves a control and when the result appears. At 200+ ms, throttle and mixture inputs will feel noticeably sluggish. Packet loss above 5% may cause intermittent state glitches. The NETWORK tab in DC3 Hangar displays these metrics in real time with color-coded indicators (green, yellow, red).
@@ -6197,12 +6318,12 @@ Once airborne, the clipboard tracks your progress along the route in real time:
 
 <ul>
   <li><strong>Passed waypoints</strong> are greyed out.</li>
-  <li>The <strong>active waypoint</strong> is highlighted in green, with bearing, distance, and estimated time shown above the waypoint list.</li>
+  <li>The <strong>active waypoint</strong> is highlighted in green, with magnetic bearing, distance, and estimated time shown above the waypoint list.</li>
   <li><strong>Future waypoints</strong> are displayed in amber.</li>
 </ul>
 
 <p>
-Waypoints auto-sequence as you fly past them (within a 2 nm capture radius). If you are off course, the clipboard displays your cross-track error and the heading needed to intercept the next waypoint.
+Waypoints auto-sequence as you fly past them (within a 2 nm capture radius). If you are off course, the clipboard displays your cross-track error and the magnetic heading needed to intercept the next waypoint.
 </p>
 
 <h3>Access</h3>
@@ -6535,7 +6656,7 @@ Water finds its way into aviation fuel. Condensation, contamination, humid air i
 <h3>The Physics</h3>
 
 <p>
-The simulation does not model the full solubility/precipitation chemistry. Instead, it tracks the water that matters directly: a per-tank water contamination level, the same water you clear by draining the tank strainers before flight. When the outside air is below freezing and a tank still holds water contamination, ice forms in that engine's fuel line and accumulates on the fuel screens and filter elements. Given enough ice, fuel flow becomes restricted; given severe restriction, the engine starves.
+The simulation does not model the full solubility/precipitation chemistry. Instead, it tracks the water that matters directly: the free water in each tank's sump and in each engine's strainer bowl, the water you clear by sumping the tanks and draining the strainers before flight. Water reaches the strainer when a sump overflows or sloshing stirs it to the outlet. Above freezing, a slug of it stops the engine for a moment; below freezing, it freezes onto the strainer screen, fuel pressure falls, and given enough ice the engine starves.
 </p>
 
 <p>
@@ -6553,7 +6674,7 @@ The simulation models:
 <h3>What You Experience</h3>
 
 <ul>
-  <li><strong>Sub-freezing operations:</strong> Flying or cruising in air below freezing with water still in the tanks builds fuel-line ice; the STATUS tab shows it accumulating. The trigger is sub-freezing OAT combined with contaminated tanks, so draining the strainers before flight is what removes the risk.</li>
+  <li><strong>Sub-freezing operations:</strong> Flying or cruising with the fuel below freezing and water in the strainer bowls builds ice on the screens; the STATUS tab shows it accumulating. The trigger is cold fuel combined with water in the bowls, so sumping the tanks and draining the strainers before flight is what removes the risk.</li>
   <li><strong>Cold-soaked fuel:</strong> Taking on fuel that has been sitting in cold storage means starting with fuel already at icing temperatures. Climbing into colder air provides no margin.</li>
   <li><strong>Carburetor heat effectiveness:</strong> The fuel heater raises fuel temperature, melting ice and preventing new formation. But heat takes time to propagate through the system. Turning on heat after ice has already formed requires patience.</li>
   <li><strong>Asymmetric icing:</strong> Fuel plumbing is not identical left and right. One engine may experience icing before the other under identical conditions.</li>
@@ -6572,7 +6693,7 @@ The carburetor heat system is a counter-current heat exchanger built around the 
 </p>
 
 <p>
-<strong>The muff has thermal mass.</strong> The shroud is several kilograms of sheet metal, and its temperature lags engine power changes on a roughly 45-second time constant when the engine is running. Start cold and carb heat is only marginally effective for the first minute or so &mdash; the muff has not soaked up enough exhaust heat to meaningfully warm the air. Shut the engine down and the muff cools toward outside air temperature over a few minutes.
+<strong>The muff has thermal mass.</strong> The shroud is several kilograms of sheet metal, and its temperature lags engine power changes on a roughly 45-second time constant when the engine is running. Start cold and carb heat is only marginally effective for the first minute or so, because the muff has not soaked up enough exhaust heat to meaningfully warm the air. Shut the engine down and the muff cools toward outside air temperature over a few minutes.
 </p>
 
 <p>
@@ -6580,15 +6701,15 @@ The carburetor heat system is a counter-current heat exchanger built around the 
 </p>
 
 <p>
-<strong>The valve and induction column have lag.</strong> When you pull the lever, the butterfly valve swings and the induction air column flushes through &mdash; together about 1.5 seconds before the new air composition reaches the carburetor. The blend between cold-path and hot-path air ramps smoothly across that interval rather than snapping.
+<strong>The valve and induction column have lag.</strong> When you pull the lever, the butterfly valve swings and the induction air column flushes through, together about 1.5 seconds before the new air composition reaches the carburetor. The blend between cold-path and hot-path air ramps smoothly across that interval rather than snapping.
 </p>
 
 <p>
-<strong>Heat exchanger efficiency drops at high airflow.</strong> More engine power means more mass flow through the muff, which means less residence time per unit of air. That partially cancels the higher muff temperature, which is why real carb heat delivers a roughly stable 30 to 40&deg;C rise across power settings instead of ballooning at full power. The simulation reproduces this trade by scaling exchanger efficiency inversely with airflow.
+<strong>Heat exchanger efficiency drops at high airflow.</strong> More engine power means more mass flow through the muff, which means less residence time per unit of air. That partially cancels the higher muff temperature, which is why real carb heat delivers a roughly stable rise across power settings instead of ballooning at full power: about 56 to 60&deg;C at full heat from idle to redline on this installation. The simulation reproduces this trade by scaling exchanger efficiency inversely with airflow.
 </p>
 
 <p>
-<strong>The gauge needle has its own lag.</strong> The carb air temperature gauge is a resistance-bulb instrument with real metal thermal mass &mdash; the bulb itself takes a few seconds to follow air temperature. Watch the needle when you apply carb heat: it starts moving within a second but takes around ten seconds to settle on its new value. That lag is the bulb, not the air.
+<strong>The gauge needle has its own lag.</strong> The carb air temperature gauge is a resistance-bulb instrument with real metal thermal mass, so the bulb itself takes a few seconds to follow air temperature. Watch the needle when you apply carb heat: it starts moving within a second but takes around ten seconds to settle on its new value. That lag is the bulb, not the air.
 </p>
 
 <p>
