@@ -233,8 +233,11 @@ providing 3.75-4.25" Hg vacuum. Warning lights illuminate below 3.5" Hg.</p>
 <h3>Emergency Air Bottle Cold Weather Effects <span class="new-tag">NEW</span></h3>
 <ul>
     <li>Pneumatic brake bottle pressure affected by temperature</li>
-    <li>Ideal Gas Law calculation for effective pressure</li>
-    <li>Reduced emergency brake effectiveness in extreme cold</li>
+    <li>Ideal Gas Law calculation for effective pressure: a full bottle reads about 1,342 PSI at -30°C</li>
+    <li>Cold does not weaken each application, it starts the bottle lower and so buys fewer of them:
+        about four full-strength stops from a bottle at 15°C, three from one cold-soaked to -30°C</li>
+    <li>The bottle follows the outside air over about twenty minutes, so one charged warm in a hangar
+        keeps its pressure into the first cold climb</li>
     <li>Air bottle temperature display</li>
 </ul>
 </div>
@@ -880,12 +883,101 @@ published per engine.</p>
     <li>Landing gear circuit pressurised from the main system through the gear control valve, with a separate gear-circuit gauge</li>
     <li>Wing flap circuit with relief valve (430-485 PSI per T.O. 1C-47-2)</li>
     <li>Brake system pressure limited to system pressure (875 PSI)</li>
-    <li>Emergency air system modeling</li>
     <li>Windshield wipers hydraulically powered</li>
     <li><strong>Parallel pump architecture (per T.O. 1C-47-2):</strong> Both engine-driven pumps feed system through check valves. Higher pressure pump supplies system automatically; single-engine operation fully supported.</li>
     <li><strong>Engine pump selector valve:</strong> in ALTERNATE the right engine pump is isolated from
         the main system, leaving the left pump to supply it alone</li>
     <li><strong>Autopilot shutoff valve (per T.O. 1C-47-2 para 1-65):</strong> Gates hydraulic flow to autopilot servos. Must be OPEN for hydraulic pressure to reach the Sperry A-3A servo system; the Gyropilot will not engage with it closed and drops if it closes. It starts open until its pedestal lever arrives in the cockpit.</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Wheel Brakes and Emergency Air System <span class="new-tag">NEW</span></h3>
+<p>The wheel brakes now answer to pressure. Per MM para 2-416 to 2-439 there are three ways to work
+them: main hydraulic pressure through the power brake control valve on the rudder pedals, the
+hydraulic hand pump, and the emergency air system, which drives the same brakes with compressed air
+when the hydraulic pressure is gone. It is a wheel brake, not an airbrake.</p>
+<ul>
+    <li><strong>Pedal braking fades with the hydraulics.</strong> With both engine-driven pumps stopped
+        the pedals weaken over a minute or two as the system bleeds down, and below about 100 PSI the
+        linings do not bite at all. Strokes on the hand pump buy some of it back</li>
+    <li><strong>Shuttle valve at each brake assembly</strong> passes whichever pressure is higher,
+        hydraulic or air, and closes the other port. Same discs, same pistons, different working fluid,
+        so the two systems cannot fight each other</li>
+    <li><strong>The air bottle holds 1,590 PSI, charged on the ground.</strong> There is no compressor
+        aboard. The air pressure control valve feeds both wheels together</li>
+    <li><strong>No pressure reducer</strong>, so the valve meters bottle pressure straight to the
+        brakes. The first application is the strongest the brakes will ever see, and every one after it
+        is weaker as the bottle falls</li>
+    <li><strong>The pedals do nothing on air.</strong> The shuttle valve has closed their port, so there
+        is no differential braking while the emergency system is in use</li>
+    <li><strong>The bottle is spent per application, not per second held.</strong> Each opening of the
+        valve draws about twelve percent of the charge and holding it costs nothing more, so pumping the
+        lever is what empties it. Roughly twenty applications before there is nothing left</li>
+    <li><strong>The control valve lever and its 0 to 2,000 PSI gauge are not modelled in 3D yet.</strong>
+        On the real aircraft the lever sits left of the centreline just below the windshield Vee. Until
+        it is built the valve is on three commands for a keybind:
+        <code>les/dc3/cmd/brakes/emerg_air_open</code>, <code>_close</code> and <code>_toggle</code></li>
+    <li><strong>The charge is kept between flights.</strong> RECHARGE sits beside FILL UP on the
+        MAINTENANCE tab of the DC3 Hangar, on the ground only. Tourist keeps the bottle full at all times</li>
+    <li><strong>X-Plane's own keyboard brake commands are intercepted.</strong> The hold commands become
+        pedal demand through the same pressure model, and the two toggle commands become the parking
+        brake, gated on pressure exactly as the knob is, so they no longer pull the knob out past its
+        own gate</li>
+    <li>Differential braking for taxi assist is pressure-gated on the same terms. Wheel chocks still
+        hold with no pressure at all, because a chock is a block and not a brake</li>
+    <li><strong>The STATUS tab counts the applications left</strong>, at full braking and before the
+        bottle is empty, rather than reading out a pressure alone. Its amber warning sits at 875 PSI, the
+        pressure below which an application no longer brakes as hard as a full pedal would, rather than at
+        a round number. On Tourist it says the bottle does not empty</li>
+</ul>
+
+<h4>Brake Lining Wear</h4>
+<p>The DC-3 brake is a single-disc self-adjusting spot brake (MM para 2-418). As the linings wear, the
+return spring plates draw the adjusting pin through its packing nut and the piston walks in to meet the
+disc, so clearance and pedal position never change. Two things follow from that, and the second is the
+one worth knowing.</p>
+<ul>
+    <li><strong>Braking stays at full strength for the whole life of the lining.</strong> No soft pedal,
+        no long travel, no cue of any kind in the cockpit. The manual has it that the brake requires no
+        adjustment during the entire life of the lining</li>
+    <li><strong>So the only place the wear shows is the MAINTENANCE tab</strong>, which gives percent
+        remaining per wheel with the adjusting-pin recession in thousandths beside it, the manual's own
+        gauge for the job</li>
+    <li>The limit is a quarter inch of pin recession. At that point the manual allows 25 more landings
+        and no more, and the tab counts them down in amber. Past zero the linings are through and that
+        wheel keeps only a quarter of its braking, enough to pull the aeroplane toward the good side</li>
+    <li>Wear follows energy rather than hours. A heavy landing braked hard costs more than a light one,
+        riding the brakes through a long taxi costs more again, and braking asymmetrically wears the two
+        wheels apart</li>
+    <li>RELINE BRAKES on the MAINTENANCE tab, on the ground, restores both wheels and clears the
+        deadline</li>
+    <li>Tourist accrues no lining wear at all. Veteran wears the linings faster</li>
+</ul>
+
+<h4>Brake Overheating</h4>
+<ul>
+    <li>Overheating a brake circuit past its thermal relief valve used to cost nothing. It now leaves
+        that wheel permanently weaker, holding about 60 percent of its authority, until the brakes are
+        relined, and the MAINTENANCE tab names the wheel and the reason</li>
+</ul>
+
+<h4>Brake Failures</h4>
+<ul>
+    <li><strong>Shuttle valve stuck, per wheel.</strong> The poppet sticks over the hydraulic port, so
+        that wheel loses its normal braking while emergency air still reaches it: a failure in the backup
+        system that disables the primary. You meet it on an ordinary landing when the aeroplane pulls to
+        one side, and opening the emergency air valve brakes both wheels together again</li>
+    <li><strong>Brake line leak, per wheel.</strong> That wheel loses hydraulic braking, and fluid
+        escapes whenever the pedal is down, draining the reservoir with it. FILL UP restores the fluid;
+        repairing the failure stops the loss</li>
+    <li><strong>Power brake control valve</strong> (MM para 2-422), the metering valve on the pedals.
+        Failed, neither wheel has hydraulic braking, which is precisely the case the emergency air system
+        was fitted for</li>
+    <li><strong>Emergency air bottle leak.</strong> The bottle or a fitting weeps, and this one runs on
+        calendar time rather than flight hours: roughly 250 PSI gone after a day parked and half the
+        charge after four. A healthy bottle loses nothing at all, which is the manual's own acceptance
+        test (para 2-436, no leakage in a 24-hour period)</li>
 </ul>
 </div>
 
@@ -1770,8 +1862,8 @@ copilot instruments.</p>
     <li>Pitch modes: VS, ALT, GS. Active mode on the top line, armed ALT or GS steady on the bottom line
         with the ARM annunciator</li>
     <li>PT (Pitch Trim) indicator with direction arrow</li>
-    <li>A failed axis blanks its own mode annunciators; the failed axis and the lamp state are named on the
-        MAINT tab of the DC3 Hangar</li>
+    <li>A failed axis blanks its own mode annunciators; the failed axis and the lamp state are named in the
+        KAP 140 Autopilot section of the STATUS tab of the DC3 Hangar</li>
     <li>Right display: Altitude (ft), Vertical Speed (FPM), or Baro (IN HG/HPA)</li>
     <li>ALERT annunciator (solid=approaching, flashing=deviation)</li>
 </ul>
@@ -2261,10 +2353,16 @@ the instruments are lit from outside exactly as the real panel is.</p>
 <div class="section">
 <h3>Aerodynamic Penalties <span class="new-tag">NEW</span></h3>
 <ul>
-    <li>Lift coefficient (CL) reduction: ~0.8% per mm of wing leading edge ice (glaze 1.2x penalty, rime 0.6x)</li>
-    <li>Drag coefficient (CD) increase: ~4 drag counts per mm of wing ice, glaze 1.5x multiplier</li>
+    <li>Wing ice reaches X-Plane's airframe ice weighted by its type: glaze at full weight, mixed at three
+        quarters, rime and frost at half, so 25 mm of glaze is severe and 25 mm of rime half that. Horn ice
+        costs about twice what rime does in the wind tunnel, and the plugin's own lift multipliers said so;
+        until now they never left the file</li>
+    <li>The tailplane ices on this model, not X-Plane's: the stabiliser and fin zones are written to X-Plane's
+        tail ice, weighted by type, on the tail's own chord (16 mm full scale against the wing's 25), so the
+        same ice is worse on the smaller surface. The lift and drag figures on the icing datarefs are the
+        model's estimate for external tools; the aircraft feels ice through X-Plane's own ice datarefs</li>
     <li>Total ice mass tracked across all zones (25-75 kg at moderate accumulation)</li>
-    <li>Writes X-Plane's own airframe, pitot, propeller, inlet and window ice states each frame</li>
+    <li>Writes X-Plane's own airframe, tail, pitot, propeller, inlet and window ice states each frame</li>
 </ul>
 </div>
 
@@ -2570,7 +2668,7 @@ Quebecair Inc. DC-3 Flight Manual, January 1957, for the R-1830 S1C3G installati
 <p>The 2.0 failure module was two rules and a global MTBF: engine failure above 4000 prop RPM sustained
 for five seconds, and an engine fire if oil pressure stayed above 115 PSI for thirty seconds. It also
 accumulated engine "fatigue points" from low oil temperature operation. The C++ system replaces this with
-a catalogue of <strong>74 discrete failure types</strong> across twelve groups, each with its own trigger
+a catalogue of <strong>80 discrete failure types</strong> across thirteen groups, each with its own trigger
 logic, symptoms and repair path.</p>
 <ul>
     <li><strong>Engine (14):</strong> left, right or both magnetos per engine, low oil pressure, oil leak,
@@ -2589,6 +2687,8 @@ logic, symptoms and repair path.</p>
         pin, which leaves the wheel castoring freely until it is replaced</li>
     <li><strong>Flaps (4):</strong> actuator seal leak per side, relief valve stuck open, asymmetric
         rigging</li>
+    <li><strong>Brakes (6):</strong> shuttle valve stuck and brake line leak, each per wheel, the power
+        brake control valve, and an emergency air bottle leak</li>
     <li><strong>Vacuum (3):</strong> left and right engine-driven pump with severity encoding, plus a check
         valve stuck open so a dead pump's side becomes a vacuum leak</li>
     <li><strong>Compass and gyro instruments (5):</strong> KG 102A directional gyro dead or tumbled,
@@ -3120,6 +3220,11 @@ systems.</p>
     <li>Abuse accumulators track time spent over CHT, oil temperature, manifold pressure and RPM limits and
         persist between sessions, so mistreating the engines has consequences later</li>
     <li>Service interval tracking, per-leak repair and per-tank or per-engine servicing</li>
+    <li>The MAINTENANCE tab's Condition block showed two engines and nothing else. It now carries an
+        Airframe Systems row as well, with bars for the hydraulic pumps, the landing gear, the flaps and
+        the brakes on the same colour thresholds. The first three had been scored all along and never
+        shown, so a hydraulic system could be flown most of the way down with no number anywhere to say
+        so</li>
     <li>Everything persists through LES.ini alongside failure state and configuration</li>
 </ul>
 </div>
@@ -3326,6 +3431,17 @@ per variant, so the interface matches the aircraft you are flying.</p>
     <li>Credits consolidated, with Turbine Sound Studios added</li>
     <li>Variant lifecycle fixes covering a resource leak, and an in-session Classic/Modern swap now
         holds the variant it loaded with rather than desynchronising; restart X-Plane to change variant</li>
+    <li>The state saved when X-Plane quits was written after several systems had already shut down, so their
+        values saved as zero: the oxygen bottle emptied and its cylinder valve closed on every quit, and the
+        mixture and carb heat control options fell back to 3D manipulators. The quit-time save now runs before
+        any system shuts down, a bottle saved empty with its valve closed is restored full and open, the
+        emergency oxygen knob hisses only when oxygen will actually flow, and the MAINTENANCE tab shows the
+        cylinder valve</li>
+    <li>Demand oxygen showed no flow indication between 3 September and today: with the cylinder valve
+        open, the dial on and the mask worn, the blinker did not move and the flow-active state never
+        rose, although the bottle drained at the correct rate the whole time. A fix to the emergency
+        knob's latch was clearing the demand regulator's own indication one call later, every frame.
+        Consumption had always been right; only the indication was dead</li>
 </ul>
 </div>
 
