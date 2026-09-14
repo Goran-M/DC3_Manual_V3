@@ -720,7 +720,6 @@ These modes affect multiple systems simultaneously: primer switch behavior, fail
     <li>Gyro instruments spin up normally, with no cold drift.</li>
     <li>The propeller governor responds normally.</li>
     <li>The cabin heater lights first time, however cold it is.</li>
-    <li>The emergency air bottle holds full pressure.</li>
   </ul>
   <p>The on-screen cold-weather warnings do not appear in Tourist at all, and where the STATUS tab would otherwise show cold effects it shows a short note that cold-weather effects are off in Tourist instead.</p>
   <p><strong>One cold-weather hazard stays active in every mode, including Tourist: carburettor icing.</strong> It is not really a cold-weather phenomenon, it is worst in mild, humid air, so it is not switched off with the rest. If you lose power in a descent with the carburettor air cold, suspect carb ice and apply carb heat; it is not a bug.</p>
@@ -1027,11 +1026,7 @@ Fluid levels for hydraulic fluid, engine oil, and propeller de-ice alcohol are d
 </p>
 
 <p>
-The emergency air bottle has a bar of its own below the fluids, reading in PSI stored against its full charge rather than in gallons, with a <strong>RECHARGE</strong> button beside it. Like the FILL UP buttons, RECHARGE appears only on the ground. There is no compressor aboard the aeroplane, so charging the bottle is a ground job and there is no way to get it back once you are airborne. The figure on the bar is the charge the bottle holds; what it will actually deliver drops in the cold, so a full bar on a freezing ramp is worth less than the same bar on a warm day. The bottle is covered in <a href="#ch-hydraulics">Chapter 9</a>.
-</p>
-
-<p>
-Below that sits <strong>BRAKE LINING CONDITION</strong>, one line per main wheel. Each reads the percentage of lining left with the adjusting pin's recession beside it, measured against the quarter-inch limit. Past the limit the line turns amber and counts down the twenty-five landings you have left before a reline is due; past the countdown it reads red. A wheel whose brake has been overheated says so on its own line, because that damage does not heal and only a reline will clear it. <strong>RELINE BRAKES</strong> fits a new set, on the ground. This panel is the only place lining condition can be seen anywhere in the aeroplane, for the reason set out in <a href="#ch-hydraulics">Chapter 9</a>.
+Below the fluids sits <strong>BRAKE LINING CONDITION</strong>, one line per main wheel. Each reads the percentage of lining left with the adjusting pin's recession beside it, measured against the quarter-inch limit. Past the limit the line turns amber and counts down the twenty-five landings you have left before a reline is due; past the countdown it reads red. A wheel whose brake has been overheated says so on its own line, because that damage does not heal and only a reline will clear it. <strong>RELINE BRAKES</strong> fits a new set, on the ground, and is offered whenever either wheel is worn or has been overheated, since a reline is the only cure for both. This panel is the only place lining condition can be seen anywhere in the aeroplane, for the reason set out in <a href="#ch-hydraulics">Chapter 9</a>.
 </p>
 
 <div class="callout note">
@@ -1072,7 +1067,7 @@ Vacuum pump output, pump temperature and efficiency, attitude indicator and dire
 
 <h4>Hydraulic System</h4>
 <p>
-Main system pressure, fluid temperature, and thermal relief valve status, together with the emergency air bottle. The bottle is reported as <em>applications remaining</em> rather than as a pressure: how many stops you have left at full braking, and how many before the bottle is spent altogether. When the question is how many times you can still stop the aeroplane, that is a more useful answer than a number in PSI.
+Main system pressure, fluid temperature, and thermal relief valve status. Beneath them a <strong>Wheel Brakes</strong> line gives the braking authority each main wheel has at that moment, as a percentage of full braking, tagged HYDRAULIC while the brakes are being applied and <em>nothing applied</em> when they are not. On a weak system it is the quickest way to see what the pedals will actually give you.
 </p>
 
 <h4>Battery and Electrical</h4>
@@ -2752,7 +2747,7 @@ Fuel temperature approximates the outside air temperature after the aircraft has
 
 <div class="image-placeholder">
   <span class="label">[IMAGE: Hydraulic system schematic]</span>
-  <span class="description">DC-3 hydraulic system schematic showing pumps, reservoir, accumulator, selector valve, gear and flap actuators, brake lines, emergency air bottle, thermal relief valves</span>
+  <span class="description">DC-3 hydraulic system schematic showing pumps, reservoir, accumulator, selector valve, gear and flap actuators, brake lines, thermal relief valves</span>
 </div>
 
 <p>
@@ -2845,19 +2840,6 @@ Before the hand pump can deliver pressure, the hand pump shutoff valve must be o
   <p>Engines shut down, you need to retract the gear for maintenance. Open the hand pump shutoff valve, then click the pump handle repeatedly (up, down, up, down) until the system pressure gauge reads above 650 PSI. Now operate the gear handle normally. The accumulator will store the pressure you built, but you may need to pump additional strokes if the gear cycle depletes it. A full gear retraction from the extended position typically requires 2 to 3 extra pump strokes to complete.</p>
 </div>
 
-<h4>Emergency Air Bottle</h4>
-<p>
-A compressed air bottle, charged on the ground to 1,590 PSI, provides a pneumatic reserve for the wheel brakes if the hydraulic system loses brake pressure. The bottle's pressure varies with its temperature (the Ideal Gas Law), so the gauge reads lower on a cold day and higher on a hot one even when the bottle is fully charged. A steel bottle takes the best part of an hour to follow the outside air, so a bottle charged in a warm hangar keeps its pressure into the first cold climb, and one left out overnight starts the day low. On the real aeroplane a 0 to 2,000 PSI gauge marked EMER. AIR BRAKE PRESS. shows the bottle; that gauge is not modelled yet, so the bottle reads on the MAINT tab in DC3 Hangar instead.
-</p>
-
-<p>
-The bottle feeds an emergency air brake control valve, a lever to the left of the centreline just below the windshield. Opening it sends air to both wheel brakes together; the pedals play no part, because a shuttle valve at each brake passes whichever pressure is higher, hydraulic or air, and closes the other port. There is no pressure reducer, so the lever meters bottle pressure straight to the brakes: the first application is the strongest the brakes will ever see, and each one after it is a little weaker. Every opening of the valve draws on the bottle; holding it open costs nothing more, so it is pumping the lever that empties it. A warm bottle gives about four applications at full strength and around twenty before there is nothing left. One cold-soaked to minus thirty starts lower and gives three. Until the lever is modelled in the cockpit the valve is on three commands, <code>les/dc3/cmd/brakes/emerg_air_open</code>, <code>emerg_air_close</code> and <code>emerg_air_toggle</code>, which you can bind to a key or a button.
-</p>
-
-<p>
-It is a one-shot system: there is no compressor on board, so once discharged the bottle cannot be recharged in flight. RECHARGE on the MAINT tab, on the ground, is the ground crew. The bottle's charge is kept between flights. In Tourist mode the bottle is always full. The bottle does not extend the landing gear; emergency gear extension is by gravity free-fall (see Gravity Extension), not air pressure.
-</p>
-
 <!-- ── Landing Gear ── -->
 
 <h3>Landing Gear</h3>
@@ -2898,7 +2880,7 @@ An audible warning horn sounds when the throttles are retarded to low power and 
 
 <h4>Gravity Extension</h4>
 <p>
-If all hydraulic pressure is lost (below approximately 100 PSI), the landing gear will extend under its own weight. The emergency air bottle plays no part in this; it serves the wheel brakes only. This is not a controlled extension; it is gravity pulling the heavy gear legs down with no hydraulic damping. The gear will fall and lock, but the process is rougher and slower than a normal hydraulic extension. It is the last line of defense, and it works, because the gear is heavy and hinges are reliable even when everything else has failed.
+If all hydraulic pressure is lost (below approximately 100 PSI), the landing gear will extend under its own weight. This is not a controlled extension; it is gravity pulling the heavy gear legs down with no hydraulic damping. The gear will fall and lock, but the process is rougher and slower than a normal hydraulic extension. It is the last line of defense, and it works, because the gear is heavy and hinges are reliable even when everything else has failed.
 </p>
 
 <!-- ── Wing Flaps ── -->
@@ -2972,7 +2954,7 @@ If you lose hydraulic pressure in flight with the flaps retracted, the flaps wil
 <h3>Wheel Brakes</h3>
 
 <p>
-Hydraulic disc brakes are operated by toe pedals on both the captain's and first officer's rudder pedals. Brake pressure comes from the main hydraulic system, limited to 875 PSI by a brake control valve. A brake pressure gauge on the instrument panel shows the pressure being applied.
+Hydraulic disc brakes are operated by toe pedals on both the captain's and first officer's rudder pedals. Brake pressure comes from the main hydraulic system, limited to 875 PSI by a brake control valve. The braking each wheel is actually getting is shown under Wheel Brakes on the STATUS tab of the DC3 Hangar.
 </p>
 
 <p>
@@ -3009,7 +2991,7 @@ Wear follows braking <em>energy</em>, not hours in the air or the number of land
 Differential braking (applying more brake to one side) is the primary method for directional control during taxi, especially at low speeds where rudder authority is limited. The OPTIONS tab in DC3 Hangar offers an option to link rudder input to differential brakes for pilots without toe brake hardware, with a sensitivity slider running smoothly from 0 to 100.
 </p>
 <p>
-The assist works the same brakes as the pedals, so it is limited by the same pressure. With the hydraulics dead the rudder-to-brake link does nothing at all, however far the pedals move, and the emergency air brake is the only braking left. That will stop you but it cannot steer you, so plan on the tailwheel and the throttles for direction.
+The assist works the same brakes as the pedals, so it is limited by the same pressure. With the hydraulics dead the rudder-to-brake link does nothing at all, however far the pedals move, so until pressure is back, direction on the ground is down to the tailwheel and the throttles.
 </p>
 
 <h4>Parking Brake</h4>
@@ -3036,7 +3018,15 @@ Releasing the parking brake requires no pressure. Simply push the handle in to u
 
 <h4>Emergency Brakes</h4>
 <p>
-The wheel brakes need pressure, and the simulation no longer supplies it for free. Pedal braking is only as strong as the hydraulic pressure behind it: with both engine pumps stopped the pedals fade over a minute or two as the system bleeds down, the hand pump buys some of it back, and the parking brake cannot be set below 100 PSI. When brake pressure is gone, open the emergency air brake control valve. Air from the bottle goes to both wheels together, strongest on the first application and weaker on each one after it, and a cold bottle starts with less. Close the valve between applications rather than pumping it, since every opening draws on the bottle. The keyboard brakes obey the same pressure as the pedals, and the keyboard brake toggle is the parking brake, gated the same way as the knob. See <em>Emergency Air Bottle</em> in the Hydraulic System chapter for the bottle, the gauge and the recharge.
+The wheel brakes have no source of pressure but the hydraulic system. Pedal braking is only as strong as the pressure behind it: with both engine pumps stopped the pedals fade over a minute or two as the system bleeds down, and once it falls below about 100 PSI the linings do not bite at all. The backup is the hand pump, for the brakes as for the rest of the hydraulic system. Open the hand pump shutoff valve and work the handle; each stroke puts back roughly 50 PSI, which brings the pedals back to life and lets the parking brake latch once the system is above 100 PSI.
+</p>
+
+<p>
+The Pan Am DC-3 flight instructor's guide considered 450 PSI the minimum for satisfactory braking, so treat a hand-pumped system as a limp home, not a normal stop. The pump can in principle bring the system all the way back, but pressure bleeds away between strokes, and holding it up through a landing roll while also flying the aeroplane is a great deal to ask. Plan for a long, gentle roll-out.
+</p>
+
+<p>
+The keyboard and joystick brake commands obey the same pressure as the pedals, including the hold-left and hold-right buttons a yoke without pedals uses for differential braking, and every parking brake key or switch, X-Plane's or ours, is gated the same way as the knob. A two-position parking brake switch can bind <code>les/dc3/cmd/controls/parking_brake_set</code> and <code>parking_brake_release</code>.
 </p>
 
 <!-- ── Windshield Wipers ── -->
@@ -3125,7 +3115,7 @@ Cold viscosity affects everything the hydraulic system touches:
 </ul>
 
 <p>
-The hydraulic fluid, and the emergency air bottle, now begin at the outside air temperature rather than a fixed mild value. An aircraft left out overnight in the cold therefore starts genuinely cold-soaked, with no warm head-start to burn through, which makes the warm-up that much more worthwhile.
+The hydraulic fluid now begins at the outside air temperature rather than a fixed mild value. An aircraft left out overnight in the cold therefore starts genuinely cold-soaked, with no warm head-start to burn through, which makes the warm-up that much more worthwhile.
 </p>
 
 <p>
@@ -3332,7 +3322,6 @@ Each engine-driven pump tracks operating hours independently. Warning threshold 
     <tr><td>Brake control valve limit</td><td>875 PSI</td></tr>
     <tr><td>Brake bite threshold</td><td>100 PSI</td></tr>
     <tr><td>Parking brake minimum set pressure</td><td>100 PSI</td></tr>
-    <tr><td>Emergency air bottle (at 15&deg;C)</td><td>1,590 PSI</td></tr>
     <tr><td>Wiper minimum pressure</td><td>400 PSI</td></tr>
     <tr><td>Hand pump output per stroke</td><td>~50 PSI</td></tr>
     <tr><td>Engine pump flow rate</td><td>3 GPM at 1,400 RPM</td></tr>
@@ -5811,28 +5800,18 @@ The following failure categories are modeled:
   </thead>
   <tbody>
     <tr>
-      <td>Shuttle valve stuck (one wheel)</td>
-      <td>The pedals brake one wheel only, and the aeroplane swings toward the working side every time you use them. The emergency air brake still reaches both wheels normally, because it is the hydraulic side that is shut out.</td>
-      <td>Use the emergency air brake, which reaches both wheels equally and so will not swing you. Expect the swing on every landing until it is repaired, and allow for it before you need the brakes on a narrow runway.</td>
-    </tr>
-    <tr>
       <td>Brake line leak (one wheel)</td>
-      <td>That wheel goes soft and then dead, and the hydraulic reservoir falls whenever the pedals are used, because the pump is feeding the leak. Steady braking will empty it.</td>
-      <td>Brake as little as you can, watch the reservoir, and use the emergency air brake instead. Refill the reservoir on the MAINTENANCE tab once you are down.</td>
+      <td>That wheel goes soft and then dead, and the hydraulic reservoir falls in step with how hard and how long you brake, because it is brake pressure pushing fluid out of the line. Steady braking will empty it; a parked aeroplane with the pumps stopped loses nothing.</td>
+      <td>Brake as little as you can and watch the reservoir. Plan the landing around a long roll-out: braking the good wheel alone pulls the aeroplane toward it, so there is no differential braking to steer by, and direction is down to the rudder, the tailwheel and the throttles. If the main reservoir runs low, the hand pump draws on its own reserve and can hold some pressure while that lasts. Refill the reservoir on the MAINTENANCE tab once you are down.</td>
     </tr>
     <tr>
       <td>Power brake control valve</td>
       <td>Neither wheel brakes from the pedals, at any hydraulic pressure. The gauge can read a healthy system and the pedals still do nothing, because the valve that meters pedal force into brake pressure has failed.</td>
-      <td>This is the exact case the emergency air brake was fitted for. Use it, and plan the landing around braking that stops but does not steer.</td>
-    </tr>
-    <tr>
-      <td>Emergency air bottle leak</td>
-      <td>The bottle loses charge while the aeroplane is parked rather than holding it. This one shows up on the calendar, not in the air: leave the aircraft a few days and a good part of the charge has gone.</td>
-      <td>Check the bottle before any flight where the brakes might matter, and RECHARGE on the ground. A bottle that will not hold its charge between flights is the failure, not the weather.</td>
+      <td>Plan a landing with no wheel braking: the longest runway available, the slowest safe approach and a long roll-out, with direction down to the rudder, the tailwheel and the throttles. The hand pump will not help here, because pressure is not what has failed.</td>
     </tr>
     <tr>
       <td>Brake overheated (one wheel)</td>
-      <td>One wheel is weaker than the other after a spell of hard or prolonged braking, and it stays that way. Letting the brakes cool makes no difference, which is what separates this from a brake that is merely hot.</td>
+      <td>One wheel is weaker than the other and stays that way. The damage is done by heat overpressuring that brake circuit past what its thermal relief valve can vent, which in practice means a parked aeroplane with the brake set on a hot ramp and the relief valve failed. Letting the brakes cool makes no difference afterwards, which is what separates this from a brake that is merely hot.</td>
       <td>Reline that wheel. Nothing short of new linings restores it. Until then, expect the pull and allow for it on landing.</td>
     </tr>
     <tr>
@@ -5844,12 +5823,12 @@ The following failure categories are modeled:
 </table></div>
 
 <p>
-The stuck shuttle valve is the counterintuitive one and worth a moment. The shuttle valve exists to let the emergency air system reach the brakes, and it is a failure in that emergency system which takes your normal brakes away on that wheel. The emergency side goes on working perfectly; it is the everyday one you lose.
+X-Plane's own Failures screen can fail a wheel too (Left Brakes and Right Brakes). The aeroplane obeys it, the STATUS tab reports that wheel out rather than claiming a healthy brake, and REPAIR ALL on the FAILURES tab clears X-Plane's brake failures along with ours, so the two failure systems cannot disagree about a wheel.
 </p>
 
 <h4>Fluid Leaks</h4>
 <p>
-The simulation models progressive fluid leaks at specific locations on the aircraft. Oil can leak from propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines. Fuel can leak from tank seals, fuel lines, and selector valves. Hydraulic fluid can leak from the pump, reservoir, gear actuators, and brake lines. A leak bad enough to empty the system takes the wheel brakes with it, so on a hydraulic leak plan the landing around the emergency air brake described in <a href="#ch-hydraulics">Chapter 9</a>. Each leak has a severity ranging from minor (barely noticeable) to catastrophic (rapid fluid loss). Visual indicators appear on the aircraft: oil streaks on the engine nacelles, fuel stains on the wing, and hydraulic puddles beneath the aircraft. The MAINTENANCE tab shows active leaks and their severity.
+The simulation models progressive fluid leaks at specific locations on the aircraft. Oil can leak from propeller shaft seals, pushrod tube seals, sump gaskets, and oil lines. Fuel can leak from tank seals, fuel lines, and selector valves. Hydraulic fluid can leak from the pump, reservoir, gear actuators, and brake lines. A leak bad enough to empty the system takes the wheel brakes with it, so on a hydraulic leak plan the landing around a long roll-out; the hand pump draws on its own reserve and can put some pressure back, as <a href="#ch-hydraulics">Chapter 9</a> describes under Emergency Brakes. Each leak has a severity ranging from minor (barely noticeable) to catastrophic (rapid fluid loss). Visual indicators appear on the aircraft: oil streaks on the engine nacelles, fuel stains on the wing, and hydraulic puddles beneath the aircraft. The MAINTENANCE tab shows active leaks and their severity.
 </p>
 
 <h4>Abuse Thresholds</h4>
@@ -6455,6 +6434,7 @@ The aircraft state is saved when you close X-Plane and restored when you load th
   <li>Fuel quantities (per-tank)</li>
   <li>Battery charge (restored to full less a small self-discharge for the calendar days since the last flight, not the exact charge at shutdown)</li>
   <li>Hydraulic system wear and reservoir fluid level (instantaneous pressure is re-derived live, not saved)</li>
+  <li>The oxygen cylinder charge, advanced by the real time the aeroplane sat if it was leaking, and left as found by every startup preset; only the MAINTENANCE tab refills it</li>
   <li>Maintenance condition and wear levels</li>
   <li>Active failures, but only when the Failures setting is set to persist them (failure persistence has its own Session-only / Persistent control, independent of this panel-state preset)</li>
 </ul>
