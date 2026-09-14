@@ -230,19 +230,6 @@ providing 3.75-4.25" Hg vacuum. Warning lights illuminate below 3.5" Hg.</p>
 </div>
 
 <div class="section">
-<h3>Emergency Air Bottle Cold Weather Effects <span class="new-tag">NEW</span></h3>
-<ul>
-    <li>Pneumatic brake bottle pressure affected by temperature</li>
-    <li>Ideal Gas Law calculation for effective pressure: a full bottle reads about 1,342 PSI at -30°C</li>
-    <li>Cold does not weaken each application, it starts the bottle lower and so buys fewer of them:
-        about four full-strength stops from a bottle at 15°C, three from one cold-soaked to -30°C</li>
-    <li>The bottle follows the outside air over about twenty minutes, so one charged warm in a hangar
-        keeps its pressure into the first cold climb</li>
-    <li>Air bottle temperature display</li>
-</ul>
-</div>
-
-<div class="section">
 <h3>Cabin Combustion Heater System <span class="new-tag">NEW</span></h3>
 <p>Full simulation of the Stewart-Warner (Janitrol) S-100 combustion heater per T.O. 1C-47-2 Section IV.
 Burns aviation gasoline from the right main tank in a sealed combustion chamber, with a heat exchanger
@@ -892,44 +879,25 @@ published per engine.</p>
 </div>
 
 <div class="section">
-<h3>Wheel Brakes and Emergency Air System <span class="new-tag">NEW</span></h3>
-<p>The wheel brakes now answer to pressure. Per MM para 2-416 to 2-439 there are three ways to work
-them: main hydraulic pressure through the power brake control valve on the rudder pedals, the
-hydraulic hand pump, and the emergency air system, which drives the same brakes with compressed air
-when the hydraulic pressure is gone. It is a wheel brake, not an airbrake.</p>
+<h3>Wheel Brakes <span class="new-tag">NEW</span></h3>
+<p>The wheel brakes now answer to pressure. Main hydraulic pressure works them through the power brake
+control valve on the rudder pedals, and with the engine-driven pumps stopped the hydraulic hand pump is
+the backup, putting pressure back into the system for the pedals to use.</p>
 <ul>
     <li><strong>Pedal braking fades with the hydraulics.</strong> With both engine-driven pumps stopped
         the pedals weaken over a minute or two as the system bleeds down, and below about 100 PSI the
         linings do not bite at all. Strokes on the hand pump buy some of it back</li>
-    <li><strong>Shuttle valve at each brake assembly</strong> passes whichever pressure is higher,
-        hydraulic or air, and closes the other port. Same discs, same pistons, different working fluid,
-        so the two systems cannot fight each other</li>
-    <li><strong>The air bottle holds 1,590 PSI, charged on the ground.</strong> There is no compressor
-        aboard. The air pressure control valve feeds both wheels together</li>
-    <li><strong>No pressure reducer</strong>, so the valve meters bottle pressure straight to the
-        brakes. The first application is the strongest the brakes will ever see, and every one after it
-        is weaker as the bottle falls</li>
-    <li><strong>The pedals do nothing on air.</strong> The shuttle valve has closed their port, so there
-        is no differential braking while the emergency system is in use</li>
-    <li><strong>The bottle is spent per application, not per second held.</strong> Each opening of the
-        valve draws about twelve percent of the charge and holding it costs nothing more, so pumping the
-        lever is what empties it. Roughly twenty applications before there is nothing left</li>
-    <li><strong>The control valve lever and its 0 to 2,000 PSI gauge are not modelled in 3D yet.</strong>
-        On the real aircraft the lever sits left of the centreline just below the windshield Vee. Until
-        it is built the valve is on three commands for a keybind:
-        <code>les/dc3/cmd/brakes/emerg_air_open</code>, <code>_close</code> and <code>_toggle</code></li>
-    <li><strong>The charge is kept between flights.</strong> RECHARGE sits beside FILL UP on the
-        MAINTENANCE tab of the DC3 Hangar, on the ground only. Tourist keeps the bottle full at all times</li>
-    <li><strong>X-Plane's own keyboard brake commands are intercepted.</strong> The hold commands become
-        pedal demand through the same pressure model, and the two toggle commands become the parking
-        brake, gated on pressure exactly as the knob is, so they no longer pull the knob out past its
-        own gate</li>
+    <li><strong>All seven of X-Plane's brake commands are intercepted.</strong> The hold commands become
+        pedal demand through the same pressure model, including the hold-left and hold-right pair a yoke
+        without pedals uses for differential braking, and the three toggle and set/release commands become
+        the parking brake, gated on pressure exactly as the knob is, so neither a key nor a hardware
+        switch can pull the knob out past its own gate. Two-position parking brake switches can bind
+        <code>les/dc3/cmd/controls/parking_brake_set</code> and <code>parking_brake_release</code>, which
+        carry the same gate</li>
+    <li>A wheel failed from X-Plane's own Failures screen is honoured rather than argued with: the STATUS
+        tab reports that wheel out, and REPAIR ALL clears X-Plane's brake failures along with ours</li>
     <li>Differential braking for taxi assist is pressure-gated on the same terms. Wheel chocks still
         hold with no pressure at all, because a chock is a block and not a brake</li>
-    <li><strong>The STATUS tab counts the applications left</strong>, at full braking and before the
-        bottle is empty, rather than reading out a pressure alone. Its amber warning sits at 875 PSI, the
-        pressure below which an application no longer brakes as hard as a full pedal would, rather than at
-        a round number. On Tourist it says the bottle does not empty</li>
 </ul>
 
 <h4>Brake Lining Wear</h4>
@@ -964,20 +932,12 @@ one worth knowing.</p>
 
 <h4>Brake Failures</h4>
 <ul>
-    <li><strong>Shuttle valve stuck, per wheel.</strong> The poppet sticks over the hydraulic port, so
-        that wheel loses its normal braking while emergency air still reaches it: a failure in the backup
-        system that disables the primary. You meet it on an ordinary landing when the aeroplane pulls to
-        one side, and opening the emergency air valve brakes both wheels together again</li>
     <li><strong>Brake line leak, per wheel.</strong> That wheel loses hydraulic braking, and fluid
-        escapes whenever the pedal is down, draining the reservoir with it. FILL UP restores the fluid;
-        repairing the failure stops the loss</li>
+        escapes in proportion to the pedal and the pressure behind it, draining the reservoir with it; a
+        parked aeroplane with the pumps stopped loses nothing. FILL UP restores the fluid; repairing the
+        failure stops the loss</li>
     <li><strong>Power brake control valve</strong> (MM para 2-422), the metering valve on the pedals.
-        Failed, neither wheel has hydraulic braking, which is precisely the case the emergency air system
-        was fitted for</li>
-    <li><strong>Emergency air bottle leak.</strong> The bottle or a fitting weeps, and this one runs on
-        calendar time rather than flight hours: roughly 250 PSI gone after a day parked and half the
-        charge after four. A healthy bottle loses nothing at all, which is the manual's own acceptance
-        test (para 2-436, no leakage in a 24-hour period)</li>
+        Failed, neither wheel has hydraulic braking</li>
 </ul>
 </div>
 
@@ -2208,7 +2168,6 @@ clock versus chronograph mode.</p>
     <li>Comprehensive cold weather status displays:
         <ul>
             <li>Hydraulic fluid temperature and viscosity</li>
-            <li>Emergency air bottle pressure</li>
             <li>Prop governor response</li>
             <li>Gyro instrument status (vacuum-driven, per-pump readings)</li>
             <li>Control cable trim offset</li>
@@ -2668,7 +2627,7 @@ Quebecair Inc. DC-3 Flight Manual, January 1957, for the R-1830 S1C3G installati
 <p>The 2.0 failure module was two rules and a global MTBF: engine failure above 4000 prop RPM sustained
 for five seconds, and an engine fire if oil pressure stayed above 115 PSI for thirty seconds. It also
 accumulated engine "fatigue points" from low oil temperature operation. The C++ system replaces this with
-a catalogue of <strong>80 discrete failure types</strong> across thirteen groups, each with its own trigger
+a catalogue of <strong>77 discrete failure types</strong> across thirteen groups, each with its own trigger
 logic, symptoms and repair path.</p>
 <ul>
     <li><strong>Engine (14):</strong> left, right or both magnetos per engine, low oil pressure, oil leak,
@@ -2687,8 +2646,7 @@ logic, symptoms and repair path.</p>
         pin, which leaves the wheel castoring freely until it is replaced</li>
     <li><strong>Flaps (4):</strong> actuator seal leak per side, relief valve stuck open, asymmetric
         rigging</li>
-    <li><strong>Brakes (6):</strong> shuttle valve stuck and brake line leak, each per wheel, the power
-        brake control valve, and an emergency air bottle leak</li>
+    <li><strong>Brakes (3):</strong> brake line leak per wheel, and the power brake control valve</li>
     <li><strong>Vacuum (3):</strong> left and right engine-driven pump with severity encoding, plus a check
         valve stuck open so a dead pump's side becomes a vacuum leak</li>
     <li><strong>Compass and gyro instruments (5):</strong> KG 102A directional gyro dead or tumbled,
@@ -3442,6 +3400,13 @@ per variant, so the interface matches the aircraft you are flying.</p>
         rose, although the bottle drained at the correct rate the whole time. A fix to the emergency
         knob's latch was clearing the demand regulator's own indication one call later, every frame.
         Consumption had always been right; only the indication was dead</li>
+    <li>A Cold &amp; Dark applied from the OPTIONS tab refilled the oxygen bottle and opened its cylinder
+        valve, where the same preset chosen at the startup popup left the bottle as the last flight had
+        it. Neither path touches the bottle now: the oxygen charge is a consumable that persists between
+        sessions whichever preset you start from, and only the MAINTENANCE tab refills it</li>
+    <li>Disabling the plugin in Plugin Admin with the aircraft loaded left X-Plane forbidden the brake
+        pedals with nothing writing them, so the brakes held at whatever they last were. The pedals are
+        handed back to X-Plane on disable and taken up again on enable</li>
 </ul>
 </div>
 
