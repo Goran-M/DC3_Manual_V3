@@ -1432,10 +1432,10 @@ Automatic flight tracking with departure/arrival airports, block time, flight ti
 
 <h3>NETWORK Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: NETWORK tab]</span>
-  <span class="description">NETWORK tab showing shared cockpit connection controls, server/client settings, RTT display, and seat swap</span>
-</div>
+<figure>
+  <a href="images/network_tab.png" title="Open the full-size NETWORK tab"><img src="images/network_tab.png" alt="The NETWORK tab before a session: the Disconnected status, the shared secret field, the HOST A SESSION block with its port and green START SERVER button, the JOIN A SESSION block with host address, port and CONNECT, and the Connection help panel open at the foot"></a>
+  <figcaption>The NETWORK tab before any session, with the status reading Disconnected beside the title. Everything needed to start is on this one screen: the shared secret both players must type identically; a HOST A SESSION block with the port and the green START SERVER button; and a JOIN A SESSION block with the host's address, the port and CONNECT. Each button says which seat it puts you in. The Connection help panel at the foot is open here and is worth reading before the first attempt: forward the UDP port or use a VPN overlay such as Tailscale or ZeroTier instead, share the public address rather than the LAN one, and know that a CGNAT or IPv6-only connection will not work with port forwarding at all. Once a session is up this screen gives way to the connected view, with your role and seat, the round-trip time and packet loss, what the other pilot's simulator is doing, the seat swap request, and DISCONNECT. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The shared cockpit system allows two players to fly the DC-3 together over the internet, with one hosting as Captain and the other joining as First Officer. The NETWORK tab provides all connection management: server hosting, client connection, shared secret authentication, real-time network quality display (RTT, packet loss), and seat swap requests. Full details in <a href="#ch-shared-cockpit">Chapter 20</a>.
@@ -6167,7 +6167,7 @@ High RTT introduces a visible delay between when the client moves a control and 
 
 <div class="callout warning">
   <div class="callout-title">Firewall Configuration</div>
-  The host must have the chosen port (default 19830) open for incoming UDP traffic. If the host is behind a router, a port forward rule is required. The client does not need any special firewall configuration, as the outbound connection is initiated from the client side.
+  The host must have the chosen port (default 19830) open for incoming UDP traffic. If the host is behind a router, a port forward rule is required. The client does not need any special firewall configuration, as the outbound connection is initiated from the client side. A VPN overlay such as Tailscale or ZeroTier does away with the port forward entirely, and is the only route that works if the host's connection is behind carrier-grade NAT (common on mobile and some fibre providers) or is IPv6-only, since no port forward can reach those.
 </div>
 
 <h3>Authentication</h3>
