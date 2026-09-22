@@ -423,6 +423,38 @@
 
   /* ── Clearfix ──────────────────────────────────────── */
   .clearfix::after { content: ""; display: table; clear: both; }
+
+  /* ── Variant switch ────────────────────────────────────────────────
+     Hides the chapters belonging to the other variant. Chapter numbers
+     are left alone so cross-references and support instructions match
+     whatever the reader has selected. */
+  .variant-switch {
+    margin: 1.5rem 0 2rem; padding: 0.9rem 1rem;
+    background: var(--color-sidebar);
+    border: 1px solid var(--color-border); border-radius: 4px;
+  }
+  .variant-switch .vs-label {
+    display: block; margin-bottom: 0.55rem;
+    font-family: var(--font-heading); font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--color-muted);
+  }
+  .variant-switch button {
+    font-family: var(--font-heading); font-size: 0.85rem;
+    padding: 0.35rem 0.95rem; margin-right: 0.4rem;
+    color: var(--color-accent2); background: #fff;
+    border: 1px solid var(--color-border); border-radius: 3px; cursor: pointer;
+  }
+  .variant-switch button:hover { border-color: var(--color-accent2); }
+  .variant-switch button[aria-pressed="true"] {
+    background: var(--color-accent2); color: #fff; border-color: var(--color-accent2);
+  }
+  .variant-switch .vs-note {
+    display: block; margin-top: 0.6rem;
+    font-size: 0.82rem; color: var(--color-muted);
+  }
+  .v-hidden { display: none !important; }
+  @media print { .variant-switch { display: none; } }
 </style>
 </head>
 <body>
@@ -442,6 +474,13 @@
 <!-- ════════════════════════════════════════════════════
      TABLE OF CONTENTS
      ════════════════════════════════════════════════════ -->
+
+<div class="variant-switch" id="variant-switch">
+  <span class="vs-label">Which aeroplane are you flying?</span>
+  <button type="button" data-variant="classic" aria-pressed="false">Classic</button>
+  <button type="button" data-variant="modern" aria-pressed="false">Modern</button>
+  <span class="vs-note">Choosing one hides the four chapters that belong to the other; choose it again to show everything. Everything else in the manual applies to both aeroplanes. Chapter numbers stay the same whichever you pick, so a reference to Chapter 9 means Chapter 9 either way.</span>
+</div>
 
 <div class="toc">
   <div class="toc-title">Contents</div>
@@ -1036,10 +1075,10 @@ Below the fluids sits <strong>BRAKE LINING CONDITION</strong>, one line per main
 
 <h3>STATUS Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: STATUS tab]</span>
-  <span class="description">STATUS tab showing real-time system monitoring, emergency guidance, and warning indicators</span>
-</div>
+<figure>
+  <a href="images/status_tab.png" title="Open the full-size STATUS tab"><img src="images/status_tab.png" alt="The first screen of the STATUS tab: fuel system condition with outside air temperature, dewpoint, humidity and carburettor icing assessment, water in the fuel with a Drain Sump button per tank, battery cold weather status, and hydraulic cold weather status with the wheel brake authority line"></a>
+  <figcaption>The first screen of the STATUS tab. The fuel block gives the outside air temperature, dewpoint and humidity with the carburettor icing assessment that follows from them, then the water standing in each tank sump and strainer bowl, each with the button that drains it. Below are the battery and the hydraulic fluid, the latter carrying the thickness multiplier and the wheel brake authority. The tab is long: these are the first of three screens. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The STATUS tab is the simulation's real-time monitoring center. It provides information that a real DC-3 crew would gather from experience, ground crew reports, and careful observation, condensed into a single display for the simulator pilot.
@@ -1065,6 +1104,12 @@ Real-time fuel system monitoring including outside air temperature, humidity, ca
 Vacuum pump output, pump temperature and efficiency, attitude indicator and directional gyro spin-up progress, and stability indicators that warn when gyro readings should not be trusted.
 </p>
 
+<figure>
+  <a href="images/status_tab_systems.png" title="Open the full-size STATUS tab, systems"><img src="images/status_tab_systems.png" alt="The STATUS tab scrolled to the systems blocks: propeller governor temperatures, the vacuum system with pump suction and the attitude indicator's spin and wobble, control cable temperature, tyre temperature and pressures, the cabin heater and the start of the windshield block"></a>
+  <figcaption>Scrolling on brings the rest of those systems. The propeller governor temperatures sit above the vacuum system, which reports suction from each pump and what the attitude indicator is doing with it, spin percentage and the wobble that goes with a gyro not yet up to speed. Below them the control cable temperature, the tyre temperatures and pressures, and the cabin heater. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
+
+
 <h4>Hydraulic System</h4>
 <p>
 Main system pressure, fluid temperature, and thermal relief valve status. Beneath them a <strong>Wheel Brakes</strong> line gives the braking authority each main wheel has at that moment, as a percentage of full braking, tagged HYDRAULIC while the brakes are being applied and <em>nothing applied</em> when they are not. On a weak system it is the quickest way to see what the pedals will actually give you.
@@ -1080,6 +1125,11 @@ Battery temperature, cold weather capacity effects, and charging status.
 Control cable tension (affected by cold weather), tire condition, and propeller governor oil temperature and response characteristics.
 </p>
 
+<figure>
+  <a href="images/status_tab_avionics.png" title="Open the full-size STATUS tab, avionics readiness"><img src="images/status_tab_avionics.png" alt="The last screen of the STATUS tab: windshield temperature with frost, ice and visibility, a gyro readiness bar, the KCS 55A compass system with its slave meter, the KAP 140 autopilot, and the ADF radio signal quality with reception, distance and propagation path"></a>
+  <figcaption>The last screen is about what is ready to be used. The windshield reports its frost, ice and remaining visibility; the gyro readiness bar says in one line whether the attitude gyro can be trusted yet; and below them the KCS 55A compass system, the KAP 140 and the ADF each report whether they are powered and working. The ADF block is the terrain-aware radio model showing its working: signal quality, reception, distance to the station and the path the signal took to arrive. That model is covered in <a href="#ch-radio-propagation">Chapter 16</a>. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
+
 <div class="callout warning">
   <div class="callout-title">Status Alerts</div>
   <p>The STATUS tab button pulses when there is an unacknowledged warning requiring your attention. Check it whenever you notice the pulsing indicator.</p>
@@ -1087,10 +1137,10 @@ Control cable tension (affected by cold weather), tire condition, and propeller 
 
 <h3>OPTIONS Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: OPTIONS tab]</span>
-  <span class="description">OPTIONS tab showing difficulty selector, hardware settings, mixture controls, ground services, and panel state options</span>
-</div>
+<figure>
+  <a href="images/options_tab.png" title="Open the full-size OPTIONS tab"><img src="images/options_tab.png" alt="The top of the OPTIONS tab: FSEconomy status, SimBrief flight plan fetch, the main boarding door, the autopilot block, ground control assists with their sensitivity sliders, mixture and carburettor heat control methods, and on the right the ground services, engine covers, transponder VFR code, misc options and panel state"></a>
+  <figcaption>The top of the OPTIONS tab. The left column runs from the FSEconomy and SimBrief blocks down through the boarding door, the autopilot, the ground handling assists with their sensitivity sliders, and how you would rather work the mixture and carburettor heat levers. The right column holds the ground services in the order they must be done, the engine covers, the transponder's VFR code, the display options and the panel state the aircraft loads in. This is the Modern variant: on the Classic the autopilot block carries the Sperry mode choice described above, and the Radium Dials setting appears alongside it. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The OPTIONS tab controls simulation behavior and configuration. It is divided into several sections:
@@ -1229,6 +1279,11 @@ Enter your SimBrief username or Pilot ID and click <strong>Fetch Flight Plan</st
 <p>
 <strong>Remember to click SAVE OPTIONS</strong> after making changes.
 </p>
+
+<figure>
+  <a href="images/options_tab_lower.png" title="Open the full-size lower OPTIONS tab"><img src="images/options_tab_lower.png" alt="The OPTIONS tab scrolled down: the difficulty mode buttons with the consequences of the selected mode listed beneath them, the SAVE OPTIONS button, and the GNS 530 power-on splash fields for an owner name and motto"></a>
+  <figcaption>The foot of the tab, which the window does not reach without scrolling. Choosing a difficulty spells out underneath what it costs you rather than leaving it to the tooltips: Veteran is selected here, so random failures are forced on, abuse tolerance is tightened, wear runs at double rate and the primer will flood a cylinder if you overdo it. Below that sit SAVE OPTIONS, which has to be clicked for any change on this tab to survive, and the owner name and motto that the GNS 530 shows as it powers up, described in the <a href="Avionics/GNS530.html">GNS 530 guide</a>. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <h3>LOADING Tab</h3>
 
@@ -7128,5 +7183,101 @@ Sound samples, used under license
   </p>
 </div>
 
+<script>
+(function () {
+  "use strict";
+  // The four chapters that belong to one variant. Everything else is shared.
+  var OWNER = {
+    "ch-classic-panel":    "classic",
+    "ch-classic-avionics": "classic",
+    "ch-modern-panel":     "modern",
+    "ch-modern-avionics":  "modern"
+  };
+  var KEY = "dc3-manual-variant";
+  var current = null;   // null: nothing chosen, everything shown
+
+  // The document is flat: a chapter is its h2 plus every sibling up to the next
+  // h2 or part divider. Collect those once rather than re-walking on each click.
+  var groups = {}, tocItems = {};
+  Object.keys(OWNER).forEach(function (id) {
+    var h = document.getElementById(id);
+    if (!h) return;
+    var nodes = [h], n = h.nextElementSibling;
+    while (n && n.tagName !== "H2" && !(n.classList && n.classList.contains("part-divider"))) {
+      nodes.push(n);
+      n = n.nextElementSibling;
+    }
+    groups[id] = nodes;
+    var link = document.querySelector('.toc a[href="#' + id + '"]');
+    if (link) tocItems[id] = link.parentNode;
+  });
+
+  function apply(v) {
+    current = v;
+    Object.keys(groups).forEach(function (id) {
+      var hide = (v !== null && OWNER[id] !== v);
+      groups[id].forEach(function (el) { el.classList.toggle("v-hidden", hide); });
+      if (tocItems[id]) tocItems[id].classList.toggle("v-hidden", hide);
+    });
+    var btns = document.querySelectorAll("#variant-switch button");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute("aria-pressed", String(btns[i].getAttribute("data-variant") === v));
+    }
+    try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch (e) {}
+  }
+
+  // Anchors need help here. The images carry no width or height, so the browser
+  // computes its jump before they load and the layout then grows underneath it,
+  // leaving the reader thousands of pixels from the target. Re-running the jump
+  // once everything has loaded fixes it, and is skipped if the reader has
+  // scrolled in the meantime. A link into a chapter the current view hides also
+  // has to reveal it first, since the manual cross-references both variants.
+  // Browsers restore the previous scroll position on a reload, which lands
+  // nowhere near the anchor, so take that over when a hash is present.
+  if (location.hash && "scrollRestoration" in history) {
+    try { history.scrollRestoration = "manual"; } catch (e) {}
+  }
+
+  function jumpTo(el) {
+    // Instant, not the page's smooth scrolling: this document is over 200,000
+    // pixels tall and a smooth jump across it never arrives.
+    try { el.scrollIntoView({ behavior: "instant", block: "start" }); }
+    catch (e) { el.scrollIntoView(); }
+  }
+
+  function goToHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.closest(".v-hidden")) apply(null);
+    jumpTo(el);
+    // One jump is not enough. The images carry no declared height, so the layout
+    // grows underneath the first attempt, and the browser may restore an earlier
+    // scroll position after it. Check we actually landed, and correct if not.
+    var tries = 0;
+    (function settle() {
+      if (tries++ > 6) return;
+      setTimeout(function () {
+        if (Math.abs(el.getBoundingClientRect().top) > 8) { jumpTo(el); settle(); }
+      }, 120);
+    })();
+  }
+
+  document.getElementById("variant-switch").addEventListener("click", function (e) {
+    var v = e.target.getAttribute && e.target.getAttribute("data-variant");
+    if (v) apply(v === current ? null : v);   // the pressed button clears the choice
+  });
+  window.addEventListener("hashchange", goToHash);
+  // Again once the images are in: their heights are not declared, so the first
+  // jump is computed against a layout that then grows underneath it.
+  window.addEventListener("load", goToHash);
+
+  var saved;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  apply(saved === "classic" || saved === "modern" ? saved : null);
+  goToHash();
+})();
+</script>
 </body>
 </html>
