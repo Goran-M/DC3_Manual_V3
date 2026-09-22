@@ -1481,10 +1481,10 @@ AviTab is a free, open-source Electronic Flight Bag plugin by Folke Will, now ma
 
 <h2 id="ch-electrical">Chapter 6: Electrical System</h2>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Electrical system schematic]</span>
-  <span class="description">Simplified DC-3 electrical system block diagram showing battery, generators, buses, inverters, circuit breaker panels, and emergency power path</span>
-</div>
+<figure class="wide">
+  <a href="images/electrical_schematic.svg" title="Open the electrical system diagram full size"><img src="images/electrical_schematic.svg" width="1500" height="1000" alt="Block diagram of the simulated electrical system: two generators, the ground power unit and the battery feeding the 28 V main bus through their regulators, relays and switches; the primary, secondary, rear and radio buses and the starters branching from it through their limiters; the main and auxiliary inverters feeding the 115 V 400 Hz AC bus; the essential bus below; and the emergency power path from the battery to the flood lights, portable lights and the copilot's turn-and-bank"></a>
+  <figcaption>The electrical system as the plugin simulates it, reduced to the parts that decide where your power comes from and where it stops. Left to right: the two generators reach the main bus through their voltage regulators, reverse-current relays and main line switches; the ground power unit through the receptacle behind the access panel and a relay the battery switch closes at EXT; the battery through the connector relay the same switch closes at BAT. From the main bus, five branches: the primary bus with no limiter, the secondary bus and its breaker panels behind a 225 A limiter, the rear bus and the main inverter behind a 150 A limiter, the radio bus behind a 100 A limiter and the master radio switch, and the two inertia starters through limiters of their own. Either inverter can carry the AC bus, the main one by preference. Below: the essential bus, which rides on battery voltage whenever the connector relay is closed, and the red path the emergency power switch opens, which is all the aircraft has left once the main bus is dead. Each part is described in turn in the sections that follow. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The DC-3 runs on a 28-volt direct current electrical system. There is no alternator, no AC generator, no solid-state power supply. Every amp the aircraft uses comes from either a pair of engine-driven DC generators, a lead-acid battery, or an external ground power cart. When certain instruments need alternating current, a pair of rotary inverters convert DC to 115-volt, 400-hertz AC, spinning a small motor-generator at 12,000 RPM to do it.

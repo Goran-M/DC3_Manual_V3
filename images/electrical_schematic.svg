@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000" font-family="'Helvetica Neue', Arial, sans-serif" fill="#2c2c2c">
+  <title>LES DC-3 electrical system as simulated: sources, buses, limiters, inverters and the emergency power path</title>
+  <desc>Simplified block diagram of the simulated DC-3 electrical system. Two 200 A engine-driven generators reach the 28 V main bus through voltage regulators, reverse-current relays and their main line switches. A JetGo 550Mti ground power unit reaches it through the external power receptacle and a relay closed by the EXT position of the battery switch. Two 12 V batteries in series reach it through the battery connector relay, closed by the BAT position. From the main bus: the primary bus with no limiter feeds propeller feathering and fuel booster pumps; a 225 A limiter feeds the secondary bus and the circuit breaker panels; a 150 A limiter feeds the rear bus, the main 1500 VA inverter and the aft dome lights; a 100 A limiter and the master radio switch feed the radio bus; starter limiters feed the two inertia starters; and a breaker feeds the 250 VA auxiliary inverter. Either inverter feeds the 115 V 400 Hz AC bus, the main one with priority. The essential bus carries battery voltage whenever the connector relay is closed and main bus voltage otherwise. The guarded emergency power switch takes the battery off the main bus and feeds only the instrument panel flood lights, cockpit portable lights, main junction box flood light and the copilot's turn-and-bank indicator.</desc>
+  <defs>
+    <style>
+      .t  { font-size: 19px; }
+      .tb { font-size: 19px; font-weight: 700; }
+      .s  { font-size: 15px; fill: #4b5563; }
+      .sb { font-size: 15px; font-weight: 700; }
+      .lbl { font-size: 14px; fill: #4b5563; }
+      .bus { font-size: 20px; font-weight: 700; fill: #fff; letter-spacing: .04em; }
+      .busS { font-size: 14px; font-weight: 700; fill: #fff; }
+      .src { fill: #f3f0ea; stroke: #2c3e50; stroke-width: 2.5; }
+      .dev { fill: #ffffff; stroke: #2c3e50; stroke-width: 2; }
+      .dc  { stroke: #2c3e50; stroke-width: 3; fill: none; }
+      .ctl { stroke: #6b7280; stroke-width: 1.5; fill: none; stroke-dasharray: 3 4; }
+      .ac  { stroke: #7a5a0a; stroke-width: 3; fill: none; }
+      .em  { stroke: #c0392b; stroke-width: 3; fill: none; stroke-dasharray: 10 7; }
+      .emT { font-size: 14px; fill: #c0392b; font-style: italic; }
+      .lim { fill: #ffffff; stroke: #2c3e50; stroke-width: 2; }
+      .limI{ stroke: #2c3e50; stroke-width: 1.5; }
+      .cb  { fill: #ffffff; stroke: #2c3e50; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="1000" fill="#faf9f6"/>
+
+  <!-- ══════════════ SOURCES (left) ══════════════ -->
+
+  <!-- Left generator chain, y = 95 -->
+  <rect class="src" x="30" y="60" width="230" height="70" rx="8"/>
+  <text class="tb" x="145" y="89" text-anchor="middle">L GENERATOR</text>
+  <text class="s"  x="145" y="112" text-anchor="middle">200 A, engine driven</text>
+  <line class="dc" x1="260" y1="95" x2="295" y2="95"/>
+  <rect class="dev" x="295" y="72" width="130" height="46" rx="6"/>
+  <text class="sb" x="360" y="90" text-anchor="middle">VOLTAGE</text>
+  <text class="sb" x="360" y="108" text-anchor="middle">REGULATOR</text>
+  <line class="dc" x1="425" y1="95" x2="455" y2="95"/>
+  <rect class="dev" x="455" y="72" width="165" height="46" rx="6"/>
+  <text class="sb" x="537" y="90" text-anchor="middle">REVERSE-CURRENT</text>
+  <text class="sb" x="537" y="108" text-anchor="middle">RELAY</text>
+  <line class="dc" x1="620" y1="95" x2="655" y2="95"/>
+  <circle cx="655" cy="95" r="3.5" fill="#2c3e50"/>
+  <line class="dc" x1="655" y1="95" x2="690" y2="80"/>
+  <circle cx="695" cy="95" r="3.5" fill="#2c3e50"/>
+  <line class="dc" x1="695" y1="95" x2="740" y2="95"/>
+  <text class="lbl" x="675" y="122" text-anchor="middle">L GEN switch</text>
+
+  <!-- Right generator chain, y = 195 -->
+  <rect class="src" x="30" y="160" width="230" height="70" rx="8"/>
+  <text class="tb" x="145" y="189" text-anchor="middle">R GENERATOR</text>
+  <text class="s"  x="145" y="212" text-anchor="middle">200 A, engine driven</text>
+  <line class="dc" x1="260" y1="195" x2="295" y2="195"/>
+  <rect class="dev" x="295" y="172" width="130" height="46" rx="6"/>
+  <text class="sb" x="360" y="190" text-anchor="middle">VOLTAGE</text>
+  <text class="sb" x="360" y="208" text-anchor="middle">REGULATOR</text>
+  <line class="dc" x1="425" y1="195" x2="455" y2="195"/>
+  <rect class="dev" x="455" y="172" width="165" height="46" rx="6"/>
+  <text class="sb" x="537" y="190" text-anchor="middle">REVERSE-CURRENT</text>
+  <text class="sb" x="537" y="208" text-anchor="middle">RELAY</text>
+  <line class="dc" x1="620" y1="195" x2="655" y2="195"/>
+  <circle cx="655" cy="195" r="3.5" fill="#2c3e50"/>
+  <line class="dc" x1="655" y1="195" x2="690" y2="180"/>
+  <circle cx="695" cy="195" r="3.5" fill="#2c3e50"/>
+  <line class="dc" x1="695" y1="195" x2="740" y2="195"/>
+  <text class="lbl" x="675" y="222" text-anchor="middle">R GEN switch</text>
+  <text class="lbl" x="537" y="250" text-anchor="middle">closes when the generator is 0.3 to 0.6 V above the bus</text>
+
+  <!-- Ground power unit, y = 340 -->
+  <rect class="src" x="30" y="300" width="230" height="80" rx="8"/>
+  <text class="tb" x="145" y="329" text-anchor="middle">GROUND POWER UNIT</text>
+  <text class="s"  x="145" y="351" text-anchor="middle">JetGo 550Mti</text>
+  <text class="s"  x="145" y="369" text-anchor="middle">28.5 V, 550 A continuous</text>
+  <line class="dc" x1="260" y1="340" x2="290" y2="340"/>
+  <rect class="dev" x="290" y="317" width="150" height="46" rx="6"/>
+  <text class="sb" x="365" y="335" text-anchor="middle">EXTERNAL POWER</text>
+  <text class="sb" x="365" y="353" text-anchor="middle">RECEPTACLE</text>
+  <text class="lbl" x="365" y="382" text-anchor="middle">behind the access panel</text>
+  <line class="dc" x1="440" y1="340" x2="560" y2="340"/>
+  <rect class="dev" x="560" y="317" width="160" height="46" rx="6"/>
+  <text class="sb" x="640" y="335" text-anchor="middle">EXTERNAL POWER</text>
+  <text class="sb" x="640" y="353" text-anchor="middle">RELAY</text>
+  <line class="dc" x1="720" y1="340" x2="740" y2="340"/>
+
+  <!-- Battery, y = 490 -->
+  <rect class="src" x="30" y="450" width="230" height="80" rx="8"/>
+  <text class="tb" x="145" y="479" text-anchor="middle">BATTERY</text>
+  <text class="s"  x="145" y="501" text-anchor="middle">two 12 V, 88 Ah, in series</text>
+  <text class="s"  x="145" y="519" text-anchor="middle">24 V nominal</text>
+  <line class="dc" x1="260" y1="490" x2="560" y2="490"/>
+  <rect class="dev" x="560" y="467" width="160" height="46" rx="6"/>
+  <text class="sb" x="640" y="485" text-anchor="middle">BATTERY</text>
+  <text class="sb" x="640" y="503" text-anchor="middle">CONNECTOR RELAY</text>
+  <line class="dc" x1="720" y1="490" x2="740" y2="490"/>
+  <text class="lbl" x="410" y="518" text-anchor="middle">relay pulls in at 18 V, drops out at 7 V</text>
+  <text class="emT" x="410" y="538" text-anchor="middle">and is opened by the emergency power switch</text>
+
+  <!-- Battery switch: a control, not a conductor -->
+  <rect class="dev" x="450" y="392" width="100" height="62" rx="6"/>
+  <text class="sb" x="500" y="411" text-anchor="middle">BATTERY</text>
+  <text class="sb" x="500" y="428" text-anchor="middle">SWITCH</text>
+  <text class="lbl" x="500" y="446" text-anchor="middle">EXT · OFF · BAT</text>
+  <path class="ctl" d="M550 405 H600 V363"/>
+  <text class="lbl" x="606" y="392" text-anchor="start">EXT closes</text>
+  <path class="ctl" d="M550 440 H620 V467"/>
+  <text class="lbl" x="626" y="460" text-anchor="start">BAT closes</text>
+
+  <!-- ══════════════ MAIN BUS ══════════════ -->
+  <rect x="740" y="55" width="40" height="590" rx="6" fill="#2c3e50"/>
+  <text class="bus" transform="translate(766 350) rotate(-90)" text-anchor="middle">MAIN BUS · 28 V DC</text>
+
+  <!-- ══════════════ DISTRIBUTION (right) ══════════════ -->
+
+  <!-- Primary bus, y = 100, no limiter -->
+  <line class="dc" x1="780" y1="100" x2="870" y2="100"/>
+  <text class="lbl" x="825" y="122" text-anchor="middle">no limiter</text>
+  <rect x="870" y="87" width="160" height="26" rx="4" fill="#2c3e50"/>
+  <text class="busS" x="950" y="105" text-anchor="middle">PRIMARY BUS</text>
+  <text class="t" x="1050" y="97">Propeller feathering motors</text>
+  <text class="t" x="1050" y="119">Fuel booster pumps</text>
+
+  <!-- Secondary bus, y = 200, 225 A limiter -->
+  <line class="dc" x1="780" y1="200" x2="820" y2="200"/>
+  <rect class="lim" x="820" y="190" width="60" height="20" rx="3"/>
+  <line class="limI" x1="826" y1="200" x2="874" y2="200"/>
+  <text class="lbl" x="850" y="230" text-anchor="middle">225 A limiter</text>
+  <line class="dc" x1="880" y1="200" x2="910" y2="200"/>
+  <rect x="910" y="187" width="160" height="26" rx="4" fill="#2c3e50"/>
+  <text class="busS" x="990" y="205" text-anchor="middle">SECONDARY BUS</text>
+  <text class="t" x="1090" y="193">Circuit breaker panels</text>
+  <text class="s" x="1090" y="212">62 breakers, 68 on the Modern:</text>
+  <text class="s" x="1090" y="230">lighting, instruments, engine accessories,</text>
+  <text class="s" x="1090" y="248">ice protection, warning systems, pitot heat</text>
+
+  <!-- Rear bus, y = 310, 150 A limiter, main inverter -->
+  <line class="dc" x1="780" y1="310" x2="820" y2="310"/>
+  <rect class="lim" x="820" y="300" width="60" height="20" rx="3"/>
+  <line class="limI" x1="826" y1="310" x2="874" y2="310"/>
+  <text class="lbl" x="850" y="340" text-anchor="middle">150 A limiter</text>
+  <line class="dc" x1="880" y1="310" x2="910" y2="310"/>
+  <rect x="910" y="297" width="130" height="26" rx="4" fill="#2c3e50"/>
+  <text class="busS" x="975" y="315" text-anchor="middle">REAR BUS</text>
+  <line class="dc" x1="1040" y1="310" x2="1070" y2="310"/>
+  <circle class="cb" cx="1080" cy="310" r="9"/>
+  <text class="lbl" x="1080" y="338" text-anchor="middle">CB</text>
+  <line class="dc" x1="1089" y1="310" x2="1110" y2="310"/>
+  <rect class="dev" x="1110" y="286" width="140" height="48" rx="6"/>
+  <text class="sb" x="1180" y="305" text-anchor="middle">MAIN INVERTER</text>
+  <text class="s"  x="1180" y="324" text-anchor="middle">1500 VA</text>
+  <path class="ac" d="M1250 310 H1470 V680"/>
+  <text class="s" x="975" y="352" text-anchor="middle">also the aft dome lights</text>
+
+  <!-- Radio bus, y = 430, 100 A limiter + master radio switch -->
+  <line class="dc" x1="780" y1="430" x2="820" y2="430"/>
+  <rect class="lim" x="820" y="420" width="60" height="20" rx="3"/>
+  <line class="limI" x1="826" y1="430" x2="874" y2="430"/>
+  <text class="lbl" x="850" y="460" text-anchor="middle">100 A limiter</text>
+  <line class="dc" x1="880" y1="430" x2="905" y2="430"/>
+  <circle cx="905" cy="430" r="3.5" fill="#2c3e50"/>
+  <line class="dc" x1="905" y1="430" x2="938" y2="415"/>
+  <circle cx="943" cy="430" r="3.5" fill="#2c3e50"/>
+  <text class="lbl" x="924" y="405" text-anchor="middle">MASTER RADIO</text>
+  <line class="dc" x1="943" y1="430" x2="960" y2="430"/>
+  <rect x="960" y="417" width="130" height="26" rx="4" fill="#2c3e50"/>
+  <text class="busS" x="1025" y="435" text-anchor="middle">RADIO BUS</text>
+  <text class="t" x="1105" y="424">Radios</text>
+  <text class="s" x="1105" y="443">Classic: VHF, HF, ADF, marker</text>
+  <text class="s" x="1105" y="461">Modern: KX 165A, GNS 530, KT 73,</text>
+  <text class="s" x="1105" y="479">KR 87, KDI 572, KAP 140</text>
+
+  <!-- Starters, y = 540, starter limiters -->
+  <line class="dc" x1="780" y1="540" x2="820" y2="540"/>
+  <rect class="lim" x="820" y="530" width="60" height="20" rx="3"/>
+  <line class="limI" x1="826" y1="540" x2="874" y2="540"/>
+  <text class="lbl" x="850" y="570" text-anchor="middle">starter limiters</text>
+  <line class="dc" x1="880" y1="540" x2="910" y2="540"/>
+  <text class="t" x="915" y="546">Inertia starters, L and R</text>
+  <text class="s" x="915" y="566">on the main bus, not the secondary</text>
+
+  <!-- Auxiliary inverter, y = 620 -->
+  <line class="dc" x1="780" y1="620" x2="1000" y2="620"/>
+  <circle class="cb" cx="1010" cy="620" r="9"/>
+  <text class="lbl" x="1010" y="648" text-anchor="middle">CB</text>
+  <line class="dc" x1="1019" y1="620" x2="1050" y2="620"/>
+  <rect class="dev" x="1050" y="596" width="200" height="48" rx="6"/>
+  <text class="sb" x="1150" y="615" text-anchor="middle">AUXILIARY INVERTER</text>
+  <text class="s"  x="1150" y="634" text-anchor="middle">250 VA, backup</text>
+  <line class="ac" x1="1250" y1="620" x2="1470" y2="620"/>
+
+  <!-- AC bus, horizontal under the inverters -->
+  <rect x="1060" y="680" width="410" height="32" rx="5" fill="#7a5a0a"/>
+  <text class="bus" x="1265" y="702" text-anchor="middle">AC BUS · 115 V 400 Hz</text>
+  <text class="t" x="1060" y="740">Compass system, autopilot,</text>
+  <text class="t" x="1060" y="762">navigation instruments</text>
+  <text class="s" x="1060" y="788">Main inverter has priority; the auxiliary</text>
+  <text class="s" x="1060" y="806">takes over when it is not running.</text>
+  <text class="s" x="1060" y="828">On the ground the AC interlock sheds</text>
+  <text class="s" x="1060" y="846">the autopilot, IFF and LORAN loads.</text>
+
+  <!-- ══════════════ ESSENTIAL BUS ══════════════ -->
+  <line class="dc" x1="640" y1="513" x2="640" y2="720"/>
+  <text class="lbl" x="650" y="640" text-anchor="start">battery volts</text>
+  <path class="dc" d="M760 645 V745 H700"/>
+  <text class="lbl" x="772" y="700" text-anchor="start">main bus</text>
+  <rect x="300" y="720" width="400" height="50" rx="4" fill="#2c3e50"/>
+  <text class="bus" x="500" y="752" text-anchor="middle">ESSENTIAL BUS</text>
+  <text class="s" x="300" y="792">battery voltage while the connector relay is closed, otherwise main bus voltage</text>
+  <text class="t" x="300" y="818">Critical flight instruments and communications;</text>
+  <text class="t" x="300" y="840">KAP 140 disconnect alert on the Modern</text>
+
+  <!-- ══════════════ EMERGENCY POWER ══════════════ -->
+  <path class="em" d="M145 530 V880"/>
+  <text class="emT" x="158" y="700" text-anchor="start">battery, through</text>
+  <text class="emT" x="158" y="718" text-anchor="start">the connector relay</text>
+  <rect x="30" y="880" width="250" height="70" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2.5"/>
+  <text class="sb" x="155" y="904" text-anchor="middle" fill="#c0392b">EMERGENCY POWER SWITCH</text>
+  <text class="s"  x="155" y="924" text-anchor="middle" fill="#c0392b">guarded · NORMAL / EMERGENCY</text>
+  <text class="s"  x="155" y="941" text-anchor="middle" fill="#c0392b">on the overhead panel</text>
+  <path class="em" d="M280 915 H310"/>
+  <rect x="310" y="895" width="200" height="40" rx="4" fill="#c0392b"/>
+  <text class="bus" x="410" y="921" text-anchor="middle">EMERGENCY BUS</text>
+  <path class="em" d="M510 915 H535"/>
+  <text class="t" x="540" y="905">Instrument panel flood lights · Cockpit portable lights</text>
+  <text class="t" x="540" y="929">Main junction box flood light · Copilot's turn-and-bank</text>
+  <text class="emT" x="540" y="955">In EMERGENCY the battery leaves the main bus, which stays alive</text>
+  <text class="emT" x="540" y="973">only if a generator or the ground power unit is online.</text>
+
+  <!-- ══════════════ LEGEND ══════════════ -->
+  <g transform="translate(1030 862)">
+    <rect x="0" y="0" width="455" height="128" rx="6" fill="#fff" stroke="#d1d5db"/>
+    <line class="dc" x1="18" y1="26" x2="70" y2="26"/>
+    <text class="s" x="82" y="31">28 V DC</text>
+    <line class="ac" x1="18" y1="54" x2="70" y2="54"/>
+    <text class="s" x="82" y="59">115 V 400 Hz AC</text>
+    <line class="em" x1="18" y1="82" x2="70" y2="82"/>
+    <text class="s" x="82" y="87">emergency power path</text>
+    <rect class="lim" x="220" y="16" width="50" height="20" rx="3"/>
+    <line class="limI" x1="226" y1="26" x2="264" y2="26"/>
+    <text class="s" x="282" y="23">bus limiter: fusible,</text>
+    <text class="s" x="282" y="41">not resettable in flight</text>
+    <circle class="cb" cx="245" cy="66" r="9"/>
+    <text class="s" x="282" y="71">circuit breaker</text>
+    <circle cx="228" cy="96" r="3.5" fill="#2c3e50"/>
+    <line class="dc" x1="228" y1="96" x2="258" y2="83"/>
+    <circle cx="262" cy="96" r="3.5" fill="#2c3e50"/>
+    <text class="s" x="282" y="101">switch</text>
+    <text class="lbl" x="18" y="116">Simplified, as simulated. Details in Chapter 6.</text>
+  </g>
+</svg>
