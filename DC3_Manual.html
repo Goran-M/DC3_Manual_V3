@@ -425,7 +425,8 @@
   .clearfix::after { content: ""; display: table; clear: both; }
 
   /* ── Variant switch ────────────────────────────────────────────────
-     Hides the chapters belonging to the other variant. Chapter numbers
+     Hides the chapters belonging to the other variant, and any block
+     marked v-classic or v-modern inside a shared chapter. Chapter numbers
      are left alone so cross-references and support instructions match
      whatever the reader has selected. */
   .variant-switch {
@@ -479,7 +480,7 @@
   <span class="vs-label">Which aeroplane are you flying?</span>
   <button type="button" data-variant="classic" aria-pressed="false">Classic</button>
   <button type="button" data-variant="modern" aria-pressed="false">Modern</button>
-  <span class="vs-note">Choosing one hides the four chapters that belong to the other; choose it again to show everything. Everything else in the manual applies to both aeroplanes. Chapter numbers stay the same whichever you pick, so a reference to Chapter 9 means Chapter 9 either way.</span>
+  <span class="vs-note">Choosing one hides the four chapters, and the passages elsewhere, that belong to the other; choose it again to show everything. Everything else in the manual applies to both aeroplanes. Chapter numbers stay the same whichever you pick, so a reference to Chapter 9 means Chapter 9 either way.</span>
 </div>
 
 <div class="toc">
@@ -1151,9 +1152,10 @@ The OPTIONS tab controls simulation behavior and configuration. It is divided in
 The rear main cabin entry door can be opened and closed from the OPTIONS tab. The current state is displayed as <strong>OPEN</strong>, <strong>CLOSED</strong>, or <strong>IN TRANSIT</strong> with a percentage indicator while the door is moving. <strong>Open</strong> and <strong>Close</strong> buttons swing the door open and closed over a few seconds with a weighted, physical motion rather than a fixed-rate slide. The door can also be operated via a click-and-drag manipulator on the 3D model.
 </p>
 
+<div class="v-classic">
 <h4>Autopilot Mode</h4>
 <p>
-For the Classic variant, choose how the Sperry A-3A holds heading. <strong>Realistic</strong> is the default.
+Choose how the Sperry A-3A holds heading. <strong>Realistic</strong> is the default.
 </p>
 <p>
 <strong>Realistic</strong> is rudder-only heading control, which is what the real A-3A had. It is also why the real unit had a reputation for being squirrelly and wanting watching: with nothing damping the yaw, it holds a heading but hunts around it, and you coordinate the turn yourself with rudder trim.
@@ -1164,6 +1166,14 @@ For the Classic variant, choose how the Sperry A-3A holds heading. <strong>Reali
 <p>
 Your choice is remembered between sessions.
 </p>
+</div>
+
+<div class="v-modern">
+<h4>Autopilot</h4>
+<p>
+On the Modern the autopilot block is informational only: it names the Bendix/King KAP 140 and its modes, which are operated from the unit's own panel. There is nothing to set here.
+</p>
+</div>
 
 <h4>Hardware Settings</h4>
 <p>
@@ -1174,10 +1184,12 @@ Ground handling assistance for pilots without rudder pedals or who prefer simpli
   <li><strong>Rudder Controls Differential Brakes</strong> &ndash; Rudder input applies differential braking</li>
   <li>Sensitivity sliders for both options</li>
 </ul>
+<div class="v-classic">
 <h4>Radium Dials (Classic)</h4>
 <p>
 <strong>Aged dials</strong> switches the radium glow from paint as it was in service to what an eighty-year-old unrestored dial gives today, which is nearly dark. The slider sets the overall radium brightness. Both are remembered between sessions.
 </p>
+</div>
 
 <h4>Mixture Controls</h4>
 <p>
@@ -1411,7 +1423,7 @@ The full failure-management console, used for training scenarios and for adding 
   <li><strong>Configuration</strong> &ndash; the random-failure toggle and the MTBF multiplier (100&ndash;2000 hours) that govern probability-based failures, plus the persistence mode (reset on load, or persistent across sessions). In Tourist and Veteran modes the random-failure state is fixed by the difficulty mode and shown as a status line; only Standard mode leaves it to you.</li>
   <li><strong>Engine Abuse Tracking</strong> &ndash; live progress bars for each engine showing how close you are to an abuse-induced failure on cylinder head temperature, oil temperature, over-boost and over-speed.</li>
   <li><strong>Active Failures</strong> &ndash; every current failure with its severity, what triggered it, and a Repair button where in-flight repair is possible.</li>
-  <li><strong>Failure Scheduling</strong> &ndash; grouped tables (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI, and on the Modern variant Autopilot (KAP 140)) where each failure can be set to Off, Random, Timed or Fail Now, each with a Severity slider.</li>
+  <li><strong>Failure Scheduling</strong> &ndash; grouped tables (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI<span class="v-modern">, and on the Modern variant Autopilot (KAP 140)</span>) where each failure can be set to Off, Random, Timed or Fail Now, each with a Severity slider.</li>
   <li><strong>Repair All Failures</strong> and <strong>Reset Session</strong> buttons to clear everything.</li>
 </ul>
 
@@ -1427,7 +1439,7 @@ Full details of failure behaviour, the scheduling modes and the severity control
 </figure>
 
 <p>
-Automatic flight tracking with departure/arrival airports, block time, flight time, fuel consumption, and landing counts. Cumulative statistics track your total DC-3 experience. On the Classic variant, entries are color-coded by the difficulty mode they were flown in: green for Tourist, the tab's ordinary ink for Standard, red for Veteran. The Modern variant prints every entry in the same ink. Details in <a href="#ch-logbook">Chapter 21</a>.
+Automatic flight tracking with departure/arrival airports, block time, flight time, fuel consumption, and landing counts. Cumulative statistics track your total DC-3 experience. <span class="v-classic">On the Classic variant, entries are color-coded by the difficulty mode they were flown in: green for Tourist, the tab's ordinary ink for Standard, red for Veteran.</span> <span class="v-modern">The Modern variant prints every entry in the same ink.</span> Details in <a href="#ch-logbook">Chapter 21</a>.
 </p>
 
 <h3>NETWORK Tab</h3>
@@ -1525,10 +1537,10 @@ Each engine drives a generator rated at 200 amps. The generators are the aircraf
   <div class="callout-title">Variant Difference: Generator Cut-In Speed</div>
   <p>The engine speed at which each generator comes online differs between the two variants, reflecting the different equipment fitted to each:</p>
   <ul>
-    <li><strong>Classic</strong> &ndash; the generator relay closes at approximately <strong>950 RPM</strong>, so the generators come online shortly after the engines settle into a stable idle.</li>
-    <li><strong>Modern</strong> &ndash; the generator relay closes at approximately <strong>1300 RPM</strong>. The generators do not come online at idle; you must bring the engines up toward run-up speed before the buses transfer from battery to generator power.</li>
+    <li class="v-classic"><strong>Classic</strong> &ndash; the generator relay closes at approximately <strong>950 RPM</strong>, so the generators come online shortly after the engines settle into a stable idle.</li>
+    <li class="v-modern"><strong>Modern</strong> &ndash; the generator relay closes at approximately <strong>1300 RPM</strong>. The generators do not come online at idle; you must bring the engines up toward run-up speed before the buses transfer from battery to generator power.</li>
   </ul>
-  <p>The practical consequence on the Modern variant: watch the ammeters during taxi. At a low idle the battery may be carrying the entire load, slowly discharging. Bringing the engines up to 1300 RPM or above transfers the load to the generators and begins recharging the battery.</p>
+  <p class="v-modern">The practical consequence on the Modern variant: watch the ammeters during taxi. At a low idle the battery may be carrying the entire load, slowly discharging. Bringing the engines up to 1300 RPM or above transfers the load to the generators and begins recharging the battery.</p>
 </div>
 
 <p>
@@ -1546,10 +1558,10 @@ Each generator is protected by a reverse-current relay that monitors the differe
 
 <h4>Ground Power Unit (GPU)</h4>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: JetGo 550Mti ground power unit next to DC-3]</span>
-  <span class="description">AERO Specialties JetGo 550Mti portable GPU cart positioned near the DC-3's nose</span>
-</div>
+<figure>
+  <a href="images/gpu_jetgo.jpg" title="Open the full-size view of the ground power unit"><img src="images/gpu_jetgo.jpg" width="2000" height="1035" alt="The orange JetGo 550Mti ground power cart parked beside the DC-3's forward fuselage on the apron, its cable running up to the open external power receptacle under the cockpit, with the DC3 Hangar OPTIONS tab open in the corner showing the three ground services ticked and the GPU reported running"></a>
+  <figcaption>The JetGo 550Mti at work: parked beside the forward fuselage on the left side, drawbar up, cable plugged into the receptacle behind the open access panel under the cockpit. The cart is not scenery. It appears only when called, which is what the OPTIONS tab in the corner is showing: chocks set, access panel open, ground power connected, and the status line reading <em>GPU: RUNNING</em>, the state the rest of this section walks you through. Both engine covers are off, so this aeroplane is a few minutes from a start. The tab itself is described in <a href="#ch-dc3central">Chapter 5</a>. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The simulated GPU is an AERO Specialties JetGo 550Mti, a towable diesel-powered ground power unit commonly found at airports worldwide. It provides 28.5 volts DC at up to 550 amps continuous, more than enough to power the DC-3's entire electrical system and support engine starting without touching the aircraft battery.
@@ -1641,7 +1653,7 @@ If you change your mind during the cooldown period and switch back to EXT, the G
 <h3>AC Power: The Inverters</h3>
 
 <p>
-Most of the DC-3's equipment runs on 28-volt DC, but a handful of instruments require alternating current. The compass system, the Sperry A-3A gyropilot, and certain navigation receivers need 115-volt, 400-hertz, three-phase AC to function. Since the aircraft has no AC generator, this power comes from rotary inverters: motor-generators that take 28V DC in and spin out 115V AC at 400 cycles per second.
+Most of the DC-3's equipment runs on 28-volt DC, but a handful of instruments require alternating current. The compass system<span class="v-classic">, the Sperry A-3A gyropilot,</span> and certain navigation receivers need 115-volt, 400-hertz, three-phase AC to function. Since the aircraft has no AC generator, this power comes from rotary inverters: motor-generators that take 28V DC in and spin out 115V AC at 400 cycles per second.
 </p>
 
 <p>
@@ -1650,7 +1662,7 @@ Two inverters are installed, but they do not run simultaneously in normal operat
 
 <h4>Main Inverter</h4>
 <p>
-The main inverter (part number E-1737-1) is a 1,500 volt-amp unit mounted in the tail section of the aircraft. It is the primary source of AC power and, under normal conditions, the only inverter running. It powers the G-2 flux gate compass system, the compass amplifier, the radio compass receiver, and the automatic pilot. Its DC input draws approximately 48 amps from the rear bus when running under load, with a brief inrush of around 58 amps during startup as the motor spins up to operating speed. From switch-on, expect about two seconds before the inverter reaches stable 115V output.
+The main inverter (part number E-1737-1) is a 1,500 volt-amp unit mounted in the tail section of the aircraft. It is the primary source of AC power and, under normal conditions, the only inverter running. It powers the G-2 flux gate compass system and its amplifier<span class="v-classic">, the radio compass receiver and the Sperry autopilot's amplifier</span>. Its DC input draws approximately 48 amps from the rear bus when running under load, with a brief inrush of around 58 amps during startup as the motor spins up to operating speed. From switch-on, expect about two seconds before the inverter reaches stable 115V output.
 </p>
 
 <h4>Auxiliary Inverter</h4>
@@ -1773,11 +1785,11 @@ This is not a normal operating mode. It is the "everything else has failed and w
 </div>
 
 <p>
-The Classic panel has 62 individual circuit breakers on the overhead panel, protecting every electrical circuit on the airplane; the Modern variant adds six more (transponder, KAP 140 autopilot, autopilot alert, two DMEs, and GPS) for 68 in total. Each breaker is modeled independently: it can be tripped (pulled out) and reset (pushed in) by clicking on it, and it will trip automatically if the circuit draws excessive current due to a short circuit or equipment malfunction.
+The circuit breakers live on the overhead panel in four rows, one for every electrical circuit on the aeroplane: 62 on the Classic, 67 on the Modern, which loses the Sperry autopilot's breaker and gains six for its avionics stack. Each breaker is modelled independently. Click it to pull it and open the circuit, click again to push it back in, and it will trip on its own if the circuit draws more than its rating, whether from a short or a failing unit.
 </p>
 
 <p>
-The breakers are organized by system across the panel. They range from 5-amp breakers protecting individual instrument lights to 35-amp breakers on the landing light circuits. Every circuit breaker in the simulation is functional, meaning you can selectively disable any electrically-powered system by pulling its breaker.
+They range from 5-amp breakers protecting individual instrument lights to 35-amp breakers on the landing lights. Most of them isolate the unit they name. A handful inherited from the C-47 radio fit do not: the range receiver, VOR receiver, glide slope, HF and UHF breakers protect nothing in the simulation, because the radios are powered as a group through the radio bus and the master radio switch. The two variant sections below say which breakers matter on each aeroplane.
 </p>
 
 <p>
@@ -1789,23 +1801,53 @@ A breaker that trips due to an actual fault (as opposed to being manually pulled
   <p>Each circuit breaker can be controlled via three X-Plane commands: trip (pull out), reset (push in), and toggle. These can be bound to keyboard keys or joystick buttons. The command naming follows the pattern <code>les/dc3/cmd/cb/trip/[breaker_name]</code>, <code>les/dc3/cmd/cb/reset/[breaker_name]</code>, and <code>les/dc3/cmd/cb/toggle/[breaker_name]</code>.</p>
 </div>
 
+<div class="v-classic">
+<h4>The Classic panel</h4>
+
 <p>
-The 64 breakers are grouped into functional sections on the panel:
+Sixty-two breakers in four rows. Read top to bottom, and left to right from the pilot's seat:
 </p>
 
 <div class="table-scroll"><table>
   <thead>
-    <tr><th>Positions</th><th>Section</th><th>Circuits</th></tr>
+    <tr><th>Row</th><th>Breakers, left to right</th></tr>
   </thead>
   <tbody>
-    <tr><td>1&ndash;12</td><td>AC Inverter</td><td>Inverter phase outputs, inverter power feeds, inverter warning, aft dome lights, generator fields, heater controls, ground blower</td></tr>
-    <tr><td>13&ndash;23</td><td>Lighting</td><td>Cabin dome, navigator lights, landing light controls and lamps (35A each), radio panel lights, instrument panel lights (pilot and copilot), cockpit miscellaneous, wing leading edge (ice inspection)</td></tr>
-    <tr><td>24&ndash;26</td><td>Propeller &amp; T&amp;B</td><td>Propeller feathering (L and R), turn-and-bank indicator lights</td></tr>
-    <tr><td>27&ndash;40</td><td>Avionics &amp; Warnings</td><td>Range receiver, VOR, glide slope, ADF (two circuits), marker beacon, altimeter, gear position, general warning, door warning, gear warning horn, fuel/oil pressure warning, heater fire, engine fire</td></tr>
-    <tr><td>41&ndash;51</td><td>Instruments &amp; Radios</td><td>G-2 compass, autopilot, temperature instruments, fuel quantity, fuel boost pumps (L and R, 15A each), cockpit flood lights, IFF, HF/VHF/UHF transceivers</td></tr>
-    <tr><td>52&ndash;62</td><td>Engine &amp; Utility</td><td>Oil cooler doors (L and R), engine starter/ignition, alcohol quantity, de-icer equipment, airscoop heater, pitot heaters (L and R), DC turn-and-bank, cockpit C-4 lights, junction box flood light. <em>Note: the DC-3 cowl flaps are hydraulically actuated, not electric, so there are no cowl flap circuit breakers on this panel.</em></td></tr>
+    <tr><td>Top (2)</td><td>The two 115 V AC phase-inverter outputs.</td></tr>
+    <tr><td>Second (20)</td><td>Aft dome lights, main inverter, left and right generator field, heater ground control, heater control, ground blower, inverter warning lights, 1500 VA inverter control, 250 VA inverter, cabin dome lights, navigator lights, left and right landing light control, left and right landing light (35 A each), radio panel lights, pilot's and copilot's instrument panel lights, miscellaneous cockpit lights.</td></tr>
+    <tr><td>Third (23)</td><td>Wing leading edge lights, left and right propeller feathering, turn-and-bank lights, range receiver, VOR receiver, glide slope, green and red ADF, marker beacon, altimeter, gear position indicator, general warning lights, door warning, gear warning, fuel and oil pressure warning, heater fire warning, engine fire warning, cockpit C-4 lights, main junction box flood light, G-2 compass, automatic pilot, temperature instruments.</td></tr>
+    <tr><td>Bottom (17)</td><td>Fuel quantity indicator, left and right fuel booster pump (15 A each), cockpit flood lights, IFF power, HF receiver, VHF transmitter-receiver, UHF transmitter-receiver, left and right oil cooler doors, engine starter and ignition, alcohol quantity indicator, de-icer equipment, airscoop heater, left and right pitot heater, DC turn-and-bank indicator.</td></tr>
   </tbody>
 </table></div>
+
+<p>
+On the Classic the automatic pilot breaker is the Sperry A-3A's (<a href="#ch-classic-avionics">Chapter 14</a>); its amplifier draws AC from the inverter as well, as does the IFF, and the AC ground interlock sheds both on the ground. The green and red ADF breakers feed the radio range receiver, and the red one carries the radio compass. The VHF breaker joins the range, VOR, glide slope, HF and UHF ones in protecting nothing on this variant: the Classic's communication radios are switched as a group. The DC-3's cowl flaps are hydraulic, so there is no cowl flap breaker.
+</p>
+</div>
+
+<div class="v-modern">
+<h4>The Modern panel</h4>
+
+<p>
+Sixty-seven breakers in the same four rows. The Modern panel is the Classic panel with the Sperry autopilot's breaker gone and six added for the avionics stack, each rated 5 A except the 1 A autopilot alert; everything else keeps its place. The additions are in bold below: <strong>GPS</strong> for the GNS 530, in the second row between the heater control and the ground blower; the <strong>KAP 140 alert</strong>, in the second row between the radio panel lights and the pilot's panel lights; the <strong>transponder</strong> for the KT 73, at the left end of the third row; the <strong>KAP 140 autopilot</strong>, in the third row where the Sperry's breaker was, between the G-2 compass and the temperature instruments; and <strong>DME 1</strong> and <strong>DME 2</strong> for the two KDI 572s, at the left end of the bottom row.
+</p>
+
+<div class="table-scroll"><table>
+  <thead>
+    <tr><th>Row</th><th>Breakers, left to right</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Top (2)</td><td>The two 115 V AC phase-inverter outputs.</td></tr>
+    <tr><td>Second (22)</td><td>Aft dome lights, main inverter, left and right generator field, heater ground control, heater control, <strong>GPS</strong>, ground blower, inverter warning lights, 1500 VA inverter control, 250 VA inverter, cabin dome lights, navigator lights, left and right landing light control, left and right landing light (35 A each), radio panel lights, <strong>KAP 140 alert</strong>, pilot's and copilot's instrument panel lights, miscellaneous cockpit lights.</td></tr>
+    <tr><td>Third (24)</td><td><strong>Transponder</strong>, wing leading edge lights, left and right propeller feathering, turn-and-bank lights, range receiver, VOR receiver, glide slope, green and red ADF, marker beacon, altimeter, gear position indicator, general warning lights, door warning, gear warning, fuel and oil pressure warning, heater fire warning, engine fire warning, cockpit C-4 lights, main junction box flood light, G-2 compass, <strong>KAP 140 autopilot</strong>, temperature instruments.</td></tr>
+    <tr><td>Bottom (19)</td><td><strong>DME 1</strong>, <strong>DME 2</strong>, fuel quantity indicator, left and right fuel booster pump (15 A each), cockpit flood lights, IFF power, HF receiver, VHF transmitter-receiver, UHF transmitter-receiver, left and right oil cooler doors, engine starter and ignition, alcohol quantity indicator, de-icer equipment, airscoop heater, left and right pitot heater, DC turn-and-bank indicator.</td></tr>
+  </tbody>
+</table></div>
+
+<p>
+What the Modern stack draws through: the KX 165A through the VHF transmitter-receiver breaker, the KR 87 through the green and red ADF breakers, and the KT 73, the KDI 572s, the GNS 530 and the KAP 140 through their own. The KAP 140 is DC-powered and takes nothing from the inverter, unlike the Sperry it replaces, and its alert breaker sits on the essential bus so the disconnect warning survives a dead main bus. The range receiver, VOR receiver, glide slope, IFF, HF and UHF breakers are still on the panel, inherited from the C-47 fit; pulling them affects nothing on this variant. The DC-3's cowl flaps are hydraulic, so there is no cowl flap breaker. The units themselves are described in <a href="#ch-modern-avionics">Chapter 15</a>.
+</p>
+</div>
 
 <!-- ── Warning Systems ── -->
 
@@ -2845,10 +2887,12 @@ The pump selector valve on the cockpit floor has two positions: NORMAL and ALTER
 When the selector is in ALTERNATE, the left engine pump alone maintains main system pressure. This is adequate for normal flight, but be aware that recovery time after a gear or flap cycle will be longer with only one pump feeding the system.
 </p>
 
+<div class="v-classic">
 <h4>Autopilot Shutoff Valve</h4>
 <p>
 A separate shutoff valve gates hydraulic pressure to the autopilot servos. It must be open for the A-3A to function. When closed, the autopilot has no hydraulic authority regardless of the pump selector position. This valve is normally closed when the autopilot is not in use, isolating the servo circuit from the main system. The Gyropilot will not engage with it closed, and drops out if it is closed in flight. Its pedestal lever is not yet in the cockpit, so the valve starts open; the toggle command in the hydraulic group closes it.
 </p>
+</div>
 
 <h4>Reservoir</h4>
 <p>
@@ -3533,7 +3577,7 @@ At high altitudes, air density decreases, which reduces the effectiveness of the
 Gyro instruments require time to reach operating speed after engine start. The panel attitude indicator and directional gyro reach full speed in approximately 90 seconds at normal temperatures. In cold weather, thickened lubricant in the gyro bearings dramatically increases spin-up time, up to five minutes in severe cold. During spin-up, the instruments display erratic, unreliable indications. Do not attempt instrument flight until the gyros have fully stabilized.
 </p>
 
-<p>
+<p class="v-classic">
 The Sperry A-3A autopilot's gyros (a directional gyro in the Gyro Turn Unit and a bank-and-climb gyro) run on the same engine-driven vacuum as the panel attitude indicator and directional gyro, and reach operating speed in about the same time, roughly 90 seconds when warm and longer in the cold. The autopilot will refuse to engage until those gyros are spun up to at least 90% of operating speed. This is enforced by the engagement prerequisites; the engagement lever will not stay in the ON position before the autopilot's gyros are ready, regardless of how the panel instruments look.
 </p>
 
@@ -3541,7 +3585,7 @@ The Sperry A-3A autopilot's gyros (a directional gyro in the Gyro Turn Unit and 
   <div class="callout-title">Suggested Wait Times After Engine Start</div>
   <ul>
     <li><strong>Panel AI and DG</strong>: about 90 seconds (warm), up to 5 minutes (cold-soaked)</li>
-    <li><strong>Sperry A-3A autopilot</strong>: about 3 minutes (warm), longer in cold</li>
+    <li class="v-classic"><strong>Sperry A-3A autopilot</strong>: about 3 minutes (warm), longer in cold</li>
     <li><strong>Visual cue</strong>: both gyros show an OFF/cage flag while they are below operating speed, which disappears once they are up to speed. In Tourist and Standard modes the directional gyro also auto-cages during spin-up, so you cannot accidentally rely on it before it is stable; the attitude indicator shows its flag but does not auto-cage, and in Veteran mode the DG cage is fully manual (see below).</li>
   </ul>
 </div>
@@ -3597,12 +3641,12 @@ Losing suction does not freeze the attitude indicator. The rotor of an air-drive
 Which seats carry a manual vacuum directional gyro, and whether you have to reset it at all, depends on the variant you are flying.
 </p>
 
-<div class="callout note">
+<div class="callout note v-classic">
   <div class="callout-title">Classic Variant</div>
   <p>The vacuum-driven DG is the primary heading instrument at both the pilot's and the copilot's position. Each one is a free gyro: it drifts, and each pilot resets their own DG against the magnetic compass every 10 to 15 minutes of straight-and-level flight, using the cage, set, uncage procedure above. Two gyros, two independent resets.</p>
 </div>
 
-<div class="callout note">
+<div class="callout note v-modern">
   <div class="callout-title">Modern Variant</div>
   <p>The pilot no longer flies a manual vacuum DG for heading. The pilot's heading comes from the KCS 55A slaved compass system, shown on the KI 525A HSI, which is electrically slaved to the flux valve and corrects its own drift continuously. In normal operation it needs no caging and no periodic resetting, so the cage-and-set drill above does not apply to it. See <a href="#ch-modern-avionics">Chapter 15</a> for the HSI and the KCS 55A system.</p>
   <p>The copilot's position keeps the traditional vacuum directional gyro. It behaves exactly as described here: it drifts, and the copilot resets it with the same cage, set, uncage procedure, just as in the Classic aircraft.</p>
@@ -3642,12 +3686,12 @@ Cage behaviour during the spin-up period after engine start differs between diff
 </div>
 
 <p>
-The same difficulty split applies to the copilot's DG. The attitude indicator and the autopilot's GTU directional gyro are always button-driven (no spin-up auto-cage in any mode), since their cage mechanisms in the real aircraft were not tied to spin state.
+The same difficulty split applies to the copilot's DG. The attitude indicator is always button-driven (no spin-up auto-cage in any mode), since its cage mechanism in the real aircraft was not tied to spin state.<span class="v-classic"> So is the Sperry autopilot's GTU directional gyro.</span>
 </p>
 
 <h4>Tumble Limits</h4>
 <p>
-Gyroscopic instruments have gimbal limits, but the two panel gyros behave differently in the model. The vacuum <strong>attitude indicator does not tumble</strong> in the simulation, regardless of the attitude you fly. The <strong>directional gyro tumbles at about 100 degrees of bank</strong>, losing its heading reference until it re-erects, which takes time. There is no pitch-tumble threshold on the vacuum gyros; the 60-degree pitch figure sometimes quoted for the DC-3 relates to the Classic Sperry A-3A gyro, not the vacuum AI and DG.
+Gyroscopic instruments have gimbal limits, but the two panel gyros behave differently in the model. The vacuum <strong>attitude indicator does not tumble</strong> in the simulation, regardless of the attitude you fly. The <strong>directional gyro tumbles at about 100 degrees of bank</strong>, losing its heading reference until it re-erects, which takes time. There is no pitch-tumble threshold on the vacuum gyros<span class="v-classic">; the 60-degree pitch figure sometimes quoted for the DC-3 relates to the Sperry A-3A gyro, not the vacuum AI and DG</span>.
 </p>
 
 <h3>Magnetic Compass</h3>
@@ -3671,6 +3715,7 @@ The DC-3's compass is a damped pendulum suspended in fluid, and it behaves like 
 Learning to read the wet compass accurately, compensating for its known errors, is a fundamental skill for DC-3 pilots. It is the only heading reference that works without electricity, without vacuum, and without any external input.
 </p>
 
+<div class="v-classic">
 <h3>Magnesyn Remote Indicating Compass (Classic Variant)</h3>
 
 <p>
@@ -3688,6 +3733,7 @@ The tradeoff is that the Magnesyn requires electrical power. It is fed through t
 <p>
 The servo response is noticeably slower than a gyro instrument. After a heading change, the card takes two to three seconds to settle, with a slight overshoot before stabilizing. This lag is a characteristic of the Magnesyn system, not a fault. In turbulence, the card tracks the average heading smoothly rather than chasing every bump.
 </p>
+</div>
 
 <h3>Tumbler Drum Altimeter</h3>
 
@@ -4399,12 +4445,12 @@ Why a separate circuit for just two small lights? The turn-and-bank indicator is
 
 <h4>Panel Lighting Behavior by Variant</h4>
 
-<p>
+<p class="v-classic">
 On the Classic variant, the instrument panel rheostats control post lights that illuminate the gauges from above. The gauge dial markings themselves use radium-based luminous paint that glows without electrical power (see Instrument Illumination below).
 </p>
 
-<p>
-On the Modern variant, the same rheostats additionally control electric backlighting inside the gauges, providing brighter and more uniform illumination. This backlighting requires power, so in a total electrical failure the Modern variant's gauges go dark, while the Classic variant still has its radium glow.
+<p class="v-modern">
+On the Modern variant, the instrument panel rheostats control the post lights and, in addition, the electric backlighting inside the gauges, giving brighter and more uniform illumination. That backlighting needs power, so in a total electrical failure the gauges go dark.
 </p>
 
 <h3>Cabin Lighting</h3>
@@ -4454,9 +4500,10 @@ The seatbelt and no smoking signs are controlled by separate switches on the ove
 <h3>Instrument Illumination</h3>
 
 <p>
-The Classic and Modern variants use different methods for illuminating instrument dials, reflecting their respective eras of manufacture.
+How the instrument dials are lit depends on the variant, reflecting the two eras of manufacture.
 </p>
 
+<div class="v-classic">
 <h4>Classic Variant: Radium Glow</h4>
 
 <p>
@@ -4470,7 +4517,9 @@ The simulation models this glow effect based on ambient lighting conditions. In 
 <p>
 The Classic variant's post lights (controlled by the panel lighting rheostats) still function for general cockpit illumination, illuminating items like the RMI, flaps indicator, and other panel-mounted instruments from above.
 </p>
+</div>
 
+<div class="v-modern">
 <h4>Modern Variant: Electric Gauge Backlighting</h4>
 
 <p>
@@ -4486,12 +4535,13 @@ The Modern variant replaces the radium paint with electric backlighting inside t
 <p>
 In addition to gauge backlighting, the post lights provide flood illumination over the instrument panel. Items such as the RMI and flaps indicator are illuminated by these post lights rather than by internal backlighting. Post lights are controlled by the same panel lighting rheostats and are also protected by their respective circuit breakers.
 </p>
+</div>
 
 <p>
 The radio panel has its own separate lighting circuit protected by CB 19: RADIO PANEL LIGHTS (5A). This allows the radio stack illumination to be controlled independently from the flight instrument lighting.
 </p>
 
-<div class="callout note">
+<div class="callout note v-modern">
 <div class="callout-title">Note</div>
 <p>Unlike the Classic variant's radium glow, the Modern variant's gauge backlighting requires electrical power. In a total electrical failure at night, the Modern variant's gauges will go completely dark. Pilots flying the Modern variant should be aware of this difference when planning for electrical emergencies.</p>
 </div>
@@ -4516,7 +4566,7 @@ The most dramatic demonstration of this effect occurs when the pilot forgets to 
 </table></div>
 
 <p>
-Panel post lights and instrument lighting are also affected. The rheostat-set brightness level is scaled by the voltage-dependent factor, so even with the panel light rheostat at full, the instruments will dim as the battery drains. On the Modern variant, this includes the electric gauge backlighting; on the Classic variant, the radium glow is unaffected by voltage since it requires no power.
+Panel post lights and instrument lighting are also affected. The rheostat-set brightness level is scaled by the voltage-dependent factor, so even with the panel light rheostat at full, the instruments will dim as the battery drains. <span class="v-modern">On the Modern variant, this includes the electric gauge backlighting.</span> <span class="v-classic">On the Classic variant, the radium glow is unaffected by voltage since it requires no power.</span>
 </p>
 
 <div class="callout note">
@@ -4544,7 +4594,7 @@ Every incandescent bulb on the aircraft has a finite lifespan. The simulation tr
     <tr><td>Reading / entry / lav / tail access</td><td>2,500 hours</td><td>18</td></tr>
     <tr><td>Panel flood / compass</td><td>2,000 hours</td><td>5</td></tr>
     <tr><td>Seat belt / no smoking signs</td><td>3,000 hours</td><td>2</td></tr>
-    <tr><td>Post lights (Modern variant)</td><td>2,000 hours</td><td>57</td></tr>
+    <tr class="v-modern"><td>Post lights (Modern variant)</td><td>2,000 hours</td><td>57</td></tr>
   </tbody>
 </table></div>
 
@@ -5687,7 +5737,7 @@ Those clients sit outside the simulator and read the aircraft's radio state from
 <ul>
   <li><strong>Turn the master radio switch on, and make sure the radio bus is powered.</strong> A client that sees no avionics power will refuse to transmit, and on some clients the transmit and receive controls simply grey out. If a client tells you your radios are off, this is the first thing to check.</li>
   <li><strong>Set the transmit selector on the pilot's audio control box to COM1 or COM2.</strong> That selector decides which radio you transmit on, and it is what the client reads.</li>
-  <li><strong>Know which radio is which.</strong> On the Modern panel, COM1 is the GNS 530 and COM2 is the KX 165A. On the Classic panel, COM1 and COM2 are the two sets in the period radio stack, tuned with their coarse and fine knobs.</li>
+  <li><strong>Know which radio is which.</strong> <span class="v-modern">On the Modern panel, COM1 is the GNS 530 and COM2 is the KX 165A.</span> <span class="v-classic">On the Classic panel, COM1 and COM2 are the two sets in the period radio stack, tuned with their coarse and fine knobs.</span></li>
 </ul>
 
 <h4>The GROUND, INTER and CALL Positions</h4>
@@ -5703,7 +5753,7 @@ The practical effect is worth knowing before you key the microphone: if you tran
 <h4>Tuning</h4>
 
 <p>
-The KX 165A holds its own frequency continuously, reading X-Plane's value only once when the aircraft loads. If an ATC client offers to tune a radio for you, expect to set the KX 165A by hand on the unit instead. This is correct behaviour for a self-contained radio, not a shortcoming. The other sets follow X-Plane's own radio state.
+<span class="v-modern">The KX 165A holds its own frequency continuously, reading X-Plane's value only once when the aircraft loads. If an ATC client offers to tune a radio for you, expect to set the KX 165A by hand on the unit instead. This is correct behaviour for a self-contained radio, not a shortcoming. The other sets follow X-Plane's own radio state.</span><span class="v-classic">Both sets follow X-Plane's own radio state.</span>
 </p>
 
 <h4>Both Variants</h4>
@@ -5713,7 +5763,7 @@ Either variant can be flown online. Both carry two COM sets and a transponder, a
 </p>
 
 <p>
-The Classic's radio stack is a generic period installation rather than a reproduction of a specific make and model: two COM sets tuned with coarse and fine knobs, and a transponder with squawk digit knobs, a mode selector and an IDENT button. It does the job a network or an AI controller asks of it, including a squawk. The Modern panel gives you the GNS 530, the KX 165A and the KT 73 instead, with the conveniences those units bring.
+<span class="v-classic">The Classic's radio stack is a generic period installation rather than a reproduction of a specific make and model: two COM sets tuned with coarse and fine knobs, and a transponder with squawk digit knobs, a mode selector and an IDENT button. It does the job a network or an AI controller asks of it, including a squawk.</span> <span class="v-modern">The Modern panel gives you the GNS 530, the KX 165A and the KT 73, with the conveniences those units bring.</span>
 </p>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -5920,7 +5970,7 @@ In Veteran mode, these thresholds are halved (stricter). In Tourist mode, they a
 <h3>Manual Failure Injection</h3>
 
 <p>
-The FAILURES tab in DC3 Hangar lets you trigger specific failures for training. Failures are organised into groups (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI, and on the Modern variant Autopilot (KAP 140)), and each failure row offers four scheduling modes:
+The FAILURES tab in DC3 Hangar lets you trigger specific failures for training. Failures are organised into groups (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI<span class="v-modern">, and on the Modern variant Autopilot (KAP 140)</span>), and each failure row offers four scheduling modes:
 </p>
 
 <ul>
@@ -6132,7 +6182,7 @@ The shared cockpit allows two players to fly the DC-3 together over the internet
 
 <div class="callout caution">
   <div class="callout-title">Beta Feature</div>
-  <p>Shared cockpit is new and should be treated as a beta feature until it has been validated across a range of two-machine setups. Core systems (electrical, fuel, hydraulic, controls, gear, flaps) sync reliably, but some state, particularly the Modern-variant avionics (radio tuning, autopilot modes, transponder), is still being hardened and may not always stay perfectly in step between the two aircraft. If you notice a control that has not replicated, operate it again or have the host re-check it. Please report any desync you find so it can be tuned.</p>
+  <p>Shared cockpit is new and should be treated as a beta feature until it has been validated across a range of two-machine setups. Core systems (electrical, fuel, hydraulic, controls, gear, flaps) sync reliably, but some state<span class="v-modern">, particularly the Modern-variant avionics (radio tuning, autopilot modes, transponder),</span> is still being hardened and may not always stay perfectly in step between the two aircraft. If you notice a control that has not replicated, operate it again or have the host re-check it. Please report any desync you find so it can be tuned.</p>
 </div>
 
 <h3>How It Works</h3>
@@ -6247,7 +6297,7 @@ The following systems are fully synchronized between host and client:
   <tr><td>Electrical system</td><td>Bus voltages, battery state, generator status, all circuit breakers, warning annunciators</td></tr>
   <tr><td>Hydraulic system</td><td>System and accumulator pressure, fluid temperature, pump state, brake pressure</td></tr>
   <tr><td>Fuel system</td><td>Tank quantities, fuel pressure, fuel flow, carburetor icing level</td></tr>
-  <tr><td>Autopilot</td><td>Engagement state, servo knob positions, DG headings</td></tr>
+  <tr class="v-classic"><td>Autopilot</td><td>Engagement state, servo knob positions, DG headings</td></tr>
   <tr><td>Gyro instruments</td><td>AI and DG wobble/spin rates, vacuum pressure, compass displacement</td></tr>
   <tr><td>Thermal systems</td><td>Cabin heater, oil temperature, thermal relief valve, oxygen system, prop anti-ice, oil dilution, de-ice boots</td></tr>
   <tr><td>Ice accretion</td><td>Wing, tail, prop, windshield, pitot ice; aerodynamic penalties</td></tr>
@@ -6270,7 +6320,7 @@ Click <strong>DISCONNECT</strong> in the NETWORK tab to end the session. The cli
   <li>Both players must be running the same DC-3 variant (Classic or Modern). A Classic host cannot pair with a Modern client.</li>
   <li>Weather and time-of-day are not synchronized. Both players should set the same weather and time in X-Plane before connecting for a consistent experience.</li>
   <li>Scenery and airport layout are local to each player's installation. Visual differences in terrain or buildings are cosmetic and do not affect the simulation.</li>
-  <li>Modern variant avionics (KX165A, KAP 140, KT 73, KR87) are synchronized at the state level. Individual knob animations on the client side may lag slightly behind the actual frequency or code value.</li>
+  <li class="v-modern">Modern variant avionics (KX165A, KAP 140, KT 73, KR87) are synchronized at the state level. Individual knob animations on the client side may lag slightly behind the actual frequency or code value.</li>
   <li>Failures triggered on the host are experienced by both players. The client cannot independently trigger failures.</li>
 </ul>
 
@@ -6313,7 +6363,12 @@ Cumulative statistics across all recorded flights: total flights, total block ti
 <h3>Flight Log</h3>
 
 <p>
-A table of all recorded flights, newest first and fifteen to a page, showing date, departure and arrival airports, block and flight times, fuel used, and landings. Newer and Older buttons at the foot turn the pages. On the Classic variant, entries are color-coded by the difficulty mode they were flown in:
+A table of all recorded flights, newest first and fifteen to a page, showing date, departure and arrival airports, block and flight times, fuel used, and landings. Newer and Older buttons at the foot turn the pages.
+</p>
+
+<div class="v-classic">
+<p>
+On the Classic variant, entries are color-coded by the difficulty mode they were flown in:
 </p>
 
 <ul>
@@ -6321,10 +6376,13 @@ A table of all recorded flights, newest first and fifteen to a page, showing dat
   <li><strong>Ordinary ink</strong> &ndash; Standard mode, the same as the rest of the tab</li>
   <li><span style="color:#c0392b;font-weight:bold;">Red</span> &ndash; Veteran mode</li>
 </ul>
+</div>
 
+<div class="v-modern">
 <p>
 The Modern variant prints every entry in the same ink, so its rows read cleanly against the darker table and match the summary lines above them. The difficulty of a flight is still recorded; it is only the colouring that the Modern logbook leaves out.
 </p>
+</div>
 
 <p>
 Flight data persists in <code>logbook.json</code> in the aircraft's resources/data folder and survives across sessions.
@@ -6842,7 +6900,7 @@ The simulation models:
   <li>Earth-rate drift (approximately 15&deg;/hour &times; sin(latitude))</li>
   <li>Temperature effects on bearing lubrication</li>
   <li>Vacuum pump efficiency under various conditions (cold oil, low RPM)</li>
-  <li>Directional gyro tumbles at 100&deg; bank (the vacuum attitude indicator does not tumble in the model; the 60&deg; pitch limit applies only to the Classic Sperry A-3A gyro)</li>
+  <li>Directional gyro tumbles at 100&deg; bank (the vacuum attitude indicator does not tumble in the model<span class="v-classic">; the 60&deg; pitch limit applies only to the Sperry A-3A gyro</span>)</li>
 </ul>
 
 <h3>What You Experience</h3>
@@ -7237,6 +7295,14 @@ Sound samples, used under license
       groups[id].forEach(function (el) { el.classList.toggle("v-hidden", hide); });
       if (tocItems[id]) tocItems[id].classList.toggle("v-hidden", hide);
     });
+    // Passages inside shared chapters that belong to one aeroplane carry
+    // class v-classic or v-modern. Same rule: hidden only when the other
+    // aeroplane is chosen.
+    var blocks = document.querySelectorAll(".v-classic, .v-modern");
+    for (var j = 0; j < blocks.length; j++) {
+      var mine = blocks[j].classList.contains("v-classic") ? "classic" : "modern";
+      blocks[j].classList.toggle("v-hidden", v !== null && v !== mine);
+    }
     var btns = document.querySelectorAll("#variant-switch button");
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute("aria-pressed", String(btns[i].getAttribute("data-variant") === v));

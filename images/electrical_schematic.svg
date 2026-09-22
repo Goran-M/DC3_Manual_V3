@@ -128,7 +128,7 @@
   <rect x="910" y="187" width="160" height="26" rx="4" fill="#2c3e50"/>
   <text class="busS" x="990" y="205" text-anchor="middle">SECONDARY BUS</text>
   <text class="t" x="1090" y="193">Circuit breaker panels</text>
-  <text class="s" x="1090" y="212">62 breakers, 68 on the Modern:</text>
+  <text class="s" x="1090" y="212">62 breakers, 67 on the Modern:</text>
   <text class="s" x="1090" y="230">lighting, instruments, engine accessories,</text>
   <text class="s" x="1090" y="248">ice protection, warning systems, pitot heat</text>
 
