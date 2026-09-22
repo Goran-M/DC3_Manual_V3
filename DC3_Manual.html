@@ -1287,14 +1287,19 @@ Enter your SimBrief username or Pilot ID and click <strong>Fetch Flight Plan</st
 
 <h3>LOADING Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: LOADING tab]</span>
-  <span class="description">LOADING tab with passenger/cargo inputs on left, CG envelope chart on right showing current loading point</span>
-</div>
+<figure>
+  <a href="images/loading_tab.png" title="Open the full-size LOADING tab"><img src="images/loading_tab.png" alt="The LOADING tab with the PASSENGERS section open: a passenger count for compartments B, C and D above a cabin plan that numbers every seat by compartment, and on the right the centre of gravity envelope with the weight summary beneath it"></a>
+  <figcaption>The LOADING tab with the PASSENGERS section open. The left column is three collapsible sections, one each for passengers, cargo and fuel, so only the one you are working in takes up room. Each compartment has its own count with the total above them, and the cabin plan numbers the seats so you can see what you are filling: B is the six seats behind the forward hold, C the nine amidships, D the six at the rear by the door, twenty-one in all. The chart on the right is the centre of gravity envelope from <a href="#ch-weight-balance">Chapter 18</a>: gross weight in kilograms up the left and pounds up the right, CG position in metres along the bottom, with the forward and aft limits, the maximum zero fuel weight and the maximum gross weight drawn in red. The green square is the zero fuel weight; a red one marks the gross weight, and sits hidden beneath it here because no fuel is aboard. Under the chart, <strong>Check for Metric</strong> switches every weight on this tab to kilograms, and the summary runs from empty weight down to gross. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The LOADING tab manages aircraft weight and balance. The left panel sets passenger counts (compartments B, C, D), cargo weights (compartments I, II, III), and fuel quantities for all four tanks (Left Auxiliary, Left Main, Right Main, Right Auxiliary). The right panel displays a visual CG envelope chart showing your current loading, with warnings if you exceed weight or balance limits. See <a href="#ch-weight-balance">Chapter 18</a> for detailed guidance on loading the aircraft.
 </p>
+
+<figure>
+  <a href="images/loading_tab_cargo.png" title="Open the full-size LOADING tab with the CARGO section open"><img src="images/loading_tab_cargo.png" alt="The LOADING tab with the CARGO section open: a weight for compartments I, II and III above a drawing of the fuselage showing where the holds are"></a>
+  <figcaption>The CARGO section. A weight for each of the three compartments, with the total above them in pounds, or in kilograms once Check for Metric is ticked. The drawing shows where the weight goes: compartments I and II are the forward hold between the cockpit and the cabin, and compartment III is aft, behind the last row of seats. Weight forward pulls the CG forward and weight aft pushes it back, which is why the tab asks where as well as how much. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <h4>Fuel Loading and Animated Refueling</h4>
 
@@ -1308,6 +1313,11 @@ The fuel loading section provides several ways to set fuel quantities:
   <li><strong>Custom Amount</strong> &ndash; Enter a specific fuel quantity in either US gallons or percent of total capacity (804 gal), then click Load.</li>
   <li><strong>Flight Plan Recommendation</strong> &ndash; When a SimBrief flight plan is loaded, a fuel recommendation appears based on route distance, cruise altitude, aircraft weight, outside air temperature, and forecast winds along the route. The wind data from the SimBrief navlog is used to compute headwind and tailwind components per leg, adjusting ground speed and fuel burn estimates accordingly. Click "Load Recommended Fuel" to fill to the computed amount.</li>
 </ul>
+
+<figure>
+  <a href="images/loading_tab_fuel.png" title="Open the full-size LOADING tab with the FUEL LOADING section open"><img src="images/loading_tab_fuel.png" alt="The LOADING tab with the FUEL LOADING section open: the fueling speed selector, the five preset buttons, the custom amount with its unit and Load button, a slider for each of the four tanks with the total beneath, and a drawing of the wing centre section showing the four tanks between the nacelles"></a>
+  <figcaption>The FUEL LOADING section, with everything in the list above: the pump speed selector at the top, the five presets, the custom amount with its unit (gallons or percent) and the Load button, then a slider per tank, auxiliaries to 200 gallons and mains to 202. The total underneath is given in weight as well as gallons, and the line below it shows the outside air temperature and the fuel density that goes with it, which is what turns one into the other. The drawing places the tanks: all four sit in the wing centre section between the nacelles, the mains ahead of the auxiliaries. The flight plan recommendation appears below the sliders once a SimBrief plan is loaded; none is loaded here. With the engines running the whole section gives way to a note saying fuel loading is unavailable. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 All preset, custom, and flight plan fuel loads use animated refueling. A fuel pump speed selector offers three rates: Realistic (40 GPM), Faster (60 GPM), and Slow (25 GPM). Once started, the fuel truck fills the main tanks first, then the auxiliaries. A progress bar shows the current fill status, and the tank sliders move in real time as fuel flows in. Refueling continues even if the DC3 Hangar window is closed. Fuel loading is disabled while engines are running.
