@@ -1397,10 +1397,10 @@ Fourteen checklists are available, including an In-Flight Engine Start procedure
 
 <h3>FAILURES Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: FAILURES tab]</span>
-  <span class="description">FAILURES tab showing failure injection controls, scheduling options, and active failure list with repair buttons</span>
-</div>
+<figure>
+  <a href="images/failures_tab.png" title="Open the full-size FAILURES tab"><img src="images/failures_tab.png" alt="The FAILURES tab: the master switch and active failure count, the Configuration block with the random failure status, MTBF multiplier and persistence mode, the engine abuse bars for both engines, the Active Failures list reading none, the Failure Scheduling block with its counters and thirteen collapsed groups, and the Repair All and Reset Session buttons"></a>
+  <figcaption>The FAILURES tab on a cold aeroplane in Veteran mode, which is why the random-failure line reads ON and says the difficulty mode set it. The master switch at the top is off in this shot; nothing below it acts until it is ticked. Configuration holds the MTBF multiplier with its reset, the persistence mode, and Show Info Popup, which re-opens the explanation of the two modes. The abuse bars for both engines are empty because the engines have not run; they fill as you mistreat them, and a full bar is the failure. Active Failures reports none. Failure Scheduling counts what is scheduled, armed and fired, with a button to clear the lot, and reminds you that schedules arm themselves at takeoff. Its thirteen groups are collapsed here; the last, Autopilot (KAP 140), appears only on the Modern. Repair All Failures and Reset Session close the tab. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The full failure-management console, used for training scenarios and for adding realism. It is organised top to bottom:
@@ -1411,7 +1411,7 @@ The full failure-management console, used for training scenarios and for adding 
   <li><strong>Configuration</strong> &ndash; the random-failure toggle and the MTBF multiplier (100&ndash;2000 hours) that govern probability-based failures, plus the persistence mode (reset on load, or persistent across sessions). In Tourist and Veteran modes the random-failure state is fixed by the difficulty mode and shown as a status line; only Standard mode leaves it to you.</li>
   <li><strong>Engine Abuse Tracking</strong> &ndash; live progress bars for each engine showing how close you are to an abuse-induced failure on cylinder head temperature, oil temperature, over-boost and over-speed.</li>
   <li><strong>Active Failures</strong> &ndash; every current failure with its severity, what triggered it, and a Repair button where in-flight repair is possible.</li>
-  <li><strong>Failure Scheduling</strong> &ndash; grouped tables (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Instruments, Compass / HSI) where each failure can be set to Off, Random, Timed or Fail Now, each with a Severity slider.</li>
+  <li><strong>Failure Scheduling</strong> &ndash; grouped tables (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI, and on the Modern variant Autopilot (KAP 140)) where each failure can be set to Off, Random, Timed or Fail Now, each with a Severity slider.</li>
   <li><strong>Repair All Failures</strong> and <strong>Reset Session</strong> buttons to clear everything.</li>
 </ul>
 
@@ -1421,13 +1421,13 @@ Full details of failure behaviour, the scheduling modes and the severity control
 
 <h3>LOGBOOK Tab</h3>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: LOGBOOK tab]</span>
-  <span class="description">LOGBOOK tab showing flight history entries, cumulative statistics, and difficulty mode color coding</span>
-</div>
+<figure>
+  <a href="images/logbook_tab.png" title="Open the full-size LOGBOOK tab"><img src="images/logbook_tab.png" alt="The LOGBOOK tab between flights: the CURRENT FLIGHT block reporting no active flight, the FLIGHT SUMMARY totals, and the FLIGHT LOG table of dated entries with departure, arrival, block and flight times, fuel and landings, fifteen to a page with the page counter and Older button beneath"></a>
+  <figcaption>The LOGBOOK tab on a Modern aircraft between flights, so CURRENT FLIGHT has nothing to report until the engines start. FLIGHT SUMMARY is the running total across everything ever recorded. The FLIGHT LOG beneath lists flights newest first, fifteen to a page, with the date, departure and arrival, block and flight times, fuel in gallons and landings; the entries here are a development aeroplane's ground runs at one airport, which is why so many show a minute of block time, no flight time and no landing. The page counter and the Older and Newer buttons sit at the foot. Every row is in the same ink because this is the Modern variant; the difficulty colouring described below is a Classic feature. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
-Automatic flight tracking with departure/arrival airports, block time, flight time, fuel consumption, and landing counts. Cumulative statistics track your total DC-3 experience. Entries are color-coded by difficulty mode: green for Tourist, white for Standard, red for Veteran. Details in <a href="#ch-logbook">Chapter 21</a>.
+Automatic flight tracking with departure/arrival airports, block time, flight time, fuel consumption, and landing counts. Cumulative statistics track your total DC-3 experience. On the Classic variant, entries are color-coded by the difficulty mode they were flown in: green for Tourist, the tab's ordinary ink for Standard, red for Veteran. The Modern variant prints every entry in the same ink. Details in <a href="#ch-logbook">Chapter 21</a>.
 </p>
 
 <h3>NETWORK Tab</h3>
@@ -5920,7 +5920,7 @@ In Veteran mode, these thresholds are halved (stricter). In Tourist mode, they a
 <h3>Manual Failure Injection</h3>
 
 <p>
-The FAILURES tab in DC3 Hangar lets you trigger specific failures for training. Failures are organised into groups (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Instruments, Compass / HSI), and each failure row offers four scheduling modes:
+The FAILURES tab in DC3 Hangar lets you trigger specific failures for training. Failures are organised into groups (Engine 1, Engine 2, Electrical, Thermal Relief, Cabin Heater, Circuit Breakers, Ice Protection, Landing Gear, Flaps, Brakes, Instruments, Compass / HSI, and on the Modern variant Autopilot (KAP 140)), and each failure row offers four scheduling modes:
 </p>
 
 <ul>
@@ -6313,14 +6313,18 @@ Cumulative statistics across all recorded flights: total flights, total block ti
 <h3>Flight Log</h3>
 
 <p>
-A paginated table of all recorded flights showing date, departure and arrival airports, block and flight times, fuel used, and landings. Entries are color-coded by difficulty mode:
+A table of all recorded flights, newest first and fifteen to a page, showing date, departure and arrival airports, block and flight times, fuel used, and landings. Newer and Older buttons at the foot turn the pages. On the Classic variant, entries are color-coded by the difficulty mode they were flown in:
 </p>
 
 <ul>
   <li><span style="color:#27ae60;font-weight:bold;">Green</span> &ndash; Tourist mode</li>
-  <li><strong>White</strong> &ndash; Standard mode</li>
+  <li><strong>Ordinary ink</strong> &ndash; Standard mode, the same as the rest of the tab</li>
   <li><span style="color:#c0392b;font-weight:bold;">Red</span> &ndash; Veteran mode</li>
 </ul>
+
+<p>
+The Modern variant prints every entry in the same ink, so its rows read cleanly against the darker table and match the summary lines above them. The difficulty of a flight is still recorded; it is only the colouring that the Modern logbook leaves out.
+</p>
 
 <p>
 Flight data persists in <code>logbook.json</code> in the aircraft's resources/data folder and survives across sessions.
