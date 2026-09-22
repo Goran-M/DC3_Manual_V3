@@ -6034,6 +6034,10 @@ Three cargo compartments (I, II, and III) accept weight entries in pounds or kil
 All four tanks can be loaded independently. Fuel quantity is set in US gallons. Because the tanks are in the wing center section, fuel loading has relatively less effect on CG compared to cabin loading, but it still matters, particularly when operating at maximum gross weight.
 </p>
 
+<p>
+Gallons are what you load; weight is what the envelope is plotted against, and the conversion is not a fixed number. Fuel weight is worked out from the density of avgas at the outside air temperature, shown on the line beneath the fuel total on the LOADING tab: about 6.0 lb per US gallon at 15&deg;C, lighter as it warms and heavier as it cools. The difference is not trivial at full tanks. The same 804 gallons weighs roughly 230 lb more on a -10&deg;C morning than on a 30&deg;C afternoon, so load by gallons but read the weight.
+</p>
+
 <div class="callout note">
   <div class="callout-title">Fuel Loading Restrictions</div>
   <p>Fuel quantities cannot be changed while engines are running. Plan your fuel before starting engines.</p>
@@ -6054,7 +6058,7 @@ The 31,000 lb figure is the structural certification limit of the DC-3/C-47 airf
 </p>
 
 <p>
-The CG envelope chart on the right side of the LOADING tab displays your current loading graphically. A dot shows your current weight/CG position. Compare the dot against the printed envelope to confirm you are within limits. Operating outside the envelope is not prevented by the simulation (the real aircraft does not have load limiters either), but it is your responsibility to ensure the aircraft is loaded within limits.
+The CG envelope chart on the right side of the LOADING tab displays your current loading graphically. Two markers show it: a green square for the zero fuel weight, and a red one for the gross weight with fuel aboard. With no fuel loaded the two coincide and only the green shows. Check both against the printed envelope. The aircraft sits at the red marker for takeoff and burns its way toward the green one, so the green must be inside the envelope and under the maximum zero fuel weight line as well, or you will be out of limits before you land. Operating outside the envelope is not prevented by the simulation (the real aircraft does not have load limiters either), but it is your responsibility to ensure the aircraft is loaded within limits.
 </p>
 
 <hr>
