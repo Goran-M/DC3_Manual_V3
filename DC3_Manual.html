@@ -426,7 +426,9 @@
 
   /* ── Variant switch ────────────────────────────────────────────────
      Hides the chapters belonging to the other variant, and any block
-     marked v-classic or v-modern inside a shared chapter. Chapter numbers
+     marked v-classic or v-modern inside a shared chapter; a block marked
+     v-both is a comparison shown only while nothing is chosen, and v-only
+     on a v-classic/v-modern block hides it in that unchosen view. Chapter numbers
      are left alone so cross-references and support instructions match
      whatever the reader has selected. */
   .variant-switch {
@@ -704,9 +706,19 @@ This matters because physics produces emergent behavior that scripted simulation
 The simulation includes two aircraft variants, selectable via livery:
 </p>
 
-<figure class="wide">
-  <a href="images/panels_classic_modern.jpg" title="Open the full-size comparison"><img src="images/panels_classic_modern.jpg" alt="The Classic instrument panel on the left with round-dial instruments and period radios, beside the Modern panel on the right with its Bendix/King and Garmin avionics stack"></a>
+<figure class="wide v-both">
+  <a href="images/panels_classic_modern.jpg" title="Open the full-size comparison"><img src="images/panels_classic_modern.jpg" width="2400" height="447" alt="The Classic instrument panel on the left with round-dial instruments and period radios, beside the Modern panel on the right with its Bendix/King and Garmin avionics stack"></a>
   <figcaption>The two panels side by side: Classic on the left, Modern on the right. The flight instruments and the basic architecture are shared, which is the point. What changes is the radio stack and what sits in front of the pilot for navigation, exactly as it changed on the real aeroplanes as they were re-equipped over the decades. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
+
+<figure class="v-classic v-only">
+  <a href="images/panel_classic.jpg" title="Open the full-size Classic panel"><img src="images/panel_classic.jpg" width="1197" height="447" alt="The Classic instrument panel: round-dial flight instruments for each pilot, the engine instruments between them, and the VOR and DME readouts along the top edge"></a>
+  <figcaption>The Classic panel. Round dials from one side to the other: the pilot's flight group on the left, the copilot's on the right, the engine instruments between them, and the VOR and DME readouts along the top edge. The flight instruments and the basic architecture are the same on both aeroplanes; what the Modern changed is the radio stack and what sits in front of the pilot for navigation, exactly as it changed on the real aeroplanes as they were re-equipped over the decades. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
+
+<figure class="v-modern v-only">
+  <a href="images/panel_modern.jpg" title="Open the full-size Modern panel"><img src="images/panel_modern.jpg" width="1197" height="447" alt="The Modern instrument panel: the Bendix/King and Garmin avionics stack in the centre, the attitude indicator and HSI in front of the pilot, and the round engine instruments unchanged"></a>
+  <figcaption>The Modern panel. The airframe and the basic layout are the Classic's; what was re-done is the centre of the panel, where the period radios gave way to the avionics stack, and the pilot's own flight instruments, exactly as it changed on the real aeroplanes as they were re-equipped over the decades. <span class="credit">Click the image to open it full size.</span></figcaption>
 </figure>
 
 <h4>DC3 Classic</h4>
@@ -7301,8 +7313,16 @@ Sound samples, used under license
     var blocks = document.querySelectorAll(".v-classic, .v-modern");
     for (var j = 0; j < blocks.length; j++) {
       var mine = blocks[j].classList.contains("v-classic") ? "classic" : "modern";
-      blocks[j].classList.toggle("v-hidden", v !== null && v !== mine);
+      // v-only tightens the rule: shown only while that aeroplane is chosen,
+      // not when nothing is. Used where a v-both comparison stands in for
+      // the pair, so the unchosen view does not show all three.
+      var only = blocks[j].classList.contains("v-only");
+      blocks[j].classList.toggle("v-hidden", (v !== null && v !== mine) || (v === null && only));
     }
+    // And the reverse: a block marked v-both is a comparison that only makes
+    // sense when the reader has not chosen, so it hides as soon as they do.
+    var both = document.querySelectorAll(".v-both");
+    for (var k = 0; k < both.length; k++) both[k].classList.toggle("v-hidden", v !== null);
     var btns = document.querySelectorAll("#variant-switch button");
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute("aria-pressed", String(btns[i].getAttribute("data-variant") === v));
