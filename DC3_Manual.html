@@ -2477,10 +2477,10 @@ The RPM gauges include a subtle fluctuation model that simulates the inherent un
 
 <h2 id="ch-fuel">Chapter 8: Fuel System</h2>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Fuel system diagram]</span>
-  <span class="description">Schematic of DC-3 fuel system showing four center-wing tanks, selectors, crossfeed paths, boost pumps, engine-driven pumps, strainers, firewall valves, and engine feed lines</span>
-</div>
+<figure class="wide">
+  <a href="images/fuel_schematic.svg" title="Open the fuel system diagram full size"><img src="images/fuel_schematic.svg" width="1500" height="1000" alt="Block diagram of the simulated fuel system: four centre-wing tanks with sump drains across the top, four tank headers feeding both engine fuel selectors, and from each selector the strainer with its bowl drain, the electric boost pump, the firewall shutoff valve, the engine-driven pump and the carburettor to the engine, with the fuel pressure gauge and primer tapped after the engine pump, the cabin heater fed from the right main, the low fuel light watching the selected tanks, and the single fuel quantity gauge with its four-way knob"></a>
+  <figcaption>The fuel system as the plugin simulates it. Four tanks across the top, each with a sump where water collects and a two-pound gravity head at its outlet; below them four headers that reach both selectors, which is all the crossfeed the aeroplane has. From each selector the fuel runs the same road to its engine: the strainer with its bowl drain, which costs up to eight pounds of pressure when fouled and starves the engine when iced; the electric boost pump; the firewall shutoff; the engine-driven pump; and the carburettor. The pressure gauge reads the carburettor chamber, not the pump, which is why it shows 14 to 16 psi running, about 7 at idle and 21 with the boost pump alone. The primer taps the line after the engine pump. The cabin heater draws from the right main, and the low fuel light watches whichever tanks the selectors are on, not where the quantity knob points. Each part is described in turn below. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The DC-3 carries fuel in four center-wing tanks, positioned in the wing center section between the fuselage and the engine nacelles. This is not a simple left-right fuel system. It is four independent tanks with fully selective routing, and managing it properly is entirely the pilot's responsibility. There is no fuel computer, no automatic transfer, no equalization. Every gallon of fuel that reaches an engine gets there because the pilot selected the right tank, verified the right pressure, and kept the right valves open. Get it wrong and an engine quits. Get it very wrong and both engines quit.
@@ -2542,7 +2542,7 @@ The key point is that both selectors can independently select any of the four ta
 </p>
 
 <p>
-Standard fuel management practice: start and land on the main tanks (they have the most direct fuel path to the engines). Use auxiliary tanks during cruise. Monitor fuel quantities and switch tanks to maintain lateral balance. When switching tanks in flight, verify fuel pressure on the gauge within a few seconds. If pressure does not stabilize, you may have selected an empty tank or have a blockage.
+Standard fuel management practice: start and land on the main tanks (they have the most direct fuel path to the engines). Use auxiliary tanks during cruise. Monitor fuel quantities and switch tanks to maintain lateral balance. When switching tanks in flight, verify fuel pressure on the gauge within a few seconds. If pressure does not stabilize, you may have selected an empty tank or have a blockage. Run the first half hour on the mains even when the auxiliaries are full: each carburettor returns five to ten gallons an hour of vapour and fuel to the main tank on its side whatever tank it is fed from, and a main that is already full vents that return overboard.
 </p>
 
 <div class="callout warning">
@@ -2572,6 +2572,10 @@ Two electric boost pumps (one per engine, 24V DC, 1/3 HP each) supplement the en
 
 <p>
 Boost pumps are controlled by switches on the overhead panel. Each has an indicator light with adjustable brightness (rheostat). They are powered through the electrical system via circuit breakers #45 (Left Fuel Boost Pump, 15A) and #46 (Right Fuel Boost Pump, 15A).
+</p>
+
+<p>
+The boost pumps are also what starts the engines. At cranking speed the engine-driven pump delivers nothing, and the two pounds of gravity head from the tanks is below the four to five pounds the carburettor's discharge nozzle needs before it opens, so with the boost pump off the cylinders get no fuel and the primer has nothing to push. Boost pump on before you crank; off once the engine idles steadily and its own pump is carrying the line. Tourist mode waives this and lets an engine start on the gravity head.
 </p>
 
 <!-- ── Firewall Shutoff Valves ── -->
@@ -2667,7 +2671,7 @@ Two fuel pressure gauges on the instrument panel (one per engine) show the press
 </table></div>
 
 <p>
-The fuel pressure warning lights (one per engine, with adjustable brightness) illuminate when fuel pressure drops below 6 PSI. This is your first indication of a fuel delivery problem: wrong tank selected, empty tank, clogged strainer, failed pump, or icing in the fuel lines. If a fuel pressure warning light comes on in flight, your immediate action is to verify the tank selector, check the fuel quantity in the selected tank, and turn on the boost pump for that engine.
+The fuel pressure warning lights (one per engine, with adjustable brightness) illuminate when fuel pressure drops below 6 PSI. This is your first indication of a fuel delivery problem: wrong tank selected, empty tank, clogged strainer, failed pump, or icing in the fuel lines. If a fuel pressure warning light comes on in flight, your immediate action is to verify the tank selector, check the fuel quantity in the selected tank, and turn on the boost pump for that engine. Below about 4.5 PSI the carburettor's discharge nozzle closes and the engine starves, so the light is a countdown, not a curiosity.
 </p>
 
 <!-- ── Mixture Control ── -->
@@ -2727,6 +2731,11 @@ At economy cruise (40 GPH per engine, 80 GPH total), 804 gallons gives a theoret
 
 <p>
 The mixture setting has a significant effect on fuel efficiency. AUTO LEAN produces a brake specific fuel consumption (BSFC) of approximately 0.44 lb/(hp&middot;h), the most efficient setting. AUTO RICH increases consumption to roughly 0.52 lb/(hp&middot;h) but provides better engine cooling through the richer mixture, which is why it is used during climb. EMERGENCY RICH is the least efficient at approximately 0.62 lb/(hp&middot;h) and should only be used when maximum cooling is needed, not as a normal operating range.
+</p>
+
+<h4>Vapour Return</h4>
+<p>
+Each carburettor's float chamber vents vapour, and a little fuel with it, back to the main tank on its side: five gallons an hour at idle, rising to about ten at takeoff power. Feeding an engine from its own main tank, that is a wash. Feeding it from an auxiliary, the auxiliary goes down faster than the engine's burn and the main creeps up by the same amount, and if the main is already full the return has nowhere to go but overboard through the vent. That is the reason for the half hour on the mains before switching to the auxiliaries, and it is why the fuel quantity gauge will show a main tank gaining while you cruise on an auxiliary.
 </p>
 
 <h4>Cabin Heater Fuel</h4>
