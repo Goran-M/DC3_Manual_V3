@@ -2878,10 +2878,10 @@ Fuel temperature approximates the outside air temperature after the aircraft has
 
 <h2 id="ch-hydraulics">Chapter 9: Hydraulic System</h2>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Hydraulic system schematic]</span>
-  <span class="description">DC-3 hydraulic system schematic showing pumps, reservoir, accumulator, selector valve, gear and flap actuators, brake lines, thermal relief valves</span>
-</div>
+<figure class="wide">
+  <a href="images/hydraulic_schematic.svg" title="Open the hydraulic system diagram full size"><img src="images/hydraulic_schematic.svg" width="1500" height="1000" alt="Block diagram of the simulated hydraulic system: the reservoir with its sight glass, the standpipe the engine pumps draw through and the hand pump reserve below it; the two engine-driven pumps feeding the pump selector valve, with the Classic's Sperry servo branch through the autopilot shutoff valve; the pressure regulator, the system relief valve and the pressure manifold with the system pressure gauge; the hand pump and its shutoff valve; the accumulator with its air precharge and thermal relief; and the five services off a distribution bar, the landing gear with its pressure gauge and thermal relief, the wing flaps with their relief valve greyed out, the wheel brakes with a thermal relief on each line, the two cowl flap valves off the brake supply with their integral reliefs, and the windshield wipers, every return line running back to the reservoir along the top"></a>
+  <figcaption>The hydraulic system as the plugin simulates it. The reservoir at top left, with the sight glass on its side and the hand pump's reserve at the bottom, below the standpipe the engine pumps draw through; the two engine pumps feeding the pump selector valve, whose ALTERNATE position gives the right pump to the Classic's Sperry servos through the autopilot shutoff valve; the regulator holding the manifold between 650 and 875 psi, with the system relief valve beside it at 1000 and the accumulator hanging below; and the hand pump feeding the same manifold through its own shutoff valve. To the right, the five services in the order this chapter takes them, gear, flaps, brakes, cowl flaps and wipers, each behind its control valve with the pressure it needs, and the thermal relief valves drawn where they sit: one on the accumulator zone, one on the gear circuit, one on each brake line and one inside each cowl flap valve, all venting to the reservoir. Every return line comes back to the tank along the top. The flap relief valve is drawn in grey because the simulation carries it only as a failure. Each part is described in turn below. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The DC-3's hydraulic system is a pressure-accumulator system operating at 650 to 875 PSI using MIL-H-5606 hydraulic fluid. It powers the landing gear, wing flaps, cowl flap actuators, wheel brakes, and windshield wipers. The system is mechanical, not electronic. There are no solenoid valves controlled by software, no computers deciding when to pressurize what. There are pumps, plumbing, valves, and pistons. When you move a lever in the cockpit, you are physically repositioning a valve that routes pressurized fluid to an actuator. The fluid does the work. The pilot does the thinking.
@@ -2980,7 +2980,7 @@ Before the hand pump can deliver pressure, the hand pump shutoff valve must be o
 <h3>Landing Gear</h3>
 
 <p>
-The DC-3 has conventional (tailwheel) landing gear with the main gear retracting rearward into the engine nacelles. Gear operation requires roughly 2,000 PSI for extension and 3,500 PSI for retraction (the retraction pressure is higher because the actuators must lift the gear against gravity and aerodynamic loads). The gear control valve on the center pedestal has three positions: UP, NEUTRAL, and DOWN.
+The DC-3 has conventional (tailwheel) landing gear with the main gear retracting rearward into the engine nacelles. The gear runs on system pressure. The control valve does nothing cleverer than connect the actuators to the manifold, so they move on whatever it holds, 650 to 875 PSI in normal running, and you will see the system pressure gauge dip while they do. The gear control valve on the center pedestal has three positions: UP, NEUTRAL, and DOWN.
 </p>
 
 <p>
@@ -3450,8 +3450,7 @@ Each engine-driven pump tracks operating hours independently. Warning threshold 
     <tr><td>Pump cut-out pressure</td><td>875 PSI</td></tr>
     <tr><td>Pressure relief valve</td><td>1,000 PSI</td></tr>
     <tr><td>Accumulator pre-charge</td><td>250 PSI (air)</td></tr>
-    <tr><td>Gear extension pressure</td><td>~2,000 PSI</td></tr>
-    <tr><td>Gear retraction pressure</td><td>~3,500 PSI</td></tr>
+    <tr><td>Gear operating pressure</td><td>System pressure, 650 to 875 PSI</td></tr>
     <tr><td>Flap minimum operating pressure</td><td>500 PSI</td></tr>
     <tr><td>Flap relief valve</td><td>430-485 PSI</td></tr>
     <tr><td>Brake control valve limit</td><td>875 PSI</td></tr>
