@@ -665,33 +665,52 @@ interlock.</p>
 
 <div class="section">
 <h3>Propeller Hydraulic Lock <span class="new-tag">NEW</span></h3>
-<p>Oil seepage into lower cylinders of the R-1830 when the engine sits idle for extended periods. A real hazard on radial engines that can cause bent connecting rods if ignored.</p>
+<p>Oil seepage into lower cylinders of the R-1830 when the engine sits idle for extended periods. A real hazard on radial engines that can cause bent connecting rods if ignored. Modelled to DC-3 Maintenance Manual para 1-35 (Piston Hydraulicking).</p>
 
 <h4>Oil Accumulation</h4>
 <ul>
     <li>Oil pools in lower cylinders at a rate dependent on oil temperature (warmer = faster seepage)</li>
-    <li>Full hydraulic lock develops after approximately 4 hours of sitting</li>
-    <li>State persists between sessions via LES.ini</li>
+    <li>The lock is present after 2 hours of sitting at normal oil temperature, the manual's pull-through threshold; a full lock takes about 4 hours</li>
+    <li>State persists between sessions via LES.ini and advances by the real-world time the aeroplane sat with
+        the sim closed; pausing the sim does not pool oil</li>
 </ul>
 
-<h4>Manual Prop Turning</h4>
+<h4>Pulling Through</h4>
 <ul>
-    <li>Manually turn each propeller blade by blade, 25.7 degrees per pull, using the assignable
+    <li>The starter is the pull-through, as the manual prescribes: crank with the magnetos OFF and every 120 degrees of prop rotation counts one blade off the lock</li>
+    <li>Or pull the prop through by hand, one blade (120 degrees of the three-blade prop) per press, using the assignable
         commands "Pull Left/Right Prop Through One Blade" (les/dc3/cmd/controls/L_prop_turn and
         R_prop_turn)</li>
-    <li>9 blade clicks clears a full hydraulic lock</li>
+    <li>Or the PULL THROUGH button beside the lock status in the MAINTENANCE tab: the ground crew pulls all
+        12 blades by hand over about 18 seconds, engine stopped and magnetos OFF</li>
+    <li>Or from the cockpit: slide the captain's window open on the ground and the ground crew card appears with
+        a PULL THROUGH button per engine; or the Props: PULL THROUGH row in OPTIONS for both engines at once</li>
+    <li>12 blades (4 revolutions) clears a full hydraulic lock; the MAINTENANCE tab counts them off</li>
     <li>Animated prop rotation for the manual blade-turning procedure</li>
 </ul>
 
 <h4>Consequences of Ignoring</h4>
 <ul>
-    <li><strong>Starting with lock:</strong> 70% chance of bent connecting rod (permanent engine damage)</li>
+    <li><strong>Starting with the magnetos ON and oil pooled:</strong> a bent connecting rod (permanent engine damage), decided once per start attempt: 70% in Standard, every time in Veteran, never in Tourist (warning only)</li>
     <li><strong>Lucky clear:</strong> 30% chance the oil clears with a warning, no damage</li>
     <li>Damaged engine cannot start until repaired via MAINTENANCE tab</li>
 </ul>
 
 <p>Oil accumulation level, locked state, and the number of blade clicks since the last lock are
 published per engine.</p>
+</div>
+
+<div class="section">
+<h3>Ground Crew Card and Sliding Window Commands <span class="new-tag">NEW</span></h3>
+<p>Slide the captain's side window open on the ground and a card appears beside it with the things you would ask a crewman for; slide it shut and the card goes. A real act rather than a menu.</p>
+<ul>
+    <li>Per engine: propeller state (clear, oil pooled, pulling with the blade count, rod bent) with a PULL THROUGH button, and the engine cover</li>
+    <li>Chocks in or out; ground power as one request, CONNECT opening the access panel and plugging in, DISCONNECT the reverse</li>
+    <li>Same rules as the Hangar: no hand on a prop with live magnetos (MAGS LIVE in red), and the GPU still needs chocks and the battery switch at EXT, which the card says when missing</li>
+    <li>Shown only on the ground and stopped, with the window open; never in flight, never takes the keyboard, no close button of its own. Buttons grey out while an automatic start or shutdown runs</li>
+    <li>The sliding windows themselves gain commands, both sides: les/dc3/cmd/cockpit/cpt_window_toggle, _open, _close and fo_window_toggle, _open, _close. They were animated and had a slide sound since the Lua era but nothing could move them</li>
+    <li>The OPTIONS tab's ground power rows and the card both say why the ground power unit is not starting (battery switch not at EXT, chocks out) instead of doing nothing silently</li>
+</ul>
 </div>
 
 <div class="section">
@@ -2507,13 +2526,16 @@ LES.ini and is recorded with every logbook entry.</p>
 <ul>
     <li><strong>Tourist:</strong> random failures forced off, 5x abuse tolerance, quarter wear rate,
         primer auto-cutoff after 0.5 s per press, cylinder fuel charge capped at over-rich so the engine
-        can never be fully flooded, levers immune to vibration drift</li>
+        can never be fully flooded, levers immune to vibration drift, and a live start with a hydraulic
+        lock never bends a rod</li>
     <li><strong>Standard:</strong> normal rates throughout, user controls the random failure toggle,
-        primer auto-cutoff retained, flooding still capped, engine vibration drifts loose levers</li>
+        primer auto-cutoff retained, flooding still capped, engine vibration drifts loose levers, 70%
+        bent rod on a live start with a hydraulic lock</li>
     <li><strong>Veteran:</strong> random failures forced on, failures twice as likely, abuse thresholds
         halved, double wear rate, checklist enforcement warnings, no primer auto-cutoff (continuous fuel
         flow, exactly as the real switch behaves) and no flooding cap, so a mishandled primer will load
-        the cylinders and refuse to light</li>
+        the cylinders and refuse to light, and a live start with a hydraulic lock bends a rod every
+        time</li>
     <li>Other systems query the active mode directly: icing rate and boot effectiveness, hydraulic abuse
         limits, engine abuse timers and wear accumulation all read from it</li>
 </ul>
@@ -2543,6 +2565,31 @@ satisfied.</p>
         against the aircraft's actual state before moving on, rather than snapping switches into position</li>
     <li>Covers the full chain: battery on, bus voltage confirmed, inverter on, master magneto, throttle
         set, then the engine start sequence itself</li>
+    <li>Hydraulic lock check before the engine starts: a locked engine has its prop pulled through by the
+        starter with the magnetos OFF (12 blades, DC-3 MM para 1-35), and each starter is rested to its
+        30 s on / 60 s off duty cycle before its live start. An engine that will not clear is left
+        unstarted rather than gambled on</li>
+    <li>Each starter is held until its engine is running on its own, or the 30 s duty-cycle limit,
+        rather than for a fixed 15 s. On battery power the fixed hold released about a second and a
+        half into the crank, before a cold engine could build a charge, and the start failed every
+        time</li>
+    <li>The primer, per the R-1830 starting sequence: the switches are opened for 2 s after the boost
+        pumps to fill the lines (step 5), the mixture levers are held in IDLE CUT-OFF, the primer works
+        the crank once the engine is actually turning and only until the charge is in the optimal band
+        (step 9), and each mixture goes full rich the moment its engine fires (step 10; the DC-3 MM allows
+        AUTO-RICH or FULL-RICH). The primer
+        is driven through the same switch rules as your finger, so Tourist and Standard flick it and
+        Veteran holds it</li>
+    <li>With the throttle set, before the first crank, the sequence tightens the throttle quadrant friction
+        lock, so vibration cannot walk the throttle and mixture levers back toward idle once the engines
+        run. It used to tighten it only at the very end, after both engines had been running and
+        drifting</li>
+    <li>Both shutdown sequences now turn the aux inverter off as well as the main; the aux switch used
+        to be left ON</li>
+    <li>Two engine-model changes the sequence needed and a by-the-book manual start needed too: an
+        engine now fires on primer fuel with the mixture in cut-off (DC-3 MM para 1-32) and runs on it
+        until it is gone; and after a stop of half an hour or more the first 2 s of primer flow refill
+        the drained lines and reach no cylinder</li>
     <li>Shutdown walks mixture to cutoff, waits for the engines to actually stop, then generators,
         inverter, magnetos and battery</li>
     <li>A floating AUTO START / AUTO SHUTDOWN popup mirrors the sequence live so you can watch which step
