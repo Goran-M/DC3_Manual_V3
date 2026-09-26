@@ -742,22 +742,22 @@ Not every pilot wants the same experience. The simulation offers three difficult
   <tr>
     <td><strong>Tourist</strong></td>
     <td>Sightseeing, casual flying</td>
-    <td>Simplified primer (auto-return, no flooding risk). Random failures disabled. Relaxed abuse limits. Reduced wear accumulation. No cold-weather effects (carburettor icing excepted).</td>
+    <td>Simplified primer (auto-return, no flooding risk). Random failures disabled. Relaxed abuse limits. Reduced wear accumulation. No cold-weather effects (carburettor icing excepted). A live start with a hydraulic lock never bends a rod.</td>
   </tr>
   <tr>
     <td><strong>Standard</strong></td>
     <td>Engaged simmers</td>
-    <td>Simplified primer operation. User controls failure settings. Normal wear rates. A balanced experience that rewards good technique without punishing mistakes harshly.</td>
+    <td>Simplified primer operation. User controls failure settings. Normal wear rates. A balanced experience that rewards good technique without punishing mistakes harshly. A live start with a hydraulic lock risks a bent rod (70%).</td>
   </tr>
   <tr>
     <td><strong>Veteran</strong></td>
     <td>Study-level realism</td>
-    <td>Realistic spring-loaded primer with flooding risk. Random failures enabled. Strict abuse limits. Double wear rate. The full DC-3 experience, for those who want to earn every takeoff.</td>
+    <td>Realistic spring-loaded primer with flooding risk. Random failures enabled. Strict abuse limits. Double wear rate. The full DC-3 experience, for those who want to earn every takeoff. A live start with a hydraulic lock bends a rod, every time.</td>
   </tr>
 </table></div>
 
 <p>
-These modes affect multiple systems simultaneously: primer switch behavior, failure probability, wear accumulation rate, and maintenance intervals. You can change difficulty at any time through the DC3 Hangar interface.
+These modes affect multiple systems simultaneously: primer switch behavior, failure probability, wear accumulation rate, maintenance intervals, and what a hydraulic lock costs you. You can change difficulty at any time through the DC3 Hangar interface.
 </p>
 
 <div class="callout note">
@@ -904,7 +904,7 @@ The R-1830 Twin Wasp engines are 14-cylinder radials. At low RPM, they produce s
 </p>
 
 <p>
-The drift is most pronounced at low RPM (idle and taxi) where the engine runs roughest. At cruise RPM, the engines are well balanced and vibration is minimal, so lever drift is negligible even with a loose friction lock. This matches the real aircraft: crews tightened the friction lock after setting cruise power and loosened it when they needed to make adjustments.
+The drift is most pronounced at low RPM (idle and taxi) where the engine runs roughest. At cruise RPM, the engines are well balanced and vibration is minimal, so lever drift is negligible even with a loose friction lock. This matches the real aircraft: crews tightened the friction lock after setting cruise power and loosened it when they needed to make adjustments. AUTO START tightens it for you with the throttle set, before the first crank.
 </p>
 
 <div class="callout warning">
@@ -1245,6 +1245,16 @@ While installed, engine covers provide thermal insulation that slows oil cooling
 In <strong>Tourist</strong> mode, a pulsating red warning banner will alert you if you attempt to crank an engine with its cover still installed. In <strong>Standard</strong> and <strong>Veteran</strong> modes, this warning is intentionally absent. The engine will simply refuse to start, and diagnosing the cause is left as an exercise for the pilot.
 </p>
 
+<h4>Pull Props Through</h4>
+<p>
+Below the engine covers, a <strong>Props: PULL THROUGH</strong> button asks the ground crew to pull both propellers through by hand, twelve blades each over about eighteen seconds, which clears a hydraulic lock before start (see <a href="#ch-engines">Chapter 7</a>). The crew take each engine that is stopped with its magnetos OFF and leave the other alone; the button greys out, with a tooltip saying why, when neither engine qualifies. The MAINTENANCE tab keeps the per-engine view, with the oil level and the blade count.
+</p>
+
+<h4>The Ground Crew Card</h4>
+<p>
+You do not have to open the Hangar to talk to the ground crew. On the ground and stopped, slide the captain's side window open and a small card appears at the left of the screen headed <strong>GROUND CREW</strong>; slide the window shut and it goes. It holds the things you would ask a crewman for before start and nothing else: for each engine the propeller's state (clear, oil pooled, pulling with the blade count, or a bent rod) with its own PULL THROUGH button, and the engine cover; the chocks; and ground power as a single request, <strong>CONNECT</strong> having the crew open the access panel and plug in, <strong>DISCONNECT</strong> the reverse. The crew follow the same rules as everywhere else: they will not touch a propeller with live magnetos (the card says <strong>MAGS LIVE</strong> in red), and the ground power unit still needs the chocks in and the battery switch at EXT, which the card tells you if either is missing. While an automatic start or shutdown is running the card's buttons are greyed out with a note to that effect. The card never appears in flight or while taxiing, never takes the keyboard, and has no close button of its own: closing the window is how it is dismissed.
+</p>
+
 <h4>Panel State</h4>
 <p>
 Choose the aircraft's initial state when loaded:
@@ -1260,7 +1270,7 @@ These same options (plus After Start) are also available in the startup state se
 
 <h4>Auto Start / Shutdown</h4>
 <p>
-Automated engine start and shutdown sequences. Click AUTO START to have the aircraft step through the complete start procedure automatically. The SHUTDOWN button is available when engines are running, on the ground, stopped, with parking brake set. Either button opens a window titled <strong>Auto Procedure Checklist</strong>, headed AUTO START PROCEDURE or AUTO SHUTDOWN PROCEDURE, which appears on its own and lists the steps of the sequence so you can follow along: completed steps turn green, the step in progress pulses in red, and those still to come stay white. A button at the bottom becomes available once the sequence has finished, reading <em>Continue</em> after a start and <em>Acknowledge shutdown complete</em> after a shutdown.
+Automated engine start and shutdown sequences. Click AUTO START to have the aircraft step through the complete start procedure automatically. If either engine has a hydraulic lock (see <a href="#ch-engines">Chapter 7</a>), the sequence deals with it the way the maintenance manual says to: it pulls that propeller through by the starter with its magnetos OFF, twelve blades, before any live start, then rests the starter to its duty cycle (30 seconds on, 60 off) before engaging it for real. Each starter is then held until its engine is running on its own, as the book says, up to the thirty-second limit, and the start itself follows the R-1830 sequence: primer lines filled after the boost pumps, mixture in IDLE CUT-OFF, primer working the crank once the engine turns, and full rich the moment it fires. With the throttle set it tightens the quadrant friction lock before the first crank, so the levers stay where it left them once the engines run. The <em>Hydraulic Lock Check</em> step pulses while this happens, and both engines sitting overnight can add a minute or so to the sequence. The SHUTDOWN button is available when engines are running, on the ground, stopped, with parking brake set. Either button opens a window titled <strong>Auto Procedure Checklist</strong>, headed AUTO START PROCEDURE or AUTO SHUTDOWN PROCEDURE, which appears on its own and lists the steps of the sequence so you can follow along: completed steps turn green, the step in progress pulses in red, and those still to come stay white. A button at the bottom becomes available once the sequence has finished, reading <em>Continue</em> after a start and <em>Acknowledge shutdown complete</em> after a shutdown.
 </p>
 
 <div class="callout caution">
@@ -2037,16 +2047,16 @@ Radial engines are vulnerable to hydraulic lock. When the engine sits idle, oil 
 </p>
 
 <p>
-If you attempt to crank an engine with oil pooled in the cylinders, the piston hits an incompressible fluid. The connecting rod bends. This is not a gentle failure; it is catastrophic and requires an engine teardown to repair. In the real aircraft, the pre-flight procedure requires the ground crew to manually pull each propeller through a minimum of nine blades (just over two full revolutions) to push any accumulated oil out through the exhaust valves.
+Oil is incompressible. If a cylinder fires with oil pooled in it, the piston is driven into the oil and something gives: a bent connecting rod, a cracked piston, or a damaged crankshaft. This is not a gentle failure; it is an engine teardown. The DC-3 maintenance manual is explicit about the cure. If the engine has not run for two hours or longer, the propeller is pulled through at least four revolutions, twelve blades, <em>by the starter</em> before the start, with the magnetos OFF. With no ignition, the starter simply turns the engine over and pushes the oil out through the exhaust valves, one cylinder at a time. Only then do the magnetos go on.
 </p>
 
 <p>
-In the simulation, hydraulic lock accumulates automatically while the engines are parked. After about four hours of sitting at normal temperatures, the lock is fully established. Use the prop turning commands (<code>les/dc3/cmd/controls/L_prop_turn</code> and <code>R_prop_turn</code>) to pull the blades through before starting. Each click turns one blade. Nine blades clears a full lock. The MAINTENANCE tab in DC3 Hangar shows the current lock status for each engine.
+In the simulation, oil pools automatically while an engine is parked, and it keeps pooling for the real time the aeroplane sits between sessions: leave it overnight with the sim closed and it has sat overnight. Pausing the sim does not count. After two hours at normal oil temperature the lock is present. The MAINTENANCE tab in DC3 Hangar shows the level for each engine and counts the blades as they go by. To clear it, leave the master magneto switch (or that engine's magneto selector) OFF and hold the starter exactly as for a normal start. Every 120 degrees of propeller rotation is one blade; twelve blades clears even a full lock. The two prop turning commands (<code>les/dc3/cmd/controls/L_prop_turn</code> and <code>R_prop_turn</code>) pull the blades through by hand instead, one blade per press, and count toward the same twelve. Or ask the ground crew: the PULL THROUGH button beside the engine's lock status in DC3 Hangar &gt; MAINTENANCE has them pull all twelve, one blade every second and a half, provided the engine is stopped and its magnetos are OFF. They will not touch a prop with live magnetos. The same crew answer at the captain's side window: slide it open on the ground and a card appears with a PULL THROUGH button for each engine (<a href="#ch-dc3central">Chapter 5</a>). Once the engine is clear, switch the magnetos on and start normally.
 </p>
 
 <div class="callout warning">
-  <div class="callout-title">Forcing a Start with Hydraulic Lock</div>
-  <p>If you engage the starter with oil in the cylinders, there is a 70% chance of bending a connecting rod. A damaged engine cannot be started and requires maintenance (REPAIR button in DC3 Hangar). If you are lucky, the starter forces the oil through and the engine starts, but you will receive a warning. Do not rely on luck; pull the props through. This applies to both the Classic and Modern variants.</p>
+  <div class="callout-title">Starting Live with Hydraulic Lock</div>
+  <p>If you engage the starter with the magnetos ON and oil still pooled, the first cylinder to fire drives its piston into the oil. What happens next depends on difficulty. In <strong>Standard</strong> there is a 70% chance of a bent connecting rod, decided once per start attempt. In <strong>Veteran</strong> it bends every time, which is what the maintenance manual says a live start into pooled oil does. In <strong>Tourist</strong> the oil is forced through and you get the warning only. A damaged engine cannot be started and requires maintenance (REPAIR button in DC3 Hangar). If you are lucky, the oil is forced through before a cylinder fires and the engine starts, but you will receive a warning. Do not rely on luck; pull the props through with the magnetos OFF. This applies to both the Classic and Modern variants.</p>
 </div>
 
 <h4>Ignition: Magnetos and Booster Coil</h4>
@@ -2083,6 +2093,14 @@ The cylinder fuel charge is modeled in detail. Each primer stroke adds fuel to t
   <p><strong>Tourist and Standard:</strong> The primer switch auto-returns after a brief activation (about half a second), injecting a measured shot. This prevents accidental flooding.</p>
   <p><strong>Veteran:</strong> The primer switch is spring-loaded and stays on when clicked. Click again to release. This is the realistic behavior, and it means you can flood the engine by holding the primer too long. If the engine becomes flooded, set mixture to IDLE CUTOFF, open the throttle wide, and crank the engine for several seconds to purge excess fuel from the cylinders (approximately 0.15 charge cleared per blade). Return mixture to AUTO RICH and resume with conservative priming.</p>
 </div>
+
+<h4>Starting by the Book: Mixture in Idle Cut-Off</h4>
+<p>
+The R-1830 starting sequence, and the DC-3 maintenance manual in bold, put the mixture in IDLE CUT-OFF for the start. The engine fires on primer fuel alone, and only once it is firing does the mixture go to AUTO RICH or full rich; move it earlier and a warm engine loads up. The simulation follows this: with the lever in cut-off a primed engine will light, run on the primer charge, and die back to cranking if you keep it waiting, so bring the mixture up as soon as you hear it catch, and keep the primer working until the carburettor has taken over. Starting with the mixture already forward still works, as it always did; it is just not the procedure.
+</p>
+<p>
+One smaller thing the book mentions is modelled too. After the aeroplane has sat for half an hour or more the primer lines have drained back, and the first two seconds of primer flow refill them without reaching a cylinder; that is the "open primer switch for 2 seconds" step before the starter. The book's other rule, not to prime until the starter is actually cranking, is yours to keep: a stationary prime still reaches the cylinders in the simulation, so it is only AUTO START that waits for the engine to turn before it primes.
+</p>
 
 <!-- ── Cold vs Hot Starts ── -->
 
@@ -3474,10 +3492,10 @@ Each engine-driven pump tracks operating hours independently. Warning threshold 
 
 <h2 id="ch-controls">Chapter 10: Flight Controls</h2>
 
-<div class="image-placeholder">
-  <span class="label">[IMAGE: Flight control diagram]</span>
-  <span class="description">Diagram showing control column linkage to ailerons and elevator, rudder pedal linkage, trim tab locations</span>
-</div>
+<figure class="wide">
+  <a href="images/flight_controls_schematic.svg" title="Open the flight controls diagram full size"><img src="images/flight_controls_schematic.svg" width="1500" height="1000" alt="Block diagram of the simulated flight controls: down the left the control wheels, aileron trim knob, control columns, elevator trim wheel, flap lever, tailwheel lock lever, rudder pedals and rudder trim knob; cables running across to the surfaces on the right, the left and right ailerons with their geared tabs, the elevators with their trim tabs, the split flaps, the tailwheel with its lock, shear pin and shimmy, the taxi assists from the OPTIONS tab, and the rudder with its geared trim tab, each with its travel; and a note on the control cables going slack in the cold"></a>
+  <figcaption>The flight controls as the plugin simulates them. Down the left, what the crew touches: the wheels, the columns and the pedals, each dual, and between them the pedestal's aileron trim knob, elevator trim wheel, flap lever, tailwheel lock lever and rudder trim knob. Across the middle, the cable runs, drawn as single lines because the picture is about what moves what, not how the cables are routed; the note below them is the one thing the simulation adds to the cables themselves, which is that they go slack in the cold and the neutral trim moves. Down the right, the surfaces with the travel the flight model gives them and what their tabs do: the geared tabs on the ailerons and rudder that move opposite to the surface for boost, the right aileron's and the rudder's doubling as trim tabs, and the trim tab on each elevator. The flaps are hydraulic and belong to <a href="#ch-hydraulics">Chapter 9</a>; they are here because their lever is on the pedestal. The tailwheel is here because the pedals steer it at taxi speed and the lock lever is a flight control in all but name. The autopilot servos that sit in the real cable runs are left out; they belong to the autopilot chapters. Each part is described in turn below. <span class="credit">Click the image to open it full size.</span></figcaption>
+</figure>
 
 <p>
 The DC-3's flight controls are mechanically operated through cables and push-pull rods. There is no hydraulic boost, no fly-by-wire, and no artificial feel system. What you push on the yoke is transmitted directly to the control surfaces through steel cables that run the length of the fuselage and wings.

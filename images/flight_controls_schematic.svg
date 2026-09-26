@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000" font-family="'Helvetica Neue', Arial, sans-serif" fill="#2c2c2c">
+  <title>LES DC-3 flight controls as simulated: wheels, columns and pedals to the ailerons, elevators and rudder, the pedestal trims and their tabs, the flap lever and the tailwheel</title>
+  <desc>Simplified block diagram of the simulated DC-3 flight controls. Down the left, the cockpit controls. The dual control wheels roll the aeroplane by chain and sprocket to cables, heavy in roll with no boost of any kind; the aileron trim knob on the aft face of the pedestal; the dual control columns, joined by a torque tube, pitch it through cables to the elevator torque tube aft; the elevator trim wheel on the left of the pedestal head; the flap lever on the pedestal, UP, NEUTRAL and DOWN, hydraulic; the tailwheel lock lever, pulled to lock, the lock being a key in a slot; the dual adjustable rudder pedals for yaw, which at taxi speed also steer the tailwheel; and the rudder trim knob on the pedestal. Cables run across to the surfaces on the right. The wheel cable divides at a junction so that one aileron goes up as the other comes down. Left aileron: 27 degrees up, 18 down, with a geared tab that moves opposite to the aileron at 0.4 of its angle for aerodynamic boost. Right aileron: the same travel, and its geared tab is also the trim tab, 12 degrees either way from the pedestal knob. Elevators, a pair on one torque tube: 30 degrees up, 20 down, with a trim tab on each, 12 degrees up and 12 down from the trim wheel; cold cables shift the neutral trim by about a degree of tab. Split flaps: 0 to 45 degrees, continuously variable, 14 seconds for full travel, hydraulic, Chapter 9; hold the lever, and NEUTRAL traps the fluid and holds them. Tailwheel: full castering; the pedals steer it below 10 knots, fading to little by 30; the lock engages only within 5 degrees of centre and rolling, is a positive key that steering does not release, and is protected by an aluminium shear pin that gives at 0.45 of the wheel's load, 0.40 in Veteran, never in Tourist, after which the wheel castors free; shimmy above 40 knots unlocked, about 4 hertz, worse with a worn wheel; differential brakes and throttle are the real steering at taxi speed. Taxi assists on the OPTIONS tab: rudder input to differential brakes, fading out from 20 to 30 knots, and to differential throttles below 30 knots, each with a sensitivity slider. Rudder: 29.5 degrees left and right, with a geared tab that is also the trim tab, opposite to the rudder at 0.4 of its angle plus 12 degrees of trim either way from the pedestal knob. A note on the control cables: steel cables through an aluminium fuselage; cold-soaked, the airframe shrinks more than the cables and they go slack, a tab floats in the slack and the neutral trim moves, about a degree of tab on the elevator and a third of that on the rudder at minus 20 degrees C; cable temperature follows the outside air with a six-minute lag, and the STATUS tab shows it and the bias. Not drawn: the aileron cross and wing bellcranks, the elevator torque tube and its down-spring, the elevator spring tabs, and the autopilot servos in the cable runs, which belong to the autopilot chapters. A dot marks lines that are joined. Simplified, as simulated; Chapter 10.</desc>
+  <defs>
+    <style>
+      .t  { font-size: 19px; }
+      .tb { font-size: 19px; font-weight: 700; }
+      .s  { font-size: 15px; fill: #4b5563; }
+      .sb { font-size: 15px; font-weight: 700; }
+      .lbl { font-size: 14px; fill: #4b5563; }
+      .tank { fill: #f3f0ea; stroke: #2c3e50; stroke-width: 2.5; }
+      .dev { fill: #ffffff; stroke: #2c3e50; stroke-width: 2; }
+      .cab { stroke: #2c3e50; stroke-width: 3; fill: none; }
+      .trim { stroke: #7a5a0a; stroke-width: 2.5; fill: none; }
+      .hyd { stroke: #6b7280; stroke-width: 2; fill: none; stroke-dasharray: 6 5; }
+      .opt { stroke: #6b7280; stroke-width: 1.5; fill: none; stroke-dasharray: 3 4; }
+      .dot { fill: #2c3e50; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="1000" fill="#faf9f6"/>
+
+  <!-- ══════════════ COCKPIT CONTROLS, down the left ══════════════ -->
+  <rect class="tank" x="60" y="65" width="270" height="60" rx="8"/>
+  <text class="sb" x="195" y="85" text-anchor="middle">CONTROL WHEELS</text>
+  <text class="lbl" x="195" y="102" text-anchor="middle">dual · roll · chain and sprocket to cables</text>
+  <text class="lbl" x="195" y="118" text-anchor="middle">heavy in roll: no boost of any kind</text>
+
+  <rect class="dev" x="60" y="145" width="270" height="40" rx="6"/>
+  <text class="sb" x="195" y="163" text-anchor="middle">AILERON TRIM</text>
+  <text class="lbl" x="195" y="179" text-anchor="middle">knob on the pedestal's aft face</text>
+
+  <rect class="tank" x="60" y="200" width="270" height="60" rx="8"/>
+  <text class="sb" x="195" y="220" text-anchor="middle">CONTROL COLUMNS</text>
+  <text class="lbl" x="195" y="237" text-anchor="middle">dual, joined by a torque tube · pitch</text>
+  <text class="lbl" x="195" y="253" text-anchor="middle">cables to the elevator torque tube aft</text>
+
+  <rect class="dev" x="60" y="270" width="270" height="40" rx="6"/>
+  <text class="sb" x="195" y="288" text-anchor="middle">ELEVATOR TRIM WHEEL</text>
+  <text class="lbl" x="195" y="304" text-anchor="middle">left side of the pedestal head</text>
+
+  <rect class="dev" x="60" y="335" width="270" height="40" rx="6"/>
+  <text class="sb" x="195" y="353" text-anchor="middle">FLAP LEVER</text>
+  <text class="lbl" x="195" y="369" text-anchor="middle">on the pedestal · UP · NEUTRAL · DOWN</text>
+
+  <rect class="dev" x="60" y="395" width="270" height="40" rx="6"/>
+  <text class="sb" x="195" y="413" text-anchor="middle">TAILWHEEL LOCK LEVER</text>
+  <text class="lbl" x="195" y="429" text-anchor="middle">pull to lock; the lock is a key in a slot</text>
+
+  <rect class="tank" x="60" y="455" width="270" height="60" rx="8"/>
+  <text class="sb" x="195" y="475" text-anchor="middle">RUDDER PEDALS</text>
+  <text class="lbl" x="195" y="492" text-anchor="middle">dual, adjustable · yaw</text>
+  <text class="lbl" x="195" y="508" text-anchor="middle">and, at taxi speed, the tailwheel</text>
+
+  <rect class="dev" x="60" y="525" width="270" height="40" rx="6"/>
+  <text class="sb" x="195" y="543" text-anchor="middle">RUDDER TRIM</text>
+  <text class="lbl" x="195" y="559" text-anchor="middle">knob on the pedestal</text>
+
+  <!-- ══════════════ CABLE RUNS ══════════════ -->
+  <!-- wheels: to the left aileron, with a junction to the right -->
+  <path class="cab" d="M330 95 H1040"/>
+  <path class="cab" d="M980 95 V155 H1040"/>
+  <circle class="dot" cx="980" cy="95" r="4.5"/>
+  <text class="lbl" x="968" y="136" text-anchor="end">one aileron goes up as the other comes down</text>
+  <!-- aileron trim, to the right aileron's tab -->
+  <path class="trim" d="M330 165 H940 V200 H1040"/>
+  <!-- columns, to the elevators -->
+  <path class="cab" d="M330 230 H900 V270 H1040"/>
+  <!-- elevator trim, to the elevator trim tabs -->
+  <path class="trim" d="M330 290 H860 V315 H1040"/>
+  <!-- flap lever, hydraulic, to the flaps -->
+  <path class="hyd" d="M330 355 H820 V395 H1040"/>
+  <!-- tailwheel lock lever, to the lock -->
+  <path class="cab" d="M330 415 H780 V460 H1040"/>
+  <!-- pedals, to the rudder; and their say in the tailwheel and the taxi assists -->
+  <path class="cab" d="M330 485 H740 V700 H1040"/>
+  <path class="opt" d="M740 500 H1040"/>
+  <path class="opt" d="M740 630 H1040"/>
+  <circle class="dot" cx="740" cy="500" r="4.5"/>
+  <circle class="dot" cx="740" cy="630" r="4.5"/>
+  <!-- rudder trim, to the rudder's tab -->
+  <path class="trim" d="M330 545 H700 V725 H1040"/>
+
+  <!-- ══════════════ SURFACES, down the right ══════════════ -->
+  <rect class="dev" x="1040" y="65" width="420" height="60" rx="6"/>
+  <text class="sb" x="1250" y="85" text-anchor="middle">LEFT AILERON</text>
+  <text class="lbl" x="1250" y="102" text-anchor="middle">27° up · 18° down</text>
+  <text class="lbl" x="1250" y="118" text-anchor="middle">geared tab: moves opposite, 0.4 of the aileron's angle, for boost</text>
+
+  <rect class="dev" x="1040" y="140" width="420" height="75" rx="6"/>
+  <text class="sb" x="1250" y="160" text-anchor="middle">RIGHT AILERON</text>
+  <text class="lbl" x="1250" y="177" text-anchor="middle">27° up · 18° down; its geared tab is also the trim tab:</text>
+  <text class="lbl" x="1250" y="193" text-anchor="middle">12° either way from the pedestal knob,</text>
+  <text class="lbl" x="1250" y="209" text-anchor="middle">on top of what the gearing does</text>
+
+  <rect class="dev" x="1040" y="235" width="420" height="100" rx="6"/>
+  <text class="sb" x="1250" y="257" text-anchor="middle">ELEVATORS</text>
+  <text class="lbl" x="1250" y="274" text-anchor="middle">a pair on one torque tube · 30° up · 20° down</text>
+  <text class="lbl" x="1250" y="297" text-anchor="middle">trim tabs, one on each: 12° up · 12° down, from the wheel;</text>
+  <text class="lbl" x="1250" y="313" text-anchor="middle">cold cables shift the neutral trim by about a degree of tab</text>
+  <text class="lbl" x="1250" y="329" text-anchor="middle">and the pilot retrims as the aeroplane cold-soaks</text>
+
+  <rect class="dev" x="1040" y="365" width="420" height="60" rx="6"/>
+  <text class="sb" x="1250" y="385" text-anchor="middle">SPLIT FLAPS</text>
+  <text class="lbl" x="1250" y="402" text-anchor="middle">0 to 45°, continuously variable · 14 s full travel · hydraulic</text>
+  <text class="lbl" x="1250" y="418" text-anchor="middle">hold the lever; NEUTRAL traps the fluid and holds them</text>
+
+  <rect class="dev" x="1040" y="445" width="420" height="135" rx="6"/>
+  <text class="sb" x="1250" y="465" text-anchor="middle">TAILWHEEL</text>
+  <text class="lbl" x="1250" y="482" text-anchor="middle">full castering; the pedals steer it below 10 kt, fading to little by 30</text>
+  <text class="lbl" x="1250" y="499" text-anchor="middle">LOCK: engages only within 5° of centre and rolling; a positive key,</text>
+  <text class="lbl" x="1250" y="516" text-anchor="middle">steering does not release it. An aluminium shear pin gives at 0.45</text>
+  <text class="lbl" x="1250" y="533" text-anchor="middle">of its load, 0.40 in Veteran, never in Tourist; then it castors free</text>
+  <text class="lbl" x="1250" y="550" text-anchor="middle">SHIMMY above 40 kt unlocked, about 4 Hz, worse when worn</text>
+  <text class="lbl" x="1250" y="567" text-anchor="middle">differential brakes and throttle are the real steering at taxi speed</text>
+
+  <rect class="dev" x="1040" y="605" width="420" height="60" rx="6"/>
+  <text class="sb" x="1250" y="625" text-anchor="middle">TAXI ASSISTS · OPTIONS tab</text>
+  <text class="lbl" x="1250" y="642" text-anchor="middle">rudder input to differential brakes, fading out from 20 to 30 kt,</text>
+  <text class="lbl" x="1250" y="658" text-anchor="middle">and to differential throttles below 30 kt; a sensitivity slider each</text>
+
+  <rect class="dev" x="1040" y="680" width="420" height="90" rx="6"/>
+  <text class="sb" x="1250" y="702" text-anchor="middle">RUDDER</text>
+  <text class="lbl" x="1250" y="719" text-anchor="middle">29.5° left · 29.5° right</text>
+  <text class="lbl" x="1250" y="742" text-anchor="middle">geared tab, also the trim tab: opposite to the rudder at 0.4 of</text>
+  <text class="lbl" x="1250" y="758" text-anchor="middle">its angle, plus 12° of trim either way from the pedestal knob</text>
+
+  <!-- ══════════════ THE CABLES THEMSELVES ══════════════ -->
+  <rect class="tank" x="350" y="600" width="340" height="168" rx="8"/>
+  <text class="sb" x="520" y="622" text-anchor="middle">CONTROL CABLES</text>
+  <text class="lbl" x="362" y="640">steel cables through an aluminium fuselage:</text>
+  <text class="lbl" x="362" y="656">cold-soaked, the airframe shrinks more than the</text>
+  <text class="lbl" x="362" y="672">cables and they go slack. A tab floats in the</text>
+  <text class="lbl" x="362" y="688">slack and the neutral trim moves, about a degree</text>
+  <text class="lbl" x="362" y="704">of tab on the elevator and a third of that on the</text>
+  <text class="lbl" x="362" y="720">rudder at -20 °C. Cable temperature follows the</text>
+  <text class="lbl" x="362" y="736">outside air with a six-minute lag; the STATUS tab</text>
+  <text class="lbl" x="362" y="752">shows it and the bias it puts on the trim.</text>
+
+  <text class="lbl" x="362" y="800">Not drawn: the aileron cross and wing bellcranks,</text>
+  <text class="lbl" x="362" y="816">the elevator torque tube and its down-spring, the</text>
+  <text class="lbl" x="362" y="832">elevator spring tabs, and the autopilot servos in</text>
+  <text class="lbl" x="362" y="848">the cable runs, which belong to the autopilot chapters.</text>
+
+  <!-- ══════════════ LEGEND ══════════════ -->
+  <g transform="translate(60 600)">
+    <rect x="0" y="0" width="270" height="170" rx="6" fill="#fff" stroke="#d1d5db"/>
+    <line class="cab" x1="14" y1="22" x2="58" y2="22"/><text class="s" x="68" y="27">control cable</text>
+    <line class="trim" x1="14" y1="46" x2="58" y2="46"/><text class="s" x="68" y="51">trim cable</text>
+    <line class="hyd" x1="14" y1="70" x2="58" y2="70"/><text class="s" x="68" y="75">hydraulic line</text>
+    <line class="opt" x1="14" y1="94" x2="58" y2="94"/><text class="s" x="68" y="99">rudder input, not a cable</text>
+    <circle class="dot" cx="36" cy="118" r="4.5"/><text class="s" x="68" y="123">dot: lines joined</text>
+    <text class="lbl" x="14" y="155">Simplified, as simulated. Chapter 10.</text>
+  </g>
+</svg>
